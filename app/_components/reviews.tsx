@@ -1,3 +1,4 @@
+"use client";
 import {
   Card,
   CardContent,
@@ -59,10 +60,10 @@ const Reviews = () => {
               <CardContent className="flex flex-col justify-between aspect-square items-center  p-5">
                 <div className="text-[#020E0B] text-lg leading-[32.26px] flex flex-col gap-5">
                   <div>
-                    "{_.text}
+                    &quot;{_.text}
                     {!_.subText && `"`}
                   </div>
-                  {_.subText && <div>{_.subText}"</div>}
+                  {_.subText && <div>{_.subText}&quot;</div>}
                 </div>
                 <div className="flex w-full justify-between items-center">
                   <div className="flex items-center gap-1">
