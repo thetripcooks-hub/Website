@@ -16,8 +16,7 @@ import Turkey from "@/components/icons/svg/flags/turkey.svg";
 
 const data = [
   {
-    text: `The most memorable moment on the trip was my rafting experience, just being with everyone while the waves hit was so amazing. 
-`,
+    text: "The most memorable moment on the trip was my rafting experience, just being with everyone while the waves hit was so amazing.",
     subText:
       "Also, the conversation and banter in Ovie’s room from our last night at the hotel.",
     name: "Turkey",
@@ -27,7 +26,7 @@ const data = [
   },
 
   {
-    text: `Getting to meet everyone tbh. Camel riding at Agafay Desert was amazing - the views, the dress ups were my highlights. `,
+    text: "Getting to meet everyone tbh. Camel riding at Agafay Desert was amazing - the views, the dress ups were my highlights.",
     subText:
       "I also enjoyed dancing afterwards with the performers before we had dinner at the Desert.",
     name: "Marrakech and Tangier",
@@ -36,7 +35,7 @@ const data = [
     starCount: 5,
   },
   {
-    text: `Mishaps that were not the fault of the organizers were swiftly addressed through being available and following up all the way. Commendable`,
+    text: "Mishaps that were not the fault of the organizers were swiftly addressed through being available and following up all the way. Commendable",
     name: "Montenegro",
     year: "2024",
     flag: Montenegro,
