@@ -3,10 +3,18 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
 import { alexandria } from "./font";
+import type { Viewport } from "next";
 
 export const metadata: Metadata = {
   title: "Trip Cooks",
   description: "Your personal travel chef",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({
