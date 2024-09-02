@@ -3,7 +3,7 @@ import React from "react";
 
 const ReadyToStart = () => {
   return (
-    <section className="bg-tripcook-pattern px-5 py-5 sm:pt-10 sm:px-[8%] object-fill w-full">
+    <section className="bg-tripcook-pattern px-5 py-5 sm:pt-10 sm:px-[8%] bg-cover bg-no-repeat bg-center  w-full ">
       <h3 className="text-4xl sm:text-6xl text-[#1A071B sm:max-w-[633px]">
         Ready to Start Your Next Adventure?
       </h3>
