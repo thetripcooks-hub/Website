@@ -22,9 +22,9 @@ AccordionItem.displayName = "AccordionItem";
 const AccordionTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> & {
-    isOpen?: Boolean;
+    isopen?: Boolean;
   }
->(({ className, children, ...props }, ref) => (
+>(({ className, children, isopen = false, ...props }, ref) => (
   <AccordionPrimitive.Header className="flex">
     <AccordionPrimitive.Trigger
       ref={ref}
@@ -35,14 +35,15 @@ const AccordionTrigger = React.forwardRef<
       {...props}
     >
       {children}
-      {props.isOpen ? (
+      
+      {isopen ? (
         <MinusCircle
           className="h-[26px] w-[26px] sm:h-8 sm:w-8 text-secondary-irish-green shrink-0 transition-transform duration-200"
           style={{ strokeWidth: 1.5 }}
         />
       ) : (
         <PlusCircle
-          className="h-[26px] w-[26px] sm:h-8 sm:w-8 text-secondary-irish-green shrink-0 transition-transform duration-200"
+          className="h-[26px] w-[26px] sm:h-8 sm:w-8 text-secondary-irish-green shrink-0 transition-transform duration-200 group-data-[state=open]:hidden"
           style={{ strokeWidth: 1.5 }}
         />
       )}

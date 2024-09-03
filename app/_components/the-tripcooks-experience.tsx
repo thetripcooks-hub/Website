@@ -28,7 +28,7 @@ const TheTripCooksExperience = () => {
             {rows.map((item) => (
               <CarouselItem
                 className="text-foreground cursor-pointer basis-3/4 sm:basis-1/3 -ml-12"
-                key={item}
+                key={item + Math.random()}
               >
                 <Image
                   src={item}
@@ -51,7 +51,7 @@ const TheTripCooksExperience = () => {
             {rows.map((item) => (
               <CarouselItem
                 className="text-foreground cursor-pointer basis-2/3  sm:basis-1/3 -ml-14 sm:-ml-28"
-                key={item}
+                key={item + Math.random()}
               >
                 <Image
                   src={item}
@@ -75,7 +75,7 @@ const TheTripCooksExperience = () => {
             {rows.map((item) => (
               <CarouselItem
                 className="text-foreground cursor-pointer basis-3/4 sm:basis-1/3 -ml-12"
-                key={item}
+                key={item + Math.random()}
               >
                 <Image
                   src={item}
