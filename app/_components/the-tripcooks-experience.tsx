@@ -1,14 +1,32 @@
 "use client";
-import React from "react";
+import React, { ReactNode } from "react";
 import GroupTrip from "../../public/img/public-trip.svg";
 import PrivateTrip from "../../public/img/private-trip.svg";
 import TravelPlanning from "../../public/img/travel-planning.svg";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui";
-import Autoplay from "embla-carousel-autoplay";
+import AutoScroll from "embla-carousel-auto-scroll";
 
 import Image from "next/image";
 import SectionWrapper from "./section-wrapper";
 const rows = [GroupTrip, PrivateTrip, TravelPlanning, TravelPlanning];
+
+const CarouselWrapper = ({ children }: { children: ReactNode }) => (
+  <Carousel
+    className="w-full"
+    opts={{
+      loop: true,
+    }}
+    plugins={[
+      AutoScroll({
+        playOnInit: true,
+        stopOnInteraction: false,
+        speed: 1,
+      }),
+    ]}
+  >
+    {children}
+  </Carousel>
+);
 
 const TheTripCooksExperience = () => {
   return (
@@ -17,18 +35,11 @@ const TheTripCooksExperience = () => {
         <SectionWrapper>The TripCooks Experience</SectionWrapper>
       </h3>
       <div className="mt-5 sm:mt-10 flex flex-col gap-5">
-        <Carousel
-          className="w-full"
-          plugins={[
-            Autoplay({
-              delay: 1500,
-            }),
-          ]}
-        >
-          <CarouselContent className="gap-12">
+        <CarouselWrapper>
+          <CarouselContent className="-ml-12">
             {rows.map((item) => (
               <CarouselItem
-                className="text-foreground cursor-pointer basis-3/4 sm:basis-1/3 -ml-12"
+                className="text-foreground cursor-pointer basis-3/4 sm:basis-1/3 "
                 key={item + Math.random()}
               >
                 <Image
@@ -39,43 +50,30 @@ const TheTripCooksExperience = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
-        </Carousel>
-        <Carousel
-          className="w-full"
-          plugins={[
-            Autoplay({
-              delay: 2500,
-            }),
-          ]}
-        >
-          <CarouselContent className="gap-14 sm:gap-28">
+        </CarouselWrapper>
+        <div className="-ml-28">
+          <CarouselWrapper>
+            <CarouselContent>
+              {rows.map((item) => (
+                <CarouselItem
+                  className="text-foreground cursor-pointer basis-2/3 sm:basis-1/3"
+                  key={item + Math.random()}
+                >
+                  <Image
+                    src={item}
+                    alt="group-trip"
+                    className="w-full object-cover rounded-[18px] sm:h-[279px]"
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </CarouselWrapper>{" "}
+        </div>
+        <CarouselWrapper>
+          <CarouselContent className="-ml-12">
             {rows.map((item) => (
               <CarouselItem
-                className="text-foreground cursor-pointer basis-2/3  sm:basis-1/3 -ml-14 sm:-ml-28"
-                key={item + Math.random()}
-              >
-                <Image
-                  src={item}
-                  alt="group-trip"
-                  className="w-full object-cover rounded-[18px] sm:h-[279px]"
-                />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
-
-        <Carousel
-          className="w-full"
-          plugins={[
-            Autoplay({
-              delay: 3000,
-            }),
-          ]}
-        >
-          <CarouselContent className="gap-12">
-            {rows.map((item) => (
-              <CarouselItem
-                className="text-foreground cursor-pointer basis-3/4 sm:basis-1/3 -ml-12"
+                className="text-foreground cursor-pointer basis-3/4 sm:basis-1/3"
                 key={item + Math.random()}
               >
                 <Image
@@ -86,7 +84,7 @@ const TheTripCooksExperience = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
-        </Carousel>
+        </CarouselWrapper>
       </div>
     </section>
   );
