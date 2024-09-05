@@ -14,6 +14,7 @@ import StarIcon from "@/components/icons/svg/star.svg";
 import Marrakesh from "@/components/icons/svg/flags/monaco.svg";
 import Montenegro from "@/components/icons/svg/flags/montenegro.svg";
 import Turkey from "@/components/icons/svg/flags/turkey.svg";
+import SectionWrapper from "./section-wrapper";
 
 const data = [
   {
@@ -52,43 +53,45 @@ const Reviews = () => {
       }}
       className="w-[60%] sm:w-[90%] mx-auto py-10 sm:py-20"
     >
-      <CarouselContent className="flex items-center">
-        {data.map((_, index) => (
-          <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-            {/* <div className="p-1"> */}
-            <Card className="border border-neutral-grey-200 shadow-[#0000000D] rounded-[16px] h-fit">
-              <CardContent className="flex flex-col justify-between aspect-square items-center  p-5">
-                <div className="text-[#020E0B] text-lg leading-[32.26px] flex flex-col gap-5">
-                  <div>
-                    &quot;{_.text}
-                    {!_.subText && `"`}
+      <SectionWrapper>
+        <CarouselContent className="flex items-center">
+          {data.map((_, index) => (
+            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+              {/* <div className="p-1"> */}
+              <Card className="border border-neutral-grey-200 shadow-[#0000000D] rounded-[16px] h-fit">
+                <CardContent className="flex flex-col justify-between aspect-square items-center  p-5">
+                  <div className="text-[#020E0B] text-lg leading-[32.26px] flex flex-col gap-5">
+                    <div>
+                      &quot;{_.text}
+                      {!_.subText && `"`}
+                    </div>
+                    {_.subText && <div>{_.subText}&quot;</div>}
                   </div>
-                  {_.subText && <div>{_.subText}&quot;</div>}
-                </div>
-                <div className="flex w-full justify-between items-center">
-                  <div className="flex items-center gap-1">
-                    <Image
-                      src={_.flag}
-                      width={20}
-                      height={20}
-                      alt="country_flag"
-                      className="w-5 h-5 rounded-full"
-                    />
-                    <p>
-                      {_.name} {_.year}
-                    </p>
+                  <div className="flex w-full justify-between items-center">
+                    <div className="flex items-center gap-1">
+                      <Image
+                        src={_.flag}
+                        width={20}
+                        height={20}
+                        alt="country_flag"
+                        className="w-5 h-5 rounded-full"
+                      />
+                      <p>
+                        {_.name} {_.year}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Image src={StarIcon} alt="star_icon" />
+                      <p className="text-xl"> {_.starCount}</p>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <Image src={StarIcon} alt="star_icon" />
-                    <p className="text-xl"> {_.starCount}</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            {/* </div> */}
-          </CarouselItem>
-        ))}
-      </CarouselContent>
+                </CardContent>
+              </Card>
+              {/* </div> */}
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </SectionWrapper>
       <CarouselPrevious />
       <CarouselNext />
     </Carousel>

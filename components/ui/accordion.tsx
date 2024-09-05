@@ -1,6 +1,5 @@
 import * as React from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import { ChevronDownIcon } from "@radix-ui/react-icons";
 
 import { cn } from "@/lib/utils";
 import { MinusCircle, PlusCircle } from "lucide-react";
@@ -21,32 +20,27 @@ AccordionItem.displayName = "AccordionItem";
 
 const AccordionTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> & {
-    isopen?: Boolean;
-  }
->(({ className, children, isopen = false, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
+>(({ className, children, ...props }, ref) => (
   <AccordionPrimitive.Header className="flex">
     <AccordionPrimitive.Trigger
       ref={ref}
       className={cn(
-        "flex flex-1 gap-5 items-center justify-between py-4 text-sm font-medium transition-all hover:underline[&[data-state=open]>svg]:rotate-180",
+        "flex flex-1 gap-5 items-center justify-between py-4 text-sm font-medium transition-all group",
         className
       )}
       {...props}
     >
       {children}
-      
-      {isopen ? (
-        <MinusCircle
-          className="h-[26px] w-[26px] sm:h-8 sm:w-8 text-secondary-irish-green shrink-0 transition-transform duration-200"
-          style={{ strokeWidth: 1.5 }}
-        />
-      ) : (
-        <PlusCircle
-          className="h-[26px] w-[26px] sm:h-8 sm:w-8 text-secondary-irish-green shrink-0 transition-transform duration-200 group-data-[state=open]:hidden"
-          style={{ strokeWidth: 1.5 }}
-        />
-      )}
+
+      <MinusCircle
+        className="h-[26px] w-[26px] sm:h-8 sm:w-8 text-secondary-irish-green shrink-0 transition-transform duration-200 group-data-[state=closed]:hidden"
+        style={{ strokeWidth: 1.5 }}
+      />
+      <PlusCircle
+        className="h-[26px] w-[26px] sm:h-8 sm:w-8 text-secondary-irish-green shrink-0 transition-transform duration-200 group-data-[state=open]:hidden"
+        style={{ strokeWidth: 1.5 }}
+      />
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
 ));

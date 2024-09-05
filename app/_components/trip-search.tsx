@@ -6,7 +6,7 @@ import Image from "next/image";
 const TripSearch = () => {
   return (
     <div className="flex items-center justify-center mt-10 px-2.5">
-      <div className="bg-white w-full h-[69px] sm:h-[81px] rounded-[200px] max-w-[604px] px-5 py-2 sm:py-4 flex justify-between items-center">
+      <div className="bg-white w-full h-[69px] sm:h-[81px] rounded-[200px] max-w-[604px] px-5 sm:px-6 py-2 sm:py-4 flex justify-between items-center">
         <div className="flex flex-col w-3/4 gap-0">
           <label
             htmlFor="location"
@@ -16,6 +16,7 @@ const TripSearch = () => {
           </label>
           <Input
             id="location"
+            placeholder="Where are we going to?"
             className="p-0 border-none hover:outline-none shadow-none focus-visible:ring-0 h-fit text-neutral-grey-500 text-xs sm:text-sm"
           />
         </div>

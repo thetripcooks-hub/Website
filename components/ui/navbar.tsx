@@ -11,6 +11,7 @@ import {
 } from "./dropdown-menu";
 import Link from "next/link";
 import { ModeToggle } from "./mode-toggle";
+import SectionWrapper from "@/app/_components/section-wrapper";
 
 const navConfig = [
   {
@@ -38,48 +39,55 @@ const navConfig = [
 
 const Navbar = () => {
   return (
-    <div className="bg-none h-[95px] flex flex-row justify-between items-center px-5 sm:px-[8%]">
-      <Image src={Logo} alt="logo" />
+    <div className="bg-none px-5 sm:px-[8%]">
+      <SectionWrapper className="flex flex-row justify-between items-center h-[95px]">
+        <Image src={Logo} alt="logo" />
 
-      <section className="hidden sm:flex gap-5 text-white text-[16px] leading-[19.5px]">
-        {navConfig.map((item) =>
-          item.children ? (
-            <DropdownMenu key={item.name}>
-              <DropdownMenuTrigger asChild className="flex gap-1">
-                <div className="cursor-pointer">
-                  {item.name}
-                  <Image src={ArrowLeft} alt="arrow-down" />
-                </div>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                {item.children.map((x) => (
-                  <Link key={x.name} href={x.url}>
-                    {x.name}
-                  </Link>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          ) : (
-            <Link key={item.name} href={item.url}>
-              {item.name}
-            </Link>
-          )
-        )}
-      </section>
+        <section className="hidden sm:flex gap-5 text-white text-[16px] leading-[19.5px]">
+          {navConfig.map((item) =>
+            item.children ? (
+              <DropdownMenu key={item.name}>
+                <DropdownMenuTrigger asChild className="flex gap-1">
+                  <div className="cursor-pointer">
+                    {item.name}
+                    <Image src={ArrowLeft} alt="arrow-down" />
+                  </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  {item.children.map((x) => (
+                    <Link key={x.name} href={x.url}>
+                      {x.name}
+                    </Link>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link key={item.name} href={item.url}>
+                {item.name}
+              </Link>
+            )
+          )}
+        </section>
 
-      <section className="hidden sm:flex gap-2.5">
-        <ModeToggle />
-        <Image src={Cart} alt="cart-icon" className="cursor-pointer" height={46} />
-      </section>
+        <section className="hidden sm:flex gap-2.5">
+          <ModeToggle />
+          <Image
+            src={Cart}
+            alt="cart-icon"
+            className="cursor-pointer"
+            height={46}
+          />
+        </section>
 
-      {/* mobile hamburger */}
-      <div className="sm:hidden">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Image src={Menu} alt="hamburger-menu" />
-          </DropdownMenuTrigger>
-        </DropdownMenu>
-      </div>
+        {/* mobile hamburger */}
+        <div className="sm:hidden">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Image src={Menu} alt="hamburger-menu" />
+            </DropdownMenuTrigger>
+          </DropdownMenu>
+        </div>
+      </SectionWrapper>
     </div>
   );
 };

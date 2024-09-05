@@ -5,7 +5,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui";
-import React, { useState } from "react";
+import React from "react";
+import SectionWrapper from "./section-wrapper";
 
 const faq = [
   {
@@ -72,40 +73,37 @@ const faq = [
 ];
 
 const Faq = () => {
-  const [selected, setSelected] = useState(faq[0].question);
   return (
-    <section className="px-5 py-10 sm:py-20 sm:px-[8%] flex flex-col sm:flex-row gap-5 xl:gap-32 w-full justify-between">
-      <div>
-        <h3 className="text-[32px] font-medium sm:text-5xl">FAQs</h3>
-        <p className="w-full sm:max-w-[582px] text-neutral-subtext mt-5">
-          Everyting you need to know about tripcooks and pricing. Can’t find
-          what yoy’re looking for? Please contact mail@tripcooks.com
-        </p>
-      </div>
+    <section className="px-5 py-10 sm:py-20 sm:px-[8%]">
+      <SectionWrapper className="flex flex-col sm:flex-row gap-5 xl:gap-32 w-full justify-between">
+        <div>
+          <h3 className="text-[32px] font-medium sm:text-5xl">FAQs</h3>
+          <p className="w-full sm:max-w-[582px] text-neutral-subtext mt-5">
+            Everyting you need to know about tripcooks and pricing. Can’t find
+            what yoy’re looking for? Please contact mail@tripcooks.com
+          </p>
+        </div>
 
-      <div className="w-full">
-        <Accordion
-          type="single"
-          defaultValue={faq[0].question}
-          collapsible
-          className="w-full"
-        >
-          {faq.map((item) => (
-            <AccordionItem value={item.question} key={item.question}>
-              <AccordionTrigger
-                className="text-left text-neutral-text text-lg sm:text-lg"
-                isopen={selected === item.question}
-                onClick={() => setSelected(item.question)}
-              >
-                {item.question}
-              </AccordionTrigger>
-              <AccordionContent className="text-neutral-subtext text-base">
-                {item.answer}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </div>
+        <div className="w-full">
+          <Accordion
+            type="single"
+            defaultValue={faq[0].question}
+            collapsible
+            className="w-full"
+          >
+            {faq.map((item) => (
+              <AccordionItem value={item.question} key={item.question}>
+                <AccordionTrigger className="text-left text-neutral-text text-lg sm:text-lg">
+                  {item.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-neutral-subtext text-base">
+                  {item.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </SectionWrapper>
     </section>
   );
 };

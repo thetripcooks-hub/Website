@@ -7,13 +7,14 @@ import { Carousel, CarouselContent, CarouselItem } from "@/components/ui";
 import Autoplay from "embla-carousel-autoplay";
 
 import Image from "next/image";
+import SectionWrapper from "./section-wrapper";
 const rows = [GroupTrip, PrivateTrip, TravelPlanning, TravelPlanning];
 
 const TheTripCooksExperience = () => {
   return (
     <section>
       <h3 className="text-[32px] leading-[39.01px] font-medium sm:text-5xl px-5 pt-5 sm:pt-10 sm:px-[8%]">
-        The TripCooks Experience
+        <SectionWrapper>The TripCooks Experience</SectionWrapper>
       </h3>
       <div className="mt-5 sm:mt-10 flex flex-col gap-5">
         <Carousel
