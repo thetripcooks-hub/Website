@@ -20,7 +20,9 @@ const CarouselWrapper = ({ children }: { children: ReactNode }) => (
       AutoScroll({
         playOnInit: true,
         stopOnInteraction: false,
-        speed: 1,
+        stopOnFocusIn: false,
+        stopOnMouseEnter: false,
+        speed: 0.75,
       }),
     ]}
   >

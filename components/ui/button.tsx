@@ -10,17 +10,17 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-gradient-to-r from-[#FA93F4] to-[#EE7FE7] text-neutral-text shadow hover:opacity-90",
+          "bg-gradient-to-r from-[#FA93F4] to-[#EE7FE7] hover:from-[#FA84F3] hover:to-[#FA93F4] text-neutral-text shadow",
         destructive:
           "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
         outline:
           "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
-        secondary: "bg-[#020E0B] text-white shadow-sm hover:opacity-90",
+        secondary: "bg-[#020E0B] text-white shadow-sm hover:opacity-80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
-        default: "h-[54px] px-4 py-2 min-w-[166px]",
+        default: "h-[54px] px-4 py-2 min-w-[166px] text-base",
         sm: "h-8 rounded-md px-3 text-xs",
         lg: "h-10 rounded-md px-8",
         icon: "h-9 w-9",

@@ -1,4 +1,3 @@
-import { HomeHero } from "./_components";
 import Faq from "./_components/faq";
 import FeatureTrip from "./_components/feature-trip";
 import OurServices from "./_components/our-services";
@@ -9,10 +8,11 @@ import TheTripCooksExperience from "./_components/the-tripcooks-experience";
 import TravelChef from "./_components/travel-chef";
 import UpcomingTrips from "./_components/upcoming-trip";
 import WhyChooseUs from "./_components/why-choose-us";
+import { HomeHero } from "./_components";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col">
+    <main className="flex min-h-screen flex-col pb-10 sm:pb-20">
       <HomeHero />
       <TravelChef />
       <FeatureTrip />
