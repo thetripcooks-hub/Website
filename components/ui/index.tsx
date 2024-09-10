@@ -11,3 +11,4 @@ export * from "./input";
 export * from "./separator";
 export * from "./footer";
 export * from "./subscribe";
+export * from "./pagination";

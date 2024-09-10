@@ -8,6 +8,9 @@ import {
   CarouselItem,
 } from "@/components/ui";
 import SectionWrapper from "./section-wrapper";
+import TripCard from "@/components/ui/trip-card";
+import CartIcon from "../../public/img/shopping-cart.svg";
+import Link from "next/link";
 
 const UpcomingTrips = () => {
   return (
@@ -18,20 +21,7 @@ const UpcomingTrips = () => {
         {/* desktop */}
         <div className="hidden sm:grid mt-10 grid-cols-4 gap-10">
           {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
-            <div className="text-foreground cursor-pointer" key={item}>
-              <Image
-                src={img}
-                alt="img"
-                className="rounded-[18px] w-full sm:w-[291px]  object-cover lg:w-full"
-                width={291}
-                height={301}
-              />
-              <div className="flex flex-col gap-1 mt-2.5">
-                <h5 className="text-lg">Athens Greece</h5>
-                <p className="text-sm text-neutral-grey-500">Aug 15th, 2024</p>
-                <h3 className="font-medium text-xl">$5,000</h3>
-              </div>
-            </div>
+            <TripCard key={item} isDiscounted={item > 4} />
           ))}
         </div>
 
@@ -41,9 +31,17 @@ const UpcomingTrips = () => {
             <CarouselContent>
               {Array.from({ length: 8 }).map((_, index) => (
                 <CarouselItem
-                  className="text-foreground basis-4/5 cursor-pointer"
+                  className="text-foreground basis-4/5 cursor-pointer relative"
                   key={index}
                 >
+                  <div className="bg-[#020E0B4D] rounded-full w-8 h-8 flex items-center justify-center absolute right-3 top-3">
+                    <Image
+                      src={CartIcon}
+                      width={18}
+                      height={18}
+                      alt="cart-icon"
+                    />
+                  </div>
                   <Image
                     src={img}
                     alt="img"
@@ -56,7 +54,14 @@ const UpcomingTrips = () => {
                     <p className="text-sm text-neutral-grey-500">
                       Aug 15th, 2024
                     </p>
-                    <h3 className="font-medium text-xl">$5,000</h3>
+                    <div className="flex gap-1 items-center">
+                      {index > 3 && (
+                        <h3 className="font-medium text-xl text-neutral-grey-500 line-through">
+                          $6500
+                        </h3>
+                      )}
+                      <h3 className="font-medium text-xl">$5,000</h3>
+                    </div>
                   </div>
                 </CarouselItem>
               ))}
@@ -65,9 +70,14 @@ const UpcomingTrips = () => {
         </div>
 
         <div className="w-full flex justify-center">
-          <Button className="mt-10 sm:mt-14 w-full sm:w-fit mx-auto">
-            See more trips
-          </Button>
+          <Link href="/trips">
+            <Button
+              role="link"
+              className="mt-10 sm:mt-14 w-full sm:w-fit mx-auto"
+            >
+              See more trips
+            </Button>
+          </Link>
         </div>
       </SectionWrapper>
     </section>
