@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import React from "react";
 import img from "../../public/img/public-trip.svg";
@@ -11,8 +12,10 @@ import SectionWrapper from "./section-wrapper";
 import TripCard from "@/components/ui/trip-card";
 import CartIcon from "../../public/img/shopping-cart.svg";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const UpcomingTrips = () => {
+  const router = useRouter();
   return (
     <section className="px-5 py-10 sm:py-20 sm:px-[8%]">
       <SectionWrapper>
@@ -21,7 +24,11 @@ const UpcomingTrips = () => {
         {/* desktop */}
         <div className="hidden sm:grid mt-10 grid-cols-3 gap-10">
           {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
-            <TripCard key={item} isDiscounted={item > 4} />
+            <TripCard
+              key={item}
+              isDiscounted={item > 4}
+              handleClick={() => router.push(`/trips/${item}`)}
+            />
           ))}
         </div>
 
