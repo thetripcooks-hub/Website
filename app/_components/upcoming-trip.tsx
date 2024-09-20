@@ -40,6 +40,7 @@ const UpcomingTrips = () => {
                 <CarouselItem
                   className="text-foreground basis-4/5 cursor-pointer relative"
                   key={index}
+                  onClick={() => router.push(`/trips/${index}`)}
                 >
                   <div className="bg-[#020E0B4D] rounded-full w-8 h-8 flex items-center justify-center absolute right-3 top-3">
                     <Image

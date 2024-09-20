@@ -9,8 +9,10 @@ import Itinerary from "./_components/Itinerary";
 import TripDetailOverview from "./_components/trip-detail-overview";
 import Image from "next/image";
 import Cart from "../../../public/img/cart.svg";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
+  const router = useRouter();
   return (
     <main className={cn("bg-white w-full")}>
       <div className="hidden sm:block">
@@ -24,6 +26,7 @@ const Page = () => {
             viewBox="0 0 20 20"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            onClick={() => router.back()}
           >
             <path
               d="M12.5005 16.5999L7.06719 11.1666C6.42552 10.5249 6.42552 9.4749 7.06719 8.83324L12.5005 3.3999"
