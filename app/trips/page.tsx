@@ -11,7 +11,7 @@ const Page = () => {
     <main className={cn("bg-white w-full")}>
       <Navbar hasBg={false} />
       <header>
-        <h1 className="text-4xl sm:text-5xl text-center font-semibold my-5 text-neutral-text">
+        <h1 className="text-4xl sm:text-5xl text-center font-semibold my-5 sm:mt-20 text-neutral-text">
           Where to?..
         </h1>
         <TripSearch />

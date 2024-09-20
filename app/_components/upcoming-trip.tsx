@@ -19,7 +19,7 @@ const UpcomingTrips = () => {
         <h3 className="text-[32px] font-medium sm:text-5xl">Upcoming Trips</h3>
 
         {/* desktop */}
-        <div className="hidden sm:grid mt-10 grid-cols-4 gap-10">
+        <div className="hidden sm:grid mt-10 grid-cols-3 gap-10">
           {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
             <TripCard key={item} isDiscounted={item > 4} />
           ))}
@@ -52,7 +52,7 @@ const UpcomingTrips = () => {
                   <div className="flex flex-col gap-1 mt-2.5">
                     <h5 className="text-lg">Athens Greece</h5>
                     <p className="text-sm text-neutral-grey-500">
-                      Aug 15th, 2024
+                      Aug 15th - Aug 18th, 2024
                     </p>
                     <div className="flex gap-1 items-center">
                       {index > 3 && (

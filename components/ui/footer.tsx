@@ -74,16 +74,18 @@ const Footer = () => {
         <div className="flex flex-col sm:flex-row sm:w-3/5 sm:justify-between sm:max-w-[600px] gap-5">
           {config.map((item, index) => (
             <div key={index}>
-              <h3 className="text-xl leading-[24px] text-neutral-text">
+              <h3 className="text-[20px] leading-[24px] text-neutral-text">
                 {item.title}
               </h3>
               <ul className="mt-4 flex flex-col gap-2">
                 {item.routes.map((route, index) => (
-                  <li
-                    key={index}
-                    className="text-lg leading-[24px] text-neutral-subtext"
-                  >
-                    <Link href={route.url}>{route.name}</Link>
+                  <li key={index}>
+                    <Link
+                      className="text-[18px] leading-[24px] text-neutral-subtext"
+                      href={route.url}
+                    >
+                      {route.name}
+                    </Link>
                   </li>
                 ))}
               </ul>

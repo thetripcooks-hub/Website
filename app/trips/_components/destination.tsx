@@ -1,3 +1,4 @@
+"use client";
 import SectionWrapper from "@/app/_components/section-wrapper";
 import {
   Button,
@@ -14,13 +15,15 @@ import React from "react";
 import SettingsMobile from "@/components/icons/svg/settings-mobile.svg";
 import SettingsDesktop from "@/components/icons/svg/settings-desktop.svg";
 import TripCard from "@/components/ui/trip-card";
+import { useRouter } from "next/navigation";
 
 const Destination = () => {
+  const router = useRouter();
   return (
     <div className="px-5 py-20 text-white sm:px-[8%]">
       <SectionWrapper>
         <section className="text-neutral-text flex justify-between gap-5 items-center mb-5">
-          <h6>Over 10 available sections</h6>
+          <h6>&nbsp;</h6>
           <Button
             variant="outline"
             className="hidden sm:flex text-neutral-text min-w-fit gap-2.5 border-[#E1E6EF] rounded-[8px]"
@@ -46,7 +49,11 @@ const Destination = () => {
 
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item, index) => (
-            <TripCard key={item} isDiscounted={index > 3} />
+            <TripCard
+              key={item}
+              isDiscounted={index > 3}
+              handleClick={() => router.push(`/trips/${index + 1}`)}
+            />
           ))}
         </section>
         <Pagination className="text-neutral-text mt-10">

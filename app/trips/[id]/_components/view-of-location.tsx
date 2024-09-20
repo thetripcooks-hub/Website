@@ -1,14 +1,21 @@
 "use client";
+import SectionWrapper from "@/app/_components/section-wrapper";
 import React, { ReactNode } from "react";
-import GroupTrip from "../../public/img/public-trip.svg";
-import PrivateTrip from "../../public/img/private-trip.svg";
-import TravelPlanning from "../../public/img/travel-planning.svg";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui";
 import AutoScroll from "embla-carousel-auto-scroll";
-
 import Image from "next/image";
-import SectionWrapper from "./section-wrapper";
-const rows = [GroupTrip, PrivateTrip, TravelPlanning, TravelPlanning];
+
+// views
+import view1 from "../_components/img/location-views/1.svg";
+import view2 from "../_components/img/location-views/2.svg";
+import view3 from "../_components/img/location-views/3.svg";
+import view4 from "../_components/img/location-views/4.svg";
+import view5 from "../_components/img/location-views/5.svg";
+import view6 from "../_components/img/location-views/6.svg";
+import view7 from "../_components/img/location-views/7.svg";
+
+const row1 = [view1, view1, view2, view3];
+const row2 = [view4, view5, view6, view7];
 
 const CarouselWrapper = ({ children }: { children: ReactNode }) => (
   <Carousel
@@ -30,66 +37,52 @@ const CarouselWrapper = ({ children }: { children: ReactNode }) => (
   </Carousel>
 );
 
-const TheTripCooksExperience = () => {
+const ViewOfLocation = () => {
   return (
     <section>
       <h3 className="text-[32px] leading-[39.01px] font-medium sm:text-5xl px-5 pt-5 sm:pt-10 sm:px-[8%]">
-        <SectionWrapper>The TripCooks Experience</SectionWrapper>
+        <SectionWrapper>Our view of Madrid</SectionWrapper>
       </h3>
+
       <div className="mt-5 sm:mt-10 flex flex-col gap-5">
         <CarouselWrapper>
           <CarouselContent className="-ml-12">
-            {rows.map((item) => (
+            {row1.map((item) => (
               <CarouselItem
-                className="text-foreground cursor-pointer basis-3/4 sm:basis-1/3"
+                className="text-foreground cursor-pointer basis-3/4 sm:basis-1/4"
                 key={item + Math.random()}
               >
                 <Image
                   src={item}
-                  alt="group-trip"
-                  className="w-full object-cover rounded-[18px] sm:h-[279px]"
+                  alt="shots from the  location"
+                  className="sm:w-full object-cover rounded-[18px] h-[279px] w-[394px]"
                 />
               </CarouselItem>
             ))}
           </CarouselContent>
         </CarouselWrapper>
+
         <div className="-ml-28">
           <CarouselWrapper>
             <CarouselContent>
-              {rows.map((item) => (
+              {row2.map((item) => (
                 <CarouselItem
-                  className="text-foreground cursor-pointer basis-2/3 sm:basis-1/3"
+                  className="text-foreground cursor-pointer basis-3/4 sm:basis-1/4"
                   key={item + Math.random()}
                 >
                   <Image
                     src={item}
                     alt="group-trip"
-                    className="w-full object-cover rounded-[18px] sm:h-[279px]"
+                    className="sm:w-full object-cover rounded-[18px] h-[279px] w-[394px]"
                   />
                 </CarouselItem>
               ))}
             </CarouselContent>
           </CarouselWrapper>{" "}
         </div>
-        <CarouselWrapper>
-          <CarouselContent className="-ml-12">
-            {rows.map((item) => (
-              <CarouselItem
-                className="text-foreground cursor-pointer basis-3/4 sm:basis-1/3"
-                key={item + Math.random()}
-              >
-                <Image
-                  src={item}
-                  alt="group-trip"
-                  className="w-full sm:w-full object-cover rounded-[18px] sm:h-[279px]"
-                />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </CarouselWrapper>
       </div>
     </section>
   );
 };
 
-export default TheTripCooksExperience;
+export default ViewOfLocation;

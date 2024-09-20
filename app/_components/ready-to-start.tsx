@@ -6,7 +6,7 @@ const ReadyToStart = () => {
   return (
     <section className="bg-tripcook-pattern px-5 py-5 sm:py-24 sm:px-[8%] bg-cover bg-no-repeat bg-center  w-full">
       <SectionWrapper>
-        <h3 className="text-4xl sm:text-6xl text-[#1A071B sm:max-w-[633px]">
+        <h3 className="text-4xl sm:text-6xl text-[#1A071B sm:max-w-[633px] font-semibold">
           Ready to Start Your Next Adventure?
         </h3>
         <p className="text-xl mt-10 sm:max-w-[596px]">
