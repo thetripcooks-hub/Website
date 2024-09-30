@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 const FeatureTrip = () => {
   const router = useRouter();
   return (
-    <div className="sm:pt-32 px-5 pt-5 text-neutral-text  pb-10 sm:pb-0 sm:px-[5%] ">
+    <div className="sm:pt-32 px-5 pt-10 text-neutral-text  pb-10 sm:pb-0 sm:px-[5%] ">
       <SectionWrapper className="flex flex-col-reverse sm:flex-row sm:items-center sm:gap-20">
         <section>
           <Image

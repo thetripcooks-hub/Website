@@ -49,11 +49,13 @@ const ViewOfLocation = () => {
           <CarouselContent className="-ml-12">
             {row1.map((item) => (
               <CarouselItem
-                className="text-foreground cursor-pointer basis-3/4 sm:basis-1/4"
+                className="text-foreground cursor-pointer basis-3/4 sm:basis-1/3"
                 key={item + Math.random()}
               >
                 <Image
                   src={item}
+                  width={394}
+                  height={279}
                   alt="shots from the  location"
                   className="sm:w-full object-cover rounded-[18px] h-[279px] w-[394px]"
                 />
@@ -67,12 +69,14 @@ const ViewOfLocation = () => {
             <CarouselContent>
               {row2.map((item) => (
                 <CarouselItem
-                  className="text-foreground cursor-pointer basis-3/4 sm:basis-1/4"
+                  className="text-foreground cursor-pointer basis-3/4 sm:basis-1/3"
                   key={item + Math.random()}
                 >
                   <Image
                     src={item}
                     alt="group-trip"
+                    width={394}
+                    height={279}
                     className="sm:w-full object-cover rounded-[18px] h-[279px] w-[394px]"
                   />
                 </CarouselItem>

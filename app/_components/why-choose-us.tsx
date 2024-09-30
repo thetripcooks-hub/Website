@@ -28,7 +28,7 @@ const WhyChooseUs = () => {
         <h3 className="text-[32px] font-medium sm:text-5xl text-center max-w-[318px] sm:max-w-[445px] mx-auto ">
           Why choose us to curate your travel?
         </h3>
-        <div className="mt-10 sm:mt-20 flex gap-5 justify-between w-full flex-col sm:flex-row">
+        <div className="mt-10 sm:mt-20 flex gap-10 justify-between w-full flex-col sm:flex-row">
           {items.map((item) => (
             <div
               key={item.title}

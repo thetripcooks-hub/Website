@@ -28,7 +28,7 @@ const TravelChef = () => {
           </Button>
         </section>
       </div>
-      <hr className="w-3/4 mx-auto bg-neutral-grey-100" />
+      <hr className="hidden sm:block w-3/4 mx-auto bg-neutral-grey-100" />
     </>
   );
 };

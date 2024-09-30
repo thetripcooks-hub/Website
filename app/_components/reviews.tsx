@@ -68,13 +68,13 @@ const Reviews = () => {
             {data.map((_, index) => (
               <CarouselItem key={index}>
                 {/* className="md:basis-1/2 lg:basis-1/3"*/}
-                <Card className="border border-neutral-grey-200 shadow-[#0000000D] rounded-[14px] h-fit bg-secondary-forest-green relative sm:pl-5 sm:pr-2.5 sm:py-2.5">
-                  <CardContent className="flex flex-col sm:flex-row justify-between sm:pl-5 sm:py-2.5 sm:pr-2.5">
-                    <div className="h-fit sm:max-w-[487.92px] flex flex-col gap-5">
+                <Card className="border border-neutral-grey-200 shadow-[#0000000D] rounded-[14px] bg-secondary-forest-green relative sm:pl-5 sm:pr-2.5 sm:py-2.5">
+                  <CardContent className="flex flex-col sm:flex-row justify-between sm:pl-5 sm:py-2.5 sm:pr-2.5 gap-5">
+                    <div className="sm:max-w-[487.92px] flex flex-col gap-5 h-[340px] sm:h-fit">
                       <h3 className="text-white text-2xl leading-[29.26px] font-alexandria sm:leading-[39.01px] sm:text-[32px] mt-5">
                         {_.name} {_.year}
                       </h3>
-                      <div className="text-[#93B4AB] text-base leading-[32.26px] flex flex-col gap-5 sm:text-lg font-alexandria">
+                      <div className="text-[#93B4AB] text-base leading-[32.26px] flex flex-col sm:gap-5 sm:text-lg font-alexandria">
                         <div>
                           &quot;{_.text}
                           {!_.subText && `"`}
@@ -96,15 +96,25 @@ const Reviews = () => {
                         />
                       </div>
                     </div>
-                    <div className="">
+                    <div className="h-full">
                       <Image
                         src={HotAirBallon}
                         alt="review image"
                         width={516}
                         height={449}
-                        className="rounded-[14px] object-fill w-full h-[449px]"
+                        className="rounded-[14px] object-cover sm:object-fill w-full sm:h-[449px]"
                       />
                     </div>
+                    {/* <div className="flex w-full gap-5 justify-center items-center mt-5 h-[53px]">
+                      <CarouselPrevious
+                        className="relative -left-0 top-0 w-[53px] h-[53px] bg-[#14382E] border-none"
+                        customIcon
+                      />
+                      <CarouselNext
+                        className="relative -right-0 top-0 w-[53px] h-[53px] bg-[#14382E] border-none"
+                        customIcon
+                      />
+                    </div> */}
                   </CardContent>
                 </Card>
               </CarouselItem>

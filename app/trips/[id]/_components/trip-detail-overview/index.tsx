@@ -22,7 +22,7 @@ const TripDetailOverview = () => {
           <Image
             src={tripImages[0]}
             alt="trip location images"
-            className="w-full object-cover rounded-[18px] sm:h-[537px]"
+            className="w-full object-cover rounded-[18px] h-[268.5px] sm:h-[537px]"
           />
           <div className="flex flex-col sm:gap-5 justify-between">
             {tripImages.slice(1).map((item) => (
@@ -30,7 +30,7 @@ const TripDetailOverview = () => {
                 key={`${item}-${Math.random()}`}
                 src={item}
                 alt="trip location images"
-                className="w-full object-cover rounded-[18px] sm:h-[259px]"
+                className="w-full object-cover rounded-[18px] h-[129.5px] sm:h-[259px]"
               />
             ))}
           </div>

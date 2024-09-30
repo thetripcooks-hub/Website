@@ -57,15 +57,18 @@ const itinerary: {
 
 const Itinerary = () => {
   return (
-    <div className="px-5 py-10 text-neutral-text sm:px-[8%]">
+    <div className="px-5 py-10 sm:mb-16 text-neutral-text sm:px-[8%]">
       <SectionWrapper>
         <h3 className="text-[24px] leading-[29.26px] font-medium sm:text-[32px] sm:leading-[39.01px] mb-5 sm:mb-2.5">
           Itinerary
         </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-8 sm:gap-y-12">
           {itinerary.map((item) => {
             return (
-              <div key={item.day} className="flex flex-col gap-2.5 font-normal w-fit font-alexandria">
+              <div
+                key={item.day}
+                className="flex flex-col gap-2.5 font-normal w-fit font-alexandria"
+              >
                 <Image
                   src={item.coverImage}
                   alt="trip-intinerary-image"

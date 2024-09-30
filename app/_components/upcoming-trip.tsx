@@ -23,7 +23,7 @@ const UpcomingTrips = () => {
 
         {/* desktop */}
         <div className="hidden sm:grid mt-10 grid-cols-3 gap-10">
-          {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+          {[1, 2, 3, 4, 5, 6].map((item) => (
             <TripCard
               key={item}
               isDiscounted={item > 4}

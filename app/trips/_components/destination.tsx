@@ -20,7 +20,7 @@ import { useRouter } from "next/navigation";
 const Destination = () => {
   const router = useRouter();
   return (
-    <div className="px-5 py-20 text-white sm:px-[8%]">
+    <div className="px-5 py-10 sm:py-20 text-white sm:px-[8%]">
       <SectionWrapper>
         <section className="text-neutral-text flex justify-between gap-5 items-center mb-5">
           <h6>&nbsp;</h6>
@@ -47,7 +47,7 @@ const Destination = () => {
           </Button>
         </section>
 
-        <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+        <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 gap-y-8 sm:gap-y-12">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item, index) => (
             <TripCard
               key={item}
