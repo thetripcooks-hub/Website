@@ -57,7 +57,7 @@ const itinerary: {
 
 const Itinerary = () => {
   return (
-    <div className="px-5 py-10 sm:mb-16 text-neutral-text sm:px-[8%]">
+    <div className="px-5 sm:py-10 py-12 sm:mb-16 text-neutral-text sm:px-[8%]">
       <SectionWrapper>
         <h3 className="text-[24px] leading-[29.26px] font-medium sm:text-[32px] sm:leading-[39.01px] mb-5 sm:mb-2.5">
           Itinerary

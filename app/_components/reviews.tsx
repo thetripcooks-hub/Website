@@ -48,7 +48,7 @@ const data = [
 
 const Reviews = () => {
   return (
-    <section className="px-5 py-5 sm:py-24 sm:px-[8%] bg-cover bg-no-repeat bg-center  w-full">
+    <section className="px-5 py-12 sm:py-24 sm:px-[8%] bg-cover bg-no-repeat bg-center  w-full">
       <SectionWrapper>
         <div className="w-full text-center mb-5 sm:mb-10">
           <h3 className="text-[#1D2433] leading-[39.01px] text-[32px] font-medium sm:leading-[58.51px] sm:text-[48px]">
