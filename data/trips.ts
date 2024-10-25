@@ -1,0 +1,52 @@
+import { Trip } from "@/types/trip";
+
+export const dummyCartTrips: Trip[] = [
+  {
+    id: 1,
+    isBooked: false,
+    quantity: 1,
+    price: 200,
+    startDate: "2022-12-01",
+    endDate: "2022-12-12",
+    year: "2022",
+    image: null,
+    location: "Paris, France",
+    totalQuantity: 10,
+  },
+  {
+    id: 2,
+    isBooked: false,
+    quantity: 1,
+    price: 300,
+    startDate: "2022-12-01",
+    endDate: "2022-12-12",
+    year: "2022",
+    image: null,
+    location: "Madrid, Spain",
+    totalQuantity: 5,
+  },
+  {
+    id: 3,
+    isBooked: false,
+    quantity: 1,
+    price: 500,
+    startDate: "2022-12-01",
+    endDate: "2022-12-12",
+    year: "2022",
+    image: null,
+    location: "London, UK",
+    totalQuantity: 10,
+  },
+{
+    id: 4,
+    isBooked: false,
+    quantity: 1,
+    price: 400,
+    startDate: "2022-12-01",
+    endDate: "2022-12-12",
+    year: "2022",
+    image: null,
+    location: "Doha, Qatar",
+    totalQuantity: 15,
+}
+];

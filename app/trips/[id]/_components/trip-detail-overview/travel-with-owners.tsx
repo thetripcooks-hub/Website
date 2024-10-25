@@ -27,7 +27,9 @@ const TravelWithOwners = () => {
         <h6 className="text-[#000000] text-[16px] leading-[19.5px]">
           Travel with Ovie and Lanre
         </h6>
-            <p className="leading-[17.07px] text-[14px] text-neutral-grey-500">For the whole trip</p>
+        <p className="leading-[17.07px] text-[14px] text-neutral-grey-500">
+          For the whole trip
+        </p>
       </div>
     </div>
   );

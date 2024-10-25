@@ -12,3 +12,5 @@ export * from "./separator";
 export * from "./footer";
 export * from "./subscribe";
 export * from "./pagination";
+export * from "./radio-group";
+export * from "./tooltip";

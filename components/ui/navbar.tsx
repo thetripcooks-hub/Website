@@ -1,8 +1,8 @@
+"use client";
 import Image from "next/image";
 import React from "react";
 import Logo from "../../public/logo.svg";
 import Menu from "../../public/img/harmburger-menu.svg";
-import Cart from "../../public/img/cart.svg";
 import ArrowLeft from "@/components/icons/svg/arrow-left.svg";
 import ArrowLeftDark from "@/components/icons/svg/arrow-left-dark.svg";
 import {
@@ -15,6 +15,8 @@ import { ModeToggle } from "./mode-toggle";
 import SectionWrapper from "@/app/_components/section-wrapper";
 import { ClassValue } from "clsx";
 import { cn } from "@/lib/utils";
+import Cart from "./cart";
+import { usePathname } from "next/navigation";
 
 const navConfig = [
   {
@@ -41,6 +43,7 @@ const navConfig = [
 ];
 
 const Navbar = ({ hasBg = true }: { hasBg?: boolean }) => {
+  const pathname = usePathname();
   return (
     <div className="bg-none px-5 sm:px-[8%]">
       <SectionWrapper className="flex flex-row justify-between items-center h-[95px]">
@@ -84,12 +87,7 @@ const Navbar = ({ hasBg = true }: { hasBg?: boolean }) => {
 
         <section className="hidden sm:flex gap-2.5">
           <ModeToggle />
-          <Image
-            src={Cart}
-            alt="cart-icon"
-            className="cursor-pointer"
-            height={46}
-          />
+          {!pathname.includes("cart") && <Cart />}
         </section>
 
         {/* mobile hamburger */}

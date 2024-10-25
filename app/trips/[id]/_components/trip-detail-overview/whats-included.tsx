@@ -65,9 +65,9 @@ const WhatsIncluded = () => {
             <p className="text-[16px] leading-[19.5px]">{item.title}</p>
           </div>
         ))}
-        <div className="hidden sm:flex">
+        {/* <div className="hidden sm:flex">
           <SeeMore handleClick={() => {}} />
-        </div>
+        </div> */}
       </div>
       <div className="flex sm:hidden mt-5">
         <SeeMore handleClick={() => {}} />

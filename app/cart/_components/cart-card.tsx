@@ -1,0 +1,113 @@
+"use client";
+import dayjs from "dayjs";
+import { pounds } from "@/lib/utils";
+import SampleCartIcon from "../../../public/sample-cart-image.svg";
+import Calendar from "../../../components/icons/svg/calendar.svg";
+import MinusIcon from "../../../components/icons/svg/minus.svg";
+import PlusIcon from "../../../components/icons/svg/plus.svg";
+import useCartStore from "@/stores/cartStore";
+
+import Image from "next/image";
+import React from "react";
+import { Trip } from "@/types/trip";
+
+const CardCard = ({ trip }: { trip: Trip }) => {
+  const { incrementQuantity, decrementQuantity, removeFromCart } =
+    useCartStore();
+  return (
+    <div className="w-full">
+      <div className="flex gap-2 py-2.5 w-full">
+        <Image
+          src={trip.image || SampleCartIcon}
+          width={168}
+          height={118}
+          alt="trip-image"
+          className="rounded-[4.39px] w-[110px] h-[168px] sm:w-[168px] sm:h-[118px] object-cover"
+        />
+        <div className="flex flex-col justify-between w-full">
+          <div className="flex flex-col gap-2">
+            <div className="flex w-full justify-between items-center">
+              <h3 className="leading-[17.07px] font-medium text-[14px]">
+                {trip.location}
+              </h3>
+
+              {/* <div className="w-fit flex gap-1 items-center align-middle border border-solid border-neutral-grey-300 rounded-[4px] text-[16px] leading-[19.5px]">
+                <Image
+                  src={MinusIcon}
+                  alt="minus-icon"
+                  className="cursor-pointer"
+                  onClick={() => decrementQuantity(trip)}
+                />
+                {trip.quantity}
+                <Image
+                  src={PlusIcon}
+                  alt="plus-icon"
+                  className="cursor-pointer"
+                  onClick={() => incrementQuantity(trip)}
+                />
+              </div> */}
+              <div className="sm:flex items-center gap-2.5 text-neutral-text leading-[17.07px] text-[14px] hidden">
+                Slots
+                <div className="w-fit flex gap-1 items-center align-middle border border-solid border-neutral-grey-300 rounded-[4px] text-[16px] leading-[19.5px]">
+                  <Image
+                    src={MinusIcon}
+                    alt="minus-icon"
+                    className="cursor-pointer"
+                    onClick={() => decrementQuantity(trip)}
+                  />
+                  {trip.quantity}
+                  <Image
+                    src={PlusIcon}
+                    alt="plus-icon"
+                    className="cursor-pointer"
+                    onClick={() => incrementQuantity(trip)}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center gap-1">
+              <Image src={Calendar} alt="calendar" width={20} height={20} />
+              <p className="leading-[17.07px] text-[14px]">
+                {dayjs(trip.startDate).format("MMM DD")}
+                {" - "}
+                {dayjs(trip.endDate).format("MMM DD")}
+                {", "}
+                {dayjs(trip.year).format("YYYY")}
+              </p>
+            </div>
+            <h1 className="text-[16px] leading-[19.5px] font-semibold">
+              {pounds.format(trip.price)}
+            </h1>
+            <div className="flex items-center gap-2.5 text-neutral-text leading-[17.07px] text-[14px] sm:hidden">
+              Slots
+              <div className="w-fit flex gap-1 items-center align-middle border border-solid border-neutral-grey-300 rounded-[4px] text-[16px] leading-[19.5px]">
+                <Image
+                  src={MinusIcon}
+                  alt="minus-icon"
+                  className="cursor-pointer"
+                  onClick={() => decrementQuantity(trip)}
+                />
+                {trip.quantity}
+                <Image
+                  src={PlusIcon}
+                  alt="plus-icon"
+                  className="cursor-pointer"
+                  onClick={() => incrementQuantity(trip)}
+                />
+              </div>
+            </div>
+          </div>
+
+          <p
+            className="cursor-pointer text-secondary-irish-green leading-[17.07px] text-[14px] font-alexandria"
+            onClick={() => removeFromCart(trip)}
+          >
+            Remove from cart
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default CardCard;

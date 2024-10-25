@@ -14,7 +14,7 @@ import CartIcon from "../../public/img/shopping-cart.svg";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-const UpcomingTrips = () => {
+const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
   const router = useRouter();
   return (
     <section className="px-5 py-10 sm:py-20 sm:px-[8%]">
@@ -23,11 +23,11 @@ const UpcomingTrips = () => {
 
         {/* desktop */}
         <div className="hidden sm:grid mt-10 grid-cols-3 gap-10">
-          {[1, 2, 3, 4, 5, 6].map((item) => (
+          {Array.from({ length: isCart ? 3 : 6 }).map((_, index) => (
             <TripCard
-              key={item}
-              isDiscounted={item > 4}
-              handleClick={() => router.push(`/trips/${item}`)}
+              key={index}
+              isDiscounted={index > 3}
+              handleClick={() => router.push(`/trips/${index}`)}
             />
           ))}
         </div>
