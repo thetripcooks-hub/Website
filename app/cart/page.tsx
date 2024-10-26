@@ -85,7 +85,7 @@ const Page = () => {
         </div>
         {inView ? (
           <MobileFloatingCard>
-            <div className="w-full flex flex-col justify-between gap-2">
+            <div className="w-full flex items-end justify-between gap-2 mb-2">
               <h6 className="text-neutral-subtext text-[14px] leading-[17px] font-alexandria font-normal">
                 Est. total
               </h6>

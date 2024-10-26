@@ -1,0 +1,50 @@
+import SectionWrapper from "@/app/_components/section-wrapper";
+import Image from "next/image";
+import React from "react";
+import OwnersMobile from "../../../public/img/about/owners-mobile.png";
+import OwnersDesktop from "../../../public/img/about/owners-desktop.png";
+
+const Adventurers = () => {
+  return (
+    <div className="px-5 py-10 sm:py-20 sm:px-[8%] bg-neutral-grey-100">
+      <SectionWrapper className="flex flex-col sm:flex-row gap-6 sm:gap-12 sm:justify-between w-full">
+        <div className="sm:pt-4 flex flex-col gap-5">
+          <h3 className="text-[32px] leading-[39.01px] font-semibold text-neutral-text sm:text-[48px] sm:leading-[58.51px]">
+            Two adventurers, <br className="sm:hidden" /> One shared goal
+          </h3>
+          <div className="flex flex-col gap-1.5 sm:gap-2 sm:max-w-[559px] text-neutral-grey-500 text-base leading-[26.08px]">
+            <p>
+              Trip Cooks started off with Ovie and Lanre planning a group trip
+              to Montenegro in February 2023. This was a trip with friends and
+              one key point that stood out was the balance between vacationing
+              and traveling.{" "}
+            </p>
+            <p>
+              A friend then told us “you’re good at this, I love the community
+              you’re building too and you should share this passion of
+              exploring”, thus TripCooks came to be. So far, this community has
+              ticked off 10 countries and counting with the best views, food,
+              vibes and energy!{" "}
+            </p>
+            <p>
+              More to come from us! Join our group trips for the best experience
+              you will have without breaking the bank. We truly believe travel
+              should not be a luxury, anyone can and should be able to travel.
+              Let’s show you how!
+            </p>
+          </div>
+        </div>
+        <div>
+          <Image
+            src={OwnersDesktop}
+            alt="owners-image"
+            className="hidden sm:block object-scale-down"
+          />
+          <Image src={OwnersMobile} alt="owners mobile" className="sm:hidden object-scale-down w-full" />
+        </div>
+      </SectionWrapper>
+    </div>
+  );
+};
+
+export default Adventurers;

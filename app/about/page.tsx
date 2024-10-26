@@ -1,7 +1,27 @@
 import React from "react";
+import OurServices from "../_components/our-services";
+import TheTripCooksExperience from "../_components/the-tripcooks-experience";
+import { SubcribeToNewsLetter, Footer } from "@/components/ui";
+import ReadyToStart from "../_components/ready-to-start";
+import AboutHero from "./_components/about-hero";
+import Navbar from "@/components/ui/navbar";
+import Adventurers from "./_components/adventurers";
 
 const Page = () => {
-  return <div>About us page</div>;
+  return (
+    <main className="flex min-h-screen flex-col pb-10 sm:pb-20">
+      <Navbar hasBg={false} />
+      <AboutHero />
+      <Adventurers />
+      <OurServices />
+      <div className="pt-5 pb-10 sm:pt-10 sm:pb-14">
+        <TheTripCooksExperience />
+      </div>
+      <ReadyToStart />
+      <SubcribeToNewsLetter />
+      <Footer />
+    </main>
+  );
 };
 
 export default Page;
