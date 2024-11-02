@@ -1,8 +1,10 @@
 "use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const TravelWithOwners = () => {
+  const router = useRouter();
   return (
     <div className="border border-y-neutral-grey-300 border-x-0 py-5 flex gap-2.5 my-5 items-center">
       <div className="flex relative w-[54px]">
@@ -23,7 +25,7 @@ const TravelWithOwners = () => {
           <AvatarFallback>L</AvatarFallback>
         </Avatar>
       </div>
-      <div>
+      <div onClick={() => router.push("/about")} className="cursor-pointer">
         <h6 className="text-[#000000] text-[16px] leading-[19.5px]">
           Travel with Ovie and Lanre
         </h6>

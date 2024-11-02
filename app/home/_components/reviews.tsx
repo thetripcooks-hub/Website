@@ -50,8 +50,8 @@ const Reviews = () => {
   return (
     <section className="px-5 py-12 sm:py-24 sm:px-[8%] bg-cover bg-no-repeat bg-center  w-full">
       <SectionWrapper>
-        <div className="w-full text-center mb-5 sm:mb-10">
-          <h3 className="text-[#1D2433] leading-[39.01px] text-[32px] font-medium sm:leading-[58.51px] sm:text-[48px]">
+        <div className="w-full text-center mb-10 sm:mb-20">
+          <h3 className="text-[#1D2433] leading-[39.01px] text-[32px] font-medium sm:leading-[58.51px] sm:text-[48px] mb-5">
             Our wall of love
           </h3>
           <p className="text-neutral-subtext text-[16px] leading-[19.5px] sm:text-[20px] sm:leading-[24.38px]">

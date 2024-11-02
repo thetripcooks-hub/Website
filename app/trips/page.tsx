@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import TripSearch from "@/app/home/_components/trip-search";
 import { SubcribeToNewsLetter, Footer } from "@/components/ui";
-import ReadyToStart from "@/app/home/_components/ready-to-start";
+// import ReadyToStart from "@/app/home/_components/ready-to-start";
 import Destination from "./_components/destination";
 
 const Page = () => {
@@ -15,7 +15,7 @@ const Page = () => {
         <TripSearch />
       </header>
       <Destination />
-      <ReadyToStart />
+      {/* <ReadyToStart /> */}
       <SubcribeToNewsLetter />
       <Footer />
     </main>

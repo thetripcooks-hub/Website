@@ -2,8 +2,8 @@ import Image from "next/image";
 import React from "react";
 import LogoBig from "~/logo-big.svg";
 import Instagram from "@/components/icons/svg/instagram.svg";
-import Facebook from "@/components/icons/svg/facebook.svg";
-import X from "@/components/icons/svg/x.svg";
+// import Facebook from "@/components/icons/svg/facebook.svg";
+// import X from "@/components/icons/svg/x.svg";
 import Link from "next/link";
 import SectionWrapper from "@/app/home/_components/section-wrapper";
 
@@ -56,7 +56,7 @@ const Footer = () => {
         <div className="flex flex-col gap-5 sm:w-2/5">
           <Image src={LogoBig} alt="logo" />
           <div className="flex gap-4">
-            {[Instagram, Facebook, X].map((icon, index) => (
+            {[Instagram].map((icon, index) => (
               <div
                 className="bg-white border border-neutral-grey-300 rounded-full h-[46px] w-[46px] flex items-center justify-center cursor-pointer"
                 key={index}

@@ -1,7 +1,9 @@
+"use client";
 import { useLayoutEffect, useState } from "react";
 import debounce from "lodash/debounce";
 
 export const useIsMobile = (width = 768): boolean => {
+  if (typeof window === "undefined") return false;
   const getIsMobile = () => window.innerWidth <= width;
   const [isMobile, setIsMobile] = useState(getIsMobile);
 

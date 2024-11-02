@@ -93,7 +93,7 @@ const Page = () => {
 
           <p>
             It is your responsibility to ensure that all necessary travel
-            documents, including valid passports (with at least 6 months'
+            documents, including valid passports (with at least 6 months&apos;
             validity beyond your return date), visas, inoculation certificates,
             and any other required documents, are in order before your travel
             begins.
@@ -144,7 +144,7 @@ const Page = () => {
             Trip Cooks may collect still and video images during the course of
             your holiday for advertising and promotional uses. By booking a trip
             with Trip Cooks, you agree that these images may be collected and
-            used at Trip Cooks' discretion, including for commercial purposes.
+            used at Trip Cooks&apos; discretion, including for commercial purposes.
             The images may be cropped, altered, combined, or otherwise edited,
             and you agree that Trip Cooks will retain ownership of all rights
             associated with such images.

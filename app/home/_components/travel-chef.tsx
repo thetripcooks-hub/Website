@@ -11,7 +11,8 @@ const TravelChef = () => {
     <>
       <div className="flex flex-col sm:flex-row px-5 py-10 text-neutral-text sm:pt-32 sm:pb-28 sm:justify-center sm:gap-20 sm:px-[12%]">
         <section className="text-[32px] sm:text-[52px] font-medium sm:w-[418px]">
-          We’re like your personal{" "}
+          We’re like your <br className="sm:hidden" />
+          personal{" "}
           <span
             className={cn(guthenBloots.className, "text-secondary-irish-green")}
           >

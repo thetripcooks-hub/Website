@@ -31,7 +31,7 @@ const PaymentCard = () => {
           </span>
           <span className="text-[32px] leading-[39.01px]">£3,000</span>
         </p>
-        <p className="font-medium text-secondary-irish-green text-[16px] leading-[19.5px]">
+        <p className="font-medium text-[16px] leading-[19.5px]">
           10% off
         </p>
 
