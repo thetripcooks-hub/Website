@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import Instagram from "@/components/icons/svg/instagram.svg";
 import Logo from "~/logo.svg";
 import { ModeToggle } from "./mode-toggle";
+import { useRouter } from "next/navigation";
 
 const MobileNav = ({
   navConfig,
@@ -20,9 +21,11 @@ const MobileNav = ({
   navConfig: { name: string; url: string }[];
   pathname: string;
 }) => {
+  const [open, setOpen] = React.useState(false);
+  const router = useRouter();
   return (
     <div className="sm:hidden">
-      <DropdownMenu modal={false}>
+      <DropdownMenu modal={false} open={open} onOpenChange={setOpen}>
         <DropdownMenuTrigger asChild>
           <Image src={Menu} alt="hamburger-menu" />
         </DropdownMenuTrigger>
@@ -44,6 +47,7 @@ const MobileNav = ({
               <Link
                 key={item.name}
                 href={item.url}
+                onClick={() => setOpen(false)}
                 className={cn(
                   pathname.includes(item.url) && "text-secondary-irish-green"
                 )}
@@ -52,7 +56,13 @@ const MobileNav = ({
               </Link>
             ))}
 
-            <div className="flex flex-col mt-5 gap-6">
+            <div
+              className="flex flex-col mt-5 gap-6"
+              onClick={() => {
+                setOpen(false);
+                router.replace("https://www.instagram.com/")
+              }}
+            >
               <h4>Follow us on Instagram</h4>
               <div className="w-[46px] h-[46px] rounded-full border-neutral-300 border border-solid items-center justify-center flex">
                 <Image src={Instagram} alt="instagram-logo" width={19.88} />

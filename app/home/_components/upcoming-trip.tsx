@@ -48,6 +48,9 @@ const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
                       width={18}
                       height={18}
                       alt="cart-icon"
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
                     />
                   </div>
                   <Image
