@@ -1,13 +1,12 @@
 "use client";
 import MobilePageHeader from "@/components/ui/mobile-page-header";
-import Navbar from "@/components/ui/navbar";
 import { cn, pounds } from "@/lib/utils";
-import SampleCartIcon from "../../public/sample-cart-image.svg";
+import SampleCartIcon from "~/sample-cart-image.svg";
 import Calendar from "../../components/icons/svg/calendar.svg";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useInView } from "react-intersection-observer";
-import SectionWrapper from "../_components/section-wrapper";
+import SectionWrapper from "@/app/home/_components/section-wrapper";
 import useCartStore from "@/stores/cartStore";
 import {
   Button,
@@ -18,23 +17,24 @@ import {
 } from "@/components/ui";
 import Image from "next/image";
 import dayjs from "dayjs";
-import Reviews from "../_components/reviews";
+import Reviews from "@/app/home/_components/reviews";
 import MobileFloatingCard from "@/components/ui/mobile-floating-card";
 import Link from "next/link";
 import CheckoutPaymentType from "./_components/checkout-payment-type";
 import PoweredByStripe from "@/components/ui/powered-by-stripe";
+import { useHideNavOnMobile } from "@/hooks";
+import { SAMPLE_CHECKOUT_URL } from "@/constants";
 
 const Page = () => {
   const router = useRouter();
   const { trips, getTotalPrice } = useCartStore();
   const { ref, inView } = useInView();
+  useHideNavOnMobile();
+
 
   return (
     <main className={cn("bg-white w-full")}>
       <div ref={ref}>
-        <div className="hidden sm:block">
-          <Navbar hasBg={false} />
-        </div>
         <MobilePageHeader title="Checkout" />
         <div className="px-5 py=5 sm:pt-10 sm:pb-20 text-neutral-text sm:px-[8%]">
           <SectionWrapper>
@@ -173,7 +173,7 @@ const Page = () => {
               <div className="flex flex-col gap-2">
                 <Button
                   className="w-full"
-                  onClick={() => router.push("/checkout")}
+                  onClick={() => router.push(SAMPLE_CHECKOUT_URL)}
                 >
                   Checkout and Pay
                 </Button>

@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui";
 import Image from "next/image";
 import React from "react";
-import FeatureTripImage from "../../public/img/sample-featured-trip.svg";
+import FeatureTripImage from "~/img/sample-featured-trip.svg";
 import SectionWrapper from "./section-wrapper";
 import { useRouter } from "next/navigation";
 

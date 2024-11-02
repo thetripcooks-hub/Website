@@ -1,6 +1,6 @@
-import SectionWrapper from "@/app/_components/section-wrapper";
-import RoadDesktop from "../../../public/img/about/road-desktop.svg";
-import RoadMobile from "../../../public/img/about/road-mobile.svg";
+import SectionWrapper from "@/app/home/_components/section-wrapper";
+import RoadDesktop from "~/img/about/road-desktop.svg";
+import RoadMobile from "~/img/about/road-mobile.svg";
 import Image from "next/image";
 import React from "react";
 

@@ -1,9 +1,12 @@
+"use client";
 import { Button } from "@/components/ui";
 import { cn } from "@/lib/utils";
 import React from "react";
-import { guthenBloots } from "../font";
+import { guthenBloots } from "@/app/font";
+import { useRouter } from "next/navigation";
 
 const TravelChef = () => {
+  const router = useRouter();
   return (
     <>
       <div className="flex flex-col sm:flex-row px-5 py-10 text-neutral-text sm:pt-32 sm:pb-28 sm:justify-center sm:gap-20 sm:px-[12%]">
@@ -23,7 +26,10 @@ const TravelChef = () => {
             journey that’s perfectly you.
           </p>
 
-          <Button className="mt-10 sm:mt-4 w-full sm:w-fit h-[54px]">
+          <Button
+            className="mt-10 sm:mt-4 w-full sm:w-fit h-[54px]"
+            onClick={() => router.push("about")}
+          >
             Learn more
           </Button>
         </section>

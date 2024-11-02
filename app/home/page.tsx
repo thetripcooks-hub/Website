@@ -3,7 +3,7 @@ import FeatureTrip from "./_components/feature-trip";
 import OurServices from "./_components/our-services";
 import ReadyToStart from "./_components/ready-to-start";
 import Reviews from "./_components/reviews";
-import { Footer, SubcribeToNewsLetter } from "../components/ui";
+import { Footer, SubcribeToNewsLetter } from "../../components/ui";
 import TheTripCooksExperience from "./_components/the-tripcooks-experience";
 import TravelChef from "./_components/travel-chef";
 import UpcomingTrips from "./_components/upcoming-trip";

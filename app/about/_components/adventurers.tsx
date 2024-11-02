@@ -1,8 +1,8 @@
-import SectionWrapper from "@/app/_components/section-wrapper";
+import SectionWrapper from "@/app/home/_components/section-wrapper";
 import Image from "next/image";
 import React from "react";
-import OwnersMobile from "../../../public/img/about/owners-mobile.png";
-import OwnersDesktop from "../../../public/img/about/owners-desktop.png";
+import OwnersMobile from "~/img/about/owners-mobile.png";
+import OwnersDesktop from "~/img/about/owners-desktop.png";
 
 const Adventurers = () => {
   return (

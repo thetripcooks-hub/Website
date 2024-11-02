@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-import { cn } from "@/lib/utils";
-import { alexandria } from "./font";
 import type { Viewport } from "next";
+import AppLayout from "@/components/app-layout";
 
 export const metadata: Metadata = {
   title: "Trip Cooks",
@@ -22,25 +20,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={cn(
-        "m-0 w-full overflow-x-hidden-hidden",
-        alexandria.className
-      )}
-    >
-      <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
-  );
+  return <AppLayout>{children}</AppLayout>;
 }

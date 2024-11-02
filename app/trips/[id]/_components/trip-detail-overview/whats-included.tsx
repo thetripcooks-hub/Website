@@ -6,12 +6,15 @@ import driving from "../img/whats-included/driving.svg";
 import airplane from "../img/whats-included/airplane.svg";
 import heart from "../img/whats-included/heart.svg";
 import house from "../img/whats-included/house.svg";
+import { DrawerDemo } from "./see-more-drawer";
+import book from "../img/whats-included/book.svg";
+import { useIsMobile } from "@/hooks";
 
 const SeeMore = ({ handleClick }: { handleClick: () => void }) => (
   <p
     role="button"
     onClick={handleClick}
-    className="cursor-pointer text-secondary-irish-green underline text-base sm:leading-[19.5px] w-full text-center sm:w-fit sm:text-start"
+    className="cursor-pointer underline text-base sm:leading-[19.5px] w-full text-center sm:w-fit sm:text-start"
   >
     See more
   </p>
@@ -42,7 +45,13 @@ const WhatsIncluded = () => {
       icon: flag,
       title: "Tourist activities",
     },
+    {
+      icon: book,
+      title: "Visa Support",
+    },
   ];
+  const isMobile = useIsMobile();
+  const dataToShow = isMobile ? data.slice(0, -1) : data;
   return (
     <div>
       <h3 className="text-[24px] leading-[29.26px] font-medium mb-5 text-neutral-text">
@@ -50,7 +59,7 @@ const WhatsIncluded = () => {
       </h3>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-        {data.map((item) => (
+        {dataToShow.map((item) => (
           <div
             key={item.icon + Math.random()}
             className="flex gap-2.5 items-center"
@@ -65,12 +74,9 @@ const WhatsIncluded = () => {
             <p className="text-[16px] leading-[19.5px]">{item.title}</p>
           </div>
         ))}
-        {/* <div className="hidden sm:flex">
-          <SeeMore handleClick={() => {}} />
-        </div> */}
       </div>
       <div className="flex sm:hidden mt-5">
-        <SeeMore handleClick={() => {}} />
+        <DrawerDemo data={data} />
       </div>
     </div>
   );

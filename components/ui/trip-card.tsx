@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import img from "../../public/img/private-trip.svg";
-import CartIcon from "../../public/img/shopping-cart.svg";
+import img from "~/img/private-trip.svg";
+import CartIcon from "~/img/shopping-cart.svg";
 
 const TripCard = ({
   isDiscounted = false,

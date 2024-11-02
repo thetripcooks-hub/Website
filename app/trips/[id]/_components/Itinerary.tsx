@@ -1,5 +1,5 @@
 "use client";
-import SectionWrapper from "@/app/_components/section-wrapper";
+import SectionWrapper from "@/app/home/_components/section-wrapper";
 import React from "react";
 import img1 from "./img/itinerary/1.svg";
 import img2 from "./img/itinerary/2.svg";

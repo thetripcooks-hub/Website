@@ -13,7 +13,7 @@ import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import SectionWrapper from "@/app/_components/section-wrapper";
+import SectionWrapper from "@/app/home/_components/section-wrapper";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),

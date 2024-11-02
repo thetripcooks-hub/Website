@@ -1,36 +1,27 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import Logo from "../../public/logo.svg";
-import Menu from "../../public/img/harmburger-menu.svg";
-import ArrowLeft from "@/components/icons/svg/arrow-left.svg";
-import ArrowLeftDark from "@/components/icons/svg/arrow-left-dark.svg";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "./dropdown-menu";
+import Logo from "~/logo.svg";
 import Link from "next/link";
 import { ModeToggle } from "./mode-toggle";
-import SectionWrapper from "@/app/_components/section-wrapper";
-import { ClassValue } from "clsx";
+import SectionWrapper from "@/app/home/_components/section-wrapper";
 import { cn } from "@/lib/utils";
 import Cart from "./cart";
 import { usePathname } from "next/navigation";
+import MobileNav from "./mobile-nav";
 
 const navConfig = [
   {
     name: "Home",
-    url: "/",
+    url: "/home",
   },
   {
-    name: "Trips",
-    children: [
-      {
-        name: "All Trips",
-        url: "/trips",
-      },
-    ],
+    name: "Destinations",
+    url: "/trips",
+  },
+  {
+    name: "Private trips",
+    url: "/private-trips",
   },
   {
     name: "About",
@@ -42,47 +33,31 @@ const navConfig = [
   },
 ];
 
-const Navbar = ({ hasBg = true }: { hasBg?: boolean }) => {
+const Navbar = () => {
   const pathname = usePathname();
   return (
-    <div className="bg-none px-5 sm:px-[8%]">
-      <SectionWrapper className="flex flex-row justify-between items-center h-[95px]">
-        <Link href="/" className="cursor-pointer">
+    <div className="bg-white px-5 sm:px-[8%] fixed top-0 w-screen z-[99]">
+      <SectionWrapper className="flex flex-row justify-between items-center sm:h-[95px] h-[75px]">
+        <Link href="/home" className="cursor-pointer">
           <Image src={Logo} alt="logo" />
         </Link>
 
         <section
           className={cn(
-            "hidden sm:flex gap-5 text-white text-[16px] leading-[19.5px]",
-            !hasBg && "text-neutral-text"
+            "hidden sm:flex gap-5 text-neutral-text text-[16px] leading-[19.5px]"
           )}
         >
-          {navConfig.map((item) =>
-            item.children ? (
-              <DropdownMenu key={item.name}>
-                <DropdownMenuTrigger asChild className="flex gap-1">
-                  <div className="cursor-pointer">
-                    {item.name}
-                    <Image
-                      src={hasBg ? ArrowLeft : ArrowLeftDark}
-                      alt="arrow-down"
-                    />
-                  </div>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  {item.children.map((x) => (
-                    <Link key={x.name} href={x.url}>
-                      {x.name}
-                    </Link>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ) : (
-              <Link key={item.name} href={item.url}>
-                {item.name}
-              </Link>
-            )
-          )}
+          {navConfig.map((item) => (
+            <Link
+              key={item.name}
+              href={item.url}
+              className={cn(
+                pathname.includes(item.url) && "text-secondary-irish-green"
+              )}
+            >
+              {item.name}
+            </Link>
+          ))}
         </section>
 
         <section className="hidden sm:flex gap-2.5">
@@ -91,13 +66,7 @@ const Navbar = ({ hasBg = true }: { hasBg?: boolean }) => {
         </section>
 
         {/* mobile hamburger */}
-        <div className="sm:hidden">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Image src={Menu} alt="hamburger-menu" />
-            </DropdownMenuTrigger>
-          </DropdownMenu>
-        </div>
+        <MobileNav navConfig={navConfig} pathname={pathname} />
       </SectionWrapper>
     </div>
   );

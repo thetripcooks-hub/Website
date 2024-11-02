@@ -11,7 +11,7 @@ import {
 import Image from "next/image";
 import React from "react";
 import StarIcon from "@/components/icons/svg/star.svg";
-import HotAirBallon from "../../public/img/hot-air-ballon.svg";
+import HotAirBallon from "~/img/hot-air-ballon.svg";
 import Marrakesh from "@/components/icons/svg/flags/monaco.svg";
 import Montenegro from "@/components/icons/svg/flags/montenegro.svg";
 import Turkey from "@/components/icons/svg/flags/turkey.svg";

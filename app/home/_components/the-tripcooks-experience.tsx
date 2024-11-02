@@ -1,8 +1,8 @@
 "use client";
 import React, { ReactNode } from "react";
-import GroupTrip from "../../public/img/public-trip.svg";
-import PrivateTrip from "../../public/img/private-trip.svg";
-import TravelPlanning from "../../public/img/travel-planning.svg";
+import GroupTrip from "~/img/public-trip.svg";
+import PrivateTrip from "~/img/private-trip.svg";
+import TravelPlanning from "~/img/travel-planning.svg";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui";
 import AutoScroll from "embla-carousel-auto-scroll";
 

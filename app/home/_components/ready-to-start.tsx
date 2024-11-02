@@ -1,8 +1,11 @@
+"use client";
 import { Button } from "@/components/ui";
 import React from "react";
 import SectionWrapper from "./section-wrapper";
+import { useRouter } from "next/navigation";
 
 const ReadyToStart = () => {
+  const router = useRouter();
   return (
     <section className="bg-tripcook-pattern px-5 py-5 sm:py-24 sm:px-[8%] bg-cover bg-no-repeat bg-center  w-full">
       <SectionWrapper>
@@ -13,7 +16,11 @@ const ReadyToStart = () => {
           Join a group trip or let us create a personalized journey just for
           you. Your unforgettable experience awaits
         </p>
-        <Button variant="secondary" className="mt-16 sm:mt-10">
+        <Button
+          variant="secondary"
+          className="mt-16 sm:mt-10"
+          onClick={() => router.push("/trips")}
+        >
           Explore trips
         </Button>
       </SectionWrapper>

@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import img from "../../public/img/public-trip.svg";
+import img from "~/img/public-trip.svg";
 import {
   Button,
   Carousel,
@@ -10,7 +10,7 @@ import {
 } from "@/components/ui";
 import SectionWrapper from "./section-wrapper";
 import TripCard from "@/components/ui/trip-card";
-import CartIcon from "../../public/img/shopping-cart.svg";
+import CartIcon from "~/img/shopping-cart.svg";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 

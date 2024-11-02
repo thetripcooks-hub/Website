@@ -100,6 +100,7 @@ const config: Config = {
           "100": "hsl(var(--error-100))",
           "200": "hsl(var(--error-200))",
         },
+        coming_soon_bg: "hsl(var(--coming-soon-bg))",
       },
       keyframes: {
         "accordion-down": {

@@ -1,29 +1,28 @@
 "use client";
 import MobilePageHeader from "@/components/ui/mobile-page-header";
-import Navbar from "@/components/ui/navbar";
 import { cn, pounds } from "@/lib/utils";
 import React from "react";
-import UpcomingTrips from "../_components/upcoming-trip";
+import UpcomingTrips from "@/app/home/_components/upcoming-trip";
 import { Button, Card, Footer, SubcribeToNewsLetter } from "@/components/ui";
 import CardCard from "./_components/cart-card";
 import useCartStore from "@/stores/cartStore";
-import SectionWrapper from "../_components/section-wrapper";
+import SectionWrapper from "@/app/home/_components/section-wrapper";
 import PoweredByStrip from "@/components/ui/powered-by-stripe";
 import { useInView } from "react-intersection-observer";
 import MobileFloatingCard from "@/components/ui/mobile-floating-card";
 import { useRouter } from "next/navigation";
+import { useHideNavOnMobile } from "@/hooks";
+import { SAMPLE_CHECKOUT_URL } from "@/constants";
 
 const Page = () => {
   const router = useRouter();
-  const { trips, getTripDeposit, getTotalTripDeposit} = useCartStore();
+  const { trips, getTripDeposit, getTotalTripDeposit } = useCartStore();
   const { ref, inView } = useInView();
+  useHideNavOnMobile();
 
   return (
     <main className={cn("bg-white w-full")}>
       <div ref={ref}>
-        <div className="hidden sm:block">
-          <Navbar hasBg={false} />
-        </div>
         <MobilePageHeader title="My cart" showCartBtn={false} />
         <div className="px-5 py=5 sm:pt-10 sm:pb-20 text-neutral-text sm:px-[8%]">
           <SectionWrapper>
@@ -41,7 +40,8 @@ const Page = () => {
               {trips.map((trip) => (
                 <div className="w-full flex justify-between" key={trip.id}>
                   <h6 className="text-neutral-subtext text-[16px] leading-[19.5px] font-alexandria font-normal max-w-[192px]">
-                    Deposit for trip to {trip.location} ({trip.quantity} guest{trip.quantity > 1 ? "s" : ""})
+                    Deposit for trip to {trip.location} ({trip.quantity} guest
+                    {trip.quantity > 1 ? "s" : ""})
                   </h6>
                   <h3 className="text-[#000000] font-semibold text-2xl leading-[29.26px]">
                     {pounds.format(getTripDeposit(trip))}{" "}
@@ -58,7 +58,7 @@ const Page = () => {
               </div>
               <Button
                 className="w-full"
-                onClick={() => router.push("/checkout")}
+                onClick={() => router.push(SAMPLE_CHECKOUT_URL)}
               >
                 Proceed to checkout
               </Button>
@@ -102,7 +102,7 @@ const Page = () => {
                 {pounds.format(getTotalPrice(trips) / 3)}
               </h3>
             </div> */}
-            <Button onClick={() => router.push("/checkout")}>
+            <Button onClick={() => router.push(SAMPLE_CHECKOUT_URL)}>
               Proceed to checkout
             </Button>
           </MobileFloatingCard>

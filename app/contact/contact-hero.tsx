@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import SectionWrapper from "../_components/section-wrapper";
+import SectionWrapper from "../home/_components/section-wrapper";
 import {
   Button,
   Card,

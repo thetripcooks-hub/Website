@@ -1,11 +1,11 @@
 import Image from "next/image";
 import React from "react";
-import LogoBig from "../../public/logo-big.svg";
+import LogoBig from "~/logo-big.svg";
 import Instagram from "@/components/icons/svg/instagram.svg";
 import Facebook from "@/components/icons/svg/facebook.svg";
 import X from "@/components/icons/svg/x.svg";
 import Link from "next/link";
-import SectionWrapper from "@/app/_components/section-wrapper";
+import SectionWrapper from "@/app/home/_components/section-wrapper";
 
 const config = [
   {
@@ -25,25 +25,25 @@ const config = [
     title: "Trips",
     routes: [
       {
-        name: "Upcoming trips",
+        name: "Destinations",
         url: "/trips",
       },
       {
-        name: "Group trips",
-        url: "/trips",
+        name: "Private trips",
+        url: "/private-trips",
       },
     ],
   },
   {
-    title: "Legal",
+    title: "Travel Policy",
     routes: [
       {
         name: "Privacy Policy",
-        url: "/privacy",
+        url: "/legal",
       },
       {
         name: "Terms and Conditions",
-        url: "/terms",
+        url: "/legal",
       },
     ],
   },

@@ -1,9 +1,11 @@
 import { Button, Card } from "@/components/ui";
 import React from "react";
-import airplane from "../img/payment-card/airplane.svg";
-import house from "../img/payment-card/house.svg";
+import airplane from "../img/whats-included/airplane.svg";
+import house from "../img/whats-included/house.svg";
 import money from "../img/payment-card/money.svg";
 import Image from "next/image";
+import Link from "next/link";
+import PaymentTerms from "./payment-terms";
 
 const PaymentCard = () => {
   const data = [
@@ -67,22 +69,7 @@ const PaymentCard = () => {
         </Button>
       </div>
 
-      <div className="text-[16px] leading-[19.5px] font-normal gap-3 flex flex-col text-[#000000]">
-        <h6 className="text-neutral-subtext">Payment terms</h6>
-        <p>
-          {" "}
-          <span className="font-bold">£ 300</span> required to reserve a spot
-        </p>
-        <p>
-          {" "}
-          Deadline for deposit is on the{" "}
-          <span className="font-bold">30th of July, 2024</span>
-        </p>
-        <p>
-          Deadline for full payment is on the{" "}
-          <span className="font-bold">30th of July, 2024</span>
-        </p>
-      </div>
+      <PaymentTerms />
     </Card>
   );
 };

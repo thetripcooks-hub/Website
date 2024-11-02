@@ -1,16 +1,14 @@
 import React from "react";
-import OurServices from "../_components/our-services";
-import TheTripCooksExperience from "../_components/the-tripcooks-experience";
+import OurServices from "../home/_components/our-services";
+import TheTripCooksExperience from "../home/_components/the-tripcooks-experience";
 import { SubcribeToNewsLetter, Footer } from "@/components/ui";
-import ReadyToStart from "../_components/ready-to-start";
+import ReadyToStart from "../home/_components/ready-to-start";
 import AboutHero from "./_components/about-hero";
-import Navbar from "@/components/ui/navbar";
 import Adventurers from "./_components/adventurers";
 
 const Page = () => {
   return (
     <main className="flex min-h-screen flex-col pb-10 sm:pb-20">
-      <Navbar hasBg={false} />
       <AboutHero />
       <Adventurers />
       <OurServices />

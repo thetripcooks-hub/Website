@@ -1,7 +1,7 @@
 import React from "react";
 import dayjs from "dayjs";
-import SampleCartIcon from "../../public/sample-cart-image.svg";
-import CartIcon from "../../public/img/cart.svg";
+import SampleCartIcon from "~/sample-cart-image.svg";
+import CartIcon from "~/img/cart.svg";
 import CashIn from "../../components/icons/svg/cash-in.svg";
 import Calendar from "../../components/icons/svg/calendar.svg";
 import MinusIcon from "../../components/icons/svg/minus.svg";
@@ -18,6 +18,7 @@ import { Separator } from "./separator";
 import useCartStore from "@/stores/cartStore";
 import { pounds } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import { SAMPLE_CHECKOUT_URL } from "@/constants";
 
 const Cart = () => {
   const {
@@ -30,7 +31,7 @@ const Cart = () => {
   const router = useRouter();
 
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <Image
           src={CartIcon}
@@ -38,7 +39,7 @@ const Cart = () => {
           className="cursor-pointer h-[32px] sm:h-[46px]"
         />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="sm:max-w-[414px] shadow-none px-0">
+      <DropdownMenuContent className="sm:max-w-[414px] shadow-none px-0 mr-2 z-[99]">
         <CardHeader className="p-5">
           <CardTitle className="text-[16px] leading-[19.5px] font-medium">
             Total Price:{" "}
@@ -56,7 +57,7 @@ const Cart = () => {
             </Button>
             <Button
               className="max-w-[179px] w-full h-[44.5px] px-2 min-w-min"
-              onClick={() => router.push("/checkout")}
+              onClick={() => router.push(SAMPLE_CHECKOUT_URL)}
             >
               Proceed to checkout
             </Button>

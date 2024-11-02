@@ -1,5 +1,5 @@
 "use client";
-import SectionWrapper from "@/app/_components/section-wrapper";
+import SectionWrapper from "@/app/home/_components/section-wrapper";
 import React, { ReactNode } from "react";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui";
 import AutoScroll from "embla-carousel-auto-scroll";
@@ -37,11 +37,11 @@ const CarouselWrapper = ({ children }: { children: ReactNode }) => (
   </Carousel>
 );
 
-const ViewOfLocation = () => {
+const ViewOfLocation = ({ title }: { title?: string }) => {
   return (
     <section>
       <h3 className="text-[32px] leading-[39.01px] font-medium sm:text-5xl px-5 pt-5 sm:pt-10 sm:px-[8%]">
-        <SectionWrapper>Our view of Madrid</SectionWrapper>
+        <SectionWrapper>{title || "Our view of Madrid"}</SectionWrapper>
       </h3>
 
       <div className="mt-5 sm:mt-10 flex flex-col gap-5">
