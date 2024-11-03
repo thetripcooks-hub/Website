@@ -13,7 +13,7 @@ const Page = () => {
       <Adventurers />
       <OurServices />
       <div className="pt-5 pb-10 sm:pt-10 sm:pb-14">
-        <TheTripCooksExperience />
+        <TheTripCooksExperience showLastRow={false} />
       </div>
       <ReadyToStart />
       <SubcribeToNewsLetter />

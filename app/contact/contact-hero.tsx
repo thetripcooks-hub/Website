@@ -11,6 +11,7 @@ import {
   FormLabel,
   FormMessage,
   Input,
+  Textarea,
 } from "@/components/ui";
 import { useForm } from "react-hook-form";
 import { z, ZodType } from "zod";
@@ -114,11 +115,12 @@ const ContactHero = () => {
                     <FormItem>
                       <FormLabel>Message</FormLabel>
                       <FormControl>
-                        <Input
-                          type="text"
+                        <Textarea
+                          // type="text"
                           placeholder="Enter message here"
                           {...field}
-                          className="bg-[#F7F7F9] h-[59px] focus-visible:ring-0 border-none placeholder:text-[#ABABAB] text-base leading-[19.5px]"
+                          rows={5}
+                          className="bg-[#F7F7F9] focus-visible:ring-0 border-none placeholder:text-[#ABABAB] text-base leading-[19.5px]"
                         />
                       </FormControl>
                       <FormMessage />

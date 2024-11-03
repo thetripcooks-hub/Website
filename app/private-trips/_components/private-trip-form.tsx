@@ -1,5 +1,6 @@
 "use client";
 import {
+  Button,
   Card,
   Form,
   FormControl,
@@ -265,6 +266,7 @@ const PrivateTripForm = () => {
                 </FormItem>
               )}
             />
+            <Button className="w-fit">Submit</Button>
           </div>
         </form>
       </Form>

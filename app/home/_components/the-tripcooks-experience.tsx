@@ -30,7 +30,7 @@ const CarouselWrapper = ({ children }: { children: ReactNode }) => (
   </Carousel>
 );
 
-const TheTripCooksExperience = () => {
+const TheTripCooksExperience = ({ showLastRow }: { showLastRow?: boolean }) => {
   return (
     <section>
       <h3 className="text-[32px] leading-[39.01px] font-medium sm:text-5xl px-5 pt-5 sm:pt-10 sm:px-[8%]">
@@ -71,22 +71,24 @@ const TheTripCooksExperience = () => {
             </CarouselContent>
           </CarouselWrapper>{" "}
         </div>
-        <CarouselWrapper>
-          <CarouselContent className="-ml-12">
-            {rows.map((item) => (
-              <CarouselItem
-                className="text-foreground cursor-pointer basis-3/4 sm:basis-1/3"
-                key={item + Math.random()}
-              >
-                <Image
-                  src={item}
-                  alt="group-trip"
-                  className="w-full sm:w-full object-cover rounded-[18px] sm:h-[279px]"
-                />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </CarouselWrapper>
+        {showLastRow ? (
+          <CarouselWrapper>
+            <CarouselContent className="-ml-12">
+              {rows.map((item) => (
+                <CarouselItem
+                  className="text-foreground cursor-pointer basis-3/4 sm:basis-1/3"
+                  key={item + Math.random()}
+                >
+                  <Image
+                    src={item}
+                    alt="group-trip"
+                    className="w-full sm:w-full object-cover rounded-[18px] sm:h-[279px]"
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </CarouselWrapper>
+        ) : null}
       </div>
     </section>
   );
