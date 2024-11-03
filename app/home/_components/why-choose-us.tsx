@@ -25,7 +25,7 @@ const WhyChooseUs = () => {
   return (
     <section className="px-5 py-10 sm:py-20 sm:pb-28 sm:px-[8%] bg-neutral-grey-100">
       <SectionWrapper>
-        <h3 className="text-[32px] font-medium sm:text-5xl text-center max-w-[318px] sm:max-w-[445px] mx-auto ">
+        <h3 className="text-[32px] font-medium sm:text-5xl text-center max-w-[318px] sm:max-w-[445px] mx-auto mb-5">
           Why choose us to curate your travel?
         </h3>
         <div className="mt-10 sm:mt-20 flex gap-10 justify-between w-full flex-col sm:flex-row">

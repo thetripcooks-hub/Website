@@ -62,7 +62,7 @@ const Itinerary = () => {
         <h3 className="text-[24px] leading-[29.26px] font-medium sm:text-[32px] sm:leading-[39.01px] mb-5 sm:mb-2.5">
           Itinerary
         </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-8 sm:gap-y-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-12">
           {itinerary.map((item) => {
             return (
               <div

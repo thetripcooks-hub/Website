@@ -1,4 +1,5 @@
 "use client";
+import { Toaster } from "@/components/ui";
 import { alexandria } from "@/app/font";
 import { cn } from "@/lib/utils";
 import React from "react";
@@ -29,6 +30,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
           {showNav ? <Navbar /> : null}
           {children}
         </ThemeProvider>
+        <Toaster richColors position="top-right" />
       </body>
     </html>
   );

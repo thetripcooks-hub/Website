@@ -10,15 +10,6 @@ import { DrawerDemo } from "./see-more-drawer";
 import book from "../img/whats-included/book.svg";
 import { useIsMobile } from "@/hooks";
 
-const SeeMore = ({ handleClick }: { handleClick: () => void }) => (
-  <p
-    role="button"
-    onClick={handleClick}
-    className="cursor-pointer underline text-base sm:leading-[19.5px] w-full text-center sm:w-fit sm:text-start"
-  >
-    See more
-  </p>
-);
 
 const WhatsIncluded = () => {
   const data: {

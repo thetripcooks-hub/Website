@@ -13,9 +13,13 @@ import React from "react";
 import TripCard from "@/components/ui/trip-card";
 import { useRouter } from "next/navigation";
 import SortByButton from "./sort-by";
+import { toast } from "sonner";
 
 const Destination = () => {
   const router = useRouter();
+  const handleAddToCart = () => {
+    toast.success("Added to cart");
+  };
   return (
     <div className="px-5 py-10 sm:py-20 text-white sm:px-[8%]">
       <SectionWrapper>
@@ -27,6 +31,7 @@ const Destination = () => {
               key={item}
               isDiscounted={index > 3}
               handleClick={() => router.push(`/trips/${index + 1}`)}
+              handleAddToCart={handleAddToCart}
             />
           ))}
         </section>

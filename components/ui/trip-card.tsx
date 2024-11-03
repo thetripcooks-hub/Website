@@ -7,14 +7,19 @@ import CartIcon from "~/img/shopping-cart.svg";
 const TripCard = ({
   isDiscounted = false,
   handleClick,
+  handleAddToCart,
 }: {
   isDiscounted?: boolean;
   handleClick: () => void;
+  handleAddToCart: () => void;
 }) => {
   return (
-    <div onClick={handleClick}>
+    <div>
       <div className="text-foreground cursor-pointer hidden sm:flex sm:flex-col relative">
-        <div className="bg-[#020E0B4D] rounded-full w-8 h-8 flex items-center justify-center absolute right-3 top-3">
+        <div
+          className="bg-[#020E0B4D] rounded-full w-8 h-8 flex items-center justify-center absolute right-3 top-3"
+          onClick={handleAddToCart}
+        >
           <Image src={CartIcon} width={18} height={18} alt="cart-icon" />
         </div>
         <Image
@@ -23,6 +28,7 @@ const TripCard = ({
           className="rounded-[18px] w-full sm:w-[291px]  object-cover lg:w-full h-[301px]"
           width={291}
           height={301}
+          onClick={handleClick}
         />
         <div className="flex flex-col gap-1 mt-2.5">
           <h5 className="text-lg">Athens Greece</h5>
@@ -41,7 +47,10 @@ const TripCard = ({
       </div>
 
       <div className="text-foreground cursor-pointer sm:hidden relative">
-        <div className="bg-[#020E0B4D] rounded-full w-8 h-8 flex items-center justify-center absolute right-3 top-3">
+        <div
+          className="bg-[#020E0B4D] rounded-full w-8 h-8 flex items-center justify-center absolute right-3 top-3"
+          onClick={handleAddToCart}
+        >
           <Image src={CartIcon} width={18} height={18} alt="cart-icon" />
         </div>
         <Image
@@ -50,6 +59,7 @@ const TripCard = ({
           className="rounded-[18px] w-full sm:w-[291px]  object-cover lg:w-full h-[301px]"
           width={291}
           height={301}
+          onClick={handleClick}
         />
         <div className="flex flex-col gap-1 mt-2.5">
           <h5 className="text-lg">Athens Greece</h5>

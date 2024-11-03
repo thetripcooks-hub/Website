@@ -13,9 +13,13 @@ import TripCard from "@/components/ui/trip-card";
 import CartIcon from "~/img/shopping-cart.svg";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
   const router = useRouter();
+  const handleAddToCart = () => {
+    toast.success("Added to cart");
+  };
   return (
     <section className="px-5 py-10 sm:py-20 sm:px-[8%]">
       <SectionWrapper>
@@ -28,6 +32,7 @@ const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
               key={index}
               isDiscounted={index > 3}
               handleClick={() => router.push(`/trips/${index}`)}
+              handleAddToCart={handleAddToCart}
             />
           ))}
         </div>
@@ -40,17 +45,16 @@ const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
                 <CarouselItem
                   className="text-foreground basis-4/5 cursor-pointer relative"
                   key={index}
-                  onClick={() => router.push(`/trips/${index}`)}
                 >
-                  <div className="bg-[#020E0B4D] rounded-full w-8 h-8 flex items-center justify-center absolute right-3 top-3">
+                  <div
+                    className="bg-[#020E0B4D] rounded-full w-8 h-8 flex items-center justify-center absolute right-3 top-3"
+                    onClick={handleAddToCart}
+                  >
                     <Image
                       src={CartIcon}
                       width={18}
                       height={18}
                       alt="cart-icon"
-                      onClick={(e) => {
-                        e.preventDefault();
-                      }}
                     />
                   </div>
                   <Image
@@ -59,6 +63,7 @@ const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
                     className="rounded-[18px] w-full sm:w-[291px]  object-cover lg:w-full"
                     width={291}
                     height={301}
+                    onClick={() => router.push(`/trips/${index}`)}
                   />
                   <div className="flex flex-col gap-1 mt-2.5">
                     <h5 className="text-lg">Athens Greece</h5>

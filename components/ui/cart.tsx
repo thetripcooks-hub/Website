@@ -19,6 +19,7 @@ import useCartStore from "@/stores/cartStore";
 import { pounds } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { SAMPLE_CHECKOUT_URL } from "@/constants";
+import Link from "next/link";
 
 const Cart = () => {
   const {
@@ -73,7 +74,7 @@ const Cart = () => {
         </div>
         <Separator />
         <div className="py-5 px-4 w-full">
-          {trips.map((trip) => {
+          {trips.slice(0, 2).map((trip) => {
             return (
               <div key={trip.id} className="w-full">
                 <div className="flex gap-2 py-2.5">
@@ -134,6 +135,11 @@ const Cart = () => {
               </div>
             );
           })}
+          <div className="flex justify-center">
+            <Link href="/cart" className="text-center w-fit">
+              See all
+            </Link>
+          </div>
         </div>
       </DropdownMenuContent>
     </DropdownMenu>

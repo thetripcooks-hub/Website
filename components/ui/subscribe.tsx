@@ -35,7 +35,7 @@ const SubcribeToNewsLetter = () => {
       <SectionWrapper className="flex flex-col gap-10 sm:gap-20">
         <div className="flex w-full justify-between flex-col sm:flex-row mb-5">
           <div>
-            <h3 className="text-xl text-[#000000]">
+            <h3 className="text-xl text-[#000000] font-medium">
               Subscribe to our Newsletter
             </h3>
             <p className="text-base text-neutral-subtext mt-4 sm:max-w-[337px]">

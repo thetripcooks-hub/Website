@@ -48,7 +48,7 @@ const ContactHero = () => {
   const onSubmit = () => {};
   return (
     <div className="px-5 py-10 sm:py-20 sm:px-[8%]">
-      <SectionWrapper className="flex flex-col sm:flex-row justify-between gap-5">
+      <SectionWrapper className="flex flex-col sm:flex-row justify-between gap-10">
         <div className="sm:max-w-[550px] w-full text-neutral-subtext sm:text-secondary-forest-green">
           <h4 className="font-semibold text-[36px] leading-[43.88px] text-neutral-text sm:text-[40px] sm:leading-[48.76px]">
             Let’s stay in touch..

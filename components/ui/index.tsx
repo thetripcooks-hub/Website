@@ -22,4 +22,5 @@ export * from "./skeleton";
 export * from "./autocomplete";
 export * from "./drawer";
 export * from "./textarea";
-export * from "./select"
+export * from "./select";
+export * from "./sonner";

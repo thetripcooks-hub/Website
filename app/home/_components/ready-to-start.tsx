@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 const ReadyToStart = () => {
   const router = useRouter();
   return (
-    <section className="bg-tripcook-pattern px-5 py-5 sm:py-24 sm:px-[8%] bg-cover bg-no-repeat bg-center  w-full">
+    <section className="bg-tripcook-pattern px-5 py-12 sm:py-24 sm:px-[8%] bg-cover bg-no-repeat bg-center  w-full">
       <SectionWrapper>
         <h3 className="text-4xl sm:text-6xl text-[#1A071B sm:max-w-[633px] font-semibold">
           Ready to Start Your Next Adventure?

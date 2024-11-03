@@ -25,7 +25,7 @@ export function DrawerDemo({
       <DrawerTrigger asChild>
         <p
           role="button"
-          className="cursor-pointer underline text-base sm:leading-[19.5px] w-full text-center sm:w-fit sm:text-start"
+          className="cursor-pointer underline text-base sm:leading-[19.5px] w-full text-center sm:w-fit sm:text-start text-secondary-irish-green sm:text-neutral-text"
         >
           See more
         </p>

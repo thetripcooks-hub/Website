@@ -16,7 +16,7 @@ const TravelWithOwners = () => {
           />
           <AvatarFallback>O</AvatarFallback>
         </Avatar>
-        <Avatar className="absolute left-[16px]">
+        <Avatar className="absolute left-[16px] hidden sm:block">
           <AvatarImage
             src="https://github.com/shadcn.png"
             height={54}
