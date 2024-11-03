@@ -136,7 +136,7 @@ const Cart = () => {
             );
           })}
           <div className="flex justify-center">
-            <Link href="/cart" className="text-center w-fit">
+            <Link href="/cart" className="text-center w-fit underline">
               See all
             </Link>
           </div>
