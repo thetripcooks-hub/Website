@@ -71,7 +71,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row sm:w-3/5 sm:justify-between sm:max-w-[600px] sm:gap-5 gap-12 mt-12 sm:mt-10">
+        <div className="flex flex-col sm:flex-row sm:w-3/5 sm:justify-between sm:max-w-[600px] gap-10 sm:gap-5 mb-12">
           {config.map((item, index) => (
             <div key={index}>
               <h3 className="text-[20px] leading-[24px] text-neutral-text">
