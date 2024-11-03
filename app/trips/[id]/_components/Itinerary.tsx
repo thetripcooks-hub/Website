@@ -64,7 +64,7 @@ const Itinerary = () => {
           Itinerary
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 gap-y-8 sm:gap-y-12">
-          {itinerary.map((item) => {
+          {itinerary.map((item, index) => {
             return (
               // <div
               //   key={item.day}
@@ -86,7 +86,7 @@ const Itinerary = () => {
               //     </p>
               //   </div>
               // </div>
-              <div>
+              <div key={index}>
                 <div className="text-foreground hidden sm:flex sm:flex-col relative">
                   <Image
                     src={item.coverImage}
