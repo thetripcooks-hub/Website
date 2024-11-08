@@ -1,7 +1,8 @@
 "use client";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
-import Cart from "./cart";
+import CartIcon from "~/img/cart.svg";
 
 interface MobilePageHeaderProps {
   title: string;
@@ -39,7 +40,14 @@ const MobilePageHeader = ({
         <h3>{title}</h3>
       </div>
 
-      {showCartBtn ? <Cart /> : null}
+      {showCartBtn ? (
+        <Image
+          src={CartIcon}
+          alt="cart-icon"
+          className="cursor-pointer h-[32px] sm:h-[46px]"
+          onClick={() => router.push("/cart")}
+        />
+      ) : null}
     </div>
   );
 };

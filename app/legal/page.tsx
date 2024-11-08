@@ -6,9 +6,12 @@ const Page = () => {
   return (
     <main>
       <div className="px-5 py-10 sm:px-[8%] text-neutral-subtext text-base leading-[19.5px]">
-        <h2 className="text-center text-[#020E0B] text-2xl leading-[29.26px] font-medium sm:leading-[48.76px] sm:text-[40px] mb-10">
+        {/* <h2 className="text-center text-[#020E0B] text-2xl leading-[29.26px] font-medium sm:leading-[48.76px] sm:text-[40px] mb-10">
           Our travel policy
-        </h2>
+        </h2> */}
+        <h1 className="text-4xl sm:text-5xl text-center font-semibold mb-10 text-neutral-text">
+          Our travel policy
+        </h1>
 
         <h6 className="font-semibold text-2xl leading-[29.26px] text-[#020E0B]">
           Privacy policy
@@ -41,12 +44,14 @@ const Page = () => {
           </p>
         </div>
 
-        <h6 className="font-semibold text-2xl leading-[29.26px] text-[#020E0B] mt-10 mb-5">
+        <h6 className="font-semibold text-2xl leading-[29.26px] text-[#020E0B] mt-14">
           Terms and Conditions
         </h6>
 
         <div className="mb-5">
-          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-8 mb-5">Liability</h4>
+          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-8 mb-5">
+            Liability
+          </h4>
           <p>
             When we provide services or products from third-party suppliers, we
             act as your representative in sourcing them based on the information
@@ -63,7 +68,9 @@ const Page = () => {
             omissions.
           </p>
 
-          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5">Travel Insurance</h4>
+          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5">
+            Travel Insurance
+          </h4>
 
           <p>
             Trip Cooks highly recommends that you purchase a comprehensive
@@ -78,7 +85,9 @@ const Page = () => {
             insurance policies and cannot accept liability for any losses.
           </p>
 
-          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5">Cancellation and Refund</h4>
+          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5">
+            Cancellation and Refund
+          </h4>
 
           <p>
             If you wish to cancel your booking, you must notify Trip Cooks in
@@ -89,7 +98,9 @@ const Page = () => {
             company, not with Trip Cooks.
           </p>
 
-          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5">Travel Documents</h4>
+          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5">
+            Travel Documents
+          </h4>
 
           <p>
             It is your responsibility to ensure that all necessary travel
@@ -99,7 +110,9 @@ const Page = () => {
             begins.
           </p>
 
-          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5">Itinerary Changes</h4>
+          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5">
+            Itinerary Changes
+          </h4>
           <p>
             Trip Cooks reserves the right to make changes to the itinerary,
             accommodations, or activities due to reasons beyond our control,
@@ -111,7 +124,9 @@ const Page = () => {
             resulting cost adjustments will be communicated and agreed upon.
           </p>
 
-          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5">Tripper Conduct</h4>
+          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5">
+            Tripper Conduct
+          </h4>
 
           <p>
             Trippers are expected to behave responsibly, ethically, and
@@ -121,7 +136,9 @@ const Page = () => {
             refund provided.
           </p>
 
-          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5">Health and Safety</h4>
+          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5">
+            Health and Safety
+          </h4>
 
           <p>
             Trippers are responsible for ensuring they are physically and
@@ -134,7 +151,9 @@ const Page = () => {
             journey.
           </p>
 
-          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5">Photography and Media</h4>
+          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5">
+            Photography and Media
+          </h4>
 
           <p>
             Trippers may be photographed or filmed during the trip. By booking a
@@ -144,10 +163,10 @@ const Page = () => {
             Trip Cooks may collect still and video images during the course of
             your holiday for advertising and promotional uses. By booking a trip
             with Trip Cooks, you agree that these images may be collected and
-            used at Trip Cooks&apos; discretion, including for commercial purposes.
-            The images may be cropped, altered, combined, or otherwise edited,
-            and you agree that Trip Cooks will retain ownership of all rights
-            associated with such images.
+            used at Trip Cooks&apos; discretion, including for commercial
+            purposes. The images may be cropped, altered, combined, or otherwise
+            edited, and you agree that Trip Cooks will retain ownership of all
+            rights associated with such images.
             <br /> <br />
             Trip Cooks reserves the right to assign, grant, transfer, or
             otherwise give to a third party the rights and ownership of any

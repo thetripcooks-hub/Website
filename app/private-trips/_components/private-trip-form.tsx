@@ -20,6 +20,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { z, ZodType } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { cn } from "@/lib/utils";
 
 type PrivateTripInformation = {
   email: string;
@@ -35,17 +36,17 @@ type PrivateTripInformation = {
 };
 
 export const PrivateTripSchema: ZodType<PrivateTripInformation> = z.object({
-  email: z.string({}).email({
+  email: z.string().email({
     message: "Please enter a valid email address",
   }),
-  firstName: z.string(),
-  lastName: z.string(),
-  country: z.string(),
-  noOfGuests: z.number(),
-  nationalitiesOfGuests: z.array(z.string()),
-  budgetPerPerson: z.string(),
+  firstName: z.string().min(2, "Name must be at least 2 characters"),
+  lastName: z.string().min(2, "Name must be at least 2 characters"),
+  country: z.string().min(2, "Required"),
+  noOfGuests: z.coerce.number().min(4, "Minimum of 4 guests"),
+  nationalitiesOfGuests: z.array(z.string()).min(1, "Required"),
+  budgetPerPerson: z.string().min(1, "Required"),
   proposedDate: z.string(),
-  currentCountry: z.string(),
+  currentCountry: z.string().min(2, "Required"),
   specialRequest: z.string(),
 });
 
@@ -141,10 +142,10 @@ const PrivateTripForm = () => {
                       defaultValue={field.value}
                     >
                       <FormControl>
-                        <SelectTrigger className="bg-[#F7F7F9] h-[59px] focus-visible:ring-0 border-none placeholder:text-[#ABABAB] text-base leading-[19.5px]">
+                        <SelectTrigger className="bg-[#F7F7F9] h-[59px] focus-visible:ring-0 border-none data-[placeholder]:text-[#ABABAB] text-base leading-[19.5px]">
                           <SelectValue
                             placeholder="Select country here"
-                            className="placeholder:text-[#ABABAB] "
+                            className="data-[placeholder]:text-[#ABABAB]"
                           />
                         </SelectTrigger>
                       </FormControl>
@@ -169,14 +170,34 @@ const PrivateTripForm = () => {
                 <FormItem>
                   <FormLabel>
                     How many people are coming on this trip? <br />
-                    (There should be a minimum of 4 guests per trip)*
+                    (There should be a minimum of 4 people per trip)*
                   </FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Enter number of guests here"
                       className="bg-[#F7F7F9] h-[59px] focus-visible:ring-0 border-none placeholder:text-[#ABABAB] text-base leading-[19.5px]"
                       type="number"
-                      min={4}
+                      // min={4}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="nationalitiesOfGuests"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    What are the nationalities of your guests?
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Enter their different nationalities"
+                      className="bg-[#F7F7F9] h-[59px] focus-visible:ring-0 border-none placeholder:text-[#ABABAB] text-base leading-[19.5px]"
                       {...field}
                     />
                   </FormControl>
@@ -190,15 +211,25 @@ const PrivateTripForm = () => {
               name="budgetPerPerson"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Enter budget here</FormLabel>
+                  <FormLabel>
+                    What is your budget for the trip? per person*
+                  </FormLabel>
                   <FormControl>
                     <div className="flex items-center bg-[#F7F7F9] h-[59px] rounded-l-md pl-3">
                       $
                       <Input
                         placeholder="Enter budget here"
                         className="bg-[#F7F7F9] h-[59px] focus-visible:ring-0 border-none placeholder:text-[#ABABAB] text-base leading-[19.5px] pl-1"
-                        type="number"
+                        type="text"
                         {...field}
+                        onChange={(e) => {
+                          const value = e.target.value.replace(/\D/g, "");
+                          field.onChange({
+                            target: {
+                              value: Number(value).toLocaleString(),
+                            },
+                          });
+                        }}
                       />
                     </div>
                   </FormControl>
@@ -212,11 +243,14 @@ const PrivateTripForm = () => {
               name="proposedDate"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>What date do you have planned?*</FormLabel>
+                  <FormLabel>What date do you have planned?</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Enter date here"
-                      className="bg-[#F7F7F9] h-[59px] focus-visible:ring-0 border-none placeholder:text-[#ABABAB] text-base leading-[19.5px]"
+                      className={cn(
+                        "bg-[#F7F7F9] h-[59px] focus-visible:ring-0 border-none data-[placeholder]:text-[#ABABAB] text-base leading-[19.5px]",
+                        !field.value.length && "text-[#ABABAB]"
+                      )}
                       type="date"
                       {...field}
                     />
@@ -252,14 +286,14 @@ const PrivateTripForm = () => {
                 <FormItem>
                   <FormLabel>
                     Any special requests? Feel free to be as detailed as
-                    possible*
+                    possible
                   </FormLabel>
                   <FormControl>
                     <Textarea
                       placeholder="Enter message here"
                       className="bg-[#F7F7F9]  focus-visible:ring-0 border-none placeholder:text-[#ABABAB] text-base leading-[19.5px]"
                       {...field}
-                      rows={5}
+                      rows={8}
                     />
                   </FormControl>
                   <FormMessage />

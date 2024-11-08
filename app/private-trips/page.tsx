@@ -11,7 +11,7 @@ const Page = () => {
       <PrivateTripHero />
       <ViewOfLocation title="Views from our last trips" />
       <Reviews />
-      <ReadyToStart />
+      {/* <ReadyToStart /> */}
       <SubcribeToNewsLetter />
       <Footer />
     </main>

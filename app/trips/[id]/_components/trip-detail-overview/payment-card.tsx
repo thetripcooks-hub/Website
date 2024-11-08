@@ -4,10 +4,12 @@ import airplane from "../img/whats-included/airplane.svg";
 import house from "../img/whats-included/house.svg";
 import money from "../img/payment-card/money.svg";
 import Image from "next/image";
-import Link from "next/link";
 import PaymentTerms from "./payment-terms";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const PaymentCard = () => {
+  const router = useRouter();
   const data = [
     {
       icon: airplane,
@@ -31,9 +33,7 @@ const PaymentCard = () => {
           </span>
           <span className="text-[32px] leading-[39.01px]">£3,000</span>
         </p>
-        <p className="font-medium text-[16px] leading-[19.5px]">
-          10% off
-        </p>
+        <p className="font-medium text-[16px] leading-[19.5px]">10% off</p>
 
         <p className="items-center flex text-[16px] leading-[19.5px] gap-2.5 text-neutral-subtext">
           <span>12 Days</span>
@@ -63,8 +63,14 @@ const PaymentCard = () => {
             </p>
           </div>
         ))}
-        <Button className="w-full">Book Now</Button>
-        <Button variant="outline" className="w-full border-[#020E0B]">
+        <Button className="w-full" onClick={() => router.push("/cart")}>
+          Book Now
+        </Button>
+        <Button
+          variant="outline"
+          className="w-full border-[#020E0B]"
+          onClick={() => toast.success("Added to cart")}
+        >
           Add to Cart
         </Button>
       </div>

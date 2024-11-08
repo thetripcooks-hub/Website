@@ -96,7 +96,7 @@ const Reviews = () => {
                         />
                       </div>
                     </div>
-                    <div className="h-full">
+                    <div className="h-full mt-12 sm:mt-0">
                       <Image
                         src={HotAirBallon}
                         alt="review image"

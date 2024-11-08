@@ -40,7 +40,7 @@ const Page = () => {
               {trips.map((trip) => (
                 <div className="w-full flex justify-between" key={trip.id}>
                   <h6 className="text-neutral-subtext text-[16px] leading-[19.5px] font-alexandria font-normal max-w-[192px]">
-                    Deposit for trip to {trip.location} ({trip.quantity} guest
+                    Deposit for trip to {trip.location} ({trip.quantity} slot
                     {trip.quantity > 1 ? "s" : ""})
                   </h6>
                   <h3 className="text-[#000000] font-semibold text-2xl leading-[29.26px]">

@@ -25,7 +25,7 @@ const MobileNav = ({
   const router = useRouter();
   return (
     <div className="sm:hidden">
-      <DropdownMenu modal={false} open={open} onOpenChange={setOpen}>
+      <DropdownMenu open={open} onOpenChange={setOpen}>
         <DropdownMenuTrigger asChild>
           <Image src={Menu} alt="hamburger-menu" />
         </DropdownMenuTrigger>

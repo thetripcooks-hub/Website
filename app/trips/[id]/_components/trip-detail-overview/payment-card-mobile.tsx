@@ -1,8 +1,11 @@
 import { Button, Card } from "@/components/ui";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 import React from "react";
+import { toast } from "sonner";
 
 const PaymentCardMobile = () => {
+  const router = useRouter();
   return (
     <Card
       className={cn(
@@ -29,8 +32,14 @@ const PaymentCardMobile = () => {
         </p>
       </div>
       <div className="flex w-full gap-2">
-        <Button className="w-full">Book Now</Button>
-        <Button variant="outline" className="w-full border-[#020E0B]">
+        <Button className="w-full" onClick={() => router.push("/cart")}>
+          Book Now
+        </Button>
+        <Button
+          variant="outline"
+          className="w-full border-[#020E0B]"
+          onClick={() => toast.success("Added to cart")}
+        >
           Add to Cart
         </Button>
       </div>

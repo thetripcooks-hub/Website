@@ -1,29 +1,51 @@
 import SectionWrapper from "@/app/home/_components/section-wrapper";
 import React from "react";
 import PrivateTripForm from "./private-trip-form";
+import { arial } from "@/app/font";
+import { cn } from "@/lib/utils";
 
 const PrivateTripHero = () => {
   return (
-    <div className="px-5 py-10 sm:py-20 sm:px-[8%]">
-      <SectionWrapper className="flex flex-col sm:flex-row justify-between gap-5">
-        <div className="sm:max-w-[550px] w-full text-neutral-subtext sm:text-secondary-forest-green">
-          <h4 className="font-medium text-[32px] leading-[39.01px] text-neutral-text sm:text-[40px] sm:leading-[48.76px]">
-            Need a solo getaway?
-          </h4>
-          <div className="text-base leading-[29px] text-neutral-subtext mt-5">
-            <p>
-              Group trips are amazing, private trips are on a whole new level.
+    <>
+      <div className="bg-neutral-grey-100  bg-hero-mobile sm:bg-hero-desktop bg-no-repeat bg-cover h-[50svh]">
+        <main className="pt-10 sm:pt-[65px]">
+          <div className="px-5 flex flex-col items-center justify-center">
+            <h3 className="text-center text-white text-4xl sm:text-5xl font-semibold max-w-[291px] sm:max-w-[393px]">
+              Private trips on Trip cooks
+            </h3>
+            <p
+              className={cn(
+                "mt-5 sm:mt-12 max-w-[288px] sm:max-w-[548px] text-center text-white text-xl sm:text-2xl font-normal",
+                arial.className
+              )}
+            >
               You can book a private trip and enjoy an exclusive experience with
-              you and your friends or loved ones, to your selected destination.
-              Please fill out the form below and a member of our team will be in
-              touch.
+              you and your friends or loved ones, to your selected destination.{" "}
             </p>
           </div>
-        </div>
-        {/* private trip from */}
-        <PrivateTripForm />
-      </SectionWrapper>
-    </div>
+        </main>
+      </div>
+      <div className="px-5 py-10 sm:py-20 sm:px-[8%]">
+        <SectionWrapper className="flex flex-col sm:flex-row justify-between gap-5">
+          <div className="sm:max-w-[550px] w-full text-neutral-subtext sm:text-secondary-forest-green">
+            <h4 className="font-medium text-[24px] leading-[29.26px] text-neutral-text sm:text-[32px] sm:leading-[39.01px]">
+              Need a solo getaway?
+            </h4>
+            <div className="text-base leading-[29px] text-neutral-subtext mt-5">
+              <p>
+                Group trips are amazing, private trips are on a whole new level.
+                You can book a private trip and enjoy an exclusive experience
+                with you and your friends or loved ones, to your selected
+                destination. Please fill out the form below and a member of our
+                team will be in touch.
+              </p>
+            </div>
+          </div>
+          {/* private trip from */}
+          <PrivateTripForm />
+        </SectionWrapper>
+      </div>
+    </>
   );
 };
 

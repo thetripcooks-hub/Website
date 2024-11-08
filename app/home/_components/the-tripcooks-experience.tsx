@@ -30,7 +30,11 @@ const CarouselWrapper = ({ children }: { children: ReactNode }) => (
   </Carousel>
 );
 
-const TheTripCooksExperience = ({ showLastRow }: { showLastRow?: boolean }) => {
+const TheTripCooksExperience = ({
+  showLastRow = true,
+}: {
+  showLastRow?: boolean;
+}) => {
   return (
     <section>
       <h3 className="text-[32px] leading-[39.01px] font-medium sm:text-5xl px-5 pt-5 sm:pt-10 sm:px-[8%]">

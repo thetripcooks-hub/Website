@@ -119,7 +119,7 @@ const ContactHero = () => {
                           // type="text"
                           placeholder="Enter message here"
                           {...field}
-                          rows={5}
+                          rows={8}
                           className="bg-[#F7F7F9] focus-visible:ring-0 border-none placeholder:text-[#ABABAB] text-base leading-[19.5px]"
                         />
                       </FormControl>
