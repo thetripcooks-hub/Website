@@ -29,14 +29,14 @@ const MobileNav = ({
         <DropdownMenuTrigger asChild>
           <Image src={Menu} alt="hamburger-menu" />
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-screen rounded-none border-none p-5 shadow-top-none sm:hidden -top-[75px] absolute -right-[36px] z-[99]">
+        <DropdownMenuContent className="w-screen rounded-none border-none p-5 py-10 h-[85vh] shadow-top-none sm:hidden -top-[75px] absolute -right-[36px] z-[99]">
           <div className="flex justify-between my-6">
             <Link href="/home" className="cursor-pointer">
               <Image src={Logo} alt="logo" />
             </Link>
             <ModeToggle />
           </div>
-          <section className="flex flex-col gap-6">
+          <section className="flex flex-col gap-6 h-[80%] justify-between">
             {[
               ...navConfig,
               {
