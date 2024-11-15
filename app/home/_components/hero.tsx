@@ -6,9 +6,34 @@ import { cn } from "@/lib/utils";
 // import Navbar from "@/components/ui/navbar";
 
 const HomeHero = () => {
+  const [value, setValue] = React.useState("");
+  const [selectedValue, setSelectedValue] = React.useState("next.js");
+  const frameworks = [
+    {
+      value: "next.js",
+      label: "Next.js",
+    },
+    {
+      value: "sveltekit",
+      label: "SvelteKit",
+    },
+    {
+      value: "nuxt.js",
+      label: "Nuxt.js",
+    },
+    {
+      value: "remix",
+      label: "Remix",
+    },
+    {
+      value: "astro",
+      label: "Astro",
+    },
+  ];
+
   return (
-    <div className="bg-neutral-grey-100 h-[60vh] sm:min-h-screen bg-hero-mobile sm:bg-hero-desktop bg-no-repeat bg-cover 2xl:min-h-[65vh]">
-      <main className="mt-5 sm:mt-[65px]">
+    <div className="bg-neutral-grey-100 h-[65vh] sm:h-[calc(100vh-95px)] bg-hero-mobile sm:bg-hero-desktop bg-no-repeat bg-cover 2xl:h-[55vh]">
+      <main className="pt-14 sm:pt-[75px]">
         <div className="px-5 flex flex-col items-center justify-center">
           <h3 className="text-center text-white text-4xl sm:text-5xl font-semibold sm:max-w-[383px] sm:px-5 max-w-[291px]">
             Group trips, The easy way
@@ -22,7 +47,14 @@ const HomeHero = () => {
             Join group trips or curate a trip of your own.
           </p>
         </div>
-        <TripSearch />
+        <TripSearch
+          items={frameworks}
+          onSearchValueChange={(value) => setValue(value)}
+          onSelectedValueChange={(value) => setSelectedValue(value)}
+          searchValue={value}
+          selectedValue={selectedValue}
+          isLoading={false}
+        />
       </main>
     </div>
   );

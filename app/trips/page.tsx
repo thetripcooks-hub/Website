@@ -6,13 +6,44 @@ import { SubcribeToNewsLetter, Footer } from "@/components/ui";
 import Destination from "./_components/destination";
 
 const Page = () => {
+  const [value, setValue] = React.useState("");
+  const [selectedValue, setSelectedValue] = React.useState("next.js");
+  const frameworks = [
+    {
+      value: "next.js",
+      label: "Next.js",
+    },
+    {
+      value: "sveltekit",
+      label: "SvelteKit",
+    },
+    {
+      value: "nuxt.js",
+      label: "Nuxt.js",
+    },
+    {
+      value: "remix",
+      label: "Remix",
+    },
+    {
+      value: "astro",
+      label: "Astro",
+    },
+  ];
   return (
     <main className={cn("bg-white w-full")}>
       <header>
         <h1 className="text-4xl sm:text-5xl text-center font-semibold my-5 sm:mt-20 text-neutral-text">
           Where to?..
         </h1>
-        <TripSearch />
+        <TripSearch
+          items={frameworks}
+          onSearchValueChange={(value) => setValue(value)}
+          onSelectedValueChange={(value) => setSelectedValue(value)}
+          searchValue={value}
+          selectedValue={selectedValue}
+          isLoading={false}
+        />
       </header>
       <Destination />
       {/* <ReadyToStart /> */}
