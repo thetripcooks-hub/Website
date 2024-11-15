@@ -5,6 +5,7 @@ import img1 from "./img/itinerary/1.svg";
 import img2 from "./img/itinerary/2.svg";
 import Image from "next/image";
 import TripCard from "@/components/ui/trip-card";
+import useTripStore from "@/stores/trip-store";
 
 const itinerary: {
   day: number;
@@ -57,6 +58,8 @@ const itinerary: {
 ];
 
 const Itinerary = () => {
+  // const { selectedTrip } = useTripStore();
+  // const 
   return (
     <div className="px-5 sm:py-10 py-12 sm:mb-16 text-neutral-text sm:px-[8%]">
       <SectionWrapper>

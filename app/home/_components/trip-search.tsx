@@ -140,7 +140,7 @@ function TripSearch<T extends string>({
               <>
                 <CommandGroup>
                   {items?.map((option, index) => (
-                    <>
+                    <div key={option.value}>
                       <CommandItem
                         key={option.value}
                         value={option.value}
@@ -158,7 +158,7 @@ function TripSearch<T extends string>({
                         {option.label}
                       </CommandItem>
                       {items.length > 0 && <CommandSeparator />}
-                    </>
+                    </div>
                   ))}
                 </CommandGroup>
                 <CommandGroup>

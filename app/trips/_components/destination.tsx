@@ -14,23 +14,25 @@ import TripCard from "@/components/ui/trip-card";
 import { useRouter } from "next/navigation";
 import SortByButton from "./sort-by";
 import { toast } from "sonner";
+import useTripStore from "@/stores/trip-store";
 
 const Destination = () => {
   const router = useRouter();
   const handleAddToCart = () => {
     toast.success("Added to cart");
   };
+  const { trips } = useTripStore();
   return (
     <div className="px-5 py-10 sm:py-20 text-white sm:px-[8%]">
       <SectionWrapper>
         <SortByButton />
 
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 gap-y-8 sm:gap-y-12">
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item, index) => (
+          {trips.map((item) => (
             <TripCard
-              key={item}
-              isDiscounted={index > 3}
-              handleClick={() => router.push(`/trips/${index + 1}`)}
+              key={item.sys.id}
+              item={item}
+              handleClick={() => router.push(`/trips/${item.sys.id}`)}
               handleAddToCart={handleAddToCart}
             />
           ))}

@@ -11,7 +11,11 @@ import {
 function makeClient() {
   const httpLink = new HttpLink({
     // this needs to be an absolute url, as relative urls cannot be used in SSR
-    uri: "https://example.com/api/graphql",
+    uri: `https://graphql.contentful.com/content/v1/spaces/bi3cvaccr24r`,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer qaC0b9QKLL-6ntI-5KFjL90Il0L9NzqfUlBEpfVQ8Cc`,
+    },
     // you can disable result caching here if you want to
     // (this does not work if you are rendering your page with `export const dynamic = "force-static"`)
     fetchOptions: { cache: "no-store" },

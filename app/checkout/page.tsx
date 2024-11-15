@@ -121,7 +121,7 @@ const Page = () => {
                   <p className="text-neutral-subtext">
                     Refunds are subject to{" "}
                     <Link
-                      href="#"
+                      href="/legal"
                       className="text-secondary-irish-green leading-[17.07px]"
                     >
                       terms and conditions.
