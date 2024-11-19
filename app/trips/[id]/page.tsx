@@ -2,7 +2,6 @@
 import { useInView } from "react-intersection-observer";
 import Reviews from "@/app/home/_components/reviews";
 import { SubcribeToNewsLetter, Footer } from "@/components/ui";
-import Navbar from "@/components/ui/navbar";
 import { cn } from "@/lib/utils";
 import React, { useEffect } from "react";
 import ViewOfLocation from "./_components/view-of-location";
@@ -13,7 +12,7 @@ import MobilePageHeader from "@/components/ui/mobile-page-header";
 import { useHideNavOnMobile } from "@/hooks";
 import { queryTripById } from "@/queries/trips-query";
 import { TripByIdResponse } from "@/types/trip";
-import { useSuspenseQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { useParams } from "next/navigation";
 import useTripStore from "@/stores/trip-store";
 
@@ -22,13 +21,13 @@ const Page = () => {
   const { setSelectedTrip, selectedTrip } = useTripStore();
   useHideNavOnMobile();
   const { ref, inView } = useInView();
-  const { data: tripData }: TripByIdResponse = useSuspenseQuery(
+  const { data: tripData } = useQuery<TripByIdResponse>(
     queryTripById(id as string)
   );
 
   useEffect(() => {
-    setSelectedTrip(tripData.trip);
-  }, [tripData]);
+    tripData && setSelectedTrip(tripData?.trip);
+  }, [tripData, setSelectedTrip]);
   return (
     selectedTrip && (
       <main className={cn("bg-white w-full")}>

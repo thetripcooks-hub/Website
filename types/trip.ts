@@ -40,15 +40,11 @@ export type Itinerary = {
 export type TripType = typeof sampleTrip;
 
 export interface AllTripsResponse {
-  data: {
-    tripCollection: {
-      items: TripType[];
-    };
+  tripCollection: {
+    items: TripType[];
   };
 }
 
 export interface TripByIdResponse {
-  data: {
-    trip: TripType;
-  };
+  trip: TripType;
 }

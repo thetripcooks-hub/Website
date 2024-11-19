@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
-import React from "react";
-import img from "~/img/public-trip.svg";
+import React, { Suspense } from "react";
 import {
   Button,
   Carousel,
@@ -16,85 +15,93 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import useTripStore from "@/stores/trip-store";
 import { formatTripDate, percentage, pounds } from "@/lib/utils";
+import { Loader } from "lucide-react";
 
 const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
   const router = useRouter();
   const handleAddToCart = () => {
     toast.success("Added to cart");
   };
-  const { trips } = useTripStore();
+  const { trips, loading } = useTripStore();
   return (
     <section className="px-5 py-10 sm:py-20 sm:px-[8%]">
       <SectionWrapper>
         <h3 className="text-[32px] font-medium sm:text-5xl">Upcoming Trips</h3>
-
-        {/* desktop */}
-        <div className="hidden sm:grid mt-10 grid-cols-3 gap-10">
-          {/* (isCart ? 3 : 6) */}
-          {trips.map((trip, index) => (
-            <TripCard
-              key={trip.sys.id}
-              handleClick={() => router.push(`/trips/${trip.sys.id}`)}
-              item={trip}
-              handleAddToCart={handleAddToCart}
-            />
-          ))}
-        </div>
-
-        {/* mobile */}
-        <div className="mt-5 sm:hidden flex flex-col gap-10">
-          <Carousel className="w-full">
-            <CarouselContent>
+        {loading ? (
+          <div className="w-full h-[300px] flex justify-center items-center">
+            <Loader className="text-secondary-irish-green animate-spin" />
+          </div>
+        ) : (
+          <>
+            {/* desktop */}
+            <div className="hidden sm:grid mt-10 grid-cols-3 gap-10">
+              {/* (isCart ? 3 : 6) */}
               {trips.map((trip, index) => (
-                <CarouselItem
-                  className="text-foreground basis-4/5 cursor-pointer relative"
+                <TripCard
                   key={trip.sys.id}
-                >
-                  <div
-                    className="bg-[#020E0B4D] rounded-full w-8 h-8 flex items-center justify-center absolute right-3 top-3"
-                    onClick={handleAddToCart}
-                  >
-                    <Image
-                      src={CartIcon}
-                      width={18}
-                      height={18}
-                      alt="cart-icon"
-                    />
-                  </div>
-                  <Image
-                    src={trip.bannerImagesCollection.items[0].url}
-                    alt="img"
-                    className="rounded-[18px] w-full sm:w-[291px]  object-cover h-[285.41px] lg:w-full"
-                    width={291}
-                    height={301}
-                    onClick={() => router.push(`/trips/${trip.sys.id}`)}
-                  />
-                  <div className="flex flex-col gap-1 mt-2.5">
-                    <h5 className="text-lg">{trip.location}</h5>
-                    <p className="text-sm text-neutral-grey-500">
-                      {formatTripDate(trip)}
-                    </p>
-                    <div className="flex gap-1 items-center">
-                      {trip.discount && (
-                        <h3 className="font-medium text-xl text-neutral-grey-500 line-through">
-                          {pounds.format(trip.fullAmount)}
-                        </h3>
-                      )}
-                      <h3 className="font-medium text-xl">
-                        {trip.discount
-                          ? pounds.format(
-                              trip.fullAmount -
-                                percentage(trip.discount, trip.fullAmount)
-                            )
-                          : pounds.format(trip.fullAmount)}
-                      </h3>
-                    </div>
-                  </div>
-                </CarouselItem>
+                  handleClick={() => router.push(`/trips/${trip.sys.id}`)}
+                  item={trip}
+                  handleAddToCart={handleAddToCart}
+                />
               ))}
-            </CarouselContent>
-          </Carousel>
-        </div>
+            </div>
+
+            {/* mobile */}
+            <div className="mt-5 sm:hidden flex flex-col gap-10">
+              <Carousel className="w-full">
+                <CarouselContent>
+                  {trips.map((trip, index) => (
+                    <CarouselItem
+                      className="text-foreground basis-4/5 cursor-pointer relative"
+                      key={trip.sys.id}
+                    >
+                      <div
+                        className="bg-[#020E0B4D] rounded-full w-8 h-8 flex items-center justify-center absolute right-3 top-3"
+                        onClick={handleAddToCart}
+                      >
+                        <Image
+                          src={CartIcon}
+                          width={18}
+                          height={18}
+                          alt="cart-icon"
+                        />
+                      </div>
+                      <Image
+                        src={trip.bannerImagesCollection.items[0].url}
+                        alt="img"
+                        className="rounded-[18px] w-full sm:w-[291px]  object-cover h-[285.41px] lg:w-full"
+                        width={291}
+                        height={301}
+                        onClick={() => router.push(`/trips/${trip.sys.id}`)}
+                      />
+                      <div className="flex flex-col gap-1 mt-2.5">
+                        <h5 className="text-lg">{trip.location}</h5>
+                        <p className="text-sm text-neutral-grey-500">
+                          {formatTripDate(trip)}
+                        </p>
+                        <div className="flex gap-1 items-center">
+                          {trip.discount && (
+                            <h3 className="font-medium text-xl text-neutral-grey-500 line-through">
+                              {pounds.format(trip.fullAmount)}
+                            </h3>
+                          )}
+                          <h3 className="font-medium text-xl">
+                            {trip.discount
+                              ? pounds.format(
+                                  trip.fullAmount -
+                                    percentage(trip.discount, trip.fullAmount)
+                                )
+                              : pounds.format(trip.fullAmount)}
+                          </h3>
+                        </div>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+            </div>
+          </>
+        )}
 
         <div className="w-full flex justify-center">
           <Link href="/trips">

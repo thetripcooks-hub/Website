@@ -11,14 +11,14 @@ import {
 function makeClient() {
   const httpLink = new HttpLink({
     // this needs to be an absolute url, as relative urls cannot be used in SSR
-    uri: `https://graphql.contentful.com/content/v1/spaces/bi3cvaccr24r`,
+    uri: `https://graphql.contentful.com/content/v1/spaces/${process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID}`,
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer qaC0b9QKLL-6ntI-5KFjL90Il0L9NzqfUlBEpfVQ8Cc`,
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN}`,
     },
     // you can disable result caching here if you want to
     // (this does not work if you are rendering your page with `export const dynamic = "force-static"`)
-    fetchOptions: { cache: "no-store" },
+    fetchOptions: { cache: "force-cache" },
     // you can override the default `fetchOptions` on a per query basis
     // via the `context` property on the options passed as a second argument
     // to an Apollo Client data fetching hook, e.g.:

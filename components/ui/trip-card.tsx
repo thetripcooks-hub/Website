@@ -27,6 +27,7 @@ const TripCard = ({
         <Image
           src={item.bannerImagesCollection.items[0].url}
           alt="img"
+          priority
           className="rounded-[18px] w-full sm:w-[291px]  object-cover lg:w-full h-[301px]"
           width={291}
           height={301}

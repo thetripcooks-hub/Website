@@ -34,7 +34,7 @@ const SortByButton = () => {
               sortKey && "pr-4"
             )}
           >
-            <DropdownMenuTrigger>
+            <DropdownMenuTrigger asChild>
               <Button
                 variant="outline"
                 className="sm:flex text-neutral-text border-none gap-2.5 items-center"

@@ -10,20 +10,10 @@ import TravelChef from "./_components/travel-chef";
 import UpcomingTrips from "./_components/upcoming-trip";
 import WhyChooseUs from "./_components/why-choose-us";
 import { HomeHero } from "./_components";
-import { queryGetAllTrips, queryTripById } from "@/queries/trips-query";
-import { useSuspenseQuery } from "@apollo/client";
-import { useEffect } from "react";
-import { AllTripsResponse } from "@/types/trip";
-import useTripStore from "@/stores/trip-store";
+import useTrips from "@/hooks/trips/useTrips";
 
 export default function Home() {
-  const { setTrips } = useTripStore();
-  const { data }: AllTripsResponse = useSuspenseQuery(queryGetAllTrips);
-
-  useEffect(() => {
-    setTrips(data.tripCollection.items ?? []);
-  }, [data]);
-
+  useTrips();
   return (
     <main className="flex min-h-screen flex-col pb-10 sm:pb-20">
       <HomeHero />

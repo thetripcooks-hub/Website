@@ -1,12 +1,14 @@
-"use client"
+"use client";
 import { cn } from "@/lib/utils";
 import TripSearch from "@/app/home/_components/trip-search";
 import { SubcribeToNewsLetter, Footer } from "@/components/ui";
 // import ReadyToStart from "@/app/home/_components/ready-to-start";
 import Destination from "./_components/destination";
 import { useState } from "react";
+import useTrips from "@/hooks/trips/useTrips";
 
 const Page = () => {
+  useTrips();
   const [value, setValue] = useState("");
   const [selectedValue, setSelectedValue] = useState("next.js");
   const frameworks = [

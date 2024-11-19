@@ -67,8 +67,8 @@ const InstallmentItem = () => {
               <TooltipArrow fill="white" stroke="#E1E6EF" strokeWidth={2} />
               Pay {pounds.format(selectedTrip.downPayment)} today and save your
               spot on this trip.
-              {selectedTrip.installments.map((installment) => (
-                <p>
+              {selectedTrip.installments.map((installment, index) => (
+                <p key={index}>
                   <br />
                   {pounds.format(Number(installment.amount))} due{" "}
                   {dayjs(installment.date).format("Do MMMM, YYYY")}
