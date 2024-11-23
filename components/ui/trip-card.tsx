@@ -1,5 +1,6 @@
 "use client";
 import { pounds, formatTripDate, percentage } from "@/lib/utils";
+import { CartItem } from "@/types/cart";
 import { TripType } from "@/types/trip";
 import Image from "next/image";
 import React from "react";
@@ -13,7 +14,7 @@ const TripCard = ({
 }: {
   handleClick: () => void;
   handleAddToCart: () => void;
-  item: TripType;
+  item: CartItem;
 }) => {
   return (
     <div>

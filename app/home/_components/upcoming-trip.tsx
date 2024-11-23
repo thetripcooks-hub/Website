@@ -16,13 +16,31 @@ import { toast } from "sonner";
 import useTripStore from "@/stores/trip-store";
 import { formatTripDate, percentage, pounds } from "@/lib/utils";
 import { Loader } from "lucide-react";
+import useCartStore from "@/stores/cartStore";
+import { CartItem } from "@/types/cart";
+import { useIsMobile } from "@/hooks";
 
 const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
+  const isMobile = useIsMobile(640);
   const router = useRouter();
-  const handleAddToCart = () => {
+
+  const { addToCart, setShowCart, showCart } = useCartStore();
+
+  const handleAddToCart = (item: CartItem) => {
+    if (!showCart && !isMobile) {
+      setShowCart(true);
+    }
     toast.success("Added to cart");
+    addToCart(item);
   };
   const { trips, loading } = useTripStore();
+
+  const formatttedTrips =
+    trips?.map((x) => ({
+      ...x,
+      quantity: 1,
+    })) ?? [];
+
   return (
     <section className="px-5 py-10 sm:py-20 sm:px-[8%]">
       <SectionWrapper>
@@ -36,12 +54,12 @@ const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
             {/* desktop */}
             <div className="hidden sm:grid mt-10 grid-cols-3 gap-10">
               {/* (isCart ? 3 : 6) */}
-              {trips.map((trip, index) => (
+              {formatttedTrips.slice(0, 3).map((trip, index) => (
                 <TripCard
                   key={trip.sys.id}
                   handleClick={() => router.push(`/trips/${trip.sys.id}`)}
                   item={trip}
-                  handleAddToCart={handleAddToCart}
+                  handleAddToCart={() => handleAddToCart(trip)}
                 />
               ))}
             </div>
@@ -50,14 +68,14 @@ const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
             <div className="mt-5 sm:hidden flex flex-col gap-10">
               <Carousel className="w-full">
                 <CarouselContent>
-                  {trips.map((trip, index) => (
+                  {formatttedTrips.map((trip, index) => (
                     <CarouselItem
                       className="text-foreground basis-4/5 cursor-pointer relative"
                       key={trip.sys.id}
                     >
                       <div
                         className="bg-[#020E0B4D] rounded-full w-8 h-8 flex items-center justify-center absolute right-3 top-3"
-                        onClick={handleAddToCart}
+                        onClick={() => handleAddToCart(trip)}
                       >
                         <Image
                           src={CartIcon}

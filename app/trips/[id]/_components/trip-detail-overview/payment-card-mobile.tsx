@@ -1,14 +1,12 @@
+"use client";
 import { Button, Card } from "@/components/ui";
+import usePaymentCard from "@/hooks/payment/usePaymentCard";
 import { cn, pounds } from "@/lib/utils";
-import useTripStore from "@/stores/trip-store";
 import dayjs from "dayjs";
-import { useRouter } from "next/navigation";
 import React from "react";
-import { toast } from "sonner";
 
 const PaymentCardMobile = () => {
-  const router = useRouter();
-  const { selectedTrip } = useTripStore();
+  const { selectedTrip, handleAddToCart, handlePay } = usePaymentCard();
   return (
     selectedTrip && (
       <Card
@@ -46,13 +44,13 @@ const PaymentCardMobile = () => {
           </p>
         </div>
         <div className="flex w-full gap-2">
-          <Button className="w-full" onClick={() => router.push("/cart")}>
+          <Button className="w-full" onClick={handlePay}>
             Book Now
           </Button>
           <Button
             variant="outline"
             className="w-full border-[#020E0B]"
-            onClick={() => toast.success("Added to cart")}
+            onClick={handleAddToCart}
           >
             Add to Cart
           </Button>

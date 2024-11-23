@@ -1,5 +1,4 @@
 import React from "react";
-import dayjs from "dayjs";
 import SampleCartIcon from "~/sample-cart-image.svg";
 import CartIcon from "~/img/cart.svg";
 import CashIn from "../../components/icons/svg/cash-in.svg";
@@ -16,23 +15,29 @@ import { Button } from "./button";
 import { CardDescription, CardHeader, CardTitle } from "./card";
 import { Separator } from "./separator";
 import useCartStore from "@/stores/cartStore";
-import { pounds } from "@/lib/utils";
+import { formatTripDate, pounds } from "@/lib/utils";
 import { useRouter } from "next/navigation";
-import { SAMPLE_CHECKOUT_URL } from "@/constants";
 import Link from "next/link";
+import { TripType } from "@/types/trip";
+import useStripe from "@/hooks/payment/useStripe";
 
 const Cart = () => {
   const {
-    trips,
+    items: trips,
     incrementQuantity,
     decrementQuantity,
     removeFromCart,
     getTotalPrice,
+    showCart,
+    setShowCart,
   } = useCartStore();
   const router = useRouter();
+  const { handlePay } = useStripe({
+    items: trips,
+  });
 
   return (
-    <DropdownMenu modal={false}>
+    <DropdownMenu modal={false} open={showCart} onOpenChange={setShowCart}>
       <DropdownMenuTrigger asChild>
         <Image
           src={CartIcon}
@@ -40,7 +45,12 @@ const Cart = () => {
           className="cursor-pointer h-[32px] sm:h-[46px]"
         />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="sm:max-w-[414px] shadow-none px-0 mr-2 z-[99]">
+      <DropdownMenuContent
+        className="sm:max-w-[414px] shadow-none px-0 mr-2 z-[99]"
+        onMouseLeave={() => {
+          setShowCart(false);
+        }}
+      >
         <CardHeader className="p-5">
           <CardTitle className="text-[16px] leading-[19.5px] font-medium">
             Total Price:{" "}
@@ -58,7 +68,7 @@ const Cart = () => {
             </Button>
             <Button
               className="max-w-[179px] w-full h-[44.5px] px-2 min-w-min"
-              onClick={() => router.push(SAMPLE_CHECKOUT_URL)}
+              onClick={handlePay}
             >
               Proceed to checkout
             </Button>
@@ -76,9 +86,17 @@ const Cart = () => {
         <div className="py-5 px-4 w-full">
           {trips.slice(0, 2).map((trip) => {
             return (
-              <div key={trip.id} className="w-full">
+              <div key={trip.sys.id} className="w-full">
                 <div className="flex gap-2 py-2.5">
-                  <Image src={trip.image || SampleCartIcon} alt="trip-image" />
+                  <Image
+                    src={
+                      trip.bannerImagesCollection.items[0].url || SampleCartIcon
+                    }
+                    width={168}
+                    height={107}
+                    className="rounded-[4.39px] w-[168px] h-[107px] object-cover"
+                    alt="trip-image"
+                  />
                   <div className="flex flex-col justify-between">
                     <>
                       <div className="flex w-full justify-between items-center">
@@ -94,15 +112,11 @@ const Cart = () => {
                           height={20}
                         />
                         <p className="leading-[17.07px] text-[14px]">
-                          {dayjs(trip.startDate).format("MMM DD")}
-                          {" - "}
-                          {dayjs(trip.endDate).format("MMM DD")}
-                          {", "}
-                          {dayjs(trip.year).format("YYYY")}
+                          {formatTripDate(trip as TripType)}
                         </p>
                       </div>
                       <h1 className="text-[16px] leading-[19.5px] font-semibold">
-                        {pounds.format(trip.price)}
+                        {pounds.format(trip.downPayment)}
                       </h1>
                       <div className="flex items-center gap-2.5 text-neutral-text leading-[17.07px] text-[14px]">
                         Slots

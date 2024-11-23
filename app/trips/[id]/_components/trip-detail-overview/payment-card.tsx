@@ -1,3 +1,4 @@
+"use client";
 import { Button, Card } from "@/components/ui";
 import React from "react";
 import airplane from "../img/whats-included/airplane.svg";
@@ -5,13 +6,11 @@ import house from "../img/whats-included/house.svg";
 import money from "../img/payment-card/money.svg";
 import Image from "next/image";
 import PaymentTerms from "./payment-terms";
-import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import useTripStore from "@/stores/trip-store";
 import { percentage, pounds } from "@/lib/utils";
+import usePaymentCard from "@/hooks/payment/usePaymentCard";
 
 const PaymentCard = () => {
-  const router = useRouter();
   const data = [
     {
       icon: airplane,
@@ -23,10 +22,11 @@ const PaymentCard = () => {
     },
     {
       icon: money,
-      title: "Instalment payment available",
+      title: "Installment payment available",
     },
   ];
-  const { selectedTrip } = useTripStore();
+  const { selectedTrip, handleAddToCart, handlePay } = usePaymentCard();
+
   return (
     selectedTrip && (
       <Card className="p-[24px] w-full shadow-none border-neutral-grey-300">
@@ -80,13 +80,13 @@ const PaymentCard = () => {
               </p>
             </div>
           ))}
-          <Button className="w-full" onClick={() => router.push("/cart")}>
+          <Button className="w-full" onClick={handlePay}>
             Book Now
           </Button>
           <Button
             variant="outline"
             className="w-full border-[#020E0B]"
-            onClick={() => toast.success("Added to cart")}
+            onClick={handleAddToCart}
           >
             Add to Cart
           </Button>

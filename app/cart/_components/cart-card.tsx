@@ -1,6 +1,5 @@
 "use client";
-import dayjs from "dayjs";
-import { pounds } from "@/lib/utils";
+import { formatTripDate, pounds } from "@/lib/utils";
 import SampleCartIcon from "~/sample-cart-image.svg";
 import Calendar from "../../../components/icons/svg/calendar.svg";
 import MinusIcon from "../../../components/icons/svg/minus.svg";
@@ -9,20 +8,21 @@ import useCartStore from "@/stores/cartStore";
 
 import Image from "next/image";
 import React from "react";
-import { Trip } from "@/types/trip";
+import { TripType } from "@/types/trip";
+import { CartItem } from "@/types/cart";
 
-const CardCard = ({ trip }: { trip: Trip }) => {
+const CardCard = ({ trip }: { trip: CartItem }) => {
   const { incrementQuantity, decrementQuantity, removeFromCart } =
     useCartStore();
   return (
     <div className="w-full">
       <div className="flex gap-2 py-2.5 w-full">
         <Image
-          src={trip.image || SampleCartIcon}
+          src={trip.bannerImagesCollection.items[0].url}
           width={168}
           height={118}
           alt="trip-image"
-          className="rounded-[4.39px] w-[110px] h-[168px] sm:w-[168px] sm:h-[118px] object-cover"
+          className="rounded-[4.39px] w-[168px] h-[118px] object-cover"
         />
         <div className="flex flex-col justify-between w-full">
           <div className="flex flex-col gap-2">
@@ -68,15 +68,11 @@ const CardCard = ({ trip }: { trip: Trip }) => {
             <div className="flex items-center gap-1">
               <Image src={Calendar} alt="calendar" width={20} height={20} />
               <p className="leading-[17.07px] text-[14px]">
-                {dayjs(trip.startDate).format("MMM DD")}
-                {" - "}
-                {dayjs(trip.endDate).format("MMM DD")}
-                {", "}
-                {dayjs(trip.year).format("YYYY")}
+                {formatTripDate(trip as TripType)}
               </p>
             </div>
             <h1 className="text-[16px] leading-[19.5px] font-semibold">
-              {pounds.format(trip.price)}
+              {pounds.format(trip.downPayment)}
             </h1>
             <div className="flex items-center gap-2.5 text-neutral-text leading-[17.07px] text-[14px] sm:hidden">
               Slots

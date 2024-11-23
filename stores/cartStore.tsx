@@ -1,49 +1,71 @@
-import { dummyCartTrips } from "@/data/trips";
-import { Trip } from "@/types/trip";
+import { CartItem } from "@/types/cart";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
 interface CartState {
-  trips: Trip[];
-  addToCart: (trip: Trip) => void;
-  removeFromCart: (trip: Trip) => void;
+  items: CartItem[];
+  addToCart: (item: CartItem) => void;
+  removeFromCart: (item: CartItem) => void;
   clearCart: () => void;
-  setTrips: (trips: Trip[]) => void;
-  incrementQuantity: (trip: Trip) => void;
-  decrementQuantity: (trip: Trip) => void;
-  getTotalPrice: (trips: Trip[]) => number;
-  getTripDeposit: (trip: Trip) => number;
-  getTotalTripDeposit: (trips: Trip[]) => number;
+  setTrips: (trips: CartItem[]) => void;
+  incrementQuantity: (item: CartItem) => void;
+  decrementQuantity: (item: CartItem) => void;
+  getTotalPrice: (trips: CartItem[]) => number;
+  getTripDeposit: (item: CartItem) => number;
+  getTotalTripDeposit: (trips: CartItem[]) => number;
+  showCart: boolean;
+  setShowCart: (showCart: boolean) => void;
 }
 
 const useCartStore = create<CartState>()(
   persist(
     (set) => ({
-      trips: dummyCartTrips,
-      addToCart: (trip) => set((state) => ({ trips: [...state.trips, trip] })),
-      removeFromCart: (trip) =>
-        set((state) => ({ trips: state.trips.filter((t) => t !== trip) })),
-      clearCart: () => set({ trips: [] }),
-      setTrips: (trips) => set({ trips }),
-      incrementQuantity: (trip) =>
+      items: [],
+      addToCart: (item) =>
+        set((state) => {
+          const isItemInCart = state.items.find(
+            (t) => t.sys.id === item.sys.id
+          );
+          if (isItemInCart) {
+            return {
+              items: state.items.map((t) =>
+                t.sys.id === item.sys.id
+                  ? { ...t, quantity: t.quantity + 1 }
+                  : t
+              ),
+            };
+          }
+          return { items: [...state.items, { ...item, quantity: 1 }] };
+        }),
+      removeFromCart: (item) =>
         set((state) => ({
-          trips: state.trips.map((t) => {
-            return t.id === trip.id ? { ...t, quantity: t.quantity + 1 } : t;
+          items: state.items.filter((t) => t.sys.id !== item.sys.id),
+        })),
+      clearCart: () => set({ items: [] }),
+      setTrips: (items) => set({ items }),
+      incrementQuantity: (item) =>
+        set((state) => ({
+          items: state.items.map((t) => {
+            return t.sys.id === item.sys.id
+              ? { ...t, quantity: t.quantity + 1 }
+              : t;
           }),
         })),
-      decrementQuantity: (trip) =>
+      decrementQuantity: (item) =>
         set((state) => ({
-          trips: state.trips.map((t) =>
-            t.id === trip.id && t.quantity > 1
+          items: state.items.map((t) =>
+            t.sys.id === item.sys.id && t.quantity > 1
               ? { ...t, quantity: t.quantity - 1 }
               : t
           ),
         })),
       getTotalPrice: (trips) =>
-        trips.reduce((acc, trip) => acc + trip.price * trip.quantity, 0),
-      getTripDeposit: (trip) => trip.quantity * 300,
+        trips.reduce((acc, item) => acc + item.downPayment * item.quantity, 0),
+      getTripDeposit: (item) => item.quantity * item.downPayment,
       getTotalTripDeposit: (trips) =>
-        trips.reduce((acc, trip) => acc + 300 * trip.quantity, 0),
+        trips.reduce((acc, item) => acc + item.downPayment * item.quantity, 0),
+      showCart: false,
+      setShowCart: (showCart) => set({ showCart }),
     }),
     { name: "cart-storage" }
   )

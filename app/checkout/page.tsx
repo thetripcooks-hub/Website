@@ -1,6 +1,6 @@
 "use client";
 import MobilePageHeader from "@/components/ui/mobile-page-header";
-import { cn, pounds } from "@/lib/utils";
+import { cn, formatTripDate, pounds } from "@/lib/utils";
 import SampleCartIcon from "~/sample-cart-image.svg";
 import Calendar from "../../components/icons/svg/calendar.svg";
 import { useRouter } from "next/navigation";
@@ -24,13 +24,13 @@ import CheckoutPaymentType from "./_components/checkout-payment-type";
 import PoweredByStripe from "@/components/ui/powered-by-stripe";
 import { useHideNavOnMobile } from "@/hooks";
 import { SAMPLE_CHECKOUT_URL } from "@/constants";
+import { TripType } from "@/types/trip";
 
 const Page = () => {
   const router = useRouter();
-  const { trips, getTotalPrice } = useCartStore();
+  const { items: trips, getTotalPrice } = useCartStore();
   const { ref, inView } = useInView();
   useHideNavOnMobile();
-
 
   return (
     <main className={cn("bg-white w-full")}>
@@ -50,18 +50,19 @@ const Page = () => {
               </h3>
               <div className="flex sm:hidden flex-col gap-5">
                 {trips.map((trip) => (
-                  <div className="w-full flex justify-between" key={trip.id}>
+                  <div
+                    className="w-full flex justify-between"
+                    key={trip.sys.id}
+                  >
                     <div className="flex flex-col gap-1.5">
                       <h3 className="text-neutral-text text-[24px] leading-[29.26px] font-medium">
                         {trip.location}
                       </h3>
                       <p className="text-base leading-[19.5px]">
-                        {dayjs(trip.startDate).format("MMM DD")} -{" "}
-                        {dayjs(trip.endDate).format("MMM DD")},{" "}
-                        {dayjs(trip.year).format("YYYY")}
+                        {formatTripDate(trip as TripType)}
                       </p>
                       <p className="text-[20px] leading-[24.38px] font-medium">
-                        {pounds.format(trip.price * trip.quantity)}
+                        {pounds.format(trip.downPayment * trip.quantity)}
                       </p>
                     </div>
                   </div>
@@ -82,15 +83,13 @@ const Page = () => {
                         </p>
                       </div>
                       <p className="leading-[19.5px] text-[16px] text-neutral-subtext">
-                        {dayjs(trips[0].startDate).format("MMM DD")} -{" "}
-                        {dayjs(trips[0].endDate).format("MMM DD")},{" "}
-                        {dayjs(trips[0].year).format("YYYY")}
+                        {formatTripDate(trips[0] as TripType)}
                       </p>
                     </div>
                   ) : (
                     trips.map((trip) => (
                       <div
-                        key={trip.id}
+                        key={trip.sys.id}
                         className="flex flex-col sm:flex-row gap-1 sm:justify-between sm:items-center"
                       >
                         <div className="flex gap-1">
@@ -100,9 +99,7 @@ const Page = () => {
                           </p>
                         </div>
                         <p className="leading-[19.5px] text-[16px] text-neutral-subtext">
-                          {dayjs(trip.startDate).format("MMM DD")} -{" "}
-                          {dayjs(trip.endDate).format("MMM DD")},{" "}
-                          {dayjs(trip.year).format("YYYY")}
+                          {formatTripDate(trip as TripType)}
                         </p>
                       </div>
                     ))
@@ -138,18 +135,16 @@ const Page = () => {
                 Trip details
               </h4>
               {trips.map((trip) => (
-                <div className="w-full flex justify-between" key={trip.id}>
+                <div className="w-full flex justify-between" key={trip.sys.id}>
                   <div className="flex flex-col gap-1.5">
                     <h3 className="text-neutral-text text-[24px] leading-[29.26px] font-medium">
                       {trip.location}
                     </h3>
                     <p className="text-base leading-[19.5px]">
-                      {dayjs(trip.startDate).format("MMM DD")} -{" "}
-                      {dayjs(trip.endDate).format("MMM DD")},{" "}
-                      {dayjs(trip.year).format("YYYY")}
+                      {formatTripDate(trip as TripType)}
                     </p>
                     <p className="text-[20px] leading-[24.38px] font-medium">
-                      {pounds.format(trip.price * trip.quantity)}
+                      {pounds.format(trip.downPayment * trip.quantity)}
                     </p>
                   </div>
                   <Image
