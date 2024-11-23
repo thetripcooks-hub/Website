@@ -13,12 +13,61 @@ import MobileFloatingCard from "@/components/ui/mobile-floating-card";
 import { useRouter } from "next/navigation";
 import { useHideNavOnMobile } from "@/hooks";
 import { SAMPLE_CHECKOUT_URL } from "@/constants";
+import { loadStripe } from "@stripe/stripe-js";
+import type Stripe from "stripe";
+import useTripStore from "@/stores/trip-store";
+
+
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+);
 
 const Page = () => {
   const router = useRouter();
   const { trips, getTripDeposit, getTotalTripDeposit } = useCartStore();
   const { ref, inView } = useInView();
   useHideNavOnMobile();
+
+  const { trips: realTrips } = useTripStore();
+
+  const handleSubmit = async () => {
+    const formattedPayload: Stripe.Checkout.SessionCreateParams.LineItem[] =
+      realTrips?.map((trip) => ({
+        price_data: {
+          currency: "GBP",
+          product_data: {
+            name: trip.location,
+            images:
+              trip.bannerImagesCollection?.items?.map((image) => image.url) ??
+              [],
+          },
+          unit_amount: trip.fullAmount, // Convert to cents
+        },
+        quantity: trip.slots || 1,
+        adjustable_quantity: {
+          enabled: true,
+        },
+      }));
+    try {
+      // Create PaymentIntent on the server
+      const response = await fetch("/api/checkout_sessions", {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formattedPayload),
+      });
+
+      if (!response.ok) {
+        throw new Error("Payment failed");
+      }
+    } catch (err) {
+      console.log(err instanceof Error ? err.message : "Payment failed");
+    } finally {
+      // setLoading(false);
+    }
+  };
 
   return (
     <main className={cn("bg-white w-full")}>
@@ -58,7 +107,9 @@ const Page = () => {
               </div>
               <Button
                 className="w-full"
-                onClick={() => router.push(SAMPLE_CHECKOUT_URL)}
+                type="submit"
+                role="link"
+                onClick={handleSubmit}
               >
                 Proceed to checkout
               </Button>
