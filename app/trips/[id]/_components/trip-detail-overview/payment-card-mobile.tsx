@@ -50,7 +50,7 @@ const PaymentCardMobile = () => {
           <Button
             variant="outline"
             className="w-full border-[#020E0B]"
-            onClick={handleAddToCart}
+            onClick={() => handleAddToCart()}
           >
             Add to Cart
           </Button>

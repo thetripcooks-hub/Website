@@ -7,7 +7,7 @@ interface TripState {
   trips: TripType[];
   setTrips: (trips: TripType[]) => void;
   selectedTrip: TripType | null;
-  setSelectedTrip: (trips: TripType) => void;
+  setSelectedTrip: (trips: TripType | null) => void;
   setLoading: (loading: boolean) => void;
 }
 

@@ -27,6 +27,7 @@ const Page = () => {
 
   useEffect(() => {
     tripData && setSelectedTrip(tripData?.trip);
+    return () => setSelectedTrip(null);
   }, [tripData, setSelectedTrip]);
   return (
     selectedTrip && (
@@ -37,7 +38,9 @@ const Page = () => {
           <Itinerary />
           {inView ? <PaymentCardMobile /> : null}
         </div>
-        <ViewOfLocation />
+        <ViewOfLocation
+          title={`Our view of ${selectedTrip.location.split(",")[0]}`}
+        />
         <Reviews />
         <SubcribeToNewsLetter />
         <Footer />

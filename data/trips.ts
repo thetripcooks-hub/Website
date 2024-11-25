@@ -7,6 +7,7 @@ export const sampleTrip = {
     id: "4reaUUm6ksYRCHbhjpuI61",
   },
   location: "Paris, France",
+  isFeaturedTrip: true,
   bannerImagesCollection: {
     __typename: "AssetCollection",
     items: [

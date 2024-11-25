@@ -9,6 +9,7 @@ export const queryGetAllTrips = gql`
           id
         }
         location
+        isFeaturedTrip
         bannerImagesCollection {
           items {
             title

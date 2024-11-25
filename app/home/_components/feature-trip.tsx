@@ -5,28 +5,36 @@ import React from "react";
 import FeatureTripImage from "~/img/sample-featured-trip.svg";
 import SectionWrapper from "./section-wrapper";
 import { useRouter } from "next/navigation";
+import useTripStore from "@/stores/trip-store";
 
 const FeatureTrip = () => {
   const router = useRouter();
-  return (
-    <div className="sm:pt-32 px-5 pt-10 text-neutral-text  pb-10 sm:pb-0 sm:px-[5%] ">
+  const { trips } = useTripStore();
+  const featuredTripArray = trips.filter((x) => x.isFeaturedTrip);
+  return featuredTripArray.length > 0 ? (
+    <div className="sm:pt-32 px-5 pt-10 text-neutral-text  pb-10 sm:pb-24 sm:px-[5%] ">
       <SectionWrapper className="flex flex-col-reverse sm:flex-row sm:items-center sm:gap-20">
         <section>
           <Image
-            src={FeatureTripImage}
+            src={
+              featuredTripArray[0].bannerImagesCollection.items[0].url ??
+              FeatureTripImage
+            }
+            width={390}
+            height={398.72}
             alt="featured-trip-image"
-            className="mt-2.5 sm:mt-0"
+            className="mt-2.5 sm:mt-0 w-full h-[392px] lg:h-[558px]"
           />
         </section>
         <section className="flex flex-col gap-6 sm:gap-10">
           <h3 className="text-[32px] sm:text-5xl font-medium">Featured trip</h3>
           <p className="max-w-[318px] text-base sm:text-xl sm:max-w-[415px] text-neutral-subtext">
-            Explore Mauritius with a friend or two this summer. Enjoy full
-            support from our team 24/7.
+            Explore {featuredTripArray[0].location} with a friend or two this
+            summer. Enjoy full support from our team 24/7.
           </p>
           <Button
             className="w-full sm:w-fit h-[54px] hidden sm:flex"
-            onClick={() => router.push("/trips/1")}
+            onClick={() => router.push(`/trips/${featuredTripArray[0].sys.id}`)}
           >
             Book trip
           </Button>
@@ -34,12 +42,12 @@ const FeatureTrip = () => {
       </SectionWrapper>
       <Button
         className="w-full sm:w-fit h-[54px] sm:hidden"
-        onClick={() => router.push("/trips/1")}
+        onClick={() => router.push(`/trips/${featuredTripArray[0].sys.id}`)}
       >
         Book trip
       </Button>
     </div>
-  );
+  ) : null;
 };
 
 export default FeatureTrip;

@@ -6,9 +6,9 @@ import house from "../img/whats-included/house.svg";
 import money from "../img/payment-card/money.svg";
 import Image from "next/image";
 import PaymentTerms from "./payment-terms";
-import { useRouter } from "next/navigation";
 import { percentage, pounds } from "@/lib/utils";
 import usePaymentCard from "@/hooks/payment/usePaymentCard";
+import dayjs from "dayjs";
 
 const PaymentCard = () => {
   const data = [
@@ -29,7 +29,7 @@ const PaymentCard = () => {
 
   return (
     selectedTrip && (
-      <Card className="p-[24px] w-full shadow-none border-neutral-grey-300">
+      <Card className="p-[24px] w-full shadow-none border-neutral-grey-300 h-fit">
         <div className="flex flex-col gap-2.5">
           <p className="font-medium flex gap-1 items-baseline">
             {selectedTrip.discount ? (
@@ -53,7 +53,10 @@ const PaymentCard = () => {
           ) : null}
 
           <p className="items-center flex text-[16px] leading-[19.5px] gap-2.5 text-neutral-subtext">
-            <span>12 Days</span>
+            <span>
+              {dayjs(selectedTrip.endDate).diff(selectedTrip.startDate, "d")}{" "}
+              Days
+            </span>
             <svg
               width="8"
               height="8"
@@ -64,7 +67,7 @@ const PaymentCard = () => {
             >
               <circle cx="4" cy="4" r="4" fill="#1D2433" />
             </svg>
-            <span>10 people</span>
+            <span>{selectedTrip.slots || 10} people</span>
           </p>
         </div>
 
@@ -86,7 +89,7 @@ const PaymentCard = () => {
           <Button
             variant="outline"
             className="w-full border-[#020E0B]"
-            onClick={handleAddToCart}
+            onClick={() => handleAddToCart()}
           >
             Add to Cart
           </Button>

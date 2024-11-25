@@ -13,7 +13,7 @@ export async function POST(req: Request) {
       submit_type: "pay",
       line_items: lineItems,
       currency: "GBP",
-      success_url: success_url ?? `${origin}`,
+      success_url: success_url ?? `${origin}/payment-success`,
       cancel_url: cancel_url ?? `${origin}/cart`,
       mode: "payment",
       automatic_tax: { enabled: true },

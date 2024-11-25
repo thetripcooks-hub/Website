@@ -22,7 +22,7 @@ const CardCard = ({ trip }: { trip: CartItem }) => {
           width={168}
           height={118}
           alt="trip-image"
-          className="rounded-[4.39px] w-[168px] h-[118px] object-cover"
+          className="rounded-[4.39px] object-cover max-h-[188px]"
         />
         <div className="flex flex-col justify-between w-full">
           <div className="flex flex-col gap-2">

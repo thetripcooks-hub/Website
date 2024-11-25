@@ -58,16 +58,15 @@ const itinerary: {
 ];
 
 const Itinerary = () => {
-  // const { selectedTrip } = useTripStore();
-  // const 
-  return (
+  const { selectedTrip } = useTripStore();
+  return selectedTrip ? (
     <div className="px-5 sm:py-10 py-12 sm:mb-16 text-neutral-text sm:px-[8%]">
       <SectionWrapper>
         <h3 className="text-[24px] leading-[29.26px] font-medium sm:text-[32px] sm:leading-[39.01px] mb-5 sm:mb-2.5">
           Itinerary
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 gap-y-8 sm:gap-y-12">
-          {itinerary.map((item, index) => {
+          {selectedTrip.itinerary.map((item, index) => {
             return (
               // <div
               //   key={item.day}
@@ -131,7 +130,7 @@ const Itinerary = () => {
         </div>
       </SectionWrapper>
     </div>
-  );
+  ) : null;
 };
 
 export default Itinerary;

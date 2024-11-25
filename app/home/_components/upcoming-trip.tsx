@@ -35,13 +35,20 @@ const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
   };
   const { trips, loading } = useTripStore();
 
-  const formatttedTrips =
-    trips?.map((x) => ({
-      ...x,
-      quantity: 1,
-    })) ?? [];
+  const currentDate = new Date();
 
-  return (
+  const formatttedTrips =
+    trips
+      ?.map((x) => ({
+        ...x,
+        quantity: 1,
+      }))
+      ?.filter((item) => new Date(item.startDate) >= currentDate)
+      .sort(
+        (a, b) => Number(new Date(a.startDate)) - Number(new Date(b.startDate))
+      ) ?? [];
+
+  return formatttedTrips.length > 0 ? (
     <section className="px-5 py-10 sm:py-20 sm:px-[8%]">
       <SectionWrapper>
         <h3 className="text-[32px] font-medium sm:text-5xl">Upcoming Trips</h3>
@@ -133,7 +140,7 @@ const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
         </div>
       </SectionWrapper>
     </section>
-  );
+  ) : null;
 };
 
 export default UpcomingTrips;

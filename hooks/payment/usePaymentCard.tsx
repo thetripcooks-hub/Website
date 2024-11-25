@@ -10,9 +10,9 @@ const usePaymentCard = () => {
   const { selectedTrip } = useTripStore();
   const { addToCart, incrementQuantity, items, showCart, setShowCart } =
     useCartStore();
+  const isMobile = useIsMobile(640);
 
   const handleAddToCart = () => {
-    const isMobile = useIsMobile(640);
     if (!selectedTrip) return;
 
     const foundItem = items.find((item) => item.sys.id === selectedTrip.sys.id);
@@ -27,7 +27,6 @@ const usePaymentCard = () => {
         quantity: 1,
       });
     }
-    toast.success("Added to cart");
   };
 
   const _oneItem = { ...selectedTrip, quantity: 1 } as CartItem;
@@ -40,8 +39,8 @@ const usePaymentCard = () => {
   });
 
   return {
-    handleAddToCart,
     handlePay,
+    handleAddToCart,
     selectedTrip,
   };
 };

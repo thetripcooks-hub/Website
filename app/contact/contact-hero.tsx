@@ -113,7 +113,7 @@ const ContactHero = () => {
                   name="message"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Message</FormLabel>
+                      <FormLabel>Message*</FormLabel>
                       <FormControl>
                         <Textarea
                           // type="text"
