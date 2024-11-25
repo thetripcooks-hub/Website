@@ -9,6 +9,7 @@ const Page = () => {
   const { clearCart } = useCartStore();
   useEffect(() => {
     return () => clearCart();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="mx-auto w-screen flex justify-center items-center flex-col h-[calc(100vh-70px)]">
