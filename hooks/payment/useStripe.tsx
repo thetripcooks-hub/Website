@@ -41,6 +41,10 @@ const useStripe = ({
             enabled: true,
           },
         }));
+    console.log(
+      "non-soldout",
+      items?.filter((trip) => !trip.soldOut)
+    );
     try {
       if (isPaying) return;
       setIsPaying(true);

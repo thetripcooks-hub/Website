@@ -168,7 +168,9 @@ function TripSearch<T extends string>({
                       /> */}
                         {option.location}
                       </CommandItem>
-                      {items.length > 0 && !pathname.includes("/trips") && <CommandSeparator />}
+                      {items.length > 0 && !pathname.includes("/trips") && (
+                        <CommandSeparator />
+                      )}
                     </div>
                   ))}
                 </CommandGroup>
@@ -186,21 +188,25 @@ function TripSearch<T extends string>({
                 )}
               </>
             ) : null}
-            {!isLoading && !pathname.includes("/trips") ? (
+            {!isLoading && (
               <>
                 <CommandEmpty className="text-left py-2.5 flex flex-col gap-1">
                   <div className="px-5">{emptyMessage ?? "No items."}</div>
-                  <hr />
-                  <Link
-                    href="/trips"
-                    onMouseDown={(e) => e.preventDefault()}
-                    className="text-secondary-irish-green px-5"
-                  >
-                    All trips
-                  </Link>
+                  {!pathname.includes("/trips") && (
+                    <>
+                      <hr />
+                      <Link
+                        href="/trips"
+                        onMouseDown={(e) => e.preventDefault()}
+                        className="text-secondary-irish-green px-5"
+                      >
+                        All trips
+                      </Link>
+                    </>
+                  )}
                 </CommandEmpty>
               </>
-            ) : null}
+            )}
           </CommandList>
         </PopoverContent>
       </Command>
