@@ -19,7 +19,7 @@ const Page = () => {
   const { ref, inView } = useInView();
   useHideNavOnMobile();
 
-  const { handlePay } = useStripe({ items });
+  const { handlePay, isPaying } = useStripe({ items });
 
   return (
     <main className={cn("bg-white w-full")}>
@@ -65,7 +65,9 @@ const Page = () => {
                   className="w-full"
                   type="submit"
                   role="link"
+                  loading={isPaying}
                   onClick={handlePay}
+                  disabled={isPaying}
                 >
                   Proceed to checkout
                 </Button>
@@ -114,7 +116,9 @@ const Page = () => {
                 {pounds.format(getTotalPrice(trips) / 3)}
               </h3>
             </div> */}
-            <Button onClick={handlePay}>Proceed to checkout</Button>
+            <Button loading={isPaying} onClick={handlePay} disabled={isPaying}>
+              Proceed to checkout
+            </Button>
           </MobileFloatingCard>
         ) : null}
       </div>

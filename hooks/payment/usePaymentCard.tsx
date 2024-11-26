@@ -31,7 +31,7 @@ const usePaymentCard = () => {
 
   const _oneItem = { ...selectedTrip, quantity: 1 } as CartItem;
 
-  const { handlePay } = useStripe({
+  const { handlePay, isPaying } = useStripe({
     items: [_oneItem],
     cancel_url: selectedTrip
       ? `${window.location.origin}/trips/${selectedTrip.sys.id}`
@@ -42,6 +42,7 @@ const usePaymentCard = () => {
     handlePay,
     handleAddToCart,
     selectedTrip,
+    isPaying,
   };
 };
 

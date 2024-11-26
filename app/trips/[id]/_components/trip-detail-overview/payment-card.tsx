@@ -25,7 +25,8 @@ const PaymentCard = () => {
       title: "Installment payment available",
     },
   ];
-  const { selectedTrip, handleAddToCart, handlePay } = usePaymentCard();
+  const { selectedTrip, handleAddToCart, handlePay, isPaying } =
+    usePaymentCard();
 
   return (
     selectedTrip && (
@@ -83,7 +84,12 @@ const PaymentCard = () => {
               </p>
             </div>
           ))}
-          <Button className="w-full" onClick={handlePay}>
+          <Button
+            className="w-full"
+            loading={isPaying}
+            onClick={handlePay}
+            disabled={isPaying}
+          >
             Book Now
           </Button>
           <Button

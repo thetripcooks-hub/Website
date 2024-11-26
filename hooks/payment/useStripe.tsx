@@ -3,6 +3,8 @@ import type Stripe from "stripe";
 import { useRouter } from "next/navigation";
 import { loadStripe } from "@stripe/stripe-js";
 import { CartItem } from "@/types/cart";
+import { useState } from "react";
+import { toast } from "sonner";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
@@ -17,6 +19,7 @@ const useStripe = ({
   cancel_url?: string;
 }) => {
   const router = useRouter();
+  const [isPaying, setIsPaying] = useState(false);
 
   const handlePay = async () => {
     const formattedPayload: Stripe.Checkout.SessionCreateParams.LineItem[] =
@@ -37,6 +40,8 @@ const useStripe = ({
         },
       }));
     try {
+      if (isPaying) return;
+      setIsPaying(true);
       const response = await fetch("/api/checkout_sessions", {
         method: "POST",
         body: JSON.stringify({
@@ -47,19 +52,22 @@ const useStripe = ({
       });
 
       if (!response.ok) {
+        setIsPaying(false);
         throw new Error("Payment failed");
       }
 
       const { url } = await response.json();
       router.push(url);
     } catch (err) {
-      console.log(err instanceof Error ? err.message : "Payment failed");
+      setIsPaying(false);
+      toast.error(err instanceof Error ? err.message : "Payment failed");
     } finally {
-      // setLoading(false);
+      setIsPaying(false);
     }
   };
 
   return {
+    isPaying,
     handlePay,
   };
 };

@@ -33,7 +33,7 @@ const Cart = () => {
     setShowCart,
   } = useCartStore();
   const router = useRouter();
-  const { handlePay } = useStripe({
+  const { handlePay, isPaying } = useStripe({
     items: trips,
   });
 
@@ -72,7 +72,9 @@ const Cart = () => {
                 </Button>
                 <Button
                   className="max-w-[179px] w-full h-[44.5px] px-2 min-w-min"
+                  loading={isPaying}
                   onClick={handlePay}
+                  disabled={isPaying}
                 >
                   Proceed to checkout
                 </Button>

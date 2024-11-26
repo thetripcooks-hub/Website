@@ -6,7 +6,8 @@ import dayjs from "dayjs";
 import React from "react";
 
 const PaymentCardMobile = () => {
-  const { selectedTrip, handleAddToCart, handlePay } = usePaymentCard();
+  const { selectedTrip, handleAddToCart, handlePay, isPaying } =
+    usePaymentCard();
   return (
     selectedTrip && (
       <Card
@@ -44,7 +45,12 @@ const PaymentCardMobile = () => {
           </p>
         </div>
         <div className="flex w-full gap-2">
-          <Button className="w-full" onClick={handlePay}>
+          <Button
+            className="w-full"
+            loading={isPaying}
+            disabled={isPaying}
+            onClick={handlePay}
+          >
             Book Now
           </Button>
           <Button
