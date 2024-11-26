@@ -9,7 +9,7 @@ import useTripStore from "@/stores/trip-store";
 const HomeHero = () => {
   const { trips } = useTripStore();
   const [value, setValue] = React.useState("");
-  const [selectedValue, setSelectedValue] = React.useState("next.js");
+  const [selectedValue, setSelectedValue] = React.useState("");
   // const frameworks = [
   //   {
   //     value: "next.js",
