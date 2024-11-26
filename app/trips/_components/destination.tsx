@@ -79,7 +79,7 @@ const Destination = () => {
               {getPaginationNumbers().map((page, index) => {
                 if (page === "...") {
                   return (
-                    <PaginationItem>
+                    <PaginationItem key={Math.random()}>
                       <PaginationEllipsis />
                     </PaginationItem>
                   );
