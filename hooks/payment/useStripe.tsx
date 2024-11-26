@@ -23,22 +23,24 @@ const useStripe = ({
 
   const handlePay = async () => {
     const formattedPayload: Stripe.Checkout.SessionCreateParams.LineItem[] =
-      items?.map((trip) => ({
-        price_data: {
-          currency: "GBP",
-          product_data: {
-            name: trip.location,
-            images:
-              trip.bannerImagesCollection?.items?.map((image) => image.url) ??
-              [],
+      items
+        ?.filter((trip) => !trip.soldOut)
+        ?.map((trip) => ({
+          price_data: {
+            currency: "GBP",
+            product_data: {
+              name: trip.location,
+              images:
+                trip.bannerImagesCollection?.items?.map((image) => image.url) ??
+                [],
+            },
+            unit_amount: trip.downPayment * 100,
           },
-          unit_amount: trip.downPayment * 100,
-        },
-        quantity: trip.quantity,
-        adjustable_quantity: {
-          enabled: true,
-        },
-      }));
+          quantity: trip.quantity,
+          adjustable_quantity: {
+            enabled: true,
+          },
+        }));
     try {
       if (isPaying) return;
       setIsPaying(true);
