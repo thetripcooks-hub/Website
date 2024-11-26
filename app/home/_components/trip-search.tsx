@@ -20,13 +20,14 @@ import SearchIcon from "@/components/icons/svg/search-icon.svg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { TripType } from "@/types/trip";
 
 type Props<T extends string> = {
   selectedValue: T;
   onSelectedValueChange: (value: T) => void;
   searchValue: string;
   onSearchValueChange: (value: string) => void;
-  items: { value: T; label: string }[];
+  items: TripType[];
   isLoading?: boolean;
   emptyMessage?: string;
 };
@@ -38,14 +39,14 @@ function TripSearch<T extends string>({
   onSearchValueChange,
   items,
   isLoading,
-  emptyMessage = "No search results",
+  emptyMessage = "No search result",
 }: Props<T>) {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const labels = useMemo(
     () =>
       items?.reduce((acc, item) => {
-        acc[item.value] = item.label;
+        acc[item.location] = item.location;
         return acc;
       }, {} as Record<string, string>),
     [items]
@@ -66,11 +67,21 @@ function TripSearch<T extends string>({
   };
 
   const onSelectItem = (inputValue: string) => {
+    console.log(inputValue);
+    const selectedTripArray = items.filter(
+      (item) => item.location === inputValue
+    );
+
     if (inputValue === selectedValue) {
-      reset();
+      return;
+      //   reset();
     } else {
-      onSelectedValueChange(inputValue as T);
+      //   onSelectedValueChange(inputValue as T);
       onSearchValueChange(labels[inputValue] ?? "");
+    }
+
+    if (selectedTripArray) {
+      router.push(`/trips/${selectedTripArray[0].sys.id}`);
     }
     setOpen(false);
   };
@@ -139,11 +150,11 @@ function TripSearch<T extends string>({
             {items?.length > 0 && !isLoading ? (
               <>
                 <CommandGroup>
-                  {items?.map((option, index) => (
-                    <div key={option.value}>
+                  {items?.slice(0, 5).map((option) => (
+                    <div key={option.sys.id}>
                       <CommandItem
-                        key={option.value}
-                        value={option.value}
+                        key={option.sys.id}
+                        value={option.location}
                         onMouseDown={(e) => e.preventDefault()}
                         onSelect={onSelectItem}
                       >
@@ -155,7 +166,7 @@ function TripSearch<T extends string>({
                             : "opacity-0"
                         )}
                       /> */}
-                        {option.label}
+                        {option.location}
                       </CommandItem>
                       {items.length > 0 && <CommandSeparator />}
                     </div>

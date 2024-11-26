@@ -6,33 +6,35 @@ import { SubcribeToNewsLetter, Footer } from "@/components/ui";
 import Destination from "./_components/destination";
 import { useState } from "react";
 import useTrips from "@/hooks/trips/useTrips";
+import useTripStore from "@/stores/trip-store";
 
 const Page = () => {
-  useTrips();
+  const { trips } = useTrips();
+
   const [value, setValue] = useState("");
-  const [selectedValue, setSelectedValue] = useState("next.js");
-  const frameworks = [
-    {
-      value: "next.js",
-      label: "Next.js",
-    },
-    {
-      value: "sveltekit",
-      label: "SvelteKit",
-    },
-    {
-      value: "nuxt.js",
-      label: "Nuxt.js",
-    },
-    {
-      value: "remix",
-      label: "Remix",
-    },
-    {
-      value: "astro",
-      label: "Astro",
-    },
-  ];
+  const [selectedValue, setSelectedValue] = useState("");
+  // const frameworks = [
+  //   {
+  //     value: "next.js",
+  //     label: "Next.js",
+  //   },
+  //   {
+  //     value: "sveltekit",
+  //     label: "SvelteKit",
+  //   },
+  //   {
+  //     value: "nuxt.js",
+  //     label: "Nuxt.js",
+  //   },
+  //   {
+  //     value: "remix",
+  //     label: "Remix",
+  //   },
+  //   {
+  //     value: "astro",
+  //     label: "Astro",
+  //   },
+  // ];
   return (
     <main className={cn("bg-white w-full")}>
       <header>
@@ -40,7 +42,7 @@ const Page = () => {
           Where to?..
         </h1>
         <TripSearch
-          items={frameworks}
+          items={trips}
           onSearchValueChange={(value) => setValue(value)}
           onSelectedValueChange={(value) => setSelectedValue(value)}
           searchValue={value}

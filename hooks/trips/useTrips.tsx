@@ -7,7 +7,7 @@ import { useEffect } from "react";
 const useTrips = () => {
   const { loading: tripsLoading, data } =
     useQuery<AllTripsResponse>(queryGetAllTrips);
-  const { setTrips, setLoading } = useTripStore();
+  const { setTrips, setLoading, trips } = useTripStore();
 
   useEffect(() => {
     setTrips(data?.tripCollection.items ?? []);
@@ -17,7 +17,7 @@ const useTrips = () => {
     setLoading(tripsLoading);
   }, [tripsLoading, setLoading]);
 
-  return {};
+  return { trips };
 };
 
 export default useTrips;

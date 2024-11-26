@@ -1,9 +1,8 @@
 import { TripType } from "@/types/trip";
 import { clsx, type ClassValue } from "clsx";
 import dayjs from "dayjs";
-import advancedFormat from 'dayjs/plugin/advancedFormat.js';
+import advancedFormat from "dayjs/plugin/advancedFormat.js";
 dayjs.extend(advancedFormat);
-
 
 import { twMerge } from "tailwind-merge";
 
@@ -28,4 +27,34 @@ export const formatTripDate = (item: TripType) =>
 
 export function percentage(percent: number, total: number) {
   return (percent / 100) * total;
+}
+
+/**
+ * Searches for a string in an array of objects based on a specified key.
+ *
+ * @param {Array} array - The array of objects to search in.
+ * @param {string} key - The key of the object to search for the string.
+ * @param {string} searchTerm - The string to search for.
+ * @returns {Array} - An array of matching objects.
+ */
+export function searchInArray(array: any[], key: string, searchTerm: string): Array<any> {
+  if (!Array.isArray(array)) {
+    throw new Error("First argument must be an array.");
+  }
+  if (typeof key !== "string") {
+    throw new Error("Key must be a string.");
+  }
+  if (typeof searchTerm !== "string") {
+    throw new Error("Search term must be a string.");
+  }
+
+  const lowerCaseSearchTerm = searchTerm.toLowerCase();
+
+  return array.filter((item) => {
+    const value = item[key];
+    return (
+      typeof value === "string" &&
+      value.toLowerCase().includes(lowerCaseSearchTerm)
+    );
+  });
 }

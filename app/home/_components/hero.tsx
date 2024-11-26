@@ -2,34 +2,36 @@
 import React from "react";
 import TripSearch from "./trip-search";
 import { arial } from "@/app/font";
-import { cn } from "@/lib/utils";
+import { cn, searchInArray } from "@/lib/utils";
+import useTripStore from "@/stores/trip-store";
 // import Navbar from "@/components/ui/navbar";
 
 const HomeHero = () => {
+  const { trips } = useTripStore();
   const [value, setValue] = React.useState("");
   const [selectedValue, setSelectedValue] = React.useState("next.js");
-  const frameworks = [
-    {
-      value: "next.js",
-      label: "Next.js",
-    },
-    {
-      value: "sveltekit",
-      label: "SvelteKit",
-    },
-    {
-      value: "nuxt.js",
-      label: "Nuxt.js",
-    },
-    {
-      value: "remix",
-      label: "Remix",
-    },
-    {
-      value: "astro",
-      label: "Astro",
-    },
-  ];
+  // const frameworks = [
+  //   {
+  //     value: "next.js",
+  //     label: "Next.js",
+  //   },
+  //   {
+  //     value: "sveltekit",
+  //     label: "SvelteKit",
+  //   },
+  //   {
+  //     value: "nuxt.js",
+  //     label: "Nuxt.js",
+  //   },
+  //   {
+  //     value: "remix",
+  //     label: "Remix",
+  //   },
+  //   {
+  //     value: "astro",
+  //     label: "Astro",
+  //   },
+  // ];
 
   return (
     <div className="bg-neutral-grey-100 h-[65vh] sm:h-[calc(100vh-95px)] bg-hero-mobile sm:bg-hero-desktop bg-no-repeat bg-cover 2xl:h-[55vh]">
@@ -48,8 +50,10 @@ const HomeHero = () => {
           </p>
         </div>
         <TripSearch
-          items={frameworks}
-          onSearchValueChange={(value) => setValue(value)}
+          items={trips}
+          onSearchValueChange={(value) => {
+            setValue(value);
+          }}
           onSelectedValueChange={(value) => setSelectedValue(value)}
           searchValue={value}
           selectedValue={selectedValue}
