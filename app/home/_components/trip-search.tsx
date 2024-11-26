@@ -67,7 +67,6 @@ function TripSearch<T extends string>({
   };
 
   const onSelectItem = (inputValue: string) => {
-    console.log(inputValue);
     const selectedTripArray = items.filter(
       (item) => item.location === inputValue
     );

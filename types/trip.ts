@@ -42,6 +42,14 @@ export type TripType = typeof sampleTrip;
 export interface AllTripsResponse {
   tripCollection: {
     items: TripType[];
+    total: number;
+  };
+}
+
+export interface AllPaginatedTripsResponse {
+  tripCollection: {
+    items: TripType[];
+    total: number;
   };
 }
 

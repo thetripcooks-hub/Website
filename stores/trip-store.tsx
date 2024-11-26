@@ -6,6 +6,8 @@ interface TripState {
   loading: boolean;
   trips: TripType[];
   setTrips: (trips: TripType[]) => void;
+  totalTrips: number;
+  setTotalTrips: (totalTrips: number) => void;
   selectedTrip: TripType | null;
   setSelectedTrip: (trips: TripType | null) => void;
   setLoading: (loading: boolean) => void;
@@ -16,9 +18,11 @@ const useTripStore = create<TripState>()(
     (set) => ({
       trips: [],
       loading: false,
+      totalTrips: 9,
       setLoading: (loading) => set({ loading }),
       setTrips: (trips) => set({ trips }),
       selectedTrip: null,
+      setTotalTrips: (totalTrips) => set({ totalTrips }),
       setSelectedTrip: (selectedTrip) => set({ selectedTrip }),
     }),
     { name: "trip-storage" }

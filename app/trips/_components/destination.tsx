@@ -14,11 +14,12 @@ import React from "react";
 import TripCard from "@/components/ui/trip-card";
 import { useRouter } from "next/navigation";
 import SortByButton from "./sort-by";
-import useTripStore from "@/stores/trip-store";
 import useCartStore from "@/stores/cartStore";
 import { CartItem } from "@/types/cart";
 import { useIsMobile } from "@/hooks";
 import EmptyCart from "@/app/cart/_components/empty-cart";
+import usePaginatedTrips from "@/hooks/trips/usePaginatedTrips";
+import { cn } from "@/lib/utils";
 
 const Destination = () => {
   const isMobile = useIsMobile(640);
@@ -32,13 +33,23 @@ const Destination = () => {
     toast.success("Added to cart");
     addToCart(item);
   };
-  const { trips, loading } = useTripStore();
+
+  const {
+    paginatedTrips,
+    page: currentPage,
+    totalPages,
+    handleNextPage,
+    handlePreviousPage,
+    handlePageChange,
+    getPaginationNumbers,
+  } = usePaginatedTrips();
 
   const formatttedTrips =
-    trips?.map((x) => ({
+    paginatedTrips?.map((x) => ({
       ...x,
       quantity: 1,
     })) ?? [];
+
   return (
     <div className="px-5 py-10 sm:py-20 text-white sm:px-[8%]">
       {formatttedTrips.length > 0 ? (
@@ -57,10 +68,34 @@ const Destination = () => {
           </section>
           <Pagination className="text-neutral-text mt-10">
             <PaginationContent className="flex items-center gap-1 sm:gap-2.5">
-              <PaginationItem>
-                <PaginationPrevious href="#" />
+              <PaginationItem onClick={handlePreviousPage}>
+                <PaginationPrevious
+                  href={{}}
+                  className={cn(currentPage === 1 && "cursor-not-allowed")}
+                  // scroll={false}
+                  onClick={(e) => e.preventDefault()}
+                />
               </PaginationItem>
-              <PaginationItem>
+              {getPaginationNumbers().map((page, index) => {
+                if (page === "...") {
+                  return (
+                    <PaginationItem>
+                      <PaginationEllipsis />
+                    </PaginationItem>
+                  );
+                }
+                return (
+                  <PaginationItem
+                    key={index}
+                    onClick={() => handlePageChange(page as number)}
+                  >
+                    <PaginationLink href="#" isActive={page === currentPage}>
+                      {page}
+                    </PaginationLink>
+                  </PaginationItem>
+                );
+              })}
+              {/* <PaginationItem>
                 <PaginationLink href="#" isActive>
                   1
                 </PaginationLink>
@@ -76,9 +111,18 @@ const Destination = () => {
               </PaginationItem>
               <PaginationItem>
                 <PaginationLink href="#">6</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationNext href="#" />
+              </PaginationItem> */}
+              <PaginationItem
+                onClick={handleNextPage}
+                className={cn(
+                  currentPage === totalPages && "cursor-not-allowed"
+                )}
+              >
+                <PaginationNext
+                  href={{}}
+                  // scroll={false}
+                  onClick={(e) => e.preventDefault()}
+                />
               </PaginationItem>
             </PaginationContent>
           </Pagination>
