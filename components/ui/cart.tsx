@@ -21,6 +21,8 @@ import Link from "next/link";
 import { TripType } from "@/types/trip";
 import useStripe from "@/hooks/payment/useStripe";
 import EmptyCart from "@/app/cart/_components/empty-cart";
+import useTripStore from "@/stores/trip-store";
+import { Loader } from "lucide-react";
 
 const Cart = () => {
   const {
@@ -33,6 +35,8 @@ const Cart = () => {
     setShowCart,
   } = useCartStore();
   const router = useRouter();
+  const { loading } = useTripStore();
+
   const { handlePay, isPaying } = useStripe({
     items: trips,
   });
@@ -96,8 +100,13 @@ const Cart = () => {
           </>
         ) : null}
         <div className="py-5 px-4 w-full">
-          {trips.length === 0 ? <EmptyCart isModal={true} /> : null}
-          {hasTrips
+          {loading ? (
+            <div className="w-full flex justify-center items-center">
+              <Loader className="w-4 h-4 animate-spin" />
+            </div>
+          ) : null}
+          {trips.length === 0 && !loading ? <EmptyCart isModal={true} /> : null}
+          {hasTrips && !loading
             ? trips.slice(0, 2).map((trip) => {
                 return (
                   <div key={trip.sys.id} className="w-full">

@@ -1,4 +1,5 @@
 "use client";
+import ComingSoonBadge from "@/app/home/_components/coming-soon-badge";
 import { pounds, formatTripDate, percentage } from "@/lib/utils";
 import { CartItem } from "@/types/cart";
 import { TripType } from "@/types/trip";
@@ -19,12 +20,22 @@ const TripCard = ({
   return (
     <div>
       <div className="text-foreground cursor-pointer hidden sm:flex sm:flex-col relative">
-        <div
-          className="bg-[#020E0B4D] rounded-full w-8 h-8 flex items-center justify-center absolute right-3 top-3"
-          onClick={handleAddToCart}
-        >
-          <Image src={CartIcon} width={18} height={18} alt="cart-icon" />
-        </div>
+        {item.soldOut ? (
+          <div className="absolute right-3 top-3">
+            <ComingSoonBadge text="Sold Out" />
+          </div>
+        ) : (
+          <div
+            className="bg-[#020E0B4D] rounded-full w-8 h-8 flex items-center justify-center absolute right-3 top-3"
+            onClick={() => {
+              if (!item.soldOut) {
+                handleAddToCart();
+              }
+            }}
+          >
+            <Image src={CartIcon} width={18} height={18} alt="cart-icon" />
+          </div>
+        )}
         <Image
           src={item.bannerImagesCollection.items[0].url}
           alt="img"
@@ -57,12 +68,22 @@ const TripCard = ({
       </div>
 
       <div className="text-foreground cursor-pointer sm:hidden relative">
-        <div
-          className="bg-[#020E0B4D] rounded-full w-8 h-8 flex items-center justify-center absolute right-3 top-3"
-          onClick={handleAddToCart}
-        >
-          <Image src={CartIcon} width={18} height={18} alt="cart-icon" />
-        </div>
+        {item.soldOut ? (
+          <div className="absolute right-3 top-3">
+            <ComingSoonBadge text="Sold Out" />
+          </div>
+        ) : (
+          <div
+            className="bg-[#020E0B4D] rounded-full w-8 h-8 flex items-center justify-center absolute right-3 top-3"
+            onClick={() => {
+              if (!item.soldOut) {
+                handleAddToCart();
+              }
+            }}
+          >
+            <Image src={CartIcon} width={18} height={18} alt="cart-icon" />
+          </div>
+        )}
         <Image
           src={item.bannerImagesCollection.items[0].url}
           alt="img"

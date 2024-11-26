@@ -44,23 +44,29 @@ const PaymentCardMobile = () => {
             ) : null}
           </p>
         </div>
-        <div className="flex w-full gap-2">
-          <Button
-            className="w-full"
-            loading={isPaying}
-            disabled={isPaying}
-            onClick={handlePay}
-          >
-            Book Now
+        {selectedTrip.soldOut ? (
+          <Button className="w-full" variant="outline">
+            Sold Out
           </Button>
-          <Button
-            variant="outline"
-            className="w-full border-[#020E0B]"
-            onClick={() => handleAddToCart()}
-          >
-            Add to Cart
-          </Button>
-        </div>
+        ) : (
+          <div className="flex w-full gap-2">
+            <Button
+              className="w-full"
+              loading={isPaying}
+              disabled={isPaying}
+              onClick={handlePay}
+            >
+              Book Now
+            </Button>
+            <Button
+              variant="outline"
+              className="w-full border-[#020E0B]"
+              onClick={() => handleAddToCart()}
+            >
+              Add to Cart
+            </Button>
+          </div>
+        )}
       </Card>
     )
   );

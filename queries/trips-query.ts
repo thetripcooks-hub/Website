@@ -1,16 +1,12 @@
 import { AppConfig } from "@/lib/config";
 import { gql } from "@apollo/client";
 
-// Query all trips
-export const queryGetAllTrips = gql`
-  query {
-    tripCollection {
-      total
-      items {
+const tripQuery = `{
         sys {
           id
         }
         location
+        soldOut
         isFeaturedTrip
         bannerImagesCollection {
           items {
@@ -46,7 +42,14 @@ export const queryGetAllTrips = gql`
             height
           }
         }
-      }
+      }`;
+
+// Query all trips
+export const queryGetAllTrips = gql`
+  query {
+     tripCollection(order: startDate_ASC, where: {startDate_gt:"${new Date().toISOString()}"}) {
+      total
+      items ${tripQuery}
     }
   }
 `;
@@ -54,46 +57,7 @@ export const queryGetAllTrips = gql`
 // Query trip by id
 export const queryTripById = (id: string) => gql`
   query {
-    trip(id: "${id}") {
-    sys{
-    id
-    }
-      location
-      bannerImagesCollection {
-        items {
-          title
-          description
-          contentType
-          fileName
-          size
-          url
-          width
-          height
-        }
-      }
-      startDate
-      endDate
-      description
-      fullAmount
-      discount
-      whatsIncluded
-      slots
-      downPayment
-      installments
-      itinerary
-      viewsOfLocationCollection {
-        items {
-          title
-          description
-          contentType
-          fileName
-          size
-          url
-          width
-          height
-        }
-      }
-    }
+    trip(id: "${id}") ${tripQuery}
   }
 `;
 
@@ -101,47 +65,7 @@ export const queryTripById = (id: string) => gql`
 export const queryTripsByLocation = (location: string) => gql`
   query {
     tripCollection(filter: { location: { eq: "${location}" } }) {
-      items {
-        sys {
-          id
-        }
-        location
-        isFeaturedTrip
-        bannerImagesCollection {
-          items {
-            title
-            description
-            contentType
-            fileName
-            size
-            url
-            width
-            height
-          }
-        }
-        startDate
-        endDate
-        description
-        fullAmount
-        discount
-        whatsIncluded
-        slots
-        downPayment
-        installments
-        itinerary
-        viewsOfLocationCollection {
-          items {
-            title
-            description
-            contentType
-            fileName
-            size
-            url
-            width
-            height
-          }
-        }
-      }
+      items ${tripQuery}
     }
   }
 `;
@@ -155,47 +79,7 @@ export const queryPaginatedTrips = (page: number) => {
   query {
     tripCollection(limit: ${9}, skip: ${skip}) {
       total
-      items {
-        sys {
-          id
-        }
-        location
-        isFeaturedTrip
-        bannerImagesCollection {
-          items {
-            title
-            description
-            contentType
-            fileName
-            size
-            url
-            width
-            height
-          }
-        }
-        startDate
-        endDate
-        description
-        fullAmount
-        discount
-        whatsIncluded
-        slots
-        downPayment
-        installments
-        itinerary
-        viewsOfLocationCollection {
-          items {
-            title
-            description
-            contentType
-            fileName
-            size
-            url
-            width
-            height
-          }
-        }
-      }
+      items ${tripQuery}
     }
   }
 `;

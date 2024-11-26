@@ -18,7 +18,7 @@ import { Command as CommandPrimitive } from "cmdk";
 import React, { useMemo } from "react";
 import SearchIcon from "@/components/icons/svg/search-icon.svg";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { TripType } from "@/types/trip";
 
@@ -42,6 +42,7 @@ function TripSearch<T extends string>({
   emptyMessage = "No search result",
 }: Props<T>) {
   const router = useRouter();
+  const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
   const labels = useMemo(
     () =>
@@ -167,23 +168,25 @@ function TripSearch<T extends string>({
                       /> */}
                         {option.location}
                       </CommandItem>
-                      {items.length > 0 && <CommandSeparator />}
+                      {items.length > 0 && !pathname.includes("/trips") && <CommandSeparator />}
                     </div>
                   ))}
                 </CommandGroup>
-                <CommandGroup>
-                  <CommandItem
-                    value="See all trips"
-                    onMouseDown={(e) => e.preventDefault()}
-                    className="text-secondary-irish-green"
-                    onSelect={() => router.push("/trips")}
-                  >
-                    All trips
-                  </CommandItem>
-                </CommandGroup>
+                {pathname.includes("/trips") ? null : (
+                  <CommandGroup>
+                    <CommandItem
+                      value="See all trips"
+                      onMouseDown={(e) => e.preventDefault()}
+                      className="text-secondary-irish-green"
+                      onSelect={() => router.push("/trips")}
+                    >
+                      All trips
+                    </CommandItem>
+                  </CommandGroup>
+                )}
               </>
             ) : null}
-            {!isLoading ? (
+            {!isLoading && !pathname.includes("/trips") ? (
               <>
                 <CommandEmpty className="text-left py-2.5 flex flex-col gap-1">
                   <div className="px-5">{emptyMessage ?? "No items."}</div>

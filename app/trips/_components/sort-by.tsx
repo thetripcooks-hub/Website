@@ -13,15 +13,19 @@ import { XIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const sortKeys = [
-  "Alphabetically - A - Z",
-  "Date - earliest to latest",
-  "Price - lowest to highest",
+  { key: "location_ASC", value: "Alphabetically - A - Z" },
+  { key: "startDate_ASC", value: "Date - earliest to latest" },
+  // { key: "endDate", value: "Date - latest to earliest" },
+  { key: "fullAmount_ASC", value: "Price - lowest to highest" },
 ];
 
 const SortByButton = () => {
-  const [sortKey, setSortKey] = useState<string | null>(null);
-  const handleSortChange = (key: string) => {
-    setSortKey(key);
+  const [sortKey, setSortKey] = useState<{
+    key: string;
+    value: string;
+  } | null>(null);
+  const handleSortChange = (val: { key: string; value: string }) => {
+    setSortKey(val);
   };
 
   return (
@@ -39,7 +43,7 @@ const SortByButton = () => {
                 variant="outline"
                 className="sm:flex text-neutral-text border-none gap-2.5 items-center"
               >
-                {sortKey || "Sort by"}
+                {sortKey?.value || "Sort by"}
                 {sortKey ? null : (
                   <Image
                     src={SettingsDesktop}
@@ -65,11 +69,11 @@ const SortByButton = () => {
           <DropdownMenuContent className="rounded-[16px] py-2 ml-2">
             {sortKeys.map((key) => (
               <DropdownMenuItem
-                key={key}
+                key={key.key}
                 onClick={() => setSortKey(key)}
                 className="text-neutral-text h-[48px]"
               >
-                {key}
+                {key.value}
               </DropdownMenuItem>
             ))}
           </DropdownMenuContent>

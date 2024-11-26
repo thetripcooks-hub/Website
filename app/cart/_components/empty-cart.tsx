@@ -21,14 +21,15 @@ const EmptyCart = ({
         <p className="text-neutral-grey-500 text-base leading-[28.8px]">
           {text ?? "When you add items to your cart they will appear here"}
         </p>
-        {isModal ? null : (
-          <Button
-            className="max-w-[166px] w-fit"
-            onClick={() => router.push("/trips")}
-          >
-            Explore Trips
-          </Button>
-        )}
+        {/* {isModal ? null : ( */}
+        <Button
+          className="max-w-[166px] w-fit"
+          size="lg"
+          onClick={() => router.push("/trips")}
+        >
+          Explore Trips
+        </Button>
+        {/* )} */}
       </div>
     </div>
   );

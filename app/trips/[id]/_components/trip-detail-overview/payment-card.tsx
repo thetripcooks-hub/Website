@@ -84,21 +84,27 @@ const PaymentCard = () => {
               </p>
             </div>
           ))}
-          <Button
-            className="w-full"
-            loading={isPaying}
-            onClick={handlePay}
-            disabled={isPaying}
-          >
-            Book Now
-          </Button>
-          <Button
-            variant="outline"
-            className="w-full border-[#020E0B]"
-            onClick={() => handleAddToCart()}
-          >
-            Add to Cart
-          </Button>
+          {selectedTrip.soldOut ? (
+            <Button className="w-full" variant="outline">Sold Out</Button>
+          ) : (
+            <>
+              <Button
+                className="w-full"
+                loading={isPaying}
+                onClick={handlePay}
+                disabled={isPaying}
+              >
+                Book Now
+              </Button>
+              <Button
+                variant="outline"
+                className="w-full border-[#020E0B]"
+                onClick={() => handleAddToCart()}
+              >
+                Add to Cart
+              </Button>
+            </>
+          )}
         </div>
 
         <PaymentTerms />

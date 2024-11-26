@@ -19,6 +19,7 @@ import { Loader } from "lucide-react";
 import useCartStore from "@/stores/cartStore";
 import { CartItem } from "@/types/cart";
 import { useIsMobile } from "@/hooks";
+import ComingSoonBadge from "./coming-soon-badge";
 
 const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
   const isMobile = useIsMobile(640);
@@ -80,17 +81,25 @@ const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
                       className="text-foreground basis-4/5 cursor-pointer relative"
                       key={trip.sys.id}
                     >
-                      <div
-                        className="bg-[#020E0B4D] rounded-full w-8 h-8 flex items-center justify-center absolute right-3 top-3"
-                        onClick={() => handleAddToCart(trip)}
-                      >
-                        <Image
-                          src={CartIcon}
-                          width={18}
-                          height={18}
-                          alt="cart-icon"
-                        />
-                      </div>
+                      {trip.soldOut ? (
+                        <div className="absolute right-3 top-3">
+                          <ComingSoonBadge text="Sold Out" />
+                        </div>
+                      ) : (
+                        <div
+                          className="bg-[#020E0B4D] rounded-full w-8 h-8 flex items-center justify-center absolute right-3 top-3"
+                          onClick={() =>
+                            trip.soldOut ? {} : handleAddToCart(trip)
+                          }
+                        >
+                          <Image
+                            src={CartIcon}
+                            width={18}
+                            height={18}
+                            alt="cart-icon"
+                          />
+                        </div>
+                      )}
                       <Image
                         src={trip.bannerImagesCollection.items[0].url}
                         alt="img"

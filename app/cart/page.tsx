@@ -13,9 +13,12 @@ import MobileFloatingCard from "@/components/ui/mobile-floating-card";
 import { useHideNavOnMobile } from "@/hooks";
 import useStripe from "@/hooks/payment/useStripe";
 import EmptyCart from "./_components/empty-cart";
+import useTripStore from "@/stores/trip-store";
+import { Loader } from "lucide-react";
 
 const Page = () => {
   const { items, getTripDeposit, getTotalTripDeposit } = useCartStore();
+  const { loading } = useTripStore();
   const { ref, inView } = useInView();
   useHideNavOnMobile();
 
@@ -31,7 +34,11 @@ const Page = () => {
               My Cart
             </h3>
           </SectionWrapper>
-          {items.length > 0 ? (
+          {loading ? (
+            <div className="w-full h-[150px] flex justify-center items-center">
+              <Loader className="text-secondary-irish-green animate-spin w-5 h-5" />
+            </div>
+          ) : items.length > 0 ? (
             <SectionWrapper className="flex flex-col sm:flex-row justify-between gap-2.5 sm:gap-10">
               <div className="w-full sm:w-1/2">
                 {items.map((trip) => (
