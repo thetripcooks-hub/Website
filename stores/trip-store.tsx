@@ -5,6 +5,8 @@ import { persist } from "zustand/middleware";
 interface TripState {
   loading: boolean;
   trips: TripType[];
+  orderKey: string | null;
+  setOrderKey: (orderKey: string | null) => void;
   setTrips: (trips: TripType[]) => void;
   totalTrips: number;
   setTotalTrips: (totalTrips: number) => void;
@@ -19,6 +21,8 @@ const useTripStore = create<TripState>()(
       trips: [],
       loading: false,
       totalTrips: 9,
+      orderKey: null,
+      setOrderKey: (orderKey) => set({ orderKey }),
       setLoading: (loading) => set({ loading }),
       setTrips: (trips) => set({ trips }),
       selectedTrip: null,

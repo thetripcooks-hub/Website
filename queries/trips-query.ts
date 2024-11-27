@@ -45,9 +45,10 @@ const tripQuery = `{
       }`;
 
 // Query all trips
+// order: startDate_ASC, where: {startDate_gt:"${new Date().toISOString()}"}
 export const queryGetAllTrips = gql`
   query {
-     tripCollection(order: startDate_ASC, where: {startDate_gt:"${new Date().toISOString()}"}) {
+     tripCollection {
       total
       items ${tripQuery}
     }
@@ -71,13 +72,15 @@ export const queryTripsByLocation = (location: string) => gql`
 `;
 
 // query paginated list of trips
-export const queryPaginatedTrips = (page: number) => {
+export const queryPaginatedTrips = (page: number, sortkey?: string | null) => {
   const skipMultiplier = page === 1 ? 0 : page - 1;
   const skip =
     skipMultiplier > 0 ? AppConfig.pagination.pageSize * skipMultiplier : 0;
   return gql`
   query {
-    tripCollection(limit: ${9}, skip: ${skip}) {
+    tripCollection(${
+      sortkey ? `order:${sortkey}, ` : ""
+    }limit: ${9}, skip: ${skip}) {
       total
       items ${tripQuery}
     }

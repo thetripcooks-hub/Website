@@ -42,6 +42,7 @@ const Cart = () => {
   });
 
   const hasTrips = trips.length > 0;
+  
   return (
     <DropdownMenu modal={false} open={showCart} onOpenChange={setShowCart}>
       <DropdownMenuTrigger asChild>

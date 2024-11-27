@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import {
   Button,
@@ -11,6 +11,7 @@ import {
 import SettingsDesktop from "@/components/icons/svg/settings-desktop.svg";
 import { XIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import useTripStore from "@/stores/trip-store";
 
 const sortKeys = [
   { key: "location_ASC", value: "Alphabetically - A - Z" },
@@ -24,9 +25,16 @@ const SortByButton = () => {
     key: string;
     value: string;
   } | null>(null);
+
+  const { setOrderKey } = useTripStore();
+
   const handleSortChange = (val: { key: string; value: string }) => {
     setSortKey(val);
   };
+
+  useEffect(() => {
+    setOrderKey(sortKey ? sortKey.key : null);
+  }, [sortKey]);
 
   return (
     <div>
@@ -70,7 +78,7 @@ const SortByButton = () => {
             {sortKeys.map((key) => (
               <DropdownMenuItem
                 key={key.key}
-                onClick={() => setSortKey(key)}
+                onClick={() => handleSortChange(key)}
                 className="text-neutral-text h-[48px]"
               >
                 {key.value}

@@ -3,7 +3,7 @@ import {
   Command,
   CommandEmpty,
   CommandGroup,
-  CommandInput,
+  // CommandInput,
   CommandItem,
   CommandList,
   CommandSeparator,
@@ -11,7 +11,7 @@ import {
   Popover,
   PopoverAnchor,
   PopoverContent,
-  PopoverTrigger,
+  // PopoverTrigger,
   Skeleton,
 } from "@/components/ui";
 import { Command as CommandPrimitive } from "cmdk";

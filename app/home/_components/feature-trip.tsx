@@ -23,7 +23,7 @@ const FeatureTrip = () => {
             width={390}
             height={398.72}
             alt="featured-trip-image"
-            className="mt-2.5 sm:mt-0 w-full h-[392px] lg:h-[558px]"
+            className="mt-2.5 sm:mt-0 sm:max-w-[544px] rounded-[21px] w-full h-[392px] sm:h-[558px]"
           />
         </section>
         <section className="flex flex-col gap-6 sm:gap-10">

@@ -5,6 +5,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { CartItem } from "@/types/cart";
 import { useState } from "react";
 import { toast } from "sonner";
+import useTripStore from "@/stores/trip-store";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
@@ -18,12 +19,20 @@ const useStripe = ({
   success_url?: string;
   cancel_url?: string;
 }) => {
+  const { trips } = useTripStore();
   const router = useRouter();
   const [isPaying, setIsPaying] = useState(false);
 
   const handlePay = async () => {
+    const updatedItems = items.map((item) => {
+      const foundItem = trips.find((x) => x.sys.id === item.sys.id);
+      if (foundItem) {
+        return { ...item, ...foundItem };
+      }
+      return item;
+    });
     const formattedPayload: Stripe.Checkout.SessionCreateParams.LineItem[] =
-      items
+      updatedItems
         ?.filter((trip) => !trip.soldOut)
         ?.map((trip) => ({
           price_data: {
@@ -41,10 +50,6 @@ const useStripe = ({
             enabled: true,
           },
         }));
-    console.log(
-      "non-soldout",
-      items?.filter((trip) => !trip.soldOut)
-    );
     try {
       if (isPaying) return;
       setIsPaying(true);

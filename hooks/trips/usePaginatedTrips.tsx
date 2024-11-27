@@ -6,12 +6,12 @@ import React, { useEffect, useState } from "react";
 
 const usePaginatedTrips = () => {
   const [paginatedTrips, setPaginatedTrips] = useState<TripType[]>([]);
-  const { totalTrips } = useTripStore();
+  const { totalTrips, orderKey } = useTripStore();
   const [page, setPage] = React.useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
   const { data, loading, error } = useQuery<AllPaginatedTripsResponse>(
-    queryPaginatedTrips(page)
+    queryPaginatedTrips(page, orderKey)
   );
   const handleNextPage = () => {
     if (page < totalPages) {
