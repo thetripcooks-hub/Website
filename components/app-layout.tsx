@@ -7,6 +7,7 @@ import { ThemeProvider } from "./theme-provider";
 import Navbar from "./ui/navbar";
 import useGeneralStore from "@/stores/generalStore";
 import { ApolloWrapper } from "./apollo-provider";
+import GeneralData from "./general-data";
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const { showNav } = useGeneralStore();
@@ -28,8 +29,12 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
           enableSystem
           disableTransitionOnChange
         >
-          {showNav ? <Navbar /> : null}
-          <ApolloWrapper>{children}</ApolloWrapper>
+          <ApolloWrapper>
+            <GeneralData>
+              {showNav ? <Navbar /> : null}
+              {children}
+            </GeneralData>
+          </ApolloWrapper>
         </ThemeProvider>
         <Toaster richColors position="top-right" />
       </body>

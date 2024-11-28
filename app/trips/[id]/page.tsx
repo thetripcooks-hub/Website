@@ -28,7 +28,8 @@ const Page = () => {
   useEffect(() => {
     tripData && setSelectedTrip(tripData?.trip);
     return () => setSelectedTrip(null);
-  }, [tripData, setSelectedTrip]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tripData]);
   return (
     selectedTrip && (
       <main className={cn("bg-white w-full")}>

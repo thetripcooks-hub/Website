@@ -34,6 +34,7 @@ const SortByButton = () => {
 
   useEffect(() => {
     setOrderKey(sortKey ? sortKey.key : null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortKey]);
 
   return (

@@ -1,12 +1,31 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import OurServices from "../home/_components/our-services";
 import TheTripCooksExperience from "../home/_components/the-tripcooks-experience";
 import { SubcribeToNewsLetter, Footer } from "@/components/ui";
 import ReadyToStart from "../home/_components/ready-to-start";
 import AboutHero from "./_components/about-hero";
 import Adventurers from "./_components/adventurers";
+import { useQuery } from "@apollo/client";
+import { AboutUsPageResponse } from "@/types/about";
+import { queryAboutUsPage } from "@/queries/about-us-query";
+import useGeneralStore from "@/stores/generalStore";
 
 const Page = () => {
+  const { setAbout, setLoadingAbout } = useGeneralStore();
+  const { data, loading } = useQuery<AboutUsPageResponse>(queryAboutUsPage);
+
+  useEffect(() => {
+    if (data) {
+      setAbout(data.aboutUsPageCollection.items);
+    }
+  }, [data, setAbout]);
+
+  useEffect(() => {
+    setLoadingAbout(loading);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading]);
+
   return (
     <main className="flex min-h-screen flex-col pb-10 sm:pb-20">
       <AboutHero />

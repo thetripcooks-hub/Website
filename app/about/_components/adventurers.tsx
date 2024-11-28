@@ -1,10 +1,14 @@
 import SectionWrapper from "@/app/home/_components/section-wrapper";
 import Image from "next/image";
 import React from "react";
-import OwnersMobile from "~/img/about/owners-mobile.png";
-import OwnersDesktop from "~/img/about/owners-desktop.png";
+// import OwnersMobile from "~/img/about/owners-mobile.png";
+// import OwnersDesktop from "~/img/about/owners-desktop.png";
+import useGeneralStore from "@/stores/generalStore";
+import { Loader } from "lucide-react";
+import { CustomLoader } from "@/components/ui";
 
 const Adventurers = () => {
+  const { about, loadingAbout } = useGeneralStore();
   return (
     <div className="px-5 py-10 sm:py-20 sm:px-[8%] bg-neutral-grey-100">
       <SectionWrapper className="flex flex-col sm:flex-row gap-6 sm:gap-12 sm:justify-between w-full">
@@ -35,12 +39,24 @@ const Adventurers = () => {
           </div>
         </div>
         <div>
-          <Image
-            src={OwnersDesktop}
-            alt="owners-image"
-            className="hidden sm:block object-scale-down"
-          />
-          <Image src={OwnersMobile} alt="owners mobile" className="sm:hidden object-scale-down w-full" />
+          {loadingAbout ? (
+            <div className="flex w-full sm:w-[544px] justify-center items-center h-[389px] sm:h-[558px]">
+              <CustomLoader />
+            </div>
+          ) : (
+            <Image
+              src={about[0]?.ownersPicture?.url}
+              alt="owners-image"
+              width={544}
+              height={558}
+              className="object-cover h-[389px] sm:h-[558px] w-full rounded-[21px]"
+            />
+          )}
+          {/* <Image
+            src={OwnersMobile}
+            alt="owners mobile"
+            className="sm:hidden object-scale-down w-full"
+          /> */}
         </div>
       </SectionWrapper>
     </div>

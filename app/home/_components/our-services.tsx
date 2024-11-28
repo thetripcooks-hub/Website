@@ -1,41 +1,23 @@
 "use client";
 import React from "react";
-// import x from "~//img/public-trip.svg";
 import { cn } from "@/lib/utils";
 import { arial } from "@/app/font";
 import SectionWrapper from "./section-wrapper";
 import { useRouter } from "next/navigation";
 import ComingSoonBadge from "./coming-soon-badge";
-
-const services = [
-  {
-    name: "Group trips",
-    description:
-      "Get those travel plans out of the group chat and explore new territories",
-    image: "/img/public-trip.svg",
-    url: "/trips",
-    available: true,
-  },
-  {
-    name: "Private trips",
-    description:
-      "Need to explore a new location on your own? We’re here for you!",
-    image: "/img/private-trip.svg",
-    url: "/private-trips",
-    available: true,
-  },
-  {
-    name: "Travel planning",
-    description: "Curate your experience and explore at your own terms",
-    image: "/img/travel-planning.svg",
-    url: "/travel-planning",
-    available: false,
-  },
-];
+import useGeneralStore from "@/stores/generalStore";
 
 const OurServices = () => {
   const router = useRouter();
   const gotoRoute = (url: string) => router.push(url);
+
+  const { services: data } = useGeneralStore();
+  const groupTripImage = data?.[0]?.groupTrips?.url ?? "/img/public-trip.svg";
+  const privateTripImage =
+    data?.[0]?.privateTrips?.url ?? "/img/private-trip.svg";
+  const travelPlanningImage =
+    data?.[0]?.travelPlanning?.url ?? "/img/travel-planning.svg";
+
   return (
     <div className="bg-[#020E0B] px-5 py-10 sm:py-20 text-white sm:px-[8%]">
       <SectionWrapper>
@@ -47,7 +29,10 @@ const OurServices = () => {
         <div className="mt-5 sm:mt-10 flex sm:flex-row flex-col gap-5 lg:justify-between">
           {/* group trip */}
           <div
-            className="text-white w-full sm:w-[394px] bg-[url('/img/public-trip.svg')] bg-cover bg-center bg-no-repeat h-[412px] flex justify-end flex-col p-5 rounded-[18px] cursor-pointer"
+            style={{ backgroundImage: `url(${groupTripImage})` }}
+            className={cn(
+              "text-white w-full sm:w-[394px] bg-cover bg-center bg-no-repeat h-[412px] flex justify-end flex-col p-5 rounded-[18px] cursor-pointer"
+            )}
             onClick={() => gotoRoute("/trips")}
           >
             <h5 className="font-medium text-2xl">Group trips</h5>
@@ -58,7 +43,8 @@ const OurServices = () => {
           </div>
           {/* private trip */}
           <div
-            className="text-white w-full sm:w-[394px] bg-[url('/img/private-trip.svg')] bg-cover bg-center bg-no-repeat h-[412px] flex justify-end flex-col p-5 rounded-[18px] cursor-pointer"
+            style={{ backgroundImage: `url(${privateTripImage})` }}
+            className="text-white w-full sm:w-[394px]  bg-cover bg-center bg-no-repeat h-[412px] flex justify-end flex-col p-5 rounded-[18px] cursor-pointer"
             onClick={() => gotoRoute("/private-trips")}
           >
             <h5 className="font-medium text-2xl">Private trips</h5>
@@ -67,7 +53,10 @@ const OurServices = () => {
             </p>
           </div>
           {/* Travel planning */}
-          <div className="text-white w-full sm:w-[394px] bg-[url('/img/travel-planning.svg')] bg-cover bg-center bg-no-repeat h-[412px] flex justify-end flex-col p-5 rounded-[18px] relative">
+          <div
+            style={{ backgroundImage: `url(${travelPlanningImage})` }}
+            className="text-white w-full sm:w-[394px] bg-cover bg-center bg-no-repeat h-[412px] flex justify-end flex-col p-5 rounded-[18px] relative"
+          >
             <ComingSoonBadge />
             <h5 className="font-medium text-2xl">Travel planning</h5>
             <p className={cn(arial.className, "text-base")}>

@@ -24,3 +24,4 @@ export * from "./drawer";
 export * from "./textarea";
 export * from "./select";
 export * from "./sonner";
+export * from "./loader";

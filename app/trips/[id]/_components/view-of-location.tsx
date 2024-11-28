@@ -13,7 +13,7 @@ import view4 from "../_components/img/location-views/4.svg";
 import view5 from "../_components/img/location-views/5.svg";
 import view6 from "../_components/img/location-views/6.svg";
 import view7 from "../_components/img/location-views/7.svg";
-import useTripStore from "@/stores/trip-store";
+import useGeneralStore from "@/stores/generalStore";
 
 const row1 = [view1, view1, view2, view3];
 const row2 = [view4, view5, view6, view7];
@@ -39,17 +39,14 @@ const CarouselWrapper = ({ children }: { children: ReactNode }) => (
 );
 
 const ViewOfLocation = ({ title }: { title?: string }) => {
-  const { selectedTrip } = useTripStore();
-  const _row1 = selectedTrip
-    ? selectedTrip?.viewsOfLocationCollection?.items
-        ?.map((x) => x.url)
-        ?.slice(0, 4)
-    : row1;
-  const _row2 = selectedTrip
-    ? selectedTrip?.viewsOfLocationCollection?.items
-        ?.map((x) => x.url)
-        ?.slice(4, 8)
-    : row2;
+  const { privateTrip } = useGeneralStore();
+
+
+  const newRows = privateTrip?.[0]?.viewsOurLastTripsCollection?.items ?? [];
+
+  const _row1 = newRows?.map((x) => x.url)?.slice(0, 4) ?? row1;
+  const _row2 = newRows?.map((x) => x.url)?.slice(4, 8) ?? row2;
+
   return (
     <section>
       <h3 className="text-[32px] leading-[39.01px] font-medium sm:text-5xl px-5 pt-5 sm:pt-10 sm:px-[8%]">
@@ -76,7 +73,7 @@ const ViewOfLocation = ({ title }: { title?: string }) => {
           </CarouselContent>
         </CarouselWrapper>
 
-        {_row2.length ? (
+        {newRows.length > 4 && _row2.length ? (
           <div className="-ml-28">
             <CarouselWrapper>
               <CarouselContent>
