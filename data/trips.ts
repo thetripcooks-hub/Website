@@ -8,6 +8,7 @@ export const sampleTrip = {
   },
   location: "Paris, France",
   soldOut: false,
+  travelWithOwners: false,
   isFeaturedTrip: true,
   bannerImagesCollection: {
     __typename: "AssetCollection",

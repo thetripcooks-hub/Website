@@ -7,6 +7,7 @@ const tripQuery = `{
         }
         location
         soldOut
+        travelWithOwners
         isFeaturedTrip
         bannerImagesCollection {
           items {

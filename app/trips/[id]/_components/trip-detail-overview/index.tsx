@@ -45,16 +45,18 @@ const TripDetailOverview = () => {
               className="w-full object-cover rounded-[18px] h-[268.5px] sm:h-[537px]"
             />
             <div className="flex flex-col sm:gap-5 justify-between">
-              {selectedTrip?.bannerImagesCollection.items.slice(1).map((item) => (
-                <Image
-                  key={`${item}-${Math.random()}`}
-                  src={item.url}
-                  alt="trip location images"
-                  width={581}
-                  height={259}
-                  className="w-full object-cover rounded-[18px] h-[129.5px] sm:h-[259px]"
-                />
-              ))}
+              {selectedTrip?.bannerImagesCollection.items
+                .slice(1)
+                .map((item) => (
+                  <Image
+                    key={`${item}-${Math.random()}`}
+                    src={item.url}
+                    alt="trip location images"
+                    width={581}
+                    height={259}
+                    className="w-full object-cover rounded-[18px] h-[129.5px] sm:h-[259px]"
+                  />
+                ))}
             </div>
           </div>
           {/* mobile images */}
@@ -76,7 +78,7 @@ const TripDetailOverview = () => {
           <div className="flex w-full justify-between mt-5 sm:mt-10">
             <section className="sm:w-1/2 sm:max-w-[601px]">
               <TripInfo />
-              <TravelWithOwners />
+              {selectedTrip.travelWithOwners ? <TravelWithOwners /> : null}
               <PaymentTermsMobile />
               <WhatsIncluded />
             </section>
