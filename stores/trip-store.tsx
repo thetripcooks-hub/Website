@@ -5,8 +5,16 @@ import { persist } from "zustand/middleware";
 interface TripState {
   loading: boolean;
   trips: TripType[];
-  orderKey: string | null;
-  setOrderKey: (orderKey: string | null) => void;
+  orderKey: {
+    key: string;
+    value: string;
+  } | null;
+  setOrderKey: (
+    orderKey: {
+      key: string;
+      value: string;
+    } | null
+  ) => void;
   setTrips: (trips: TripType[]) => void;
   totalTrips: number;
   setTotalTrips: (totalTrips: number) => void;

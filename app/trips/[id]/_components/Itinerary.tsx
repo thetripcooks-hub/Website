@@ -57,6 +57,10 @@ const itinerary: {
   },
 ];
 
+const capitalizeFirstLetter = (string: string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
 const Itinerary = () => {
   const { selectedTrip } = useTripStore();
   return selectedTrip ? (

@@ -92,7 +92,7 @@ const Reviews = () => {
                           alt="review image"
                           width={516}
                           height={449}
-                          className="rounded-[14px] object-cover sm:object-fill w-full sm:h-[449px]"
+                          className="rounded-[14px] object-cover sm:object-fill w-full sm:h-[449px] sm:max-w-[516px]"
                         />
                       </div>
                       {/* <div className="flex w-full gap-5 justify-center items-center mt-5 h-[53px]">

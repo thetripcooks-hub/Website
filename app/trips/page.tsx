@@ -4,37 +4,22 @@ import TripSearch from "@/app/home/_components/trip-search";
 import { SubcribeToNewsLetter, Footer } from "@/components/ui";
 // import ReadyToStart from "@/app/home/_components/ready-to-start";
 import Destination from "./_components/destination";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useTrips from "@/hooks/trips/useTrips";
 import useTripStore from "@/stores/trip-store";
 
 const Page = () => {
   const { trips } = useTrips();
+  const { setOrderKey } = useTripStore();
 
   const [value, setValue] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
-  // const frameworks = [
-  //   {
-  //     value: "next.js",
-  //     label: "Next.js",
-  //   },
-  //   {
-  //     value: "sveltekit",
-  //     label: "SvelteKit",
-  //   },
-  //   {
-  //     value: "nuxt.js",
-  //     label: "Nuxt.js",
-  //   },
-  //   {
-  //     value: "remix",
-  //     label: "Remix",
-  //   },
-  //   {
-  //     value: "astro",
-  //     label: "Astro",
-  //   },
-  // ];
+
+  useEffect(() => {
+    setOrderKey(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <main className={cn("bg-white w-full")}>
       <header>

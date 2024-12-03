@@ -13,7 +13,8 @@ import view4 from "../_components/img/location-views/4.svg";
 import view5 from "../_components/img/location-views/5.svg";
 import view6 from "../_components/img/location-views/6.svg";
 import view7 from "../_components/img/location-views/7.svg";
-import useGeneralStore from "@/stores/generalStore";
+// import useGeneralStore from "@/stores/generalStore";
+// import useTripStore from "@/stores/trip-store";
 
 const row1 = [view1, view1, view2, view3];
 const row2 = [view4, view5, view6, view7];
@@ -38,14 +39,24 @@ const CarouselWrapper = ({ children }: { children: ReactNode }) => (
   </Carousel>
 );
 
-const ViewOfLocation = ({ title }: { title?: string }) => {
-  const { privateTrip } = useGeneralStore();
+const ViewOfLocation = ({
+  title,
+  items,
+}: {
+  title?: string;
+  items: {
+    url: string;
+  }[];
+}) => {
+  // const { selectedTrip } = useTripStore();
+  // const { privateTrip } = useGeneralStore();
 
+  // const newRows = privateTrip?.[0]?.viewsOurLastTripsCollection?.items ?? [];
 
-  const newRows = privateTrip?.[0]?.viewsOurLastTripsCollection?.items ?? [];
+  const _row1 = items?.map((x) => x.url)?.slice(0, 4) ?? row1;
+  const _row2 = items?.map((x) => x.url)?.slice(4, 8) ?? row2;
 
-  const _row1 = newRows?.map((x) => x.url)?.slice(0, 4) ?? row1;
-  const _row2 = newRows?.map((x) => x.url)?.slice(4, 8) ?? row2;
+  // console.log(selectedTrip?.viewsOfLocationCollection.items ?? []);
 
   return (
     <section>
@@ -73,7 +84,7 @@ const ViewOfLocation = ({ title }: { title?: string }) => {
           </CarouselContent>
         </CarouselWrapper>
 
-        {newRows.length > 4 && _row2.length ? (
+        {items.length > 4 && _row2.length ? (
           <div className="-ml-28">
             <CarouselWrapper>
               <CarouselContent>

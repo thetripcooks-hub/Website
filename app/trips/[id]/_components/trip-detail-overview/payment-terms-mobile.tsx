@@ -19,7 +19,7 @@ const PaymentTermsMobile = () => {
         <div className="gap-3 flex flex-col">
           <p>
             {" "}
-            <span className="font-bold">
+            <span className="font-normal">
               {pounds.format(selectedTrip?.downPayment)}
             </span>{" "}
             required to reserve a spot
@@ -28,7 +28,7 @@ const PaymentTermsMobile = () => {
           <div>
             {selectedTrip.installments.map((installment, index) => (
               <p key={index}>
-                <span className="font-bold">
+                <span className="font-normal">
                   {pounds.format(Number(installment.amount))}
                 </span>{" "}
                 due {dayjs(installment.date).format("Do MMMM, YYYY")}

@@ -11,9 +11,17 @@ import UpcomingTrips from "./_components/upcoming-trip";
 import WhyChooseUs from "./_components/why-choose-us";
 import { HomeHero } from "./_components";
 import useTrips from "@/hooks/trips/useTrips";
+import useGeneralStore from "@/stores/generalStore";
+import { useEffect } from "react";
 
 export default function Home() {
   useTrips();
+  const { setShowNav } = useGeneralStore();
+
+  useEffect(() => {
+    setShowNav(true);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <main className="flex min-h-screen flex-col pb-10 sm:pb-20">
       <HomeHero />

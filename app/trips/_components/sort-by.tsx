@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  } from "react";
 import Image from "next/image";
 import {
   Button,
@@ -21,21 +21,11 @@ const sortKeys = [
 ];
 
 const SortByButton = () => {
-  const [sortKey, setSortKey] = useState<{
-    key: string;
-    value: string;
-  } | null>(null);
-
-  const { setOrderKey } = useTripStore();
+  const { orderKey, setOrderKey } = useTripStore();
 
   const handleSortChange = (val: { key: string; value: string }) => {
-    setSortKey(val);
+    setOrderKey(val);
   };
-
-  useEffect(() => {
-    setOrderKey(sortKey ? sortKey.key : null);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sortKey]);
 
   return (
     <div>
@@ -44,7 +34,7 @@ const SortByButton = () => {
           <div
             className={cn(
               "min-w-fit border-[#E1E6EF] rounded-[8px] items-center flex border border-solid cursor-pointer",
-              sortKey && "pr-4"
+              orderKey && "pr-4"
             )}
           >
             <DropdownMenuTrigger asChild>
@@ -52,8 +42,8 @@ const SortByButton = () => {
                 variant="outline"
                 className="sm:flex text-neutral-text border-none gap-2.5 items-center"
               >
-                {sortKey?.value || "Sort by"}
-                {sortKey ? null : (
+                {orderKey?.value || "Sort by"}
+                {orderKey ? null : (
                   <Image
                     src={SettingsDesktop}
                     alt="light-mode"
@@ -72,7 +62,7 @@ const SortByButton = () => {
               />
             </Button> */}
             </DropdownMenuTrigger>
-            {sortKey ? <XIcon onClick={() => setSortKey(null)} /> : null}
+            {orderKey ? <XIcon onClick={() => setOrderKey(null)} /> : null}
           </div>
 
           <DropdownMenuContent className="rounded-[16px] py-2 ml-2">

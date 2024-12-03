@@ -1,9 +1,9 @@
 "use client";
 import { formatTripDate, pounds } from "@/lib/utils";
-import SampleCartIcon from "~/sample-cart-image.svg";
-import Calendar from "../../../components/icons/svg/calendar.svg";
-import MinusIcon from "../../../components/icons/svg/minus.svg";
-import PlusIcon from "../../../components/icons/svg/plus.svg";
+// import SampleCartIcon from "~/sample-cart-image.svg";
+import Calendar from "@/components/icons/svg/calendar.svg";
+import MinusIcon from "@/components/icons/svg/minus.svg";
+import PlusIcon from "@/components/icons/svg/plus.svg";
 import useCartStore from "@/stores/cartStore";
 
 import Image from "next/image";

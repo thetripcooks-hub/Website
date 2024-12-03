@@ -7,7 +7,7 @@ import { Button, Card, Footer, SubcribeToNewsLetter } from "@/components/ui";
 import CardCard from "./_components/cart-card";
 import useCartStore from "@/stores/cartStore";
 import SectionWrapper from "@/app/home/_components/section-wrapper";
-import PoweredByStrip from "@/components/ui/powered-by-stripe";
+// import PoweredByStrip from "@/components/ui/powered-by-stripe";
 import { useInView } from "react-intersection-observer";
 import MobileFloatingCard from "@/components/ui/mobile-floating-card";
 import { useHideNavOnMobile } from "@/hooks";
@@ -78,7 +78,7 @@ const Page = () => {
                 >
                   Proceed to checkout
                 </Button>
-                <PoweredByStrip />
+                {/* <PoweredByStrip /> */}
               </Card>
               {items.length > 0 ? (
                 <div className="my-4 sm:my-0 flex sm:hidden flex-col gap-3">
@@ -96,7 +96,7 @@ const Page = () => {
                       </div>
                     ))}
                   </div>
-                  <PoweredByStrip />
+                  {/* <PoweredByStrip /> */}
                 </div>
               ) : null}
             </SectionWrapper>

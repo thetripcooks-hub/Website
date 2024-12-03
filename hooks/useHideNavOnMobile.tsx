@@ -17,6 +17,7 @@ export const useHideNavOnMobile = () => {
     return () => {
       setShowNav(true);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMobile]);
   return {};
 };

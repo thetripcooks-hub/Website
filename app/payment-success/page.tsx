@@ -5,12 +5,13 @@ import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import PaymentSuccessIcon from "../../components/icons/svg/payment-success.svg";
 import Image from "next/image";
+// import useGeneralStore from "@/stores/generalStore";
 
 const Page = () => {
   const router = useRouter();
   const { clearCart } = useCartStore();
   useEffect(() => {
-    return () => clearCart();
+    clearCart();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
@@ -29,7 +30,13 @@ const Page = () => {
         We’ll be in touch with you for more updates towards your trip
       </p>
       <div className="flex gap-5">
-        <Button size="default" onClick={() => router.push("/trips")} variant="outline">Explore Trips</Button>
+        <Button
+          size="default"
+          onClick={() => router.push("/trips")}
+          variant="outline"
+        >
+          Explore Trips
+        </Button>
         <Button size="default" onClick={() => router.push("/home")}>
           Back to Home
         </Button>

@@ -27,9 +27,13 @@ const Page = () => {
 
   useEffect(() => {
     tripData && setSelectedTrip(tripData?.trip);
-    return () => setSelectedTrip(null);
+    return () => {
+      setSelectedTrip(null);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tripData]);
+
+
   return (
     selectedTrip && (
       <main className={cn("bg-white w-full")}>
@@ -41,6 +45,7 @@ const Page = () => {
         </div>
         <ViewOfLocation
           title={`Our view of ${selectedTrip.location.split(",")[0]}`}
+          items={selectedTrip.viewsOfLocationCollection.items ?? []}
         />
         <Reviews />
         <SubcribeToNewsLetter />

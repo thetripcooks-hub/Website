@@ -73,14 +73,20 @@ export const queryTripsByLocation = (location: string) => gql`
 `;
 
 // query paginated list of trips
-export const queryPaginatedTrips = (page: number, sortkey?: string | null) => {
+export const queryPaginatedTrips = (
+  page: number,
+  sortkey?: {
+    key: string;
+    value: string;
+  } | null
+) => {
   const skipMultiplier = page === 1 ? 0 : page - 1;
   const skip =
     skipMultiplier > 0 ? AppConfig.pagination.pageSize * skipMultiplier : 0;
   return gql`
   query {
     tripCollection(${
-      sortkey ? `order:${sortkey}, ` : ""
+      sortkey ? `order:${sortkey.key}, ` : ""
     }limit: ${9}, skip: ${skip}) {
       total
       items ${tripQuery}

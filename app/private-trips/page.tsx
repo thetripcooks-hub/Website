@@ -1,15 +1,21 @@
+"use client"
 import React from "react";
 import PrivateTripHero from "./_components/private-trip-hero";
 import { SubcribeToNewsLetter, Footer } from "@/components/ui";
-import ReadyToStart from "../home/_components/ready-to-start";
+// import ReadyToStart from "../home/_components/ready-to-start";
 import Reviews from "../home/_components/reviews";
 import ViewOfLocation from "../trips/[id]/_components/view-of-location";
+import useGeneralStore from "@/stores/generalStore";
 
 const Page = () => {
+  const { privateTrip } = useGeneralStore();
   return (
     <main>
       <PrivateTripHero />
-      <ViewOfLocation title="Views from our last trips" />
+      <ViewOfLocation
+        title="Views from our last trips"
+        items={privateTrip?.[0]?.viewsOurLastTripsCollection?.items ?? []}
+      />
       <Reviews />
       {/* <ReadyToStart /> */}
       <SubcribeToNewsLetter />
