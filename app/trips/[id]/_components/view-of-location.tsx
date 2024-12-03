@@ -13,6 +13,8 @@ import view4 from "../_components/img/location-views/4.svg";
 import view5 from "../_components/img/location-views/5.svg";
 import view6 from "../_components/img/location-views/6.svg";
 import view7 from "../_components/img/location-views/7.svg";
+import useTripStore from "@/stores/trip-store";
+import { ClassValue } from "clsx";
 // import useGeneralStore from "@/stores/generalStore";
 // import useTripStore from "@/stores/trip-store";
 
@@ -42,11 +44,13 @@ const CarouselWrapper = ({ children }: { children: ReactNode }) => (
 const ViewOfLocation = ({
   title,
   items,
+  className,
 }: {
   title?: string;
   items: {
     url: string;
   }[];
+  className?: ClassValue;
 }) => {
   // const { selectedTrip } = useTripStore();
   // const { privateTrip } = useGeneralStore();
@@ -61,7 +65,9 @@ const ViewOfLocation = ({
   return (
     <section>
       <h3 className="text-[32px] leading-[39.01px] font-medium sm:text-5xl px-5 pt-5 sm:pt-10 sm:px-[8%]">
-        <SectionWrapper>{title || "Our view of Madrid"}</SectionWrapper>
+        <SectionWrapper className={className}>
+          {title || "Our view of Madrid"}
+        </SectionWrapper>
       </h3>
 
       <div className="mt-5 sm:mt-10 flex flex-col gap-5">

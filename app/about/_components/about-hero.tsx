@@ -29,7 +29,7 @@ const AboutHero = () => {
             </div>
           ) : (
             <Image
-              src={about[0]?.bannerImage?.url}
+              src={about[0]?.bannerImage?.url ?? ""}
               loading="lazy"
               height={558}
               width={1222}

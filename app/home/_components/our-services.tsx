@@ -35,8 +35,8 @@ const OurServices = () => {
             )}
             onClick={() => gotoRoute("/trips")}
           >
-            <h5 className="font-medium text-2xl">Group trips</h5>
-            <p className={cn(arial.className, "text-base")}>
+            <h5 className="font-medium text-2xl whitespace-nowrap">Group trips</h5>
+            <p className={cn(arial.className, "text-base mt-1")}>
               Get those travel plans out of the group chat and explore new
               territories
             </p>
@@ -47,8 +47,8 @@ const OurServices = () => {
             className="text-white w-full sm:w-[394px]  bg-cover bg-center bg-no-repeat h-[412px] flex justify-end flex-col p-5 rounded-[18px] cursor-pointer"
             onClick={() => gotoRoute("/private-trips")}
           >
-            <h5 className="font-medium text-2xl">Private trips</h5>
-            <p className={cn(arial.className, "text-base")}>
+            <h5 className="font-medium text-2xl whitespace-nowrap">Private trips</h5>
+            <p className={cn(arial.className, "text-base mt-1")}>
               Need to explore a new location on your own? We’re here for you!
             </p>
           </div>
@@ -58,8 +58,8 @@ const OurServices = () => {
             className="text-white w-full sm:w-[394px] bg-cover bg-center bg-no-repeat h-[412px] flex justify-end flex-col p-5 rounded-[18px] relative"
           >
             <ComingSoonBadge />
-            <h5 className="font-medium text-2xl">Travel planning</h5>
-            <p className={cn(arial.className, "text-base")}>
+            <h5 className="font-medium text-2xl whitespace-nowrap">Travel planning</h5>
+            <p className={cn(arial.className, "text-base mt-1")}>
               Curate your experience and explore at your own terms
             </p>
           </div>

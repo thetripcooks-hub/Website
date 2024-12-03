@@ -88,7 +88,7 @@ const Page = () => {
                       <div key={trip.sys.id} className="flex justify-between">
                         <h6 className="max-w-[192px] text-neutral-subtext">
                           Deposit for trip to {trip.location} ({trip.quantity}{" "}
-                          guests)
+                          slots)
                         </h6>
                         <h3 className="text-[#000000] font-semibold text-[20px] leading-[24.38px]">
                           {pounds.format(getTripDeposit(trip))}

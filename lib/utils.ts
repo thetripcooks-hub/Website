@@ -37,7 +37,11 @@ export function percentage(percent: number, total: number) {
  * @param {string} searchTerm - The string to search for.
  * @returns {Array} - An array of matching objects.
  */
-export function searchInArray(array: any[], key: string, searchTerm: string): Array<any> {
+export function searchInArray(
+  array: any[],
+  key: string,
+  searchTerm: string
+): Array<any> {
   if (!Array.isArray(array)) {
     throw new Error("First argument must be an array.");
   }
@@ -57,4 +61,20 @@ export function searchInArray(array: any[], key: string, searchTerm: string): Ar
       value.toLowerCase().includes(lowerCaseSearchTerm)
     );
   });
+}
+
+export default function contentfulLoader({
+  src,
+  width,
+  quality,
+}: {
+  src: string;
+  width: number;
+  quality?: number;
+}) {
+  const url = new URL(`https://example.com${src}`);
+  url.searchParams.set("fm", "webp");
+  url.searchParams.set("w", width.toString());
+  url.searchParams.set("q", (quality || 75).toString());
+  return url.href;
 }

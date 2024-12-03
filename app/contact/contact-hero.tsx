@@ -127,7 +127,7 @@ const ContactHero = () => {
                     </FormItem>
                   )}
                 />
-                <Button>Send Message</Button>
+                <Button className="w-fit">Send Message</Button>
               </div>
             </form>
           </Form>

@@ -33,7 +33,7 @@ const SubcribeToNewsLetter = () => {
   return (
     <section className="px-5 py-10 sm:py-20 sm:px-[8%]">
       <SectionWrapper className="flex flex-col gap-10 sm:gap-20">
-        <div className="flex w-full justify-between flex-col sm:flex-row mb-5">
+        <div className="flex w-full justify-between flex-col sm:flex-row mb-5 sm:gap-5">
           <div>
             <h3 className="text-xl text-[#000000] font-medium">
               Subscribe to our Newsletter
@@ -47,17 +47,17 @@ const SubcribeToNewsLetter = () => {
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="flex gap-5 flex-col sm:flex-row mt-10 sm:mt-0"
+                className="flex gap-5 flex-col lg:flex-row mt-10 sm:mt-0"
               >
                 <FormField
                   control={form.control}
                   name="email"
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem className="sm:w-[384px]">
                       <FormControl>
                         <Input
                           placeholder="Enter your email address"
-                          className="h-[54px] w-full sm:w-[384px] bg-neutral-grey-100 outline-none border-none focus-visible:ring-0 
+                          className="h-[54px] w-full bg-neutral-grey-100 outline-none border-none focus-visible:ring-0 
                       text-neutral-text placeholder:text-neutral-text placeholder:opacity-50"
                           {...field}
                         />

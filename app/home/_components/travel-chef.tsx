@@ -28,7 +28,7 @@ const TravelChef = () => {
           </p>
 
           <Button
-            className="mt-10 sm:mt-4 w-full sm:w-fit h-[54px]"
+            className="mt-10 sm:mt-4 w-fit h-[54px]"
             onClick={() => router.push("about")}
           >
             Learn more

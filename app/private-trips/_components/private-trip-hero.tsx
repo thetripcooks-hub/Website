@@ -26,8 +26,8 @@ const PrivateTripHero = () => {
         </main>
       </div>
       <div className="px-5 py-10 sm:py-20 sm:px-[8%]">
-        <SectionWrapper className="flex flex-col sm:flex-row justify-between gap-5">
-          <div className="sm:max-w-[550px] w-full text-neutral-subtext sm:text-secondary-forest-green">
+        <SectionWrapper className="flex flex-col lg:flex-row justify-between gap-5">
+          <div className="lg:max-w-[550px] w-full text-neutral-subtext sm:text-secondary-forest-green">
             <h4 className="font-medium text-[24px] leading-[29.26px] text-neutral-text sm:text-[32px] sm:leading-[39.01px]">
               Need a solo getaway?
             </h4>

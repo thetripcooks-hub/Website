@@ -41,7 +41,7 @@ const FeatureTrip = () => {
         </section>
       </SectionWrapper>
       <Button
-        className="w-full sm:w-fit h-[54px] sm:hidden"
+        className="w-fit h-[54px] sm:hidden"
         onClick={() => router.push(`/trips/${featuredTripArray[0].sys.id}`)}
       >
         Book trip

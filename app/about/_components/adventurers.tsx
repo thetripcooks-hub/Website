@@ -45,7 +45,7 @@ const Adventurers = () => {
             </div>
           ) : (
             <Image
-              src={about[0]?.ownersPicture?.url}
+              src={about[0]?.ownersPicture?.url ?? ""}
               alt="owners-image"
               width={544}
               height={558}

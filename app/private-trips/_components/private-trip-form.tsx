@@ -21,6 +21,7 @@ import { useForm } from "react-hook-form";
 import { z, ZodType } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "@/lib/utils";
+import { getCountryNames } from "@/constants/countries";
 
 type PrivateTripInformation = {
   email: string;
@@ -42,7 +43,7 @@ export const PrivateTripSchema: ZodType<PrivateTripInformation> = z.object({
   firstName: z.string().min(2, "Name must be at least 2 characters"),
   lastName: z.string().min(2, "Name must be at least 2 characters"),
   country: z.string().min(2, "Required"),
-  noOfGuests: z.coerce.number().min(4, "Minimum of 4 guests"),
+  noOfGuests: z.coerce.number().min(4, "Minimum of 4 people"),
   nationalitiesOfGuests: z.array(z.string()).min(1, "Required"),
   budgetPerPerson: z.string().min(1, "Required"),
   proposedDate: z.string(),
@@ -68,8 +69,9 @@ const PrivateTripForm = () => {
     resolver: zodResolver(PrivateTripSchema),
   });
   const onSubmit = () => {};
+
   return (
-    <Card className="w-full sm:w-1/2 shadow-none border-none  sm:p-6 sm:max-w-[573px]">
+    <Card className="w-full lg:w-1/2 shadow-none border-none  lg:p-6 lg:max-w-[573px]">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-5">
@@ -137,12 +139,18 @@ const PrivateTripForm = () => {
                 <FormItem>
                   <FormLabel>What country are you interested in?*</FormLabel>
                   <FormControl>
-                    <Select
+                    {/* <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger className="bg-[#F7F7F9] h-[59px] focus-visible:ring-0 border-none data-[placeholder]:text-[#ABABAB] text-base leading-[19.5px]">
+                    > */}
+                    {/* <FormControl> */}
+                    <Input
+                      placeholder="Enter country here"
+                      className="bg-[#F7F7F9] h-[59px] focus-visible:ring-0 border-none placeholder:text-[#ABABAB] text-base leading-[19.5px]"
+                      type="text"
+                      {...field}
+                    />
+                    {/* <SelectTrigger className="bg-[#F7F7F9] h-[59px] focus-visible:ring-0 border-none data-[placeholder]:text-[#ABABAB] text-base leading-[19.5px]">
                           <SelectValue
                             placeholder="Select country here"
                             className="data-[placeholder]:text-[#ABABAB]"
@@ -150,13 +158,13 @@ const PrivateTripForm = () => {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {["Nigeria", "Ghana"].map((country) => (
-                          <SelectItem key={country} value={country}>
-                            {country}
+                        {getCountryNames().map((country) => (
+                          <SelectItem key={country.name} value={country.name}>
+                            {country.name}
                           </SelectItem>
                         ))}
                       </SelectContent>
-                    </Select>
+                    </Select> */}
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -174,10 +182,10 @@ const PrivateTripForm = () => {
                   </FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Enter number of guests here"
+                      placeholder="Enter number of people here"
                       className="bg-[#F7F7F9] h-[59px] focus-visible:ring-0 border-none placeholder:text-[#ABABAB] text-base leading-[19.5px]"
                       type="number"
-                      // min={4}
+                      min={4}
                       {...field}
                     />
                   </FormControl>
@@ -192,7 +200,7 @@ const PrivateTripForm = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    What are the nationalities of your guests?
+                    What are the nationalities of your people?
                   </FormLabel>
                   <FormControl>
                     <Input

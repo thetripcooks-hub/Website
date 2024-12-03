@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import PrivateTripHero from "./_components/private-trip-hero";
 import { SubcribeToNewsLetter, Footer } from "@/components/ui";
@@ -13,6 +13,7 @@ const Page = () => {
     <main>
       <PrivateTripHero />
       <ViewOfLocation
+        className="font-medium text-[24px] leading-[29.26px] text-neutral-text sm:text-[32px] sm:leading-[39.01px]"
         title="Views from our last trips"
         items={privateTrip?.[0]?.viewsOurLastTripsCollection?.items ?? []}
       />

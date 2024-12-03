@@ -14,10 +14,13 @@ const usePaymentCard = () => {
 
   const handleAddToCart = () => {
     if (!selectedTrip) return;
-
     const foundItem = items.find((item) => item.sys.id === selectedTrip.sys.id);
-    if (!showCart && !isMobile) {
-      setShowCart(true);
+    if (!showCart) {
+      if (!isMobile) {
+        setShowCart(true);
+      } else {
+        toast.success("Added to cart");
+      }
     }
     if (foundItem) {
       incrementQuantity(foundItem);

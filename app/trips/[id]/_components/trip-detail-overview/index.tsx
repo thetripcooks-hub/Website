@@ -62,7 +62,7 @@ const TripDetailOverview = () => {
           {/* mobile images */}
           <div className="sm:hidden">
             <Slider {...settings}>
-              {selectedTrip.bannerImagesCollection.items.map((item) => (
+              {selectedTrip?.bannerImagesCollection?.items?.map((item) => (
                 <Image
                   key={`${item}-${Math.random()}`}
                   src={item.url}
