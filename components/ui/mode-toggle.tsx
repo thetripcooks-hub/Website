@@ -14,10 +14,12 @@ import {
 import Image from "next/image";
 import Moon from "~/img/moon.svg";
 import Sun from "~/img/sun.svg";
+import { Check } from "lucide-react";
 
 export function ModeToggle() {
-  const { setTheme } = useTheme();
+  const { setTheme, theme } = useTheme();
 
+  const modes = ["light", "dark", "system"];
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
@@ -43,7 +45,16 @@ export function ModeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="z-[99]">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
+        {modes.map((mode) => (
+          <DropdownMenuItem
+            key={mode}
+            onClick={() => setTheme(mode)}
+            className="capitalize flex justify-between items-center"
+          >
+            {mode} {theme === mode && <Check width={16} height={16} />}
+          </DropdownMenuItem>
+        ))}
+        {/* <DropdownMenuItem onClick={() => setTheme("light")}>
           Light
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("dark")}>
@@ -51,7 +62,7 @@ export function ModeToggle() {
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("system")}>
           System
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
       </DropdownMenuContent>
     </DropdownMenu>
   );
