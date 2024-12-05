@@ -23,10 +23,10 @@ const Page = () => {
         alt="payment success icon"
         className="w-[90px] h-[90px] sm:w-[132px] sm:h-[132px] mb-5"
       />
-      <h3 className="font-semibold text-[24px] leading-[43.2px] sm:text-[40px] sm:leading-[72px] text-[#020E0B]">
+      <h3 className="font-semibold text-[24px] leading-[43.2px] sm:text-[40px] sm:leading-[72px] text-[#020E0B] dark:text-foreground">
         Your order is confirmed!
       </h3>
-      <p className="leading-[28.8px] text-base max-w-[318px] sm:max-w-[381px] text-center text-neutral-grey-500 mb-5 sm:mb-10">
+      <p className="leading-[28.8px] text-base max-w-[318px] sm:max-w-[381px] text-center text-neutral-grey-500 mb-5 sm:mb-10 dark:text-[#8C909B]">
         We’ll be in touch with you for more updates towards your trip
       </p>
       <div className="flex gap-5">
