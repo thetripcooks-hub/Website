@@ -24,6 +24,7 @@ import { cn, dollars } from "@/lib/utils";
 // import { getCountryNames } from "@/constants/countries";
 import emailjs from "@emailjs/browser";
 import { toast } from "sonner";
+import dayjs from "dayjs";
 
 const SERVICE_ID = process.env.NEXT_PUBLIC_PRIVATE_TRIP_SERVICE_ID || "";
 const TEMPLATE_ID = process.env.NEXT_PUBLIC_PRIVATE_TRIP_TEMPLATE_ID || "";
@@ -81,6 +82,7 @@ const PrivateTripForm = () => {
         values: {
           ...values,
           budgetPerPerson: dollars.format(Number(values.budgetPerPerson)),
+          proposedDate: dayjs(values.proposedDate).format("DD/MM/YYYY"),
         },
       })
       .then(
