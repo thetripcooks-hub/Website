@@ -82,7 +82,7 @@ const PrivateTripForm = () => {
         values: {
           ...values,
           budgetPerPerson: dollars.format(Number(values.budgetPerPerson)),
-          proposedDate: dayjs(values.proposedDate).format("DD/MM/YYYY"),
+          proposedDate: dayjs(values.proposedDate).format("MMMM D, YYYY"),
         },
       })
       .then(
