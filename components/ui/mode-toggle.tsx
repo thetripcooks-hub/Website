@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { MoonIcon } from "@radix-ui/react-icons";
+// import { MoonIcon } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
 
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
 import Moon from "~/img/moon.svg";
+import Sun from "~/img/sun.svg";
 
 export function ModeToggle() {
   const { setTheme } = useTheme();
@@ -28,7 +29,13 @@ export function ModeToggle() {
           <Image
             src={Moon}
             alt="light-mode"
-            // className="dark:hidden"
+            className="dark:hidden"
+            style={{ height: "46px" }}
+          />
+          <Image
+            src={Sun}
+            alt="dark-mode"
+            className="hidden dark:block"
             style={{ height: "46px" }}
           />
           {/* <MoonIcon className="absolute h-[36px] w-[36px] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 bg-white rounded-[8px]" />

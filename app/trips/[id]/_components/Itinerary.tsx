@@ -4,7 +4,7 @@ import React from "react";
 import img1 from "./img/itinerary/1.svg";
 import img2 from "./img/itinerary/2.svg";
 import Image from "next/image";
-import TripCard from "@/components/ui/trip-card";
+// import TripCard from "@/components/ui/trip-card";
 import useTripStore from "@/stores/trip-store";
 
 const itinerary: {
@@ -66,32 +66,12 @@ const Itinerary = () => {
   return selectedTrip ? (
     <div className="px-5 sm:py-10 py-12 sm:mb-16 text-neutral-text sm:px-[8%]">
       <SectionWrapper>
-        <h3 className="text-[24px] leading-[29.26px] font-medium sm:text-[32px] sm:leading-[39.01px] mb-5 sm:mb-2.5">
+        <h3 className="text-[24px] leading-[29.26px] font-medium sm:text-[32px] sm:leading-[39.01px] mb-5 sm:mb-2.5 dark:text-foreground">
           Itinerary
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 gap-y-8 sm:gap-y-12">
           {selectedTrip.itinerary.map((item, index) => {
             return (
-              // <div
-              //   key={item.day}
-              //   className="flex flex-col gap-2.5 font-normal w-fit font-alexandria"
-              // >
-              //   <Image
-              //     src={item.coverImage}
-              //     alt="trip-intinerary-image"
-              //     height={301}
-              //     width={318}
-              //     className="w-full sm:w-[318px] h-[301px] rounded-[18px] object-cover"
-              //   />
-              //   <div className="flex flex-col gap-1 w-full sm:w-[367px]">
-              //     <h6 className="text-[14px] leading-[17.07px]">
-              //       DAY{item.day}
-              //     </h6>
-              //     <p className="text-[20px] leading-[24.38px] sm:text-[24px] sm:leading-[29.26px]">
-              //       {item.activity}
-              //     </p>
-              //   </div>
-              // </div>
               <div key={index}>
                 <div className="text-foreground hidden sm:flex sm:flex-col relative">
                   <Image
@@ -103,9 +83,9 @@ const Itinerary = () => {
                   />
                   <div className="flex flex-col gap-1 mt-2.5">
                     <h6 className="text-[14px] leading-[17.07px]">
-                      DAY{item.day}
+                      DAY {item.day}
                     </h6>{" "}
-                    <p className="text-[20px] leading-[24.38px] sm:text-[24px] sm:leading-[29.26px]">
+                    <p className="text-[20px] leading-[24.38px] sm:text-[24px] sm:leading-[29.26px] dark:text-[#BFC0C2]">
                       {item.activity}
                     </p>
                   </div>
@@ -123,7 +103,7 @@ const Itinerary = () => {
                     <h6 className="text-[14px] leading-[17.07px]">
                       DAY{item.day}
                     </h6>{" "}
-                    <p className="text-[20px] leading-[24.38px] sm:text-[24px] sm:leading-[29.26px]">
+                    <p className="text-[20px] leading-[24.38px] sm:text-[24px] sm:leading-[29.26px] dark:text-[#BFC0C2]">
                       {item.activity}
                     </p>
                   </div>

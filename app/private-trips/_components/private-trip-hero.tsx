@@ -28,10 +28,10 @@ const PrivateTripHero = () => {
       <div className="px-5 py-10 sm:py-20 sm:px-[8%]">
         <SectionWrapper className="flex flex-col lg:flex-row justify-between gap-5">
           <div className="lg:max-w-[550px] w-full text-neutral-subtext sm:text-secondary-forest-green">
-            <h4 className="font-medium text-[24px] leading-[29.26px] text-neutral-text sm:text-[32px] sm:leading-[39.01px]">
+            <h4 className="font-medium text-[24px] leading-[29.26px] text-neutral-text sm:text-[32px] sm:leading-[39.01px] dark:text-foreground">
               Need a solo getaway?
             </h4>
-            <div className="text-base leading-[29px] text-neutral-subtext mt-5">
+            <div className="text-base leading-[29px] text-neutral-subtext mt-5 dark:text-[#BFC0C2]">
               <p>
                 Group trips are amazing, private trips are on a whole new level.
                 You can book a private trip and enjoy an exclusive experience

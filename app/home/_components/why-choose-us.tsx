@@ -23,9 +23,9 @@ const items = [
 
 const WhyChooseUs = () => {
   return (
-    <section className="px-5 py-10 sm:py-20 sm:pb-28 sm:px-[8%] bg-neutral-grey-100">
+    <section className="px-5 py-10 sm:py-20 sm:pb-28 sm:px-[8%] bg-neutral-grey-100 dark:bg-[#1D2120]">
       <SectionWrapper>
-        <h3 className="text-[32px] font-medium sm:text-5xl text-center max-w-[318px] sm:max-w-[445px] mx-auto mb-5">
+        <h3 className="text-[32px] font-medium sm:text-5xl text-center max-w-[318px] sm:max-w-[445px] mx-auto mb-5 dark:text-foreground">
           Why choose us to curate your travel?
         </h3>
         <div className="mt-10 sm:mt-20 flex gap-10 justify-between w-full flex-col sm:flex-row">
@@ -35,10 +35,10 @@ const WhyChooseUs = () => {
               className="flex flex-col gap-4 text-foreground"
             >
               <Image src={AirplaneIcon} alt="airplane-icon" />
-              <h5 className="text-2xl font-medium text-neutral-text">
+              <h5 className="text-2xl font-medium text-neutral-text dark:text-foreground">
                 {item.title}
               </h5>
-              <p className="text-base text-neutral-grey-500">
+              <p className="text-base text-neutral-grey-500 dark:text-[#BFC0C2]">
                 {item.description}
               </p>
             </div>

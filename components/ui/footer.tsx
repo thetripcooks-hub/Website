@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import LogoBig from "~/logo-big.svg";
 import Instagram from "@/components/icons/svg/instagram.svg";
+import InstagramDark from "@/components/icons/svg/instagram-dark.svg";
 // import Facebook from "@/components/icons/svg/facebook.svg";
 // import X from "@/components/icons/svg/x.svg";
 import Link from "next/link";
@@ -58,12 +59,17 @@ const Footer = () => {
           <div className="flex gap-4">
             {[Instagram].map((icon, index) => (
               <div
-                className="bg-white border border-neutral-grey-300 rounded-full h-[46px] w-[46px] flex items-center justify-center cursor-pointer"
+                className="border border-neutral-grey-300 rounded-full h-[46px] w-[46px] flex items-center justify-center cursor-pointer bg-background dark:border-[#383E47]"
                 key={index}
               >
                 <Image
                   src={icon}
-                  className="w-5 h-5 sm:w-[25px] sm:h-[25px]"
+                  className="w-5 h-5 sm:w-[25px] sm:h-[25px] dark:hidden"
+                  alt="social-media-icon"
+                />
+                <Image
+                  src={InstagramDark}
+                  className="w-5 h-5 sm:w-[25px] sm:h-[25px] hidden dark:block"
                   alt="social-media-icon"
                 />
               </div>
@@ -74,14 +80,14 @@ const Footer = () => {
         <div className="flex flex-col sm:flex-row sm:w-3/5 sm:justify-between sm:max-w-[600px] gap-10 sm:gap-5 mb-12">
           {config.map((item, index) => (
             <div key={index}>
-              <h3 className="text-[20px] leading-[24px] text-neutral-text">
+              <h3 className="text-[20px] leading-[24px] text-neutral-text dark:text-foreground">
                 {item.title}
               </h3>
               <ul className="mt-4 flex flex-col gap-2">
                 {item.routes.map((route, index) => (
                   <li key={index}>
                     <Link
-                      className="text-[18px] leading-[24px] text-neutral-subtext"
+                      className="text-[18px] leading-[24px] text-neutral-subtext dark:text-[#BFC0C2]"
                       href={route.url}
                     >
                       {route.name}

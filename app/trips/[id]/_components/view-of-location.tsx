@@ -15,6 +15,7 @@ import view6 from "../_components/img/location-views/6.svg";
 import view7 from "../_components/img/location-views/7.svg";
 import useTripStore from "@/stores/trip-store";
 import { ClassValue } from "clsx";
+import { cn } from "@/lib/utils";
 // import useGeneralStore from "@/stores/generalStore";
 // import useTripStore from "@/stores/trip-store";
 
@@ -65,7 +66,7 @@ const ViewOfLocation = ({
   return (
     <section>
       <h3 className="text-[32px] leading-[39.01px] font-medium sm:text-5xl px-5 pt-5 sm:pt-10 sm:px-[8%]">
-        <SectionWrapper className={className}>
+        <SectionWrapper className={cn("dark:text-foreground", className)}>
           {title || "Our view of Madrid"}
         </SectionWrapper>
       </h3>

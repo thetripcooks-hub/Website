@@ -1,7 +1,7 @@
 import React from "react";
-import img1 from "../img/trip-detail-overview/1-desktop.svg";
-import img2 from "../img/trip-detail-overview/2-desktop.svg";
-import img3 from "../img/trip-detail-overview/3-desktop.svg";
+// import img1 from "../img/trip-detail-overview/1-desktop.svg";
+// import img2 from "../img/trip-detail-overview/2-desktop.svg";
+// import img3 from "../img/trip-detail-overview/3-desktop.svg";
 import Image from "next/image";
 import SectionWrapper from "@/app/home/_components/section-wrapper";
 import TripInfo from "./trip-info";
@@ -15,7 +15,7 @@ import Slider from "react-slick";
 import useTripStore from "@/stores/trip-store";
 
 const TripDetailOverview = () => {
-  const tripImages = [img1, img2, img3];
+  // const tripImages = [img1, img2, img3];
   const settings = {
     dots: true,
     infinite: true,
@@ -32,7 +32,7 @@ const TripDetailOverview = () => {
     selectedTrip && (
       <div className="px-5 py=5 sm:pt-10 sm:pb-20 text-neutral-text sm:px-[8%]">
         <SectionWrapper>
-          <h3 className="font-medium text-neutral-text leading-[39.01px] text-[32px] hidden sm:flex mb-5">
+          <h3 className="font-medium text-neutral-text leading-[39.01px] text-[32px] hidden sm:flex mb-5 dark:text-foreground">
             {selectedTrip?.location || ""}
           </h3>
           {/* desktop image section */}

@@ -25,12 +25,12 @@ const Page = () => {
   const { handlePay, isPaying } = useStripe({ items });
 
   return (
-    <main className={cn("bg-white w-full")}>
+    <main className={cn("bg-white dark:bg-background w-full")}>
       <div ref={ref}>
         <MobilePageHeader title="My cart" showCartBtn={false} />
         <div className="px-5 py=5 sm:pt-10 sm:pb-20 text-neutral-text sm:px-[8%]">
           <SectionWrapper>
-            <h3 className="font-medium text-neutral-text leading-[39.01px] text-[32px] hidden sm:flex mb-5">
+            <h3 className="font-medium text-neutral-text leading-[39.01px] text-[32px] hidden sm:flex mb-5 dark:text-foreground">
               My Cart
             </h3>
           </SectionWrapper>
@@ -45,26 +45,26 @@ const Page = () => {
                   <CardCard key={trip.sys.id} trip={trip} />
                 ))}
               </div>
-              <Card className="hidden p-5 w-full sm:w-1/2 sm:max-w-[423px] h-fit shadow-none border-neutral-grey-300 gap-5 sm:flex flex-col">
+              <Card className="hidden p-5 w-full sm:w-1/2 sm:max-w-[423px] h-fit shadow-none border-neutral-grey-300 gap-5 sm:flex flex-col dark:bg-background dark:border-[#8C909B]">
                 {items.map((trip) => (
                   <div
                     className="w-full flex justify-between"
                     key={trip.sys.id}
                   >
-                    <h6 className="text-neutral-subtext text-[16px] leading-[19.5px] font-alexandria font-normal max-w-[192px]">
+                    <h6 className="text-neutral-subtext text-[16px] leading-[19.5px] font-alexandria font-normal max-w-[192px] dark:text-[#8C909B]">
                       Deposit for trip to {trip.location} ({trip.quantity} slot
                       {trip.quantity > 1 ? "s" : ""})
                     </h6>
-                    <h3 className="text-[#000000] font-semibold text-2xl leading-[29.26px]">
+                    <h3 className="text-[#000000] font-semibold text-2xl leading-[29.26px] dark:text-foreground">
                       {pounds.format(getTripDeposit(trip))}{" "}
                     </h3>
                   </div>
                 ))}
                 <div className="w-full flex justify-between">
-                  <h6 className="text-neutral-subtext text-[16px] leading-[19.5px] font-alexandria font-normal">
+                  <h6 className="text-neutral-subtext text-[16px] leading-[19.5px] font-alexandria font-normal dark:text-[#8C909B]">
                     Est. total
                   </h6>
-                  <h3 className="text-[#000000] font-semibold text-2xl leading-[29.26px]">
+                  <h3 className="text-[#000000] font-semibold text-2xl leading-[29.26px] dark:text-foreground">
                     {pounds.format(getTotalTripDeposit(items))}
                   </h3>
                 </div>

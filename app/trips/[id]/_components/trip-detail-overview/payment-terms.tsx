@@ -11,8 +11,8 @@ const PaymentTerms = () => {
   const { selectedTrip } = useTripStore();
   return (
     selectedTrip && (
-      <div className="text-[16px] leading-[19.5px] font-normal gap-3 sm:flex flex-col text-[#000000] hidden">
-        <h6 className="text-neutral-subtext">Payment terms</h6>
+      <div className="text-[16px] leading-[19.5px] font-normal gap-3 sm:flex flex-col text-[#000000] hidden dark:text-foreground">
+        <h6 className="text-neutral-subtext dark:text-foreground">Payment terms</h6>
 
         <p>
           {" "}

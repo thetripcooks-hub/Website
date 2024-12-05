@@ -1,4 +1,4 @@
-import React, {  } from "react";
+import React from "react";
 import Image from "next/image";
 import {
   Button,
@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui";
-// import SettingsMobile from "@/components/icons/svg/settings-mobile.svg";
+import SettingsMobileDark from "@/components/icons/svg/settings-desktop-dark.svg";
 import SettingsDesktop from "@/components/icons/svg/settings-desktop.svg";
 import { XIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -40,15 +40,24 @@ const SortByButton = () => {
             <DropdownMenuTrigger asChild>
               <Button
                 variant="outline"
-                className="sm:flex text-neutral-text border-none gap-2.5 items-center"
+                className="sm:flex text-neutral-text border-none gap-2.5 items-center dark:text-foreground"
               >
                 {orderKey?.value || "Sort by"}
                 {orderKey ? null : (
-                  <Image
-                    src={SettingsDesktop}
-                    alt="light-mode"
-                    style={{ height: "20px" }}
-                  />
+                  <>
+                    <Image
+                      src={SettingsDesktop}
+                      alt="light-mode"
+                      style={{ height: "20px" }}
+                      className="dark:hidden"
+                    />
+                    <Image
+                      src={SettingsMobileDark}
+                      alt="light-mode"
+                      style={{ height: "20px" }}
+                      className="hidden dark:block"
+                    />
+                  </>
                 )}
               </Button>
               {/* <Button
@@ -70,7 +79,7 @@ const SortByButton = () => {
               <DropdownMenuItem
                 key={key.key}
                 onClick={() => handleSortChange(key)}
-                className="text-neutral-text h-[48px]"
+                className="text-neutral-text h-[48px] dark:text-foreground"
               >
                 {key.value}
               </DropdownMenuItem>

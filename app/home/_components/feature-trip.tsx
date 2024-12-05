@@ -12,7 +12,7 @@ const FeatureTrip = () => {
   const { trips } = useTripStore();
   const featuredTripArray = trips.filter((x) => x.isFeaturedTrip);
   return featuredTripArray.length > 0 ? (
-    <div className="sm:pt-32 px-5 pt-10 text-neutral-text  pb-10 sm:pb-24 sm:px-[5%] ">
+    <div className="sm:pt-32 px-5 pt-10 text-neutral-text dark:text-foreground  pb-10 sm:pb-24 sm:px-[5%] ">
       <SectionWrapper className="flex flex-col-reverse sm:flex-row sm:items-center sm:gap-20">
         <section>
           <Image
@@ -28,7 +28,7 @@ const FeatureTrip = () => {
         </section>
         <section className="flex flex-col gap-6 sm:gap-10">
           <h3 className="text-[32px] sm:text-5xl font-medium">Featured trip</h3>
-          <p className="max-w-[318px] text-base sm:text-xl sm:max-w-[415px] text-neutral-subtext">
+          <p className="max-w-[318px] text-base sm:text-xl sm:max-w-[415px] text-neutral-subtext dark:text-foreground">
             Explore {featuredTripArray[0].location} with a friend or two this
             summer. Enjoy full support from our team 24/7.
           </p>

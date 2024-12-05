@@ -35,10 +35,10 @@ const SubcribeToNewsLetter = () => {
       <SectionWrapper className="flex flex-col gap-10 sm:gap-20">
         <div className="flex w-full justify-between flex-col sm:flex-row mb-5 sm:gap-5">
           <div>
-            <h3 className="text-xl text-[#000000] font-medium">
+            <h3 className="text-xl text-[#000000] font-medium dark:text-foreground">
               Subscribe to our Newsletter
             </h3>
-            <p className="text-base text-neutral-subtext mt-4 sm:max-w-[337px]">
+            <p className="text-base text-neutral-subtext mt-4 sm:max-w-[337px] dark:text-[#BFC0C2]">
               Receive promo packages, be the first to know where we are going
               next!
             </p>
@@ -58,7 +58,7 @@ const SubcribeToNewsLetter = () => {
                         <Input
                           placeholder="Enter your email address"
                           className="h-[54px] w-full bg-neutral-grey-100 outline-none border-none focus-visible:ring-0 
-                      text-neutral-text placeholder:text-neutral-text placeholder:opacity-50"
+                      text-neutral-text placeholder:text-neutral-text placeholder:opacity-50 dark:placeholder:opacity-100 dark:placeholder:text-foreground"
                           {...field}
                         />
                       </FormControl>
@@ -73,7 +73,7 @@ const SubcribeToNewsLetter = () => {
             </Form>
           </div>
         </div>
-        <Separator />
+        <Separator className="dark:bg-neutral-grey-300" />
       </SectionWrapper>
     </section>
   );

@@ -96,12 +96,12 @@ function TripSearch<T extends string>({
           // aria-controls="search"
         >
           <PopoverAnchor asChild>
-            <div className="bg-white w-full h-[69px] sm:h-[81px] rounded-[200px] max-w-[604px] px-5 sm:px-6 py-2 sm:py-4 flex gap-5 items-center border border-[#E1E6EF]">
+            <div className="bg-background w-full h-[69px] sm:h-[81px] rounded-[200px] max-w-[604px] px-5 sm:px-6 py-2 sm:py-4 flex gap-5 items-center border border-[#E1E6EF] dark:border-[#383E47]">
               <Image src={SearchIcon} alt="search-icon" />
               <div className="flex flex-col w-full gap-0">
                 <label
                   htmlFor="location"
-                  className="text-[#000000] text-sm sm:text-base"
+                  className="text-[#000000] text-sm sm:text-base dark:text-foreground"
                 >
                   Where
                 </label>
@@ -118,7 +118,7 @@ function TripSearch<T extends string>({
                     id="location"
                     type="search"
                     placeholder="Where are we going to?"
-                    className="p-0 border-none hover:outline-none shadow-none focus-visible:ring-0 h-fit text-neutral-grey-500 text-xs sm:text-sm"
+                    className="p-0 border-none hover:outline-none shadow-none focus-visible:ring-0 h-fit text-neutral-grey-500 text-xs sm:text-sm dark:bg-transparent"
                   />
                 </CommandPrimitive.Input>
               </div>

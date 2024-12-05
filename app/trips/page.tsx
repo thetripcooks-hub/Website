@@ -21,9 +21,9 @@ const Page = () => {
   }, []);
 
   return (
-    <main className={cn("bg-white w-full")}>
+    <main className={cn("bg-white dark:bg-background w-full")}>
       <header>
-        <h1 className="text-4xl sm:text-5xl text-center font-semibold my-5 sm:mt-20 text-neutral-text">
+        <h1 className="text-4xl sm:text-5xl text-center font-semibold my-5 sm:mt-20 text-neutral-text dark:text-foreground">
           Where to?..
         </h1>
         <TripSearch

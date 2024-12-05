@@ -78,8 +78,8 @@ const Faq = () => {
       <SectionWrapper className="flex flex-col sm:flex-row gap-5 xl:gap-32 w-full justify-between">
         <div>
           <h3 className="text-[32px] font-medium sm:text-5xl">FAQs</h3>
-          <p className="w-full sm:max-w-[582px] text-neutral-subtext mt-5">
-            Everyting you need to know about tripcooks and pricing. Can’t find
+          <p className="w-full sm:max-w-[582px] text-neutral-subtext mt-5 dark:text-[#BFC0C2]">
+            Everything you need to know about tripcooks and pricing. Can’t find
             what yoy’re looking for? Please contact mail@tripcooks.com
           </p>
         </div>
@@ -93,10 +93,10 @@ const Faq = () => {
           >
             {faq.map((item) => (
               <AccordionItem value={item.question} key={item.question}>
-                <AccordionTrigger className="text-left text-neutral-text text-lg sm:text-lg">
+                <AccordionTrigger className="text-left text-neutral-text text-lg sm:text-lg dark:text-foreground">
                   {item.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-neutral-subtext text-base">
+                <AccordionContent className="text-neutral-subtext text-base dark:text-[#BFC0C2]">
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>

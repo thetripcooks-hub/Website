@@ -36,7 +36,7 @@ const navConfig = [
 const Navbar = () => {
   const pathname = usePathname();
   return (
-    <div className="bg-white px-5 sm:px-[8%] fixed top-0 w-screen z-[99]">
+    <div className="px-5 sm:px-[8%] fixed top-0 w-screen z-[99] bg-background">
       <SectionWrapper className="flex flex-row justify-between items-center sm:h-[95px] h-[75px]">
         <Link href="/home" className="cursor-pointer">
           <Image src={Logo} alt="logo" />
@@ -44,7 +44,7 @@ const Navbar = () => {
 
         <section
           className={cn(
-            "hidden sm:flex gap-5 text-neutral-text text-[16px] leading-[19.5px]"
+            "hidden sm:flex gap-5 text-neutral-text dark:text-foreground text-[16px] leading-[19.5px]"
           )}
         >
           {navConfig.map((item) => (

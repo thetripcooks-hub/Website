@@ -18,7 +18,7 @@ const MobilePageHeader = ({
   const router = useRouter();
 
   return (
-    <div className=" sm:hidden flex items-center justify-between m-5">
+    <div className=" sm:hidden flex items-center justify-between m-5 dark:bg-background">
       <div className="flex items-center gap-2.5">
         <svg
           width="20"

@@ -82,6 +82,7 @@ const PaginationPrevious = ({
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className="dark:hidden"
     >
       <path
         d="M12.5005 16.6004L7.06719 11.1671C6.42552 10.5254 6.42552 9.47539 7.06719 8.83372L12.5005 3.40039"
@@ -90,6 +91,23 @@ const PaginationPrevious = ({
         strokeMiterlimit="10"
         strokeLinecap="round"
         strokeLinejoin="round"
+      />
+    </svg>
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="hidden dark:block"
+    >
+      <path
+        d="M12.5 16.5999L7.0667 11.1666C6.42503 10.5249 6.42503 9.4749 7.0667 8.83324L12.5 3.3999"
+        stroke="white"
+        stroke-width="1.25"
+        stroke-miterlimit="10"
+        stroke-linecap="round"
+        stroke-linejoin="round"
       />
     </svg>
   </PaginationLink>
@@ -112,6 +130,7 @@ const PaginationNext = ({
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className="dark:hidden"
     >
       <path
         d="M7.49948 3.39961L12.9328 8.83294C13.5745 9.47461 13.5745 10.5246 12.9328 11.1663L7.49948 16.5996"
@@ -120,6 +139,23 @@ const PaginationNext = ({
         strokeMiterlimit="10"
         strokeLinecap="round"
         strokeLinejoin="round"
+      />
+    </svg>
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="hidden dark:block"
+    >
+      <path
+        d="M7.49997 3.4001L12.9333 8.83343C13.575 9.4751 13.575 10.5251 12.9333 11.1668L7.49997 16.6001"
+        stroke="white"
+        stroke-width="1.25"
+        stroke-miterlimit="10"
+        stroke-linecap="round"
+        stroke-linejoin="round"
       />
     </svg>
   </PaginationLink>

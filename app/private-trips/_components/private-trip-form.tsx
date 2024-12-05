@@ -99,7 +99,7 @@ const PrivateTripForm = () => {
   };
 
   return (
-    <Card className="w-full lg:w-1/2 shadow-none border-none  lg:p-6 lg:max-w-[573px]">
+    <Card className="w-full lg:w-1/2 shadow-none border-none  lg:p-6 lg:max-w-[573px] bg-background">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-5">
@@ -257,7 +257,7 @@ const PrivateTripForm = () => {
                     What is your budget for the trip? per person*
                   </FormLabel>
                   <FormControl>
-                    <div className="flex items-center bg-[#F7F7F9] h-[59px] rounded-l-md pl-3">
+                    <div className="flex items-center bg-[#F7F7F9] dark:bg-[#272C2B] h-[59px] rounded-l-md pl-3">
                       $
                       <Input
                         placeholder="Enter budget here"

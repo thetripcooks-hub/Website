@@ -6,6 +6,7 @@ import {
   DropdownMenuTrigger,
 } from "./dropdown-menu";
 import Menu from "~/img/harmburger-menu.svg";
+import MenuDark from "~/img/harmburger-menu-dark.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -27,7 +28,14 @@ const MobileNav = ({
     <div className="sm:hidden">
       <DropdownMenu open={open} onOpenChange={setOpen}>
         <DropdownMenuTrigger asChild>
-          <Image src={Menu} alt="hamburger-menu" />
+          <div>
+            <Image src={Menu} alt="hamburger-menu" className="dark:hidden" />
+            <Image
+              src={MenuDark}
+              alt="hamburger-menu"
+              className="hidden dark:block"
+            />
+          </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-screen rounded-none border-none p-5 py-10 h-[85vh] shadow-top-none sm:hidden -top-[75px] absolute -right-[36px] z-[99]">
           <div className="flex justify-between my-6">
@@ -60,7 +68,7 @@ const MobileNav = ({
               className="flex flex-col mt-5 gap-6"
               onClick={() => {
                 setOpen(false);
-                router.replace("https://www.instagram.com/")
+                router.replace("https://www.instagram.com/");
               }}
             >
               <h4>Follow us on Instagram</h4>

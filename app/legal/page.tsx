@@ -5,15 +5,15 @@ import ReadyToStart from "../home/_components/ready-to-start";
 const Page = () => {
   return (
     <main>
-      <div className="px-5 py-10 sm:px-[8%] text-neutral-subtext text-base leading-[19.5px]">
+      <div className="px-5 py-10 sm:px-[8%] text-neutral-subtext text-base leading-[19.5px] dark:text-[#8C909B]">
         {/* <h2 className="text-center text-[#020E0B] text-2xl leading-[29.26px] font-medium sm:leading-[48.76px] sm:text-[40px] mb-10">
           Our travel policy
         </h2> */}
-        <h1 className="text-4xl sm:text-5xl text-center font-semibold mb-10 text-neutral-text">
+        <h1 className="text-4xl sm:text-5xl text-center font-semibold mb-10 text-neutral-text dark:text-foreground">
           Our travel policy
         </h1>
 
-        <h6 className="font-semibold text-2xl leading-[29.26px] text-[#020E0B]">
+        <h6 className="font-semibold text-2xl leading-[29.26px] text-[#020E0B] dark:text-foreground">
           Privacy policy
         </h6>
         <div className="flex flex-col gap-5 mt-5">
@@ -24,7 +24,7 @@ const Page = () => {
             collect, use, and protect your data.
           </p>
           <p>
-            <strong className="text-[#020E0B] text-lg leading-[21.94px] font-medium">
+            <strong className="text-[#020E0B] text-lg leading-[21.94px] font-medium dark:text-foreground">
               Personal Information:{" "}
             </strong>
             We collect personal details such as your name, email address, and
@@ -32,7 +32,7 @@ const Page = () => {
             individually and enhance your experience with our services.
           </p>{" "}
           <p>
-            <strong className="text-[#020E0B] text-lg leading-[21.94px] font-medium">
+            <strong className="text-[#020E0B] text-lg leading-[21.94px] font-medium dark:text-foreground">
               {" "}
               Links to Third-Party Sites:{" "}
             </strong>{" "}
@@ -44,12 +44,12 @@ const Page = () => {
           </p>
         </div>
 
-        <h6 className="font-semibold text-2xl leading-[29.26px] text-[#020E0B] mt-14">
+        <h6 className="font-semibold text-2xl leading-[29.26px] text-[#020E0B] dark:text-foreground mt-14">
           Terms and Conditions
         </h6>
 
         <div className="mb-5">
-          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-8 mb-5">
+          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-8 mb-5 dark:text-foreground">
             Liability
           </h4>
           <p>
@@ -68,7 +68,7 @@ const Page = () => {
             omissions.
           </p>
 
-          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5">
+          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5 dark:text-foreground">
             Travel Insurance
           </h4>
 
@@ -85,7 +85,7 @@ const Page = () => {
             insurance policies and cannot accept liability for any losses.
           </p>
 
-          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5">
+          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5 dark:text-foreground">
             Cancellation and Refund
           </h4>
 
@@ -98,7 +98,7 @@ const Page = () => {
             company, not with Trip Cooks.
           </p>
 
-          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5">
+          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5 dark:text-foreground">
             Travel Documents
           </h4>
 
@@ -110,7 +110,7 @@ const Page = () => {
             begins.
           </p>
 
-          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5">
+          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5 dark:text-foreground">
             Itinerary Changes
           </h4>
           <p>
@@ -124,7 +124,7 @@ const Page = () => {
             resulting cost adjustments will be communicated and agreed upon.
           </p>
 
-          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5">
+          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5 dark:text-foreground">
             Tripper Conduct
           </h4>
 
@@ -136,7 +136,7 @@ const Page = () => {
             refund provided.
           </p>
 
-          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5">
+          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5 dark:text-foreground">
             Health and Safety
           </h4>
 
@@ -151,7 +151,7 @@ const Page = () => {
             journey.
           </p>
 
-          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5">
+          <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5 dark:text-foreground">
             Photography and Media
           </h4>
 

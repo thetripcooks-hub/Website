@@ -26,10 +26,10 @@ const TravelWithOwners = () => {
         </Avatar>
       </div>
       <div onClick={() => router.push("/about")} className="cursor-pointer">
-        <h6 className="text-[#000000] text-[16px] leading-[19.5px]">
+        <h6 className="text-[#000000] text-[16px] leading-[19.5px] dark:text-[#BFC0C2]">
           Travel with Ovie and Lanre
         </h6>
-        <p className="leading-[17.07px] text-[14px] text-neutral-grey-500">
+        <p className="leading-[17.07px] text-[14px] text-neutral-grey-500 dark:text-[#BFC0C2]">
           For the whole trip
         </p>
       </div>

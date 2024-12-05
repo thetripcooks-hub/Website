@@ -36,7 +36,7 @@ const Page = () => {
 
   return (
     selectedTrip && (
-      <main className={cn("bg-white w-full")}>
+      <main className={cn("bg-white dark:bg-background w-full")}>
         <div ref={ref}>
           <MobilePageHeader title={selectedTrip?.location || ""} />
           <TripDetailOverview />
