@@ -9,19 +9,24 @@ import {
   FormLabel,
   FormMessage,
   Input,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+  // Select,
+  // SelectContent,
+  // SelectItem,
+  // SelectTrigger,
+  // SelectValue,
   Textarea,
 } from "@/components/ui";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z, ZodType } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { cn } from "@/lib/utils";
-import { getCountryNames } from "@/constants/countries";
+import { cn, dollars } from "@/lib/utils";
+// import { getCountryNames } from "@/constants/countries";
+import emailjs from "@emailjs/browser";
+import { toast } from "sonner";
+
+const SERVICE_ID = process.env.NEXT_PUBLIC_PRIVATE_TRIP_SERVICE_ID || "";
+const TEMPLATE_ID = process.env.NEXT_PUBLIC_PRIVATE_TRIP_TEMPLATE_ID || "";
 
 type PrivateTripInformation = {
   email: string;
@@ -29,7 +34,7 @@ type PrivateTripInformation = {
   lastName: string;
   country: string;
   noOfGuests: number;
-  nationalitiesOfGuests: string[];
+  nationalitiesOfGuests: string;
   budgetPerPerson: string;
   proposedDate: string;
   currentCountry: string;
@@ -44,7 +49,7 @@ export const PrivateTripSchema: ZodType<PrivateTripInformation> = z.object({
   lastName: z.string().min(2, "Name must be at least 2 characters"),
   country: z.string().min(2, "Required"),
   noOfGuests: z.coerce.number().min(4, "Minimum of 4 people"),
-  nationalitiesOfGuests: z.array(z.string()).min(1, "Required"),
+  nationalitiesOfGuests: z.string(), //z.array(z.string()).min(1, "Required"),
   budgetPerPerson: z.string().min(1, "Required"),
   proposedDate: z.string(),
   currentCountry: z.string().min(2, "Required"),
@@ -52,6 +57,7 @@ export const PrivateTripSchema: ZodType<PrivateTripInformation> = z.object({
 });
 
 const PrivateTripForm = () => {
+  const [loading, setLoading] = useState(false);
   const form = useForm<PrivateTripInformation>({
     values: {
       email: "",
@@ -59,7 +65,7 @@ const PrivateTripForm = () => {
       lastName: "",
       country: "",
       noOfGuests: 4,
-      nationalitiesOfGuests: [],
+      nationalitiesOfGuests: "",
       budgetPerPerson: "",
       proposedDate: "",
       currentCountry: "",
@@ -68,7 +74,27 @@ const PrivateTripForm = () => {
     mode: "onChange",
     resolver: zodResolver(PrivateTripSchema),
   });
-  const onSubmit = () => {};
+  const onSubmit = (values: PrivateTripInformation) => {
+    setLoading(true);
+    emailjs
+      .send(SERVICE_ID, TEMPLATE_ID, {
+        values: {
+          ...values,
+          budgetPerPerson: dollars.format(Number(values.budgetPerPerson)),
+        },
+      })
+      .then(
+        () => {
+          toast.success("Message sent successfully");
+          form.reset();
+          setLoading(false);
+        },
+        (error) => {
+          setLoading(false);
+          toast.success(error);
+        }
+      );
+  };
 
   return (
     <Card className="w-full lg:w-1/2 shadow-none border-none  lg:p-6 lg:max-w-[573px]">
@@ -87,6 +113,7 @@ const PrivateTripForm = () => {
                         placeholder="Enter first name here"
                         className="bg-[#F7F7F9] h-[59px] focus-visible:ring-0 border-none placeholder:text-[#ABABAB] text-base leading-[19.5px]"
                         type="text"
+                        disabled={loading}
                         {...field}
                       />
                     </FormControl>
@@ -99,12 +126,13 @@ const PrivateTripForm = () => {
                 name="lastName"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>First Name</FormLabel>
+                    <FormLabel>Last Name</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Enter last name here"
                         className="bg-[#F7F7F9] h-[59px] focus-visible:ring-0 border-none placeholder:text-[#ABABAB] text-base leading-[19.5px] w-full"
                         type="text"
+                        disabled={loading}
                         {...field}
                       />
                     </FormControl>
@@ -124,6 +152,7 @@ const PrivateTripForm = () => {
                       placeholder="Enter your email address here"
                       className="bg-[#F7F7F9] h-[59px] focus-visible:ring-0 border-none placeholder:text-[#ABABAB] text-base leading-[19.5px]"
                       type="email"
+                      disabled={loading}
                       {...field}
                     />
                   </FormControl>
@@ -148,6 +177,7 @@ const PrivateTripForm = () => {
                       placeholder="Enter country here"
                       className="bg-[#F7F7F9] h-[59px] focus-visible:ring-0 border-none placeholder:text-[#ABABAB] text-base leading-[19.5px]"
                       type="text"
+                      disabled={loading}
                       {...field}
                     />
                     {/* <SelectTrigger className="bg-[#F7F7F9] h-[59px] focus-visible:ring-0 border-none data-[placeholder]:text-[#ABABAB] text-base leading-[19.5px]">
@@ -186,6 +216,7 @@ const PrivateTripForm = () => {
                       className="bg-[#F7F7F9] h-[59px] focus-visible:ring-0 border-none placeholder:text-[#ABABAB] text-base leading-[19.5px]"
                       type="number"
                       min={4}
+                      disabled={loading}
                       {...field}
                     />
                   </FormControl>
@@ -206,6 +237,7 @@ const PrivateTripForm = () => {
                     <Input
                       placeholder="Enter their different nationalities"
                       className="bg-[#F7F7F9] h-[59px] focus-visible:ring-0 border-none placeholder:text-[#ABABAB] text-base leading-[19.5px]"
+                      disabled={loading}
                       {...field}
                     />
                   </FormControl>
@@ -229,6 +261,7 @@ const PrivateTripForm = () => {
                         placeholder="Enter budget here"
                         className="bg-[#F7F7F9] h-[59px] focus-visible:ring-0 border-none placeholder:text-[#ABABAB] text-base leading-[19.5px] pl-1"
                         type="text"
+                        disabled={loading}
                         {...field}
                         onChange={(e) => {
                           const value = e.target.value.replace(/\D/g, "");
@@ -260,6 +293,7 @@ const PrivateTripForm = () => {
                         !field.value.length && "text-[#ABABAB]"
                       )}
                       type="date"
+                      disabled={loading}
                       {...field}
                     />
                   </FormControl>
@@ -279,6 +313,7 @@ const PrivateTripForm = () => {
                       placeholder="Enter country here"
                       className="bg-[#F7F7F9] h-[59px] focus-visible:ring-0 border-none placeholder:text-[#ABABAB] text-base leading-[19.5px]"
                       type="text"
+                      disabled={loading}
                       {...field}
                     />
                   </FormControl>
@@ -300,6 +335,7 @@ const PrivateTripForm = () => {
                     <Textarea
                       placeholder="Enter message here"
                       className="bg-[#F7F7F9]  focus-visible:ring-0 border-none placeholder:text-[#ABABAB] text-base leading-[19.5px]"
+                      disabled={loading}
                       {...field}
                       rows={8}
                     />
@@ -308,7 +344,14 @@ const PrivateTripForm = () => {
                 </FormItem>
               )}
             />
-            <Button className="w-fit">Submit</Button>
+            <Button
+              loading={loading}
+              disabled={loading}
+              className="w-fit"
+              variant="default"
+            >
+              Submit
+            </Button>
           </div>
         </form>
       </Form>

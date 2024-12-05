@@ -8,7 +8,11 @@ import Navbar from "./ui/navbar";
 import useGeneralStore from "@/stores/generalStore";
 import { ApolloWrapper } from "./apollo-provider";
 import GeneralData from "./general-data";
+import emailjs from "@emailjs/browser";
 
+emailjs.init({
+  publicKey: "QSwtYwPZkY9JzVuTa",
+});
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const { showNav } = useGeneralStore();
 
@@ -37,6 +41,10 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
           </ApolloWrapper>
         </ThemeProvider>
         <Toaster richColors position="top-right" />
+        {/* <script
+          type="text/javascript"
+          src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+        ></script> */}
       </body>
     </html>
   );

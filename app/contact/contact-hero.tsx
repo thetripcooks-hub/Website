@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import SectionWrapper from "../home/_components/section-wrapper";
 import {
   Button,
@@ -16,6 +16,11 @@ import {
 import { useForm } from "react-hook-form";
 import { z, ZodType } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import emailjs from "@emailjs/browser";
+import { toast } from "sonner";
+
+const SERVICE_ID = process.env.NEXT_PUBLIC_CONTACT_SERVICE_ID || "";
+const TEMPLATE_ID = process.env.NEXT_PUBLIC_CONTACT_TEMPLATE_ID || "";
 
 type ContactInformation = {
   email: string;
@@ -36,6 +41,7 @@ export const ContactSchema: ZodType<ContactInformation> = z.object({
 });
 
 const ContactHero = () => {
+  const [loading, setLoading] = useState(false);
   const form = useForm<ContactInformation>({
     values: {
       email: "",
@@ -45,7 +51,20 @@ const ContactHero = () => {
     mode: "onChange",
     resolver: zodResolver(ContactSchema),
   });
-  const onSubmit = () => {};
+  const onSubmit = (values: ContactInformation) => {
+    setLoading(true);
+    emailjs.send(SERVICE_ID, TEMPLATE_ID, values).then(
+      () => {
+        setLoading(false);
+        toast.success("Message sent successfully");
+        form.reset();
+      },
+      (error) => {
+        setLoading(false);
+        toast.success(error);
+      }
+    );
+  };
   return (
     <div className="px-5 py-10 sm:py-20 sm:px-[8%]">
       <SectionWrapper className="flex flex-col sm:flex-row justify-between gap-10">
@@ -83,6 +102,7 @@ const ContactHero = () => {
                           placeholder="Enter your email address here"
                           className="bg-[#F7F7F9] h-[59px] focus-visible:ring-0 border-none placeholder:text-[#ABABAB] text-base leading-[19.5px]"
                           type="email"
+                          disabled={loading}
                           {...field}
                         />
                       </FormControl>
@@ -100,6 +120,7 @@ const ContactHero = () => {
                         <Input
                           type="text"
                           placeholder="Enter email subject here"
+                          disabled={loading}
                           {...field}
                           className="bg-[#F7F7F9] h-[59px] focus-visible:ring-0 border-none placeholder:text-[#ABABAB] text-base leading-[19.5px]"
                         />
@@ -118,6 +139,7 @@ const ContactHero = () => {
                         <Textarea
                           // type="text"
                           placeholder="Enter message here"
+                          disabled={loading}
                           {...field}
                           rows={8}
                           className="bg-[#F7F7F9] focus-visible:ring-0 border-none placeholder:text-[#ABABAB] text-base leading-[19.5px]"
@@ -127,7 +149,14 @@ const ContactHero = () => {
                     </FormItem>
                   )}
                 />
-                <Button className="w-fit">Send Message</Button>
+                <Button
+                  disabled={loading}
+                  loading={loading}
+                  variant="default"
+                  className="w-fit"
+                >
+                  Send Message
+                </Button>
               </div>
             </form>
           </Form>
