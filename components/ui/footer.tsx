@@ -65,7 +65,7 @@ const Footer = () => {
                 className="border border-neutral-grey-300 rounded-full h-[46px] w-[46px] flex items-center justify-center cursor-pointer bg-background dark:border-[#383E47]"
                 key={index}
                 onClick={() =>
-                  router.replace("https://www.instagram.com/tripcooks/")
+                  router.push("https://www.instagram.com/tripcooks/")
                 }
               >
                 <Image
