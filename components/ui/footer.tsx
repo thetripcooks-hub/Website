@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import React from "react";
 import LogoBig from "~/logo-big.svg";
@@ -7,6 +8,7 @@ import InstagramDark from "@/components/icons/svg/instagram-dark.svg";
 // import X from "@/components/icons/svg/x.svg";
 import Link from "next/link";
 import SectionWrapper from "@/app/home/_components/section-wrapper";
+import { useRouter } from "next/navigation";
 
 const config = [
   {
@@ -51,6 +53,7 @@ const config = [
 ];
 
 const Footer = () => {
+  const router = useRouter();
   return (
     <section className="px-5 py-5 sm:px-[8%]">
       <SectionWrapper className="flex flex-col sm:flex-row sm:justify-between gap-5">
@@ -61,6 +64,9 @@ const Footer = () => {
               <div
                 className="border border-neutral-grey-300 rounded-full h-[46px] w-[46px] flex items-center justify-center cursor-pointer bg-background dark:border-[#383E47]"
                 key={index}
+                onClick={() =>
+                  router.replace("https://www.instagram.com/tripcooks/")
+                }
               >
                 <Image
                   src={icon}

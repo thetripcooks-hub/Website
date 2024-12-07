@@ -71,7 +71,7 @@ const MobileNav = ({
               className="flex flex-col mt-5 gap-6"
               onClick={() => {
                 setOpen(false);
-                router.replace("https://www.instagram.com/");
+                router.replace("https://www.instagram.com/tripcooks/");
               }}
             >
               <h4>Follow us on Instagram</h4>
