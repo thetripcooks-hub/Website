@@ -16,6 +16,10 @@ const navConfig = [
     url: "/home",
   },
   {
+    name: "About",
+    url: "/about",
+  },
+  {
     name: "Destinations",
     url: "/trips",
   },
@@ -23,10 +27,7 @@ const navConfig = [
     name: "Private trips",
     url: "/private-trips",
   },
-  {
-    name: "About",
-    url: "/about",
-  },
+  
   {
     name: "Contact",
     url: "/contact",

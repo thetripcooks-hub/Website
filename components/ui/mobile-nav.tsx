@@ -11,6 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import Instagram from "@/components/icons/svg/instagram.svg";
+import InstagramDark from "@/components/icons/svg/instagram-dark.svg";
 import Logo from "~/logo.svg";
 import { ModeToggle } from "./mode-toggle";
 import { useRouter } from "next/navigation";
@@ -44,7 +45,9 @@ const MobileNav = ({
             </Link>
             <ModeToggle />
           </div>
-          <section className="flex flex-col gap-6 h-[80%] justify-between">
+          <section
+            className={cn("flex flex-col gap-6 h-[75%] justify-between")}
+          >
             {[
               ...navConfig,
               {
@@ -72,8 +75,19 @@ const MobileNav = ({
               }}
             >
               <h4>Follow us on Instagram</h4>
-              <div className="w-[46px] h-[46px] rounded-full border-neutral-300 border border-solid items-center justify-center flex">
-                <Image src={Instagram} alt="instagram-logo" width={19.88} />
+              <div className="w-[46px] h-[46px] rounded-full border-neutral-300 border border-solid items-center justify-center flex dark:border-[#383E47]">
+                <Image
+                  src={Instagram}
+                  alt="instagram-logo"
+                  width={19.88}
+                  className="dark:hidden"
+                />
+                <Image
+                  src={InstagramDark}
+                  width={19.88}
+                  className=" hidden dark:block"
+                  alt="social-media-icon"
+                />
               </div>
             </div>
           </section>

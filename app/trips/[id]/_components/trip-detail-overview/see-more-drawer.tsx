@@ -11,6 +11,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import Image from "next/image";
+import { CircleCheck } from "lucide-react";
 
 export function DrawerDemo({
   data,
@@ -49,8 +50,9 @@ export function DrawerDemo({
                   alt="icon"
                   width={28}
                   height={28}
-                  className="w-[28px] h-[28px] object-contain"
+                  className="w-[28px] h-[28px] object-contain dark:hidden"
                 />
+                 <CircleCheck className="text-foreground hidden dark:block w-[28px] h-[28px]" />
                 <p className="text-[16px] leading-[19.5px]">{item.title}</p>
               </div>
             ))}

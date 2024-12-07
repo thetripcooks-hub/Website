@@ -26,8 +26,10 @@ const TripDetailOverview = () => {
     fade: true,
     autoplaySpeed: 3000,
     cssEase: "linear",
+    arrows: false,
   };
   const { selectedTrip } = useTripStore();
+
   return (
     selectedTrip && (
       <div className="px-5 py=5 sm:pt-10 sm:pb-20 text-neutral-text sm:px-[8%]">

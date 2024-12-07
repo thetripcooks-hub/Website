@@ -74,7 +74,7 @@ const CardCard = ({ trip }: { trip: CartItem }) => {
                   <Image
                     src={PlusIconDark}
                     alt="plus-icon"
-                    className="cursor-pointer dark:block"
+                    className="cursor-pointer hidden dark:block"
                     onClick={() => incrementQuantity(trip)}
                   />
                 </div>
@@ -114,7 +114,7 @@ const CardCard = ({ trip }: { trip: CartItem }) => {
                 <Image
                   src={MinusIconDark}
                   alt="minus-icon"
-                  className="cursor-pointer dark:hidden"
+                  className="cursor-pointer hidden dark:block"
                   onClick={() => decrementQuantity(trip)}
                 />
                 {trip.quantity}
@@ -127,7 +127,7 @@ const CardCard = ({ trip }: { trip: CartItem }) => {
                 <Image
                   src={PlusIconDark}
                   alt="plus-icon"
-                  className="cursor-pointer dark:hidden"
+                  className="cursor-pointer hidden dark:block"
                   onClick={() => incrementQuantity(trip)}
                 />
               </div>

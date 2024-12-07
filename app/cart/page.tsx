@@ -10,17 +10,16 @@ import SectionWrapper from "@/app/home/_components/section-wrapper";
 // import PoweredByStrip from "@/components/ui/powered-by-stripe";
 import { useInView } from "react-intersection-observer";
 import MobileFloatingCard from "@/components/ui/mobile-floating-card";
-import { useHideNavOnMobile } from "@/hooks";
+// import { useHideNavOnMobile } from "@/hooks";
 import useStripe from "@/hooks/payment/useStripe";
 import EmptyCart from "./_components/empty-cart";
-import useTripStore from "@/stores/trip-store";
 import { Loader } from "lucide-react";
 
 const Page = () => {
-  const { items, getTripDeposit, getTotalTripDeposit } = useCartStore();
-  const { loading } = useTripStore();
+  const { items, getTripDeposit, getTotalTripDeposit, hasHydrated } =
+    useCartStore();
   const { ref, inView } = useInView();
-  useHideNavOnMobile();
+  // useHideNavOnMobile();
 
   const { handlePay, isPaying } = useStripe({ items });
 
@@ -34,7 +33,7 @@ const Page = () => {
               My Cart
             </h3>
           </SectionWrapper>
-          {loading ? (
+          {!hasHydrated ? (
             <div className="w-full h-[150px] flex justify-center items-center">
               <Loader className="text-secondary-irish-green animate-spin w-5 h-5" />
             </div>
@@ -83,14 +82,16 @@ const Page = () => {
               {items.length > 0 ? (
                 <div className="my-4 sm:my-0 flex sm:hidden flex-col gap-3">
                   <div className="flex flex-col gap-3 text-[14px] leading-[17.07px] font-alexandria">
-                    <h3 className="font-medium text-black">Cart breakdown</h3>
+                    <h3 className="font-medium text-black dark:text-foreground">
+                      Cart breakdown
+                    </h3>
                     {items.map((trip) => (
                       <div key={trip.sys.id} className="flex justify-between">
-                        <h6 className="max-w-[192px] text-neutral-subtext">
+                        <h6 className="max-w-[192px] text-neutral-subtext dark:text-foreground">
                           Deposit for trip to {trip.location} ({trip.quantity}{" "}
                           slots)
                         </h6>
-                        <h3 className="text-[#000000] font-semibold text-[20px] leading-[24.38px]">
+                        <h3 className="text-[#000000] font-semibold text-[20px] leading-[24.38px] dark:text-foreground">
                           {pounds.format(getTripDeposit(trip))}
                         </h3>
                       </div>
@@ -107,10 +108,10 @@ const Page = () => {
         {inView && items.length > 0 ? (
           <MobileFloatingCard>
             <div className="w-full flex items-end justify-between gap-2 mb-2">
-              <h6 className="text-neutral-subtext text-[14px] leading-[17px] font-alexandria font-normal">
+              <h6 className="text-neutral-subtext text-[14px] leading-[17px] font-alexandria font-normal dark:text-[#8C909B]">
                 Est. total
               </h6>
-              <h3 className="text-[#000000] font-semibold text-2xl leading-[29.26px]">
+              <h3 className="text-[#000000] font-semibold text-2xl leading-[29.26px] dark:text-foreground">
                 {pounds.format(getTotalTripDeposit(items))}
               </h3>
             </div>

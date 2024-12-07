@@ -12,7 +12,7 @@ const PaymentCardMobile = () => {
     selectedTrip && (
       <Card
         className={cn(
-          "fixed bottom-0 sm:hidden border-t-neutral-grey-300 shadow-none w-full p-2.5 z-10 rounded-none flex flex-col gap-3"
+          "fixed bottom-0 sm:hidden border-t-neutral-grey-300 shadow-none w-full p-2.5 z-10 rounded-none flex flex-col gap-3 bg-background"
         )}
       >
         <div className="flex flex-col gap-3">

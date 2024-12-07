@@ -1,6 +1,6 @@
 import { CartItem } from "@/types/cart";
 import { create } from "zustand";
-import { devtools, persist } from "zustand/middleware";
+import { persist } from "zustand/middleware";
 
 interface CartState {
   items: CartItem[];
@@ -15,6 +15,8 @@ interface CartState {
   getTotalTripDeposit: (trips: CartItem[]) => number;
   showCart: boolean;
   setShowCart: (showCart: boolean) => void;
+  hasHydrated: boolean;
+  setHasHydrated: (hasHydrated: boolean) => void;
 }
 
 const useCartStore = create<CartState>()(
@@ -66,8 +68,15 @@ const useCartStore = create<CartState>()(
         trips.reduce((acc, item) => acc + item.downPayment * item.quantity, 0),
       showCart: false,
       setShowCart: (showCart) => set({ showCart }),
+      hasHydrated: false,
+      setHasHydrated: (hasHydrated) => set({ hasHydrated }),
     }),
-    { name: "cart-storage" }
+    {
+      name: "cart-storage",
+      onRehydrateStorage(state) {
+        return () => state.setHasHydrated(true);
+      },
+    }
   )
 );
 

@@ -1,50 +1,21 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import flag from "../img/whats-included/flag.svg";
-import driving from "../img/whats-included/driving.svg";
-import airplane from "../img/whats-included/airplane.svg";
-import heart from "../img/whats-included/heart.svg";
-import house from "../img/whats-included/house.svg";
 import { DrawerDemo } from "./see-more-drawer";
-import book from "../img/whats-included/book.svg";
 import { useIsMobile } from "@/hooks";
 import useTripStore from "@/stores/trip-store";
 import { CircleCheck } from "lucide-react";
 
 const WhatsIncluded = () => {
-  const data: {
-    icon: any;
-    title: string;
-  }[] = [
-    {
-      icon: airplane,
-      title: "Flight ticket",
-    },
-    {
-      icon: heart,
-      title: "Breakfast included",
-    },
-    {
-      icon: driving,
-      title: "Airport pickup and  transfer",
-    },
-    {
-      icon: house,
-      title: "Accomodation",
-    },
-    {
-      icon: flag,
-      title: "Tourist activities",
-    },
-    {
-      icon: book,
-      title: "Visa Support",
-    },
-  ];
   const isMobile = useIsMobile();
-  const dataToShow = isMobile ? data.slice(0, -1) : data;
+
   const { selectedTrip } = useTripStore();
+  const whatsIncluded = selectedTrip
+    ? isMobile
+      ? selectedTrip.whatsIncluded.slice(0, 5)
+      : selectedTrip.whatsIncluded
+    : [];
+
   return (
     selectedTrip && (
       <div>
@@ -53,7 +24,7 @@ const WhatsIncluded = () => {
         </h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          {selectedTrip.whatsIncluded.map((item) => (
+          {whatsIncluded.map((item) => (
             <div
               key={item.icon + Math.random()}
               className="flex gap-2.5 items-center "
@@ -73,7 +44,7 @@ const WhatsIncluded = () => {
           ))}
         </div>
         <div className="flex sm:hidden mt-5">
-          <DrawerDemo data={data} />
+          <DrawerDemo data={selectedTrip.whatsIncluded} />
         </div>
       </div>
     )

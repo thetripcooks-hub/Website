@@ -12,6 +12,7 @@ import SettingsDesktop from "@/components/icons/svg/settings-desktop.svg";
 import { XIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import useTripStore from "@/stores/trip-store";
+import { useTheme } from "next-themes";
 
 const sortKeys = [
   { key: "location_ASC", value: "Alphabetically - A - Z" },
@@ -21,6 +22,7 @@ const sortKeys = [
 ];
 
 const SortByButton = () => {
+  const { theme } = useTheme();
   const { orderKey, setOrderKey } = useTripStore();
 
   const handleSortChange = (val: { key: string; value: string }) => {
@@ -71,7 +73,14 @@ const SortByButton = () => {
               />
             </Button> */}
             </DropdownMenuTrigger>
-            {orderKey ? <XIcon onClick={() => setOrderKey(null)} /> : null}
+            {orderKey ? (
+              <XIcon
+                onClick={() => setOrderKey(null)}
+                style={{
+                  color: theme !== "light" ? "white" : undefined,
+                }}
+              />
+            ) : null}
           </div>
 
           <DropdownMenuContent className="rounded-[16px] py-2 ml-2">

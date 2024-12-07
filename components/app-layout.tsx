@@ -35,16 +35,12 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
         >
           <ApolloWrapper>
             <GeneralData>
-              {showNav ? <Navbar /> : null}
+              <Navbar />
               {children}
             </GeneralData>
           </ApolloWrapper>
         </ThemeProvider>
         <Toaster richColors position="top-right" />
-        {/* <script
-          type="text/javascript"
-          src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
-        ></script> */}
       </body>
     </html>
   );
