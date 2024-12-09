@@ -265,11 +265,16 @@ const PrivateTripForm = () => {
                         type="text"
                         disabled={loading}
                         {...field}
+                        value={
+                          field.value.length
+                            ? Number(field.value).toLocaleString()
+                            : field.value
+                        }
                         onChange={(e) => {
                           const value = e.target.value.replace(/\D/g, "");
                           field.onChange({
                             target: {
-                              value: Number(value).toLocaleString(),
+                              value: value,
                             },
                           });
                         }}
