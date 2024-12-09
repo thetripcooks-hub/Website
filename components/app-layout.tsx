@@ -10,8 +10,10 @@ import { ApolloWrapper } from "./apollo-provider";
 import GeneralData from "./general-data";
 import emailjs from "@emailjs/browser";
 
+const publicKey = process.env.NEXT_PUBLIC_EMAIL_JS_KEY_PUBLIC_KEY || "";
+
 emailjs.init({
-  publicKey: "QSwtYwPZkY9JzVuTa",
+  publicKey: publicKey,
 });
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const { showNav } = useGeneralStore();
