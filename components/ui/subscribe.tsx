@@ -14,11 +14,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import SectionWrapper from "@/app/home/_components/section-wrapper";
+import jsonp from "jsonp";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
 });
 const SubcribeToNewsLetter = () => {
+  const [loading, setLoading] = React.useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -27,7 +30,22 @@ const SubcribeToNewsLetter = () => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    setLoading(true);
+    jsonp(
+      `https://gmail.us21.list-manage.com/subscribe/post?u=d038f1377a6c1ab407c1ab719&amp;id=6420cfe4a7&amp;f_id=003080e6f0&EMAIL=${values.email}`,
+      { param: "c" },
+      (_, data) => {
+        const { msg, result } = data;
+        if (result === "success") {
+          setLoading(false);
+          form.reset();
+          return toast.success(msg);
+        } else {
+          setLoading(false);
+          toast.error(msg);
+        }
+      }
+    );
   };
 
   return (
@@ -56,17 +74,24 @@ const SubcribeToNewsLetter = () => {
                     <FormItem className="sm:w-[384px]">
                       <FormControl>
                         <Input
+                          type="email"
                           placeholder="Enter your email address"
                           className="h-[54px] w-full bg-neutral-grey-100 outline-none border-none focus-visible:ring-0 
                       text-neutral-text placeholder:text-neutral-text placeholder:opacity-50 dark:placeholder:opacity-100 dark:placeholder:text-foreground"
                           {...field}
+                          name="EMAIL"
+                          id="mce-EMAIL"
                         />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <Button className="h-[54px] w-full sm:w-[166px]">
+                <Button
+                  className="h-[54px] w-full sm:w-[166px]"
+                  loading={loading}
+                  disabled={loading}
+                >
                   Subscribe
                 </Button>
               </form>
