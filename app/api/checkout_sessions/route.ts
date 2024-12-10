@@ -42,7 +42,7 @@ export async function POST(req: Request) {
       success_url: success_url ?? `${origin}/payment-success`,
       cancel_url: cancel_url ?? `${origin}/cart`,
       mode: "payment",
-      // automatic_tax: { enabled: true },
+      automatic_tax: { enabled: true },
     };
     const checkoutSession: Stripe.Checkout.Session =
       await stripe.checkout.sessions.create(params);
