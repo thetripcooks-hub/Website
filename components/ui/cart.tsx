@@ -96,7 +96,7 @@ const Cart = () => {
                   onClick={handlePay}
                   disabled={isPaying}
                 >
-                  Proceed to checkout
+                  Proceed to Checkout
                 </Button>
               </CardDescription>
             </CardHeader>

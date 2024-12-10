@@ -75,7 +75,7 @@ const Page = () => {
                   onClick={handlePay}
                   disabled={isPaying}
                 >
-                  Proceed to checkout
+                  Proceed to Checkout
                 </Button>
                 {/* <PoweredByStrip /> */}
               </Card>
@@ -125,7 +125,7 @@ const Page = () => {
               </h3>
             </div> */}
             <Button loading={isPaying} onClick={handlePay} disabled={isPaying}>
-              Proceed to checkout
+              Proceed to Checkout
             </Button>
           </MobileFloatingCard>
         ) : null}
