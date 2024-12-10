@@ -12,6 +12,32 @@ export async function POST(req: Request) {
     const params: Stripe.Checkout.SessionCreateParams = {
       submit_type: "pay",
       line_items: lineItems,
+      custom_fields: [
+        {
+          label: {
+            type: "custom",
+            custom: "Full Name as is on Passport",
+          },
+          key: "full_name",
+          type: "text",
+        },
+        // {
+        //   label: {
+        //     type: "custom",
+        //     custom: "Which Group Trip (and Cities) are you paying for?",
+        //   },
+        //   key: "trip_and_cities",
+        //   type: "text",
+        // },
+        {
+          label: {
+            type: "custom",
+            custom: "Whatsapp Phone Number",
+          },
+          key: "whatsapp_phone_number",
+          type: "numeric",
+        },
+      ],
       currency: "GBP",
       success_url: success_url ?? `${origin}/payment-success`,
       cancel_url: cancel_url ?? `${origin}/cart`,

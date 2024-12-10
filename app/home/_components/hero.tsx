@@ -42,8 +42,8 @@ const HomeHero = () => {
           </h3>
           <p
             className={cn(
-              "mt-5 sm:mt-12 max-w-[288px] px-2.5 sm:max-w-[421px] text-center text-white text-xl sm:text-2xl font-normal",
-              arial.className
+              "mt-5 sm:mt-12 max-w-[288px] px-2.5 sm:max-w-[421px] text-center text-white text-xl sm:text-2xl font-normal"
+              // arial.className
             )}
           >
             Join group trips or curate a trip of your own.
