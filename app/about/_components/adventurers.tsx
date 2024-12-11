@@ -49,7 +49,7 @@ const Adventurers = () => {
               alt="owners-image"
               width={544}
               height={558}
-              className="object-cover h-[389px] sm:h-[558px] w-full rounded-[21px]"
+              className="object-cover h-[389px] sm:h-[558px] sm:w-[544px] w-full rounded-[21px]"
             />
           )}
           {/* <Image
