@@ -62,7 +62,7 @@ const TheTripCooksExperience = ({
   //   );
   // }
 
-  return (
+  return rows.length > 0 ? (
     <section>
       <h3 className="text-[32px] leading-[39.01px] font-medium sm:text-5xl px-5 pt-5 sm:pt-10 sm:px-[8%]">
         <SectionWrapper>The TripCooks Experience</SectionWrapper>
@@ -130,7 +130,7 @@ const TheTripCooksExperience = ({
         ) : null}
       </div>
     </section>
-  );
+  ) : null;
 };
 
 export default TheTripCooksExperience;
