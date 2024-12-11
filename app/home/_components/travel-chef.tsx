@@ -16,15 +16,21 @@ const TravelChef = () => {
           <span
             className={cn(guthenBloots.className, "text-secondary-irish-green")}
           >
-            travel chef
+            travel planners
           </span>
         </section>
         <section className="sm:max-w-[618px]">
           <p className="text-base sm:text-xl mt-5 sm:mt-0">
-            Think of us as your travel chefs — whipping up adventures just the
+            {/* Think of us as your travel chefs — whipping up adventures just the
             way you like them. Whether you crave a group getaway or a
             custom-made trip, we’ll handle all the ingredients to cook up a
-            journey that’s perfectly you.
+            journey that’s perfectly you. */}
+            Think of us as your travel planners — crafting unforgettable
+            adventures (cooked) just for you. Whether you’re dreaming of a group
+            getaway or a custom-designed journey, we’ll gather all the right
+            details to map out a trip that’s perfectly you. From planning to
+            execution, we handle it all, so you can sit back and savor the
+            experience.
           </p>
 
           <Button
