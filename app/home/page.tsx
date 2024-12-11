@@ -20,8 +20,9 @@ export default function Home() {
 
   useEffect(() => {
     setShowNav(true);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <main className="flex min-h-screen flex-col pb-10 sm:pb-20">
       <HomeHero />

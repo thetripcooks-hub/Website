@@ -1,3 +1,4 @@
+import { withNextVideo } from "next-video/process";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   async redirects() {
@@ -60,4 +61,4 @@ const nextConfig = {
   crossOrigin: "anonymous",
 };
 
-export default nextConfig;
+export default withNextVideo(nextConfig);
