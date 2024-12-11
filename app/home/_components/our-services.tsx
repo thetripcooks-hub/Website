@@ -22,7 +22,7 @@ const OurServices = () => {
     <div className="bg-[#020E0B] px-5 py-10 sm:py-20 text-white sm:px-[8%]">
       <SectionWrapper>
         <h3 className="text-[32px] font-medium sm:text-5xl">Our Services</h3>
-        <p className="mt-5 text-base sm:text-xl sm:max-w-[541px]">
+        <p className="mt-5 text-base sm:text-xl sm:max-w-[541px] dark:text-[#8C909B]">
           From organizing unforgettable group trips to crafting tailor-made
           adventures, our services cover every aspect of your journey. 
         </p>

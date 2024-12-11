@@ -58,7 +58,7 @@ const Reviews = () => {
               {data.map((_, index) => (
                 <CarouselItem key={index}>
                   {/* className="md:basis-1/2 lg:basis-1/3"*/}
-                  <Card className="border border-neutral-grey-200 dark:border-none shadow-[#0000000D] rounded-[14px] bg-secondary-forest-green relative sm:pl-5 sm:pr-2.5 sm:py-2.5 pb-16">
+                  <Card className="border border-neutral-grey-200 dark:border-none shadow-[#0000000D] rounded-[14px] bg-secondary-forest-green !dark:bg-[#083025] relative sm:pl-5 sm:pr-2.5 sm:py-2.5 pb-16">
                     <CardContent className="flex flex-col sm:flex-row justify-between sm:pl-5 sm:py-2.5 sm:pr-2.5 gap-5">
                       <div className="sm:max-w-[487.92px] flex flex-col gap-5 h-[340px] sm:h-fit">
                         <h3 className="text-white text-2xl leading-[29.26px] font-alexandria sm:leading-[39.01px] sm:text-[32px] mt-5">
@@ -77,11 +77,11 @@ const Reviews = () => {
                         </div>
                         <div className="flex w-[85%] sm:w-fit gap-5 absolute sm:left-10 sm:bottom-0 -bottom-3 justify-center sm:justify-normal">
                           <CarouselPrevious
-                            className="relative -left-0 top-0 w-[53px] h-[53px] bg-[#14382E] border-none"
+                            className="relative -left-0 top-0 w-[53px] h-[53px] !bg-[#14382E] border-none"
                             customIcon
                           />
                           <CarouselNext
-                            className="relative -right-0 top-0 w-[53px] h-[53px] bg-[#14382E] border-none"
+                            className="relative -right-0 top-0 w-[53px] h-[53px] !bg-[#14382E] border-none"
                             customIcon
                           />
                         </div>
