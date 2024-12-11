@@ -1,8 +1,10 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import BackgroundVideo from "next-video/background-video";
 import TripSearch from "./trip-search";
 import { arial } from "@/app/font";
 import { cn, searchInArray } from "@/lib/utils";
+import bgVideo from "../../../videos/tripcooks-home-video.mov";
 import useTripStore from "@/stores/trip-store";
 // import Navbar from "@/components/ui/navbar";
 
@@ -10,6 +12,7 @@ const HomeHero = () => {
   const { trips } = useTripStore();
   const [value, setValue] = React.useState("");
   const [selectedValue, setSelectedValue] = React.useState("");
+
   // const frameworks = [
   //   {
   //     value: "next.js",
@@ -34,7 +37,11 @@ const HomeHero = () => {
   // ];
 
   return (
-    <div className="bg-neutral-grey-100 h-[65vh] sm:h-[calc(100vh-95px)] bg-hero-mobile sm:bg-hero-desktop bg-no-repeat bg-cover 2xl:h-[55vh]">
+    // <div className="bg-neutral-grey-100 h-[65vh] sm:h-[calc(100vh-95px)] bg-hero-mobile sm:bg-hero-desktop bg-no-repeat bg-cover 2xl:h-[55vh]">
+    <BackgroundVideo
+      src={bgVideo}
+      className="bg-neutral-grey-100 h-[65vh] sm:h-[calc(100vh-95px)] 2xl:h-[55vh]"
+    >
       <main className="pt-14 sm:pt-[75px]">
         <div className="px-5 flex flex-col items-center justify-center">
           <h3 className="text-center text-white text-4xl sm:text-5xl font-semibold sm:max-w-[383px] sm:px-5 max-w-[291px]">
@@ -60,7 +67,8 @@ const HomeHero = () => {
           isLoading={false}
         />
       </main>
-    </div>
+    </BackgroundVideo>
+    // </div>
   );
 };
 
