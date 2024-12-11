@@ -40,7 +40,6 @@ const HomeHero = () => {
     // <div className="bg-neutral-grey-100 h-[65vh] sm:h-[calc(100vh-95px)] bg-hero-mobile sm:bg-hero-desktop bg-no-repeat bg-cover 2xl:h-[55vh]">
     <BackgroundVideo
       src={bgVideo}
-      muted={false}
       className="bg-neutral-grey-100 h-[65vh] sm:h-[calc(100vh-95px)] 2xl:h-[55vh]"
     >
       <main className="pt-14 sm:pt-[75px]">
