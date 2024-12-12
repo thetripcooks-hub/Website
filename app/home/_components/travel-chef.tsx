@@ -26,7 +26,7 @@ const TravelChef = () => {
             custom-made trip, we’ll handle all the ingredients to cook up a
             journey that’s perfectly you. */}
             Think of us as your travel planners — crafting unforgettable
-            adventures (cooked) just for you. Whether you’re dreaming of a group
+            adventures cooked just for you. Whether you’re dreaming of a group
             getaway or a custom-designed journey, we’ll gather all the right
             details to map out a trip that’s perfectly you. From planning to
             execution, we handle it all, so you can sit back and savor the
