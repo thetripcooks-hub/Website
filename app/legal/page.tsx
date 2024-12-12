@@ -98,6 +98,38 @@ const Page = () => {
             company, not with Trip Cooks.
           </p>
 
+          {/* refund policy */}
+          <h4 className="text-[red] text-lg leading-[21.94px] font-medium my-5 dark:text-foreground">
+            Refund Policy
+          </h4>
+
+          <p className="text-[red]">
+            Your eligibility for a refund will depend on when we receive your
+            cancellation notice. Refunds will be as follows:
+          </p>
+
+          <ul className="text-[red] list-disc pl-8 sm:pl-10 my-2 flex flex-col gap-1">
+            <li>
+              <span className="font-medium">
+                Four (4) months or more prior to travel —
+              </span>{" "}
+              Refund of 100% of the total payment made.
+            </li>
+            <li>
+              <span className="font-medium">Less than four (4) months —</span>
+              Refund of 60% of the total payment made.
+            </li>
+            <li>
+              <span className="font-medium">Less than six (6) weeks —</span> No
+              refund (100% of the total payment will be retained).
+            </li>
+          </ul>
+          <p className="text-[red]">
+            If flights are inclusive in a trip’s package, refunds will be
+            subject to the airline’s terms and conditions for ticket
+            cancellations.
+          </p>
+
           <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5 dark:text-foreground">
             Travel Documents
           </h4>
@@ -188,6 +220,12 @@ const Page = () => {
             use and sharing it on your personal social media channels. If you
             breach this clause, Trip Cooks reserves the right to enforce the
             removal of such content.
+            <br /> <br />
+            <span className="text-[red]">
+              By booking the Trip Cooks Experience, trippers acknowledge that
+              they have read, understood, and agreed to these additional terms
+              and conditions.
+            </span>
           </p>
         </div>
       </div>
