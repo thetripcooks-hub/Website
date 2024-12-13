@@ -99,16 +99,16 @@ const Page = () => {
           </p>
 
           {/* refund policy */}
-          <h4 className="text-[red] text-lg leading-[21.94px] font-medium my-5 dark:text-foreground">
+          <h4 className="text-lg text-[#020E0B] leading-[21.94px] font-medium my-5 dark:text-foreground">
             Refund Policy
           </h4>
 
-          <p className="text-[red]">
+          <p>
             Your eligibility for a refund will depend on when we receive your
             cancellation notice. Refunds will be as follows:
           </p>
 
-          <ul className="text-[red] list-disc pl-8 sm:pl-10 my-2 flex flex-col gap-1">
+          <ul className="list-disc pl-8 sm:pl-10 my-2 flex flex-col gap-1">
             <li>
               <span className="font-medium">
                 Four (4) months or more prior to travel —
@@ -124,7 +124,7 @@ const Page = () => {
               refund (100% of the total payment will be retained).
             </li>
           </ul>
-          <p className="text-[red]">
+          <p>
             If flights are inclusive in a trip’s package, refunds will be
             subject to the airline’s terms and conditions for ticket
             cancellations.
@@ -221,7 +221,7 @@ const Page = () => {
             breach this clause, Trip Cooks reserves the right to enforce the
             removal of such content.
             <br /> <br />
-            <span className="text-[red]">
+            <span>
               By booking the Trip Cooks Experience, trippers acknowledge that
               they have read, understood, and agreed to these additional terms
               and conditions.
