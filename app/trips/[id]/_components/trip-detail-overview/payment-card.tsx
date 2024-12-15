@@ -67,7 +67,13 @@ const PaymentCard = () => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <circle cx="4" cy="4" r="4" fill="#1D2433" className="dark:fill-[#8C909B]" />
+              <circle
+                cx="4"
+                cy="4"
+                r="4"
+                fill="#1D2433"
+                className="dark:fill-[#8C909B]"
+              />
             </svg>
             <span>{selectedTrip.slots || 10} people</span>
           </p>
@@ -79,15 +85,17 @@ const PaymentCard = () => {
               key={item.title + Math.random()}
               className="flex gap-1 items-center"
             >
-              <Image src={item.icon} alt={item.title} width={28} height={28} className="dark:hidden"/>
-              <CircleCheck className="hidden dark:block" width={28} height={28} />
+              {/* <Image src={item.icon} alt={item.title} width={28} height={28} className="dark:hidden"/> */}
+              <CircleCheck width={28} height={28} />
               <p className="text-[#000000] leading-[19.5px] text-[16px] dark:text-foreground">
                 {item.title}
               </p>
             </div>
           ))}
           {selectedTrip.soldOut ? (
-            <Button className="w-full" variant="outline">Sold Out</Button>
+            <Button className="w-full" variant="outline">
+              Sold Out
+            </Button>
           ) : (
             <>
               <Button
