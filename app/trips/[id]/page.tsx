@@ -33,6 +33,10 @@ const Page = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tripData]);
 
+  useEffect(() => {
+    console.log({ selectedTrip });
+  }, [selectedTrip]);
+
   if (loading)
     return (
       <div className="w-screen flex justify-center items-center h-[calc(100vh-95px)]">
