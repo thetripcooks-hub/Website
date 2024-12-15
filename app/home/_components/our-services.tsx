@@ -36,7 +36,7 @@ const OurServices = () => {
             onClick={() => gotoRoute("/trips")}
           >
             <h5 className="font-medium text-2xl whitespace-nowrap">
-              Group trips
+              Group Trips
             </h5>
             <p className={cn(arial.className, "text-base mt-1")}>
               Get those travel plans out of the group chat and explore new
@@ -50,7 +50,7 @@ const OurServices = () => {
             onClick={() => gotoRoute("/private-trips")}
           >
             <h5 className="font-medium text-2xl whitespace-nowrap">
-              Private trips
+              Private Trips
             </h5>
             <p className={cn(arial.className, "text-base mt-1")}>
               Need to explore a new location on your own? We’re here for you!
