@@ -85,6 +85,7 @@ const PaymentCard = () => {
               key={item.title + Math.random()}
               className="flex gap-1 items-center"
             >
+              {/* <Image src={item.icon} alt={item.title} width={28} height={28} className="dark:hidden"/> */}
               <CircleCheck width={28} height={28} />
               <p className="text-[#000000] leading-[19.5px] text-[16px] dark:text-foreground">
                 {item.title}
