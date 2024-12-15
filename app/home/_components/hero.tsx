@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import TripSearch from "./trip-search";
 import { cn } from "@/lib/utils";
 import useTripStore from "@/stores/trip-store";

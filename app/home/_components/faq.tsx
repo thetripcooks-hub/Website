@@ -28,7 +28,7 @@ const faq = [
   {
     question: "Can I pay in instalments?",
     answer:
-      "Absolutely! We offer flexible payment plans for our trips. However, to reserve your spot, a deposit of 300 pounds is required.",
+      "Absolutely! We offer flexible payment plans for our trips. However, to reserve your spot, a deposit of £300 is required.",
   },
   {
     question: "What is your refund policy?",
@@ -65,7 +65,7 @@ const faq = [
   {
     question: "Is there a group chat or webinar for participants to connect?",
     answer:
-      "Yes! All trippers are added to the Tripcooks WhatsApp group after the deadline for securing a slot. We also host an e Meet “n” Greet before the trip for every one to get familiar with each other.",
+      "Yes! All trippers are added to the Tripcooks WhatsApp group after the deadline for securing a slot. We also host an e-Meet & Greet before the trip for every one to get familiar with each other.",
   },
   {
     question: "Can I choose to have a room to myself?",
@@ -73,7 +73,7 @@ const faq = [
       "Yes, you can choose your sleeping arrangements. However, this will but this comes with an additional cost.",
   },
   {
-    question: "Group trip doesn’t align with my schedule:",
+    question: "Group trip doesn’t align with my schedule.",
     answer:
       "If a group trip doesn’t fit your schedule, TripCooks can arrange private trips for groups of four or more, customized to your preferred destinations and dates.",
   },
