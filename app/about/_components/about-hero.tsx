@@ -17,9 +17,13 @@ const AboutHero = () => {
             About TripCooks
           </h6> */}
           <h3 className="text-[32px] leading-[39.01px] font-semibold text-neutral-text sm:max-w-[822px] sm:text-5xl sm:leading-[58.51px] dark:text-foreground">
-            Our mission is to take the trip out{" "}
-            <br className="hidden sm:block" /> of the group chat,{" "}
-            <span className="text-secondary-irish-green">for good</span>
+            Our mission is to see the world{" "}
+            {/*. Our mission is to take the trip out*/}{" "}
+            {/* <br className="hidden sm:block" /> */}
+            {/*of the group chat,*/} one country{" "}
+            <span className="text-secondary-irish-green">
+              {/*for good*/} at a time
+            </span>
           </h3>
         </header>
         <div className="mt-5">

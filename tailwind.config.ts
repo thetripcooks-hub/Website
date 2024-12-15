@@ -19,6 +19,7 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         "hero-desktop": "url(/img/hero-desktop.svg)",
         "hero-mobile": "url(/img/hero-mobile.svg)",
+        "new-home": "url(/img/home/new-home.avif)",
         "group-trip": "url(/img/public-trip.svg)",
         "private-trip": "url(/img/private-trip.svg)",
         "travel-planning": "url(/img/travel-planning.svg)",

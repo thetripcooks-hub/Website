@@ -18,23 +18,34 @@ const Adventurers = () => {
           </h3>
           <div className="flex flex-col gap-1.5 sm:gap-2 sm:max-w-[559px] text-neutral-grey-500 text-base leading-[26.08px] dark:text-[#BFC0C2]">
             <p>
-              Trip Cooks started off with Ovie and Lanre planning a group trip
+              {/* Trip Cooks started off with Ovie and Lanre planning a group trip
               to Montenegro in February 2023. This was a trip with friends and
               one key point that stood out was the balance between vacationing
-              and traveling.{" "}
+              and traveling.{" "} */}
+              In August 2022, Ovie and Lanre planned a group trip to Stonehaven
+              in Scotland. This was a trip with friends and one key point that
+              stood out was the balance between vacationing and traveling.
             </p>
             <p>
-              A friend then told us “you’re good at this, I love the community
+              {/* A friend then told us “you’re good at this, I love the community
               you’re building too and you should share this passion of
               exploring”, thus TripCooks came to be. So far, this community has
               ticked off 10 countries and counting with the best views, food,
-              vibes and energy!{" "}
+              vibes and energy!{" "} */}
+              Post Stonehaven, the friendship group kept expanding and has
+              explored other countries including Mexico, Turkey and Morocco. So
+              far, the TripCooks community has ticked off 10 countries and
+              counting with the best views, food, vibes and energy!
             </p>
             <p>
-              More to come from us! Join our group trips for the best experience
+              {/* More to come from us! Join our group trips for the best experience
               you will have without breaking the bank. We truly believe travel
               should not be a luxury, anyone can and should be able to travel.
-              Let’s show you how!
+              Let’s show you how! */}
+              We’re always in the kitchen “cooking” the next destination to
+              explore. Hence our name TRIP COOKS. We truly believe travel should
+              not be a luxury, anyone can and should be able to travel. Let’s
+              show you how!
             </p>
           </div>
         </div>

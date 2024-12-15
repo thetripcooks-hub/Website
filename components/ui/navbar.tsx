@@ -24,7 +24,7 @@ const navConfig = [
     url: "/trips",
   },
   {
-    name: "Private trips",
+    name: "Private Trips",
     url: "/private-trips",
   },
   

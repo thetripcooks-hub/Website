@@ -13,17 +13,17 @@ import { CircleCheck } from "lucide-react";
 
 const PaymentCard = () => {
   const data = [
-    {
-      icon: airplane,
-      title: "Flight included",
-    },
+    // {
+    //   icon: airplane,
+    //   title: "Flight included",
+    // },
     {
       icon: house,
-      title: "Accomodation included",
+      title: "Accommodation included",
     },
     {
       icon: money,
-      title: "Installment payment available",
+      title: "Instalment payment available",
     },
   ];
   const { selectedTrip, handleAddToCart, handlePay, isPaying } =

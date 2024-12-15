@@ -8,7 +8,8 @@ const PrivateTripHero = () => {
   return (
     <>
       <div className="bg-neutral-grey-100  bg-hero-mobile sm:bg-hero-desktop bg-no-repeat bg-cover h-[50svh]">
-        <main className="pt-10 sm:pt-[65px]">
+        {/* <main className="pt-10 sm:pt-[65px]">
+          {" "}
           <div className="px-5 flex flex-col items-center justify-center">
             <h3 className="text-center text-white text-4xl sm:text-5xl font-semibold max-w-[291px] sm:max-w-[393px]">
               Private trips on Trip cooks
@@ -23,21 +24,19 @@ const PrivateTripHero = () => {
               you and your friends or loved ones, to your selected destination.{" "}
             </p>
           </div>
-        </main>
+        </main> */}
       </div>
       <div className="px-5 py-10 sm:py-20 sm:px-[8%]">
         <SectionWrapper className="flex flex-col lg:flex-row justify-between gap-5">
           <div className="lg:max-w-[550px] w-full text-neutral-subtext sm:text-secondary-forest-green">
             <h4 className="font-medium text-[24px] leading-[29.26px] text-neutral-text sm:text-[32px] sm:leading-[39.01px] dark:text-foreground">
-              Need a solo getaway?
+              Needing a Private Getaway?
             </h4>
             <div className="text-base leading-[29px] text-neutral-subtext mt-5 dark:text-[#BFC0C2]">
               <p>
-                Group trips are amazing, private trips are on a whole new level.
-                You can book a private trip and enjoy an exclusive experience
-                with you and your friends or loved ones, to your selected
-                destination. Please fill out the form below and a member of our
-                team will be in touch.
+                Book a private trip for an exclusive experience at your chosen
+                destination. Just fill out the form, and our team will reach out
+                to you shortly.
               </p>
             </div>
           </div>

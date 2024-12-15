@@ -37,7 +37,7 @@ const Reviews = () => {
       <SectionWrapper>
         <div className="w-full text-center mb-10 sm:mb-20">
           <h3 className="text-[#1D2433] leading-[39.01px] text-[32px] font-medium sm:leading-[58.51px] sm:text-[48px] mb-5 dark:text-foreground">
-            Our wall of love
+            {/* Our wall of love */} Reviews
           </h3>
           <p className="text-neutral-subtext text-[16px] leading-[19.5px] sm:text-[20px] sm:leading-[24.38px] dark:text-[#BFC0C2]">
             The early adopters have spoken

@@ -7,7 +7,7 @@ const items = [
   {
     title: "Group trips made easy",
     description:
-      "Join a group of like-minded travellers, forget the  hassle of planning. From accommodation to planning an itinerary, we’ve got you covered",
+      "Join a group of likeminded travellers and forget the hassle of planning. From accommodation to tourist activities, we’ve got you covered",
   },
   {
     title: "Personalized Travel Planning",

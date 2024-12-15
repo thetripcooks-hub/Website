@@ -7,6 +7,7 @@ import {
 } from "@/components/ui";
 import React from "react";
 import SectionWrapper from "./section-wrapper";
+import Link from "next/link";
 
 const faq = [
   {
@@ -22,22 +23,34 @@ const faq = [
   {
     question: "How much does a trip cost?",
     answer:
-      "The cost of a trip with us generally ranges from 500 pounds to 1,000 pounds, depending on the destination and the activities included. To get a more detailed breakdown, please visit our trips page, where you will find the specific prices for each destination.",
+      "The cost of a trip with us generally ranges from £500 to £1,000, depending on the destination and the activities included. To get a more detailed breakdown, please visit our trips page, where you will find the specific prices for each destination.",
   },
   {
-    question: "Can I pay in installments?",
+    question: "Can I pay in instalments?",
     answer:
-      "Absolutely, you can pay in installments. We offer flexible payment plans for our trips. However, to reserve your spot, a deposit of 300 pounds is required.",
+      "Absolutely! We offer flexible payment plans for our trips. However, to reserve your spot, a deposit of 300 pounds is required.",
   },
   {
     question: "What is your refund policy?",
-    answer:
-      "A portion of the base price is refundable if you cancel at least two (2) weeks before the trip.",
+    answer: (
+      <>
+        Kindly refer to the Terms and Conditions page under our{" "}
+        <Link href="/legal" className="text-secondary-irish-green">
+          Travel Policy
+        </Link>
+      </>
+    ),
   },
   {
     question: "What happens if I can't make the trip after payment?",
-    answer:
-      "If you can't make the trip after payment, you may be able to transfer your payment to another scheduled trip. However, this could incur additional costs.",
+    answer: (
+      <>
+        Kindly refer to the Terms and Conditions page under our{" "}
+        <Link href="/legal" className="text-secondary-irish-green">
+          Travel Policy
+        </Link>
+      </>
+    ),
   },
   {
     question: "When will I receive my flight information?",
@@ -52,18 +65,17 @@ const faq = [
   {
     question: "Is there a group chat or webinar for participants to connect?",
     answer:
-      " Yes, there's a group chat for all trippers. Everyone is added after the deadline for securing a slot. We also host an e-meet-and-greet a week before the trip, where you can also get any additional information.",
+      "Yes! All trippers are added to the Tripcooks WhatsApp group after the deadline for securing a slot. We also host an e Meet “n” Greet before the trip for every one to get familiar with each other.",
   },
   {
-    question: "Can I choose my sleeping arrangments?",
+    question: "Can I choose to have a room to myself?",
     answer:
-      "You can choose your sleeping arrangements, but this might come with an additional cost for those interested.",
+      "Yes, you can choose your sleeping arrangements. However, this will but this comes with an additional cost.",
   },
   {
-    question:
-      "I want to go on a particular group trip but the date doesn't work for me, what can I do?",
+    question: "Group trip doesn’t align with my schedule:",
     answer:
-      "If a particular group trip doesn't align with your schedule, Trip Cooks can organize private trips for groups of at least four (4) people to the destinations you're interested in, tailored to dates that work for you.",
+      "If a group trip doesn’t fit your schedule, TripCooks can arrange private trips for groups of four or more, customized to your preferred destinations and dates.",
   },
   {
     question: "What activities are included in the package?",
@@ -79,8 +91,11 @@ const Faq = () => {
         <div>
           <h3 className="text-[32px] font-medium sm:text-5xl">FAQs</h3>
           <p className="w-full sm:max-w-[582px] text-neutral-subtext mt-5 dark:text-[#BFC0C2]">
-            Everything you need to know about tripcooks and pricing. Can’t find
-            what yoy’re looking for? Please contact mail@tripcooks.com
+            Everything you need to know about traveling with Trip Cooks. Can’t
+            find what you’re looking for? Contact us using our{" "}
+            <Link href="/contact" className="text-secondary-irish-green">
+              form.
+            </Link>
           </p>
         </div>
 
