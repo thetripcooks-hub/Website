@@ -27,7 +27,7 @@ const FeatureTrip = () => {
           />
         </section>
         <section className="flex flex-col gap-6 sm:gap-10">
-          <h3 className="text-[32px] sm:text-5xl font-medium">Featured trip</h3>
+          <h3 className="text-[32px] sm:text-5xl font-medium">Featured Trip</h3>
           <p className="max-w-[318px] text-base sm:text-xl sm:max-w-[415px] text-neutral-subtext dark:text-[#BFC0C2]">
             Explore {featuredTripArray[0].location} with a friend or two this
             summer. Enjoy full support from our team 24/7.
