@@ -14,7 +14,7 @@ const Page = () => {
       <PrivateTripHero />
       <ViewOfLocation
         className="font-medium text-[24px] leading-[29.26px] text-neutral-text sm:text-[32px] sm:leading-[39.01px]"
-        title="Views from our last trips"
+        title=" "
         items={privateTrip?.[0]?.viewsOurLastTripsCollection?.items ?? []}
       />
       <Reviews />

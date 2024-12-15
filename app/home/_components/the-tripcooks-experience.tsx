@@ -65,7 +65,7 @@ const TheTripCooksExperience = ({
   return rows.length > 0 ? (
     <section>
       <h3 className="text-[32px] leading-[39.01px] font-medium sm:text-5xl px-5 pt-5 sm:pt-10 sm:px-[8%]">
-        <SectionWrapper>The TripCooks Experience</SectionWrapper>
+        {/* <SectionWrapper>The TripCooks Experience</SectionWrapper> */}
       </h3>
       <div className="mt-5 sm:mt-10 flex flex-col gap-5">
         <CarouselWrapper>

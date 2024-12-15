@@ -4,7 +4,7 @@ import ReadyToStart from "../home/_components/ready-to-start";
 
 const Page = () => {
   return (
-    <main>
+    <main className="text-justify">
       <div className="px-5 py-10 sm:px-[8%] text-neutral-subtext text-base leading-[19.5px] dark:text-[#8C909B]">
         {/* <h2 className="text-center text-[#020E0B] text-2xl leading-[29.26px] font-medium sm:leading-[48.76px] sm:text-[40px] mb-10">
           Our travel policy

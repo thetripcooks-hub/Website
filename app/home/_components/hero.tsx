@@ -1,17 +1,18 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import BackgroundVideo from "next-video/background-video";
+import React from "react";
 import TripSearch from "./trip-search";
-import { arial } from "@/app/font";
-import { cn, searchInArray } from "@/lib/utils";
-import bgVideo from "../../../videos/tripcooks-home-video.mov";
+import { cn } from "@/lib/utils";
 import useTripStore from "@/stores/trip-store";
+import { useQuery } from "@apollo/client";
+import { queryGetHomeBg } from "@/queries/home-query";
+import { HomeBgResponse } from "@/types/home";
 // import Navbar from "@/components/ui/navbar";
 
 const HomeHero = () => {
   const { trips } = useTripStore();
   const [value, setValue] = React.useState("");
   const [selectedValue, setSelectedValue] = React.useState("");
+  const { data } = useQuery<HomeBgResponse>(queryGetHomeBg);
 
   // const frameworks = [
   //   {
@@ -35,9 +36,19 @@ const HomeHero = () => {
   //     label: "Astro",
   //   },
   // ];
+  const homeBg =
+    data?.homeHeroCollection?.items?.[0]?.heroBackground?.url ?? "";
 
   return (
-    <div className="bg-neutral-grey-100 h-[65vh] sm:h-[calc(100vh-95px)] bg-hero-mobile sm:bg-hero-desktop bg-no-repeat bg-cover 2xl:h-[55vh]">
+    // <div className="bg-neutral-grey-100 h-[65vh] sm:h-[calc(100vh-95px)] bg-hero-mobile sm:bg-hero-desktop bg-no-repeat bg-cover "> new-home
+    <div
+      className="bg-neutral-grey-100 h-[65vh] sm:h-[calc(100vh-95px)] bg-no-repeat bg-cover"
+      style={{
+        backgroundImage: homeBg.length
+          ? `url(${homeBg})`
+          : `url("./img/new-home.avif")`,
+      }}
+    >
       {/* <BackgroundVideo
       src={bgVideo}
       className="bg-neutral-grey-100 h-[65vh] sm:h-[calc(100vh-95px)] 2xl:h-[55vh]"
@@ -45,7 +56,7 @@ const HomeHero = () => {
       <main className="pt-14 sm:pt-[75px]">
         <div className="px-5 flex flex-col items-center justify-center">
           <h3 className="text-center text-white text-4xl sm:text-5xl font-semibold sm:max-w-[383px] sm:px-5 max-w-[291px]">
-            Group trips, The easy way
+            Group Trips, The Easy Way.
           </h3>
           <p
             className={cn(

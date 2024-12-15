@@ -209,7 +209,7 @@ const PrivateTripForm = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    How many people are coming on this trip? <br />
+                    Number of People in Your Group <br />
                     (There should be a minimum of 4 people per trip)*
                   </FormLabel>
                   <FormControl>
@@ -232,9 +232,7 @@ const PrivateTripForm = () => {
               name="nationalitiesOfGuests"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
-                    What are the nationalities of your people?
-                  </FormLabel>
+                  <FormLabel>What are their Nationalities</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Enter their different nationalities"
@@ -254,7 +252,7 @@ const PrivateTripForm = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    What is your budget for the trip? per person*
+                    What is your budget for the trip (per person)?*
                   </FormLabel>
                   <FormControl>
                     <div className="flex items-center bg-[#F7F7F9] dark:bg-[#272C2B] h-[59px] rounded-l-md pl-3">
@@ -314,7 +312,7 @@ const PrivateTripForm = () => {
               name="currentCountry"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>What country are you located in?*</FormLabel>
+                  <FormLabel>Country(ies) of Residence?*</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Enter country here"

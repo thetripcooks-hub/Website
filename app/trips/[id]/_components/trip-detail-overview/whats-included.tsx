@@ -29,14 +29,14 @@ const WhatsIncluded = () => {
               key={item.icon + Math.random()}
               className="flex gap-2.5 items-center "
             >
-              <Image
+              {/* <Image
                 src={item.icon}
                 alt="icon"
                 width={28}
                 height={28}
                 className="w-[28px] h-[28px] object-contain dark:hidden"
-              />
-              <CircleCheck className="text-foreground hidden dark:block w-[28px] h-[28px]" />
+              /> */}
+              <CircleCheck className="text-foreground w-[28px] h-[28px]" />
               <p className="text-[16px] leading-[19.5px] dark:text-foreground">
                 {item.title}
               </p>

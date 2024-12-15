@@ -12,8 +12,8 @@ const CheckoutPaymentType = () => {
       isInstallment: false,
     },
     {
-      title: "Pay in installments",
-      description: "Pay $300 today and save your spot on this trip. ",
+      title: "Pay in instalments",
+      description: "Pay £300 today and save your spot on this trip. ",
       value: "installment",
       isInstallment: true,
     },
