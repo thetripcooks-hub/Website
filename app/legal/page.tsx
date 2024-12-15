@@ -10,7 +10,7 @@ const Page = () => {
           Our travel policy
         </h2> */}
         <h1 className="text-4xl sm:text-5xl text-center font-semibold mb-10 text-neutral-text dark:text-foreground">
-          Our travel policy
+          Our Travel Policy
         </h1>
 
         <h6 className="font-semibold text-2xl leading-[29.26px] text-[#020E0B] dark:text-foreground">
