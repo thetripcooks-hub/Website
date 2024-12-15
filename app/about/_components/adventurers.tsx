@@ -14,7 +14,7 @@ const Adventurers = () => {
       <SectionWrapper className="flex flex-col sm:flex-row gap-6 sm:gap-12 sm:justify-between w-full">
         <div className="sm:pt-4 flex flex-col gap-5">
           <h3 className="text-[32px] leading-[39.01px] font-semibold text-neutral-text sm:text-[48px] sm:leading-[58.51px] dark:text-foreground">
-            Two adventurers, <br className="sm:hidden" /> One shared goal
+            Two adventurers, <br /> One shared goal
           </h3>
           <div className="flex flex-col gap-1.5 sm:gap-2 sm:max-w-[559px] text-neutral-grey-500 text-base leading-[26.08px] dark:text-[#BFC0C2]">
             <p>
