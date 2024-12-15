@@ -109,7 +109,7 @@ const Cart = () => {
             <div className="flex w-full justify-center my-4 items-center gap-1 text-neutral-text">
               <Image src={CashIn} alt="dollar-in" />
               <p className="text-[16px] leading-[19.5px] text-neutral-text dark:text-foreground">
-                Installment payment available!
+                Instalment payment available!
               </p>
             </div>
             <Separator />

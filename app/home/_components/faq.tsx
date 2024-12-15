@@ -111,7 +111,7 @@ const Faq = () => {
                 <AccordionTrigger className="text-left text-neutral-text text-lg sm:text-lg dark:text-foreground">
                   {item.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-neutral-subtext text-base dark:text-[#BFC0C2]">
+                <AccordionContent className="text-neutral-subtext text-base dark:text-[#BFC0C2] text-start sm:text-justify">
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>

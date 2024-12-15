@@ -21,7 +21,7 @@ const InstallmentItem = () => {
   return (
     selectedTrip && (
       <div className="flex gap-1 text-sm leading-[17.07px] text-secondary-irish-green mt-1">
-        <p>Installment Plan</p>
+        <p>Instalment Plan</p>
         <TooltipProvider>
           <Tooltip delayDuration={0} open={show}>
             <TooltipTrigger
