@@ -31,7 +31,7 @@ export function DrawerDemo({
           See more
         </p>
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className="h-fit">
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
             <DrawerTitle className="my-4 text-2xl leading-[29.26px] text-center">
@@ -39,7 +39,7 @@ export function DrawerDemo({
             </DrawerTitle>
             {/* <DrawerDescription>Set your daily activity goal.</DrawerDescription> */}
           </DrawerHeader>
-          <div className="px-4 pb-10 flex flex-col gap-5">
+          <div className="px-4 pb-10 flex flex-col gap-5 max-h-[60vh] overflow-y-auto">
             {data.map((item) => (
               <div
                 key={item.icon + Math.random()}
@@ -52,7 +52,7 @@ export function DrawerDemo({
                   height={28}
                   className="w-[28px] h-[28px] object-contain dark:hidden"
                 /> */}
-                 <CircleCheck className="text-foreground w-[28px] h-[28px]" />
+                <CircleCheck className="text-foreground w-[28px] h-[28px]" />
                 <p className="text-[16px] leading-[19.5px]">{item.title}</p>
               </div>
             ))}

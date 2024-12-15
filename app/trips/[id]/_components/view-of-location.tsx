@@ -66,9 +66,9 @@ const ViewOfLocation = ({
   return (
     <section>
       <h3 className="text-[32px] leading-[39.01px] font-medium sm:text-5xl px-5 pt-5 sm:pt-10 sm:px-[8%]">
-        <SectionWrapper className={cn("dark:text-foreground", className)}>
+        {/* <SectionWrapper className={cn("dark:text-foreground", className)}>
           {title || "Our view of Madrid"}
-        </SectionWrapper>
+        </SectionWrapper> */}
       </h3>
 
       <div className="mt-5 sm:mt-10 flex flex-col gap-5">
