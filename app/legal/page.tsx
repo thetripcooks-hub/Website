@@ -38,9 +38,10 @@ const Page = () => {
             </strong>{" "}
             Trip Cooks may include links to third-party websites or resources
             for your convenience. Please note that these external sites are not
-            under the control of Trip Cooks, and we are not responsible for
-            their content or any links they may contain. The inclusion of such
-            links does not imply endorsement or referral by Trip Cooks.
+            under the control of Trip Cooks, and therefore we are not
+            responsible for their content or any links they may contain. The
+            inclusion of such links does not imply endorsement or referral by
+            Trip Cooks.
           </p>
         </div>
 
@@ -192,27 +193,25 @@ const Page = () => {
             trip with Trip Cooks, you grant permission for Trip Cooks to use
             such media for promotional and documentation purposes.
             <br /> <br />
-            Trip Cooks may collect still and video images during the course of
+            {/* Trip Cooks may collect still and video images during the course of
             your holiday for advertising and promotional uses. By booking a trip
             with Trip Cooks, you agree that these images may be collected and
             used at Trip Cooks&apos; discretion, including for commercial
             purposes. The images may be cropped, altered, combined, or otherwise
             edited, and you agree that Trip Cooks will retain ownership of all
             rights associated with such images.
-            <br /> <br />
-            Trip Cooks reserves the right to assign, grant, transfer, or
+            <br /> <br /> */}
+            {/* Trip Cooks reserves the right to assign, grant, transfer, or
             otherwise give to a third party the rights and ownership of any
             images collected. This includes but is not limited to employees,
             independent contractors, and other entities authorized by Trip Cooks
             to capture content for any authorized purpose, whether for
             commercial or personal use.
+            <br /> <br /> */}
+            If you do not wish to be on camera nor on video, please notify Trip
+            Cooks before the start of your trip.
             <br /> <br />
-            If you do not wish to be on camera or video, please notify Trip
-            Cooks at least 5 days before the start of your trip. You should
-            include your name and booking number to ensure your request is
-            noted.
-            <br /> <br />
-            By booking a trip with Trip Cooks, you agree that any still and
+            {/* By booking a trip with Trip Cooks, you agree that any still and
             video images you capture during your holiday are for personal use
             only. Unless you obtain written permission from Trip Cooks, you
             agree that you will not use any content captured for commercial
@@ -220,11 +219,11 @@ const Page = () => {
             use and sharing it on your personal social media channels. If you
             breach this clause, Trip Cooks reserves the right to enforce the
             removal of such content.
-            <br /> <br />
+            <br /> <br /> */}
             <span>
               By booking the Trip Cooks Experience, trippers acknowledge that
-              they have read, understood, and agreed to these additional terms
-              and conditions.
+              they have read, understood, and agreed to these terms and
+              conditions.
             </span>
           </p>
         </div>

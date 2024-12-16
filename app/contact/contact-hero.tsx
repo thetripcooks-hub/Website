@@ -68,26 +68,26 @@ const ContactHero = () => {
   return (
     <div className="px-5 py-10 sm:py-20 sm:px-[8%]">
       <SectionWrapper className="flex flex-col sm:flex-row justify-between gap-10">
-        <div className="sm:max-w-[550px] w-full text-neutral-subtext sm:text-secondary-forest-green">
-          <h4 className="font-semibold text-[36px] leading-[43.88px] text-neutral-text sm:text-[40px] sm:leading-[48.76px] dark:text-foreground">
-          Ask Us Anything...
+        <div className="sm:w-1/2 sm:max-w-[550px] w-full text-neutral-subtext sm:text-secondary-forest-green">
+          <h4 className="font-semibold text-[36px] leading-[43.88px] text-neutral-text sm:text-[40px] sm:leading-[48.76px] dark:text-foreground text-left">
+            Ask Us Anything...
           </h4>
-          {/* <div className="text-base leading-[26.08px] mt-5 dark:text-[#BFC0C2]">
+          <div className="text-base leading-[26.08px] mt-5 dark:text-[#BFC0C2]">
             <p>
-              Got some enquiries about a trip? Need somem help with our prcing
-              structure? Need general support during your stay? Let us know
+              Got some enquiries before you book that trip? Reach out to us and
+              a member of our team will be in touch soon.
             </p>
-            <h5 className="my-5 font-semibold">
+            {/* <h5 className="my-5 font-semibold">
               We’re here for you, literally
             </h5>
             <p>
               If you have any questions, just reach out to us and we’ll respond
               as soon as we can. Please provide as much information as possible
-            </p>
-          </div> */}
+            </p> */}
+          </div>
         </div>
         {/* contact form */}
-        <Card className="w-full sm:w-1/2 shadow-none border-none sm:border sm:border-solid sm:p-6 sm:border-[#E1E6EF] sm:max-w-[573px] dark:border-[#383E47] dark:bg-background">
+        <Card className="w-full sm:w-1/2 shadow-none border-none sm:border sm:border-solid sm:p-6 sm:border-[#E1E6EF] dark:border-[#383E47] dark:bg-background sm:max-w-[550px]">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className="flex flex-col gap-5">
