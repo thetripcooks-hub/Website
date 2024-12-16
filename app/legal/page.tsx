@@ -95,8 +95,7 @@ const Page = () => {
             writing. The cancellation will take effect from the date we receive
             your written notification. Please include the reason(s) for
             cancellation, as your insurance policy may cover certain
-            circumstances. Claims must be made directly with your insurance
-            company, not with Trip Cooks.
+            circumstances.
           </p>
 
           {/* refund policy */}
