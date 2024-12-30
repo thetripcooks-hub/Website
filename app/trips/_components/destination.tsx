@@ -19,7 +19,7 @@ import { CartItem } from "@/types/cart";
 import { useIsMobile } from "@/hooks";
 import EmptyCart from "@/app/cart/_components/empty-cart";
 import usePaginatedTrips from "@/hooks/trips/usePaginatedTrips";
-import { cn } from "@/lib/utils";
+import { cn, generateTripLink } from "@/lib/utils";
 import { Loader } from "lucide-react";
 
 const Destination = () => {
@@ -71,7 +71,7 @@ const Destination = () => {
               <TripCard
                 key={item.sys.id}
                 item={item}
-                handleClick={() => router.push(`/trips/${item.sys.id}`)}
+                handleClick={() => router.push(generateTripLink(item))}
                 handleAddToCart={() => handleAddToCart(item)}
               />
             ))}

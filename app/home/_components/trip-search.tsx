@@ -21,6 +21,7 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { TripType } from "@/types/trip";
+import { generateTripLink } from "@/lib/utils";
 
 type Props<T extends string> = {
   selectedValue: T;
@@ -81,7 +82,7 @@ function TripSearch<T extends string>({
     }
 
     if (selectedTripArray) {
-      router.push(`/trips/${selectedTripArray[0].sys.id}`);
+      router.push(generateTripLink(selectedTripArray[0]));
     }
     setOpen(false);
   };

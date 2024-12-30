@@ -5,6 +5,7 @@ import { CartItem } from "@/types/cart";
 import { toast } from "sonner";
 import useStripe from "./useStripe";
 import { useIsMobile } from "../useIsMobile";
+import { generateTripLink } from "@/lib/utils";
 
 const usePaymentCard = () => {
   const { selectedTrip } = useTripStore();
@@ -37,7 +38,7 @@ const usePaymentCard = () => {
   const { handlePay, isPaying } = useStripe({
     items: [_oneItem],
     cancel_url: selectedTrip
-      ? `${window.location.origin}/trips/${selectedTrip.sys.id}`
+      ? `${window.location.origin}${generateTripLink(selectedTrip)}`
       : undefined,
   });
 
