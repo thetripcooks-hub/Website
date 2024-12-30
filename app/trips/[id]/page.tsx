@@ -1,68 +1,29 @@
 "use client";
-import { useInView } from "react-intersection-observer";
-import Reviews from "@/app/home/_components/reviews";
-import { SubcribeToNewsLetter, Footer, CustomLoader } from "@/components/ui";
-import { cn } from "@/lib/utils";
-import React, { useEffect } from "react";
-import ViewOfLocation from "./_components/view-of-location";
-import Itinerary from "./_components/Itinerary";
-import TripDetailOverview from "./_components/trip-detail-overview";
-import PaymentCardMobile from "./_components/trip-detail-overview/payment-card-mobile";
-import MobilePageHeader from "@/components/ui/mobile-page-header";
-// import { useHideNavOnMobile } from "@/hooks";
-import { queryTripById } from "@/queries/trips-query";
-import { TripByIdResponse } from "@/types/trip";
-import { useQuery } from "@apollo/client";
+import { generateTripLink } from "@/lib/utils";
 import { useParams } from "next/navigation";
 import useTripStore from "@/stores/trip-store";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { CustomLoader } from "@/components/ui";
 
 const Page = () => {
+  const router = useRouter();
   const { id } = useParams();
-  const { ref, inView } = useInView();
-  const { setSelectedTrip, selectedTrip } = useTripStore();
-  // useHideNavOnMobile();
-  const { data: tripData, loading } = useQuery<TripByIdResponse>(
-    queryTripById(id as string)
-  );
+  const { trips } = useTripStore();
 
-  useEffect(() => {
-    tripData && setSelectedTrip(tripData?.trip);
-    return () => {
-      setSelectedTrip(null);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tripData]);
+  const foundTrip = trips.find((trip) => trip.sys.id === id);
 
-  if (loading)
-    return (
-      <div className="w-screen flex justify-center items-center h-[calc(100vh-95px)]">
-        <CustomLoader />
-      </div>
-    );
-
-  if (!selectedTrip)
-    return (
-      <div className="w-screen flex justify-center items-center h-[calc(100vh-95px)]">
-        Trip details not found.
-      </div>
-    );
+  if (!foundTrip) {
+    toast.error("Trip not found");
+    router.push(`/home`);
+  } else {
+    router.push(generateTripLink(foundTrip));
+  }
 
   return (
-    <main className={cn("bg-white dark:bg-background w-full")}>
-      <div ref={ref}>
-        <MobilePageHeader title={selectedTrip?.location || ""} />
-        <TripDetailOverview />
-        <Itinerary />
-        {inView ? <PaymentCardMobile /> : null}
-      </div>
-      <ViewOfLocation
-        title={`Our view of ${selectedTrip.location.split(",")[0]}`}
-        items={selectedTrip.viewsOfLocationCollection.items ?? []}
-      />
-      <Reviews />
-      <SubcribeToNewsLetter />
-      <Footer />
-    </main>
+    <div className="w-screen flex justify-center items-center h-[calc(100vh-95px)]">
+      <CustomLoader />
+    </div>
   );
 };
 

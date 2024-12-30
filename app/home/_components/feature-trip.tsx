@@ -6,6 +6,7 @@ import FeatureTripImage from "~/img/sample-featured-trip.svg";
 import SectionWrapper from "./section-wrapper";
 import { useRouter } from "next/navigation";
 import useTripStore from "@/stores/trip-store";
+import { generateTripLink } from "@/lib/utils";
 
 const FeatureTrip = () => {
   const router = useRouter();
@@ -34,7 +35,7 @@ const FeatureTrip = () => {
           </p>
           <Button
             className="w-full sm:w-fit h-[54px] hidden sm:flex"
-            onClick={() => router.push(`/trips/${featuredTripArray[0].sys.id}`)}
+            onClick={() => router.push(generateTripLink(featuredTripArray[0]))}
           >
             Book trip
           </Button>
@@ -42,7 +43,7 @@ const FeatureTrip = () => {
       </SectionWrapper>
       <Button
         className="w-fit h-[54px] sm:hidden"
-        onClick={() => router.push(`/trips/${featuredTripArray[0].sys.id}`)}
+        onClick={() => router.push(generateTripLink(featuredTripArray[0]))}
       >
         Book trip
       </Button>

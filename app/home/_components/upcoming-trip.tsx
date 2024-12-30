@@ -14,7 +14,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import useTripStore from "@/stores/trip-store";
-import { formatTripDate, percentage, pounds } from "@/lib/utils";
+import {
+  formatTripDate,
+  generateTripLink,
+  percentage,
+  pounds,
+} from "@/lib/utils";
 import { Loader } from "lucide-react";
 import useCartStore from "@/stores/cartStore";
 import { CartItem } from "@/types/cart";
@@ -60,10 +65,10 @@ const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
             {/* desktop */}
             <div className="hidden sm:grid mt-10 grid-cols-3 gap-10">
               {/* (isCart ? 3 : 6) */}
-              {formatttedTrips.slice(0, 3).map((trip, index) => (
+              {formatttedTrips.slice(0, 3).map((trip) => (
                 <TripCard
                   key={trip.sys.id}
-                  handleClick={() => router.push(`/trips/${trip.sys.id}`)}
+                  handleClick={() => router.push(generateTripLink(trip))}
                   item={trip}
                   handleAddToCart={() => handleAddToCart(trip)}
                 />
@@ -104,7 +109,7 @@ const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
                         className="rounded-[18px] w-full sm:w-[291px]  object-cover h-[285.41px] lg:w-full"
                         width={291}
                         height={301}
-                        onClick={() => router.push(`/trips/${trip.sys.id}`)}
+                        onClick={() => router.push(generateTripLink(trip))}
                       />
                       <div className="flex flex-col gap-1 mt-2.5">
                         <h5 className="text-lg">{trip.location}</h5>

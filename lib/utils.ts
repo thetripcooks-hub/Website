@@ -78,3 +78,10 @@ export default function contentfulLoader({
   url.searchParams.set("q", (quality || 75).toString());
   return url.href;
 }
+
+export const generateTripLink = (trip: TripType) => {
+  return `/trips/${trip.sys.id}/${trip.location
+    .replace(/,/g, "")
+    .replace(/ /g, "-")
+    .toLowerCase()}`;
+};
