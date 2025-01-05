@@ -4,6 +4,8 @@ import React from "react";
 import LogoBig from "~/logo-big.svg";
 import Instagram from "@/components/icons/svg/instagram.svg";
 import InstagramDark from "@/components/icons/svg/instagram-dark.svg";
+import Tiktok from "@/components/icons/svg/tiktok.svg";
+import TiktokDark from "@/components/icons/svg/tiktok-dark.svg";
 // import Facebook from "@/components/icons/svg/facebook.svg";
 // import X from "@/components/icons/svg/x.svg";
 import Link from "next/link";
@@ -54,27 +56,38 @@ const config = [
 
 const Footer = () => {
   const router = useRouter();
+  const socials = [{
+    name: "Instagram",
+    url: "https://www.instagram.com/tripcooks/",
+    icon: Instagram,
+    darkIcon: InstagramDark,
+  }, {
+    name: "Tiktok",
+    url: "https://www.tiktok.com/@tripcooks?_t=ZM-8smTfjMee4k&_r=1",
+    icon: Tiktok,
+    darkIcon: TiktokDark,
+  }]
   return (
     <section className="px-5 py-5 sm:px-[8%]">
       <SectionWrapper className="flex flex-col sm:flex-row sm:justify-between gap-5">
         <div className="flex flex-col gap-5 sm:w-2/5">
           <Image src={LogoBig} alt="logo" />
           <div className="flex gap-4">
-            {[Instagram].map((icon, index) => (
+            {socials.map((social, index) => (
               <div
                 className="border border-neutral-grey-300 rounded-full h-[46px] w-[46px] flex items-center justify-center cursor-pointer bg-background dark:border-[#383E47]"
                 key={index}
                 onClick={() =>
-                  router.push("https://www.instagram.com/tripcooks/")
+                  router.push(social.url)
                 }
               >
                 <Image
-                  src={icon}
+                  src={social.icon}
                   className="w-5 h-5 sm:w-[25px] sm:h-[25px] dark:hidden"
                   alt="social-media-icon"
                 />
                 <Image
-                  src={InstagramDark}
+                  src={social.darkIcon}
                   className="w-5 h-5 sm:w-[25px] sm:h-[25px] hidden dark:block"
                   alt="social-media-icon"
                 />
