@@ -70,7 +70,7 @@ const faq = [
   {
     question: "Can I choose to have a room to myself?",
     answer:
-      "Yes, you can choose your sleeping arrangements. However, this will but this comes with an additional cost.",
+      "Yes, you can choose your sleeping arrangements. However, this comes with an additional cost.",
   },
   {
     question: "Group trip doesn’t align with my schedule.",
