@@ -209,7 +209,7 @@ const PrivateTripForm = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    Number of People in Your Group <br />
+                    Number of people in your group <br />
                     (There should be a minimum of 4 people per trip)*
                   </FormLabel>
                   <FormControl>
@@ -232,7 +232,7 @@ const PrivateTripForm = () => {
               name="nationalitiesOfGuests"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>What are their Nationalities</FormLabel>
+                  <FormLabel>What are their nationalities?</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Enter their different nationalities"
@@ -256,7 +256,7 @@ const PrivateTripForm = () => {
                   </FormLabel>
                   <FormControl>
                     <div className="flex items-center bg-[#F7F7F9] dark:bg-[#272C2B] h-[59px] rounded-l-md pl-3">
-                      $
+                      £
                       <Input
                         placeholder="Enter budget here"
                         className="bg-[#F7F7F9] h-[59px] focus-visible:ring-0 border-none placeholder:text-[#ABABAB] text-base leading-[19.5px] pl-1"

@@ -85,7 +85,7 @@ const Itinerary = () => {
                     <h6 className="text-[14px] leading-[17.07px]">
                       DAY {item.day}
                     </h6>{" "}
-                    <p className="text-[20px] leading-[24.38px] sm:text-[24px] sm:leading-[29.26px] dark:text-[#BFC0C2]">
+                    <p className="text-[20px] leading-[24.38px] sm:text-[24px] sm:leading-[29.26px] dark:text-[#BFC0C2] text-left">
                       {item.activity}
                     </p>
                   </div>
@@ -103,7 +103,7 @@ const Itinerary = () => {
                     <h6 className="text-[14px] leading-[17.07px]">
                       DAY{item.day}
                     </h6>{" "}
-                    <p className="text-[20px] leading-[24.38px] sm:text-[24px] sm:leading-[29.26px] dark:text-[#BFC0C2]">
+                    <p className="text-[20px] leading-[24.38px] sm:text-[24px] sm:leading-[29.26px] dark:text-[#BFC0C2] text-left">
                       {item.activity}
                     </p>
                   </div>

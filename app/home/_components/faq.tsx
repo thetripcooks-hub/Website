@@ -13,7 +13,7 @@ const faq = [
   {
     question: "What is included in the package details?",
     answer:
-      "A typical package includes flights, transportation, accommodation, activities, and occasionally breakfast or other meals. It varies depending on the destination country.We recommend you review the details for each package on our website to know what is covered and what might incur additional costs.",
+      "A typical package includes flights, transportation, accommodation, activities, and occasionally breakfast or other meals. It varies depending on the destination country. We recommend you review the details for each package on our website to know what is covered and what might incur additional costs.",
   },
   {
     question: "Can I customize the travel package to meet my preferences?",
@@ -75,7 +75,7 @@ const faq = [
   {
     question: "Group trip doesn’t align with my schedule.",
     answer:
-      "If a group trip doesn’t fit your schedule, TripCooks can arrange private trips for groups of four or more, customized to your preferred destinations and dates.",
+      "If a group trip doesn’t fit your schedule, Tripcooks can arrange private trips for groups of four or more, customized to your preferred destinations and dates.",
   },
   {
     question: "What activities are included in the package?",
