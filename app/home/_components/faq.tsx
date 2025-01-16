@@ -65,7 +65,7 @@ const faq = [
   {
     question: "Is there a group chat or webinar for participants to connect?",
     answer:
-      "Yes! All trippers are added to the Tripcooks WhatsApp group after the deadline for securing a slot. We also host an e-Meet & Greet before the trip for every one to get familiar with each other.",
+      "Yes! All trippers are added to the Trip Cooks WhatsApp group after the deadline for securing a slot. We also host an e-Meet & Greet before the trip for every one to get familiar with each other.",
   },
   {
     question: "Can I choose to have a room to myself?",
@@ -75,7 +75,7 @@ const faq = [
   {
     question: "Group trip doesn’t align with my schedule.",
     answer:
-      "If a group trip doesn’t fit your schedule, Tripcooks can arrange private trips for groups of four or more, customized to your preferred destinations and dates.",
+      "If a group trip doesn’t fit your schedule, Trip Cooks can arrange private trips for groups of four or more, customized to your preferred destinations and dates.",
   },
   {
     question: "What activities are included in the package?",

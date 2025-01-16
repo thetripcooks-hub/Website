@@ -131,7 +131,7 @@ const Page = () => {
           </p>
 
           <h4 className="text-lg text-[#020E0B] leading-[21.94px] font-medium my-5 dark:text-foreground">
-            Visa Status impacting refunds
+            Visa Status impacting Refunds
           </h4>
           <p>
             If your visa is denied and no payments have been made for travel services or accommodations, you will receive a full refund minus any non-refundable service fees.
