@@ -31,7 +31,7 @@ const PaymentTermsMobile = () => {
                 <span className="font-normal">
                   {pounds.format(Number(installment.amount))}
                 </span>{" "}
-                due {dayjs(installment.date).format("Do MMMM, YYYY")}
+                due {dayjs(installment.date).format("DD MMMM, YYYY")}
               </p>
             ))}
           </div>
