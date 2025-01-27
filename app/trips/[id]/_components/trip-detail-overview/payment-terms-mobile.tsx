@@ -25,16 +25,16 @@ const PaymentTermsMobile = () => {
             required to reserve a spot
           </p>
 
-          {/* <div>
+          <div>
             {selectedTrip.installments.map((installment, index) => (
               <p key={index}>
                 <span className="font-normal">
                   {pounds.format(Number(installment.amount))}
                 </span>{" "}
-                due {dayjs(installment.date).format("DD MMMM, YYYY")}
+                due {dayjs(installment.date).format("Do MMMM, YYYY")}
               </p>
             ))}
-          </div> */}
+          </div>
           <p>
             Refunds are subject to{" "}
             <Link
