@@ -1,18 +1,21 @@
 "use client";
+import React from "react";
 import { pounds } from "@/lib/utils";
 import useTripStore from "@/stores/trip-store";
-import dayjs from "dayjs";
-import advancedFormat from "dayjs/plugin/advancedFormat.js";
-dayjs.extend(advancedFormat);
 import Link from "next/link";
-import React from "react";
+
+import dayjs from "dayjs";
+const advancedFormat = require("dayjs/plugin/advancedFormat.js");
+dayjs.extend(advancedFormat);
 
 const PaymentTerms = () => {
   const { selectedTrip } = useTripStore();
   return (
     selectedTrip && (
       <div className="text-[16px] leading-[19.5px] font-normal gap-3 sm:flex flex-col text-[#000000] hidden dark:text-foreground">
-        <h6 className="text-neutral-subtext dark:text-foreground">Payment terms</h6>
+        <h6 className="text-neutral-subtext dark:text-foreground">
+          Payment terms
+        </h6>
 
         <p>
           {" "}
