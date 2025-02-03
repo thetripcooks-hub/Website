@@ -4,7 +4,7 @@ import useTripStore from "@/stores/trip-store";
 import dayjs from "dayjs";
 import Link from "next/link";
 import React from "react";
-import advancedFormat from 'dayjs/plugin/advancedFormat.js';
+const advancedFormat = require("dayjs/plugin/advancedFormat.js");
 dayjs.extend(advancedFormat);
 
 const PaymentTermsMobile = () => {
