@@ -4,8 +4,6 @@ import useTripStore from "@/stores/trip-store";
 import dayjs from "dayjs";
 import Link from "next/link";
 import React from "react";
-const advancedFormat = require("dayjs/plugin/advancedFormat.js");
-dayjs.extend(advancedFormat);
 
 const PaymentTermsMobile = () => {
   const { selectedTrip } = useTripStore();
@@ -31,7 +29,8 @@ const PaymentTermsMobile = () => {
                 <span className="font-normal">
                   {pounds.format(Number(installment.amount))}
                 </span>{" "}
-                due {dayjs(installment.date).format("Do MMMM, YYYY")}
+                due{" "}
+                {dayjs(installment.date, "MM-DD-YYYY").format("Do MMMM, YYYY")}
               </p>
             ))}
           </div>
