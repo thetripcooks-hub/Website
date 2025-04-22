@@ -3,15 +3,12 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import { arial } from "@/app/font";
 import SectionWrapper from "./section-wrapper";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 // import ComingSoonBadge from "./coming-soon-badge";
 import useGeneralStore from "@/stores/generalStore";
 import Link from "next/link";
 
 const OurServices = () => {
-  const router = useRouter();
-  const gotoRoute = (url: string) => router.push(url);
-
   const { services: data } = useGeneralStore();
   const groupTripImage = data?.[0]?.groupTrips?.url ?? "/img/public-trip.svg";
   const privateTripImage =
@@ -35,7 +32,6 @@ const OurServices = () => {
               "text-white w-full sm:w-[394px] bg-cover bg-center bg-no-repeat h-[412px] flex justify-end flex-col p-5 rounded-[18px] cursor-pointer"
             )}
             href={"/trips"}
-            // onClick={() => gotoRoute("/trips")}
           >
             <h5 className="font-medium text-2xl whitespace-nowrap">
               Group Trips
