@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import Cart from "./cart";
 import { usePathname } from "next/navigation";
 import MobileNav from "./mobile-nav";
+import CurrencyToggle from "./currency-toggle";
 
 const navConfig = [
   {
@@ -62,6 +63,7 @@ const Navbar = () => {
         </section>
 
         <section className="hidden sm:flex gap-2.5">
+          <CurrencyToggle />
           <ModeToggle />
           {!pathname.includes("cart") && <Cart />}
         </section>

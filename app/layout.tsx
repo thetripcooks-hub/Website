@@ -4,6 +4,7 @@ import "./globals.css";
 import type { Viewport } from "next";
 import AppLayout from "@/components/app-layout";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import '@/lib/dayjs'; 
 
 export const metadata: Metadata = {
   title: "Trip Cooks | Group Trips & Travel Planning Services",
