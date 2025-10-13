@@ -21,7 +21,8 @@ import { Button } from "./button";
 import { CardDescription, CardHeader, CardTitle } from "./card";
 import { Separator } from "./separator";
 import useCartStore from "@/stores/cartStore";
-import { formatTripDate, pounds } from "@/lib/utils";
+import { formatTripDate, formatAmount } from "@/lib/utils";
+import useGeneralStore from "@/stores/generalStore";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { TripType } from "@/types/trip";
@@ -31,6 +32,7 @@ import useTripStore from "@/stores/trip-store";
 import { Loader } from "lucide-react";
 
 const Cart = () => {
+  const { selectedCurrency } = useGeneralStore();
   const { theme = "system" } = useTheme()
 
   const {
@@ -79,7 +81,7 @@ const Cart = () => {
               <CardTitle className="text-[16px] leading-[19.5px] font-medium">
                 Total Price:{" "}
                 <span className="font-bold">
-                  {pounds.format(getTotalPrice(trips))}
+                  {formatAmount(getTotalPrice(trips), selectedCurrency)}
                 </span>
               </CardTitle>
               <CardDescription className="flex gap-4 py-2">
@@ -93,7 +95,7 @@ const Cart = () => {
                 <Button
                   className="max-w-[179px] w-full h-[44.5px] px-2 min-w-min"
                   loading={isPaying}
-                  onClick={handlePay}
+                  onClick={() => handlePay(selectedCurrency)}
                   disabled={isPaying}
                 >
                   Proceed to Checkout
@@ -164,7 +166,7 @@ const Cart = () => {
                             </p>
                           </div>
                           <h1 className="text-[16px] leading-[19.5px] font-semibold">
-                            {pounds.format(trip.downPayment)}
+                            {formatAmount(trip.downPayment, selectedCurrency)}
                           </h1>
                           <div className="flex items-center gap-2.5 text-neutral-text leading-[17.07px] text-[14px] dark:text-foreground">
                             Slots

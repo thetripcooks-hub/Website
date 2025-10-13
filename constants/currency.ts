@@ -4,19 +4,19 @@ export const CURRENCIES: CurrencyListItem[] = [
   {
     code: "USD",
     symbol: "$",
-    name: "US Dollar",
+    name: "US Dollars",
     flag: "🇺🇸",
   },
   {
     code: "CAD",
     symbol: "C$",
-    name: "Canadian Dollar",
+    name: "Canadian Dollars",
     flag: "🇨🇦",
   },
   {
     code: "GBP",
     symbol: "£",
-    name: "British Pound",
+    name: "British Pounds",
     flag: "🇬🇧",
   },
 ];

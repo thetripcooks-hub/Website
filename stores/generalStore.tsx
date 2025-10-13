@@ -34,6 +34,14 @@ interface GeneralStore {
   setSelectedCurrency: (selectedCurrency: CurrencyType) => void;
   hasHydrated: boolean;
   setHasHydrated: (hasHydrated: boolean) => void;
+  loadingRates: boolean;
+  setLoadingRates: (loadingRates: boolean) => void;
+  rates: {
+    USD: number;
+    CAD: number;
+    GBP: number;
+  };
+  setRates: (rate: { USD: number; CAD: number; GBP: number }) => void;
 }
 
 const useGeneralStore = create<GeneralStore>()(
@@ -68,6 +76,14 @@ const useGeneralStore = create<GeneralStore>()(
       setSelectedCurrency: (selectedCurrency) => set({ selectedCurrency }),
       hasHydrated: false,
       setHasHydrated: (hasHydrated) => set({ hasHydrated }),
+      loadingRates: false,
+      setLoadingRates: (loadingRates) => set({ loadingRates }),
+      rates: {
+        GBP: 1,
+        USD: 1.27,
+        CAD: 1.76,
+      },
+      setRates: (rates) => set({ rates }),
     }),
     {
       name: "general-storage", onRehydrateStorage(state) {

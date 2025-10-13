@@ -6,7 +6,7 @@ import type Stripe from "stripe";
 export async function POST(req: Request) {
   const origin: string = headers().get("origin") as string;
 
-  const { lineItems, success_url, cancel_url } = await req.json();
+  const { lineItems, success_url, cancel_url, currency } = await req.json();
 
   try {
     const params: Stripe.Checkout.SessionCreateParams = {
@@ -38,7 +38,7 @@ export async function POST(req: Request) {
           type: "numeric",
         },
       ],
-      currency: "GBP",
+      currency,
       success_url: success_url ?? `${origin}/payment-success`,
       cancel_url: cancel_url ?? `${origin}/cart`,
       mode: "payment",

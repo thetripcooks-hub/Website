@@ -1,13 +1,51 @@
 import { TripType } from "@/types/trip";
 import { clsx, type ClassValue } from "clsx";
-import dayjs from "dayjs";
-import advancedFormat from "dayjs/plugin/advancedFormat.js";
-dayjs.extend(advancedFormat);
+import dayjs from "@/lib/dayjs";
 
 import { twMerge } from "tailwind-merge";
+import { CurrencyType } from "@/types/currency";
+import useGeneralStore from "@/stores/generalStore";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
+}
+
+export interface ExchangeRates {
+  USD: number;
+  CAD: number;
+  GBP: number;
+}
+
+// Fetch live exchange rates from an API
+export async function fetchExchangeRates(): Promise<ExchangeRates> {
+  try {
+    // Using exchangerate-api.com (free tier available)
+    const res = await fetch("https://api.exchangerate-api.com/v4/latest/GBP");
+    const data = await res.json();
+
+    return {
+      GBP: 1,
+      USD: data.rates.USD,
+      CAD: data.rates.CAD,
+    };
+  } catch (error) {
+    console.error("Failed to fetch exchange rates:", error);
+    // Fallback rates (update these periodically)
+    return {
+      GBP: 1,
+      USD: 1.27,
+      CAD: 1.76,
+    };
+  }
+}
+
+// Convert GBP price to target currency
+export function convertPrice(
+  priceInGBP: number,
+  targetCurrency: CurrencyType,
+  rates: ExchangeRates
+): number {
+  return priceInGBP * rates[targetCurrency];
 }
 
 export const pounds = Intl.NumberFormat("en-GB", {
@@ -19,6 +57,26 @@ export const dollars = Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
 });
+
+export const canadianDollars = Intl.NumberFormat("en-CA", {
+  style: "currency",
+  currency: "CAD",
+});
+
+export const formatAmount = (amount: number, currency: string) => {
+  const currentRates = useGeneralStore.getState().rates;
+
+  switch (currency) {
+    case "GBP":
+      return pounds.format(amount);
+    case "USD":
+      return dollars.format(convertPrice(amount, "USD", currentRates));
+    case "CAD":
+      return "CA$" + convertPrice(amount, "CAD", currentRates).toFixed(2);
+    default:
+      return dollars.format(convertPrice(amount, "USD", currentRates));
+  }
+};
 
 export const formatTripDate = (item: TripType) =>
   `${dayjs(item.startDate).format("MMM Do - ")}${dayjs(item.endDate).format(

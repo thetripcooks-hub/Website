@@ -1,4 +1,6 @@
+import { CURRENCIES } from "@/constants/currency";
 import useGeneralStore from "@/stores/generalStore";
+import { CurrencyType } from "@/types/currency";
 import { useState } from "react";
 
 export interface GeolocationData {
@@ -6,7 +8,7 @@ export interface GeolocationData {
   longitude: number;
   country?: string;
   countryCode?: string;
-  currencyCode?: string;
+  currencyCode?: CurrencyType;
 }
 
 export const useGeolocation = () => {
@@ -40,7 +42,7 @@ export const useGeolocation = () => {
       const [countryData] = await countryResponse.json();
 
       // Get the first currency code from the country data
-      const currencyCode = Object.keys(countryData.currencies)[0];
+      const currencyCode = Object.keys(countryData.currencies)[0] as CurrencyType;
 
       return {
         country: data.countryName,
@@ -77,7 +79,7 @@ export const useGeolocation = () => {
 
           //   if currencycode is supported by app, set it as selected currency
           //   otherwise, default to USD
-          const supportedCurrencies = ["USD", "CAD", "GBP"];
+          const supportedCurrencies = CURRENCIES.map((c) => c.code);
 
           setSelectedCurrency(
             supportedCurrencies.includes(currencyCode) ? currencyCode : "USD"

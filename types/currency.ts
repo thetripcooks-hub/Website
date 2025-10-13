@@ -1,5 +1,4 @@
-export type CurrencyType = "USD" | "CAD" | "GBP" | "NGN";
-
+export type CurrencyType = "USD" | "CAD" | "GBP";
 
 export type CurrencyListItem = {
   code: CurrencyType;
@@ -7,4 +6,3 @@ export type CurrencyListItem = {
   name: string;
   flag: string;
 };
-
