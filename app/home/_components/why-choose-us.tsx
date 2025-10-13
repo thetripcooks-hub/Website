@@ -7,7 +7,7 @@ const items = [
   {
     title: "Group trips made easy",
     description:
-      "Join a group of likeminded travellers and forget the hassle of planning. From accommodation to tourist activities, we’ve got you covered",
+      "Join a group of like-minded travellers and forget the hassle of planning. From accommodation to tourist activities, we’ve got you covered",
   },
   {
     title: "Personalized Travel Planning",
@@ -28,7 +28,7 @@ const WhyChooseUs = () => {
         <h3 className="text-[32px] font-medium sm:text-5xl text-center max-w-[318px] sm:max-w-[445px] mx-auto mb-5 dark:text-foreground">
           Why choose us to curate your travel?
         </h3>
-        <div className="mt-10 sm:mt-20 flex gap-10 justify-between w-full flex-col sm:flex-row">
+        <div className="mt-10 sm:mt-20 flex gap-10 justify-between w-full flex-col sm:flex-row text-left">
           {items.map((item) => (
             <div
               key={item.title}

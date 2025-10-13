@@ -1,13 +1,14 @@
 "use client";
 import { Button, Card } from "@/components/ui";
 import usePaymentCard from "@/hooks/payment/usePaymentCard";
-import { cn, pounds } from "@/lib/utils";
-import dayjs from "dayjs";
+import { cn, formatAmount } from "@/lib/utils";
+import useGeneralStore from "@/stores/generalStore";
+import dayjs from "@/lib/dayjs";
 import React from "react";
 
 const PaymentCardMobile = () => {
-  const { selectedTrip, handleAddToCart, handlePay, isPaying } =
-    usePaymentCard();
+  const { selectedTrip, handleAddToCart, handlePay, isPaying } = usePaymentCard();
+  const { selectedCurrency } = useGeneralStore();
   return (
     selectedTrip && (
       <Card
@@ -17,7 +18,7 @@ const PaymentCardMobile = () => {
       >
         <div className="flex flex-col gap-3">
           <h6 className=" text-[24px] leading-[29.26px] text-foreground">
-            {pounds.format(selectedTrip.fullAmount)}
+            {formatAmount(selectedTrip.fullAmount, selectedCurrency)}
           </h6>
           <p className="items-center flex text-[12px] leading-[14.63px] gap-1 text-neutral-subtext">
             <span>
@@ -54,7 +55,7 @@ const PaymentCardMobile = () => {
               className="w-full"
               loading={isPaying}
               disabled={isPaying}
-              onClick={handlePay}
+              onClick={() => handlePay(selectedCurrency)}
             >
               Book Now
             </Button>

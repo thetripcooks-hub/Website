@@ -1,14 +1,14 @@
 "use client";
-import { pounds } from "@/lib/utils";
+import { formatAmount } from "@/lib/utils";
+import useGeneralStore from "@/stores/generalStore";
 import useTripStore from "@/stores/trip-store";
-import dayjs from "dayjs";
+import dayjs from "@/lib/dayjs";
 import Link from "next/link";
 import React from "react";
-import advancedFormat from 'dayjs/plugin/advancedFormat.js';
-dayjs.extend(advancedFormat);
 
 const PaymentTermsMobile = () => {
   const { selectedTrip } = useTripStore();
+  const { selectedCurrency } = useGeneralStore();
   return (
     selectedTrip && (
       <div className="text-[16px] leading-[19.5px] font-normal gap-3 flex flex-col text-[#000000] sm:hidden border border-b-solid border-b-neutral-grey-300 border-x-0 border-t-0 pb-5 mb-5 h-fit dark:text-foreground">
@@ -20,7 +20,7 @@ const PaymentTermsMobile = () => {
           <p>
             {" "}
             <span className="font-normal">
-              {pounds.format(selectedTrip?.downPayment)}
+              {formatAmount(selectedTrip?.downPayment, selectedCurrency)}
             </span>{" "}
             required to reserve a spot
           </p>
@@ -29,9 +29,10 @@ const PaymentTermsMobile = () => {
             {selectedTrip.installments.map((installment, index) => (
               <p key={index}>
                 <span className="font-normal">
-                  {pounds.format(Number(installment.amount))}
+                  {formatAmount(Number(installment.amount), selectedCurrency)}
                 </span>{" "}
-                due {dayjs(installment.date).format("Do MMMM, YYYY")}
+                due{" "}
+                {dayjs(installment.date, "MM-DD-YYYY").format("Do MMMM, YYYY")}
               </p>
             ))}
           </div>

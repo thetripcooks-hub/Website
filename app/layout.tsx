@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import type { Viewport } from "next";
 import AppLayout from "@/components/app-layout";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import '@/lib/dayjs'; 
 
 export const metadata: Metadata = {
   title: "Trip Cooks | Group Trips & Travel Planning Services",
@@ -20,5 +23,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <AppLayout>{children}</AppLayout>;
+  return (
+    <AppLayout>
+      {children}
+      <Analytics />
+      <SpeedInsights />
+    </AppLayout>
+  );
 }

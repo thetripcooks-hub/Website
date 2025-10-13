@@ -1,3 +1,5 @@
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import React from "react";
 // import img1 from "../img/trip-detail-overview/1-desktop.svg";
 // import img2 from "../img/trip-detail-overview/2-desktop.svg";
@@ -9,8 +11,6 @@ import TravelWithOwners from "./travel-with-owners";
 import WhatsIncluded from "./whats-included";
 import PaymentCard from "./payment-card";
 import PaymentTermsMobile from "./payment-terms-mobile";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import useTripStore from "@/stores/trip-store";
 

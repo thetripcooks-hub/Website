@@ -18,8 +18,9 @@ import {
   formatTripDate,
   generateTripLink,
   percentage,
-  pounds,
+  formatAmount,
 } from "@/lib/utils";
+import useGeneralStore from "@/stores/generalStore";
 import { Loader } from "lucide-react";
 import useCartStore from "@/stores/cartStore";
 import { CartItem } from "@/types/cart";
@@ -27,6 +28,7 @@ import { useIsMobile } from "@/hooks";
 import ComingSoonBadge from "./coming-soon-badge";
 
 const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
+  const { selectedCurrency } = useGeneralStore();
   const isMobile = useIsMobile(640);
   const router = useRouter();
 
@@ -119,16 +121,17 @@ const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
                         <div className="flex gap-1 items-center">
                           {trip.discount && (
                             <h3 className="font-medium text-xl text-neutral-grey-500 line-through">
-                              {pounds.format(trip.fullAmount)}
+                              {formatAmount(trip.fullAmount, selectedCurrency)}
                             </h3>
                           )}
                           <h3 className="font-medium text-xl">
                             {trip.discount
-                              ? pounds.format(
+                              ? formatAmount(
                                   trip.fullAmount -
-                                    percentage(trip.discount, trip.fullAmount)
+                                    percentage(trip.discount, trip.fullAmount),
+                                  selectedCurrency
                                 )
-                              : pounds.format(trip.fullAmount)}
+                              : formatAmount(trip.fullAmount, selectedCurrency)}
                           </h3>
                         </div>
                       </div>

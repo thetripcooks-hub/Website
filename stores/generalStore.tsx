@@ -1,4 +1,5 @@
 import { AboutUsPageType } from "@/types/about";
+import { CurrencyType } from "@/types/currency";
 import { PrivateTripType } from "@/types/private-trip";
 import { ReviewType } from "@/types/review";
 import { OurServicesType } from "@/types/services";
@@ -29,6 +30,18 @@ interface GeneralStore {
   setPrivateTrip: (privateTrip: PrivateTripType[]) => void;
   loadingPrivateTrip: boolean;
   setLoadingPrivateTrip: (loadingPrivateTrip: boolean) => void;
+  selectedCurrency: CurrencyType;
+  setSelectedCurrency: (selectedCurrency: CurrencyType) => void;
+  hasHydrated: boolean;
+  setHasHydrated: (hasHydrated: boolean) => void;
+  loadingRates: boolean;
+  setLoadingRates: (loadingRates: boolean) => void;
+  rates: {
+    USD: number;
+    CAD: number;
+    GBP: number;
+  };
+  setRates: (rate: { USD: number; CAD: number; GBP: number }) => void;
 }
 
 const useGeneralStore = create<GeneralStore>()(
@@ -45,6 +58,7 @@ const useGeneralStore = create<GeneralStore>()(
       loadingTripcooksExperience: false,
       privateTrip: [],
       loadingPrivateTrip: false,
+      selectedCurrency: "USD",
       setShowNav: (showNav) => set({ showNav }),
       setAbout: (about) => set({ about }),
       setLoadingAbout: (loadingAbout) => set({ loadingAbout }),
@@ -59,8 +73,24 @@ const useGeneralStore = create<GeneralStore>()(
       setPrivateTrip: (privateTrip) => set({ privateTrip }),
       setLoadingPrivateTrip: (loadingPrivateTrip) =>
         set({ loadingPrivateTrip }),
+      setSelectedCurrency: (selectedCurrency) => set({ selectedCurrency }),
+      hasHydrated: false,
+      setHasHydrated: (hasHydrated) => set({ hasHydrated }),
+      loadingRates: false,
+      setLoadingRates: (loadingRates) => set({ loadingRates }),
+      rates: {
+        GBP: 1,
+        USD: 1.27,
+        CAD: 1.76,
+      },
+      setRates: (rates) => set({ rates }),
     }),
-    { name: "general-storage" }
+    {
+      name: "general-storage", onRehydrateStorage(state) {
+        return () => state.setHasHydrated(true);
+      },
+    },
+
   )
 );
 export default useGeneralStore;

@@ -1,6 +1,6 @@
 "use client";
 import MobilePageHeader from "@/components/ui/mobile-page-header";
-import { cn, pounds } from "@/lib/utils";
+import { cn, formatAmount } from "@/lib/utils";
 import React from "react";
 import UpcomingTrips from "@/app/home/_components/upcoming-trip";
 import { Button, Card, Footer, SubcribeToNewsLetter } from "@/components/ui";
@@ -14,10 +14,12 @@ import MobileFloatingCard from "@/components/ui/mobile-floating-card";
 import useStripe from "@/hooks/payment/useStripe";
 import EmptyCart from "./_components/empty-cart";
 import { Loader } from "lucide-react";
+import useGeneralStore from "@/stores/generalStore";
 
 const Page = () => {
   const { items, getTripDeposit, getTotalTripDeposit, hasHydrated } =
     useCartStore();
+  const { selectedCurrency } = useGeneralStore()
   const { ref, inView } = useInView();
   // useHideNavOnMobile();
 
@@ -55,7 +57,7 @@ const Page = () => {
                       {trip.quantity > 1 ? "s" : ""})
                     </h6>
                     <h3 className="text-[#000000] font-semibold text-2xl leading-[29.26px] dark:text-foreground">
-                      {pounds.format(getTripDeposit(trip))}{" "}
+                      {formatAmount(getTripDeposit(trip), selectedCurrency)}
                     </h3>
                   </div>
                 ))}
@@ -64,7 +66,7 @@ const Page = () => {
                     Est. total
                   </h6>
                   <h3 className="text-[#000000] font-semibold text-2xl leading-[29.26px] dark:text-foreground">
-                    {pounds.format(getTotalTripDeposit(items))}
+                    {formatAmount(getTotalTripDeposit(items), selectedCurrency)}
                   </h3>
                 </div>
                 <Button
@@ -72,7 +74,7 @@ const Page = () => {
                   type="submit"
                   role="link"
                   loading={isPaying}
-                  onClick={handlePay}
+                  onClick={() => handlePay(selectedCurrency)}
                   disabled={isPaying}
                 >
                   Proceed to Checkout
@@ -92,7 +94,7 @@ const Page = () => {
                           slots)
                         </h6>
                         <h3 className="text-[#000000] font-semibold text-[20px] leading-[24.38px] dark:text-foreground">
-                          {pounds.format(getTripDeposit(trip))}
+                          {formatAmount(getTripDeposit(trip), selectedCurrency)}
                         </h3>
                       </div>
                     ))}
@@ -112,7 +114,7 @@ const Page = () => {
                 Est. total
               </h6>
               <h3 className="text-[#000000] font-semibold text-2xl leading-[29.26px] dark:text-foreground">
-                {pounds.format(getTotalTripDeposit(items))}
+                {formatAmount(getTotalTripDeposit(items), selectedCurrency)}
               </h3>
             </div>
             {/* <Separator />
@@ -121,10 +123,10 @@ const Page = () => {
                 Or 3 payments starting at{" "}
               </h6>
               <h3 className="text-[#000000] font-semibold text-2xl leading-[29.26px]">
-                {pounds.format(getTotalPrice(trips) / 3)}
+                {formatAmount(getTotalPrice(trips) / 3, selectedCurrency)}
               </h3>
             </div> */}
-            <Button loading={isPaying} onClick={handlePay} disabled={isPaying}>
+            <Button loading={isPaying} onClick={() => handlePay(selectedCurrency)} disabled={isPaying}>
               Proceed to Checkout
             </Button>
           </MobileFloatingCard>

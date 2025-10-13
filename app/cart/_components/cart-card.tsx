@@ -1,5 +1,6 @@
 "use client";
-import { formatTripDate, pounds } from "@/lib/utils";
+import { formatTripDate, formatAmount } from "@/lib/utils";
+import useGeneralStore from "@/stores/generalStore";
 // import SampleCartIcon from "~/sample-cart-image.svg";
 import Calendar from "@/components/icons/svg/calendar.svg";
 import CalendarDark from "@/components/icons/svg/calendar-dark.svg";
@@ -15,8 +16,8 @@ import { TripType } from "@/types/trip";
 import { CartItem } from "@/types/cart";
 
 const CardCard = ({ trip }: { trip: CartItem }) => {
-  const { incrementQuantity, decrementQuantity, removeFromCart } =
-    useCartStore();
+  const { incrementQuantity, decrementQuantity, removeFromCart } = useCartStore();
+  const { selectedCurrency } = useGeneralStore();
   return (
     <div className="w-full">
       <div className="flex gap-2 py-2.5 w-full">
@@ -100,7 +101,7 @@ const CardCard = ({ trip }: { trip: CartItem }) => {
               </p>
             </div>
             <h1 className="text-[16px] leading-[19.5px] font-semibold">
-              {pounds.format(trip.downPayment)}
+              {formatAmount(trip.downPayment, selectedCurrency)}
             </h1>
             <div className="flex items-center gap-2.5 text-neutral-text leading-[17.07px] text-[14px] sm:hidden dark:text-foreground">
               Slots

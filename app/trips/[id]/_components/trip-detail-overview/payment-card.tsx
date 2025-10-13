@@ -6,12 +6,14 @@ import house from "../img/whats-included/house.svg";
 import money from "../img/payment-card/money.svg";
 import Image from "next/image";
 import PaymentTerms from "./payment-terms";
-import { percentage, pounds } from "@/lib/utils";
+import { percentage, formatAmount } from "@/lib/utils";
+import useGeneralStore from "@/stores/generalStore";
 import usePaymentCard from "@/hooks/payment/usePaymentCard";
-import dayjs from "dayjs";
+import dayjs from "@/lib/dayjs";
 import { CircleCheck } from "lucide-react";
 
 const PaymentCard = () => {
+  const { selectedCurrency } = useGeneralStore();
   const data = [
     // {
     //   icon: airplane,
@@ -36,16 +38,17 @@ const PaymentCard = () => {
           <p className="font-medium flex gap-1 items-baseline">
             {selectedTrip.discount ? (
               <span className="line-through text-[24px] leading-[29.26px] text-neutral-grey-500 dark:text-[#BABABA]">
-                {pounds.format(selectedTrip.fullAmount)}
+                {formatAmount(selectedTrip.fullAmount, selectedCurrency)}
               </span>
             ) : null}
             <span className="text-[32px] leading-[39.01px]">
               {selectedTrip.discount
-                ? pounds.format(
+                ? formatAmount(
                     selectedTrip.fullAmount -
-                      percentage(selectedTrip.discount, selectedTrip.fullAmount)
+                      percentage(selectedTrip.discount, selectedTrip.fullAmount),
+                    selectedCurrency
                   )
-                : pounds.format(selectedTrip.fullAmount)}
+                : formatAmount(selectedTrip.fullAmount, selectedCurrency)}
             </span>
           </p>
           {selectedTrip.discount ? (
@@ -101,7 +104,7 @@ const PaymentCard = () => {
               <Button
                 className="w-full"
                 loading={isPaying}
-                onClick={handlePay}
+                onClick={() => handlePay(selectedCurrency)}
                 disabled={isPaying}
               >
                 Book Now

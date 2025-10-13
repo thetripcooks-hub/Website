@@ -1,6 +1,7 @@
 "use client";
 import MobilePageHeader from "@/components/ui/mobile-page-header";
-import { cn, formatTripDate, pounds } from "@/lib/utils";
+import { cn, formatTripDate, formatAmount } from "@/lib/utils";
+import useGeneralStore from "@/stores/generalStore";
 import SampleCartIcon from "~/sample-cart-image.svg";
 import Calendar from "../../components/icons/svg/calendar.svg";
 import { useRouter } from "next/navigation";
@@ -16,7 +17,6 @@ import {
   SubcribeToNewsLetter,
 } from "@/components/ui";
 import Image from "next/image";
-import dayjs from "dayjs";
 import Reviews from "@/app/home/_components/reviews";
 import MobileFloatingCard from "@/components/ui/mobile-floating-card";
 import Link from "next/link";
@@ -30,6 +30,7 @@ const Page = () => {
   const router = useRouter();
   const { items: trips, getTotalPrice } = useCartStore();
   const { ref, inView } = useInView();
+  const { selectedCurrency } = useGeneralStore();
   useHideNavOnMobile();
 
   return (
@@ -62,7 +63,7 @@ const Page = () => {
                         {formatTripDate(trip as TripType)}
                       </p>
                       <p className="text-[20px] leading-[24.38px] font-medium">
-                        {pounds.format(trip.downPayment * trip.quantity)}
+                        {formatAmount(trip.downPayment * trip.quantity, selectedCurrency)}
                       </p>
                     </div>
                   </div>
@@ -144,7 +145,7 @@ const Page = () => {
                       {formatTripDate(trip as TripType)}
                     </p>
                     <p className="text-[20px] leading-[24.38px] font-medium">
-                      {pounds.format(trip.downPayment * trip.quantity)}
+                      {formatAmount(trip.downPayment * trip.quantity, selectedCurrency)}
                     </p>
                   </div>
                   <Image
@@ -162,7 +163,7 @@ const Page = () => {
                   Total Price
                 </h6>
                 <h3 className="text-[#000000] font-semibold text-4xl leading-[43.88px]">
-                  {pounds.format(getTotalPrice(trips))}
+                  {formatAmount(getTotalPrice(trips), selectedCurrency)}
                 </h3>
               </div>
               <div className="flex flex-col gap-2">
@@ -190,7 +191,7 @@ const Page = () => {
                 Total Price{" "}
               </h6>
               <h3 className="text-[#000000] font-semibold text-2xl leading-[29.26px]">
-                {pounds.format(getTotalPrice(trips))}
+                {formatAmount(getTotalPrice(trips), selectedCurrency)}
               </h3>
             </div>
             <div className="flex gap-2">

@@ -1,14 +1,15 @@
 "use client";
 import { Toaster } from "@/components/ui";
 import { alexandria } from "@/app/font";
-import { cn } from "@/lib/utils";
-import React from "react";
+import { cn, fetchExchangeRates } from "@/lib/utils";
+import React, { useEffect } from "react";
 import { ThemeProvider } from "./theme-provider";
 import Navbar from "./ui/navbar";
 import useGeneralStore from "@/stores/generalStore";
 import { ApolloWrapper } from "./apollo-provider";
 import GeneralData from "./general-data";
 import emailjs from "@emailjs/browser";
+// import { useGeolocation } from "@/hooks/useGeolocation";
 
 const publicKey = process.env.NEXT_PUBLIC_EMAIL_JS_KEY_PUBLIC_KEY || "";
 
@@ -16,8 +17,15 @@ emailjs.init({
   publicKey: publicKey,
 });
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
-  const { showNav } = useGeneralStore();
-
+  const { showNav, setRates, setLoadingRates } = useGeneralStore();
+  useEffect(() => {
+    setLoadingRates(true);
+    // Fetch exchange rates
+    fetchExchangeRates().then(newRates => {
+      setRates(newRates);
+      setLoadingRates(false);
+    });
+  }, [setLoadingRates, setRates]);
   return (
     <html
       lang="en"

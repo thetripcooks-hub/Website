@@ -3,14 +3,12 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import { arial } from "@/app/font";
 import SectionWrapper from "./section-wrapper";
-import { useRouter } from "next/navigation";
-import ComingSoonBadge from "./coming-soon-badge";
+// import { useRouter } from "next/navigation";
+// import ComingSoonBadge from "./coming-soon-badge";
 import useGeneralStore from "@/stores/generalStore";
+import Link from "next/link";
 
 const OurServices = () => {
-  const router = useRouter();
-  const gotoRoute = (url: string) => router.push(url);
-
   const { services: data } = useGeneralStore();
   const groupTripImage = data?.[0]?.groupTrips?.url ?? "/img/public-trip.svg";
   const privateTripImage =
@@ -28,12 +26,12 @@ const OurServices = () => {
         </p>
         <div className="mt-5 sm:mt-10 flex sm:flex-row flex-col gap-5 lg:justify-between">
           {/* group trip */}
-          <div
+          <Link
             style={{ backgroundImage: `url(${groupTripImage})` }}
             className={cn(
               "text-white w-full sm:w-[394px] bg-cover bg-center bg-no-repeat h-[412px] flex justify-end flex-col p-5 rounded-[18px] cursor-pointer"
             )}
-            onClick={() => gotoRoute("/trips")}
+            href={"/trips"}
           >
             <h5 className="font-medium text-2xl whitespace-nowrap">
               Group Trips
@@ -42,12 +40,12 @@ const OurServices = () => {
               Get those travel plans out of the group chat and explore new
               territories
             </p>
-          </div>
+          </Link>
           {/* private trip */}
-          <div
+          <Link
             style={{ backgroundImage: `url(${privateTripImage})` }}
             className="text-white w-full sm:w-[394px]  bg-cover bg-center bg-no-repeat h-[412px] flex justify-end flex-col p-5 rounded-[18px] cursor-pointer"
-            onClick={() => gotoRoute("/private-trips")}
+            href={"/private-trips"}
           >
             <h5 className="font-medium text-2xl whitespace-nowrap">
               Private Trips
@@ -55,13 +53,14 @@ const OurServices = () => {
             <p className={cn(arial.className, "text-base mt-1")}>
               Need to explore a new location on your own? We’re here for you!
             </p>
-          </div>
+          </Link>
           {/* Travel planning */}
-          <div
+          <Link
             style={{ backgroundImage: `url(${travelPlanningImage})` }}
-            className="text-white w-full sm:w-[394px] bg-cover bg-center bg-no-repeat h-[412px] flex justify-end flex-col p-5 rounded-[18px] relative"
+            className="text-white w-full sm:w-[394px] bg-cover bg-center bg-no-repeat h-[412px] flex justify-end flex-col p-5 rounded-[18px] relative cursor-pointer"
+            href={"https://tripcooks.gumroad.com/"}
           >
-            <ComingSoonBadge />
+            {/* <ComingSoonBadge /> */}
             <h5 className="font-medium text-2xl whitespace-nowrap">
               Travel Itinerary
             </h5>
@@ -69,7 +68,7 @@ const OurServices = () => {
               Get structured travel itineraries from Trip Cooks for your
               personal use
             </p>
-          </div>
+          </Link>
         </div>
       </SectionWrapper>
     </div>

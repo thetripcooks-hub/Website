@@ -14,7 +14,7 @@ import React from "react";
 import StarIcon from "@/components/icons/svg/star.svg";
 import SectionWrapper from "./section-wrapper";
 import useGeneralStore from "@/stores/generalStore";
-import dayjs from "dayjs";
+import dayjs from "@/lib/dayjs";
 
 const Reviews = () => {
   const { reviews, loadingReviews } = useGeneralStore();
