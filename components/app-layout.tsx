@@ -9,10 +9,7 @@ import useGeneralStore from "@/stores/generalStore";
 import { ApolloWrapper } from "./apollo-provider";
 import GeneralData from "./general-data";
 import emailjs from "@emailjs/browser";
-// import dayjs from "dayjs";
-// import customParseFormat from "dayjs/plugin/customParseFormat";
 // import { useGeolocation } from "@/hooks/useGeolocation";
-// dayjs.extend(customParseFormat);
 
 const publicKey = process.env.NEXT_PUBLIC_EMAIL_JS_KEY_PUBLIC_KEY || "";
 
