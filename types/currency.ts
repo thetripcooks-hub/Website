@@ -4,5 +4,5 @@ export type CurrencyListItem = {
   code: CurrencyType;
   symbol: string;
   name: string;
-  flag: string;
+  flag: React.ReactNode;
 };
