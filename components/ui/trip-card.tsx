@@ -1,6 +1,7 @@
 "use client";
 import ComingSoonBadge from "@/app/home/_components/coming-soon-badge";
-import { pounds, formatTripDate, percentage } from "@/lib/utils";
+import { formatAmount, formatTripDate, percentage } from "@/lib/utils";
+import useGeneralStore from "@/stores/generalStore";
 import { CartItem } from "@/types/cart";
 import { TripType } from "@/types/trip";
 import Image from "next/image";
@@ -8,15 +9,8 @@ import React from "react";
 import img from "~/img/private-trip.svg";
 import CartIcon from "~/img/shopping-cart.svg";
 
-const TripCard = ({
-  handleClick,
-  handleAddToCart,
-  item,
-}: {
-  handleClick: () => void;
-  handleAddToCart: () => void;
-  item: CartItem;
-}) => {
+const TripCard = ({ handleClick, handleAddToCart, item }: { handleClick: () => void; handleAddToCart: () => void; item: CartItem }) => {
+  const { selectedCurrency } = useGeneralStore();
   return (
     <div>
       <div className="text-foreground cursor-pointer hidden sm:flex sm:flex-col relative">
@@ -53,15 +47,16 @@ const TripCard = ({
           <div className="flex gap-1 items-center">
             {item.discount && (
               <h3 className="font-medium text-xl text-neutral-grey-500 line-through">
-                {pounds.format(item.fullAmount)}
+                {formatAmount(item.fullAmount, selectedCurrency)}
               </h3>
             )}
             <h3 className="font-medium text-xl">
               {item.discount
-                ? pounds.format(
-                    item.fullAmount - percentage(item.discount, item.fullAmount)
+                ? formatAmount(
+                    item.fullAmount - percentage(item.discount, item.fullAmount),
+                    selectedCurrency
                   )
-                : pounds.format(item.fullAmount)}
+                : formatAmount(item.fullAmount, selectedCurrency)}
             </h3>
           </div>
         </div>
@@ -100,15 +95,16 @@ const TripCard = ({
           <div className="flex gap-1 items-center">
             {item.discount && (
               <h3 className="font-medium text-xl text-neutral-grey-500 line-through">
-                {pounds.format(item.fullAmount)}
+                {formatAmount(item.fullAmount, selectedCurrency)}
               </h3>
             )}
             <h3 className="font-medium text-xl">
               {item.discount
-                ? pounds.format(
-                    item.fullAmount - percentage(item.discount, item.fullAmount)
+                ? formatAmount(
+                    item.fullAmount - percentage(item.discount, item.fullAmount),
+                    selectedCurrency
                   )
-                : pounds.format(item.fullAmount)}
+                : formatAmount(item.fullAmount, selectedCurrency)}
             </h3>
           </div>
         </div>

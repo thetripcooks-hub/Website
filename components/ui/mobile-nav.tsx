@@ -17,6 +17,7 @@ import TiktokDark from "@/components/icons/svg/tiktok-dark.svg";
 import Logo from "~/logo.svg";
 import { ModeToggle } from "./mode-toggle";
 import { useRouter } from "next/navigation";
+import CurrencyToggle from "./currency-toggle";
 
 const MobileNav = ({
   navConfig,
@@ -27,22 +28,26 @@ const MobileNav = ({
 }) => {
   const [open, setOpen] = React.useState(false);
   const router = useRouter();
-  const socials = [{
-    name: "Instagram",
-    url: "https://www.instagram.com/tripcooks/",
-    icon: Instagram,
-    darkIcon: InstagramDark,
-  }, {
-    name: "Tiktok",
-    url: "https://www.tiktok.com/@tripcooks?_t=ZM-8smTfjMee4k&_r=1",
-    icon: Tiktok,
-    darkIcon: TiktokDark,
-  }]
+  const socials = [
+    {
+      name: "Instagram",
+      url: "https://www.instagram.com/tripcooks/",
+      icon: Instagram,
+      darkIcon: InstagramDark,
+    },
+    {
+      name: "Tiktok",
+      url: "https://www.tiktok.com/@tripcooks?_t=ZM-8smTfjMee4k&_r=1",
+      icon: Tiktok,
+      darkIcon: TiktokDark,
+    },
+  ];
   return (
-    <div className="sm:hidden">
+    <div className="sm:hidden flex gap-1">
+      {open ? null : <CurrencyToggle />}
       <DropdownMenu open={open} onOpenChange={setOpen}>
         <DropdownMenuTrigger asChild>
-          <div>
+          <div className="flex gap-2">
             <Image src={Menu} alt="hamburger-menu" className="dark:hidden" />
             <Image
               src={MenuDark}
@@ -56,7 +61,10 @@ const MobileNav = ({
             <Link href="/home" className="cursor-pointer">
               <Image src={Logo} alt="logo" />
             </Link>
-            <ModeToggle />
+            <div className="flex items-center gap-2">
+              <CurrencyToggle mobileNavOpen={open} />
+              <ModeToggle />
+            </div>
           </div>
           <section
             className={cn("flex flex-col gap-6 h-[75%] justify-between")}
@@ -80,31 +88,32 @@ const MobileNav = ({
               </Link>
             ))}
 
-            <div
-              className="flex flex-col mt-5 gap-6"
-            >
+            <div className="flex flex-col mt-5 gap-6">
               <h4>Follow us on Instagram</h4>
               <div className="flex gap-4">
-
-                {socials.map((social, index) => <div className="w-[46px] h-[46px] rounded-full border-neutral-300 border border-solid items-center justify-center flex dark:border-[#383E47]"
-                  key={index}
-                  onClick={() => {
-                    setOpen(false);
-                    router.push(social.url);
-                  }}>
-                  <Image
-                    src={social.icon}
-                    alt="instagram-logo"
-                    width={19.88}
-                    className="dark:hidden"
-                  />
-                  <Image
-                    src={social.darkIcon}
-                    width={19.88}
-                    className=" hidden dark:block"
-                    alt="social-media-icon"
-                  />
-                </div>)}
+                {socials.map((social, index) => (
+                  <div
+                    className="w-[46px] h-[46px] rounded-full border-neutral-300 border border-solid items-center justify-center flex dark:border-[#383E47]"
+                    key={index}
+                    onClick={() => {
+                      setOpen(false);
+                      router.push(social.url);
+                    }}
+                  >
+                    <Image
+                      src={social.icon}
+                      alt="instagram-logo"
+                      width={19.88}
+                      className="dark:hidden"
+                    />
+                    <Image
+                      src={social.darkIcon}
+                      width={19.88}
+                      className=" hidden dark:block"
+                      alt="social-media-icon"
+                    />
+                  </div>
+                ))}
               </div>
             </div>
           </section>

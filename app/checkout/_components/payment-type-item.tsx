@@ -6,18 +6,18 @@ import {
   TooltipTrigger,
   Tooltip,
 } from "@/components/ui";
-import { cn, pounds } from "@/lib/utils";
+import { cn, formatAmount } from "@/lib/utils";
+import useGeneralStore from "@/stores/generalStore";
 import useTripStore from "@/stores/trip-store";
 import { TooltipArrow } from "@radix-ui/react-tooltip";
-import dayjs from "dayjs";
-import advancedFormat from "dayjs/plugin/advancedFormat.js";
-dayjs.extend(advancedFormat);
+import dayjs from "@/lib/dayjs";
 import { useState } from "react";
 
 const InstallmentItem = () => {
   const [show, setShow] = useState(false);
   const toggleShow = () => setShow(!show);
   const { selectedTrip } = useTripStore();
+  const { selectedCurrency } = useGeneralStore();
   return (
     selectedTrip && (
       <div className="flex gap-1 text-sm leading-[17.07px] text-secondary-irish-green mt-1">
@@ -65,12 +65,12 @@ const InstallmentItem = () => {
               className="border border-solid border-neutral-grey-300 bg-white text-[#020E0B] p-2 text-xs leading-[20px]"
             >
               <TooltipArrow fill="white" stroke="#E1E6EF" strokeWidth={2} />
-              Pay {pounds.format(selectedTrip.downPayment)} today and save your
+              Pay {formatAmount(selectedTrip.downPayment, selectedCurrency)} today and save your
               spot on this trip.
               {selectedTrip.installments.map((installment, index) => (
                 <p key={index}>
                   <br />
-                  {pounds.format(Number(installment.amount))} due{" "}
+                  {formatAmount(Number(installment.amount), selectedCurrency)} due{" "}
                   {dayjs(installment.date).format("Do MMMM, YYYY")}
                 </p>
               ))}

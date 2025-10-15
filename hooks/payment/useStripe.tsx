@@ -6,6 +6,9 @@ import { CartItem } from "@/types/cart";
 import { useState } from "react";
 import { toast } from "sonner";
 import useTripStore from "@/stores/trip-store";
+import { CurrencyType } from "@/types/currency";
+import { convertPrice, formatAmount } from "@/lib/utils";
+import useGeneralStore from "@/stores/generalStore";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
@@ -22,8 +25,8 @@ const useStripe = ({
   const { trips } = useTripStore();
   const router = useRouter();
   const [isPaying, setIsPaying] = useState(false);
-
-  const handlePay = async () => {
+  const { rates } = useGeneralStore();
+  const handlePay = async (currency: CurrencyType) => {
     const updatedItems = items.map((item) => {
       const foundItem = trips.find((x) => x.sys.id === item.sys.id);
       if (foundItem) {
@@ -34,22 +37,24 @@ const useStripe = ({
     const formattedPayload: Stripe.Checkout.SessionCreateParams.LineItem[] =
       updatedItems
         ?.filter((trip) => !trip.soldOut)
-        ?.map((trip) => ({
-          price_data: {
-            currency: "GBP",
-            product_data: {
-              name: trip.location,
-              images:
-                trip.bannerImagesCollection?.items?.map((image) => image.url) ??
-                [],
+        ?.map((trip) => {
+          return ({
+            price_data: {
+              currency: currency,
+              product_data: {
+                name: trip.location,
+                images:
+                  trip.bannerImagesCollection?.items?.map((image) => image.url) ??
+                  [],
+              },
+              unit_amount: Number(convertPrice(trip.downPayment, currency, rates)) * 100,
             },
-            unit_amount: trip.downPayment * 100,
-          },
-          quantity: trip.quantity,
-          adjustable_quantity: {
-            enabled: true,
-          },
-        }));
+            quantity: trip.quantity,
+            adjustable_quantity: {
+              enabled: true,
+            },
+          })
+        });
     try {
       if (isPaying) return;
       setIsPaying(true);
@@ -59,6 +64,7 @@ const useStripe = ({
           lineItems: formattedPayload,
           success_url,
           cancel_url,
+          currency
         }),
       });
 

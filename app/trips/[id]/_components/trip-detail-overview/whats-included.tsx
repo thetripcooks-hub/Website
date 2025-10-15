@@ -24,9 +24,9 @@ const WhatsIncluded = () => {
         </h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          {whatsIncluded.map((item) => (
+          {whatsIncluded.map((item, index) => (
             <div
-              key={item.icon + Math.random()}
+              key={index + Math.random()}
               className="flex gap-2.5 items-center "
             >
               {/* <Image
