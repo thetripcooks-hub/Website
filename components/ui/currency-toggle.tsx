@@ -24,7 +24,7 @@ const CurrencyToggle = ({ mobileNavOpen }: {
           className={cn("bg-transparent outline-none bg-none hover:bg-transparent  focus-visible:bg-transparent focus-visible:ring-0 shadow-none w-fit px-2 max-w-fit border border-solid border-[#E1E6EF] text-foreground h-[32px] sm:h-[46px] dark:border-[#383E47] flex gap-1 text-[#1D2433] dark:text-white", mobileNavOpen && "h-[46px]", !hasHydrated && "filter blur-sm")}
         >
 
-          <span className="text-lg">
+          <span className="text-lg mr-1">
             {CURRENCIES.find((currency) => currency.code === selectedCurrency)?.flag}
           </span>
           {selectedCurrency}
@@ -37,7 +37,7 @@ const CurrencyToggle = ({ mobileNavOpen }: {
             onClick={() => setSelectedCurrency(currency.code)}
             className="capitalize flex gap-1 items-center"
           >
-            <span className="text-lg">
+            <span className="text-lg mr-1">
               {currency.flag}
             </span>
             {currency.name}{" "}
