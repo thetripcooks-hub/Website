@@ -20,7 +20,7 @@ const Faq = () => {
       {
         question: "What is included in the package details?",
         answer:
-          "A typical package includes flights, transportation, accommodation, activities, and occasionally breakfast or other meals. It varies depending on the destination country. We recommend you review the details for each package on our website to know what is covered and what might incur additional costs.",
+          "A typical package includes a planned itinerary, accommodation, activities, and occasionally breakfast or other meals. It varies depending on the destination country. We recommend you review the details for each package on our website to know what is covered and what might incur additional costs.",
       },
       {
         question: "Can I customize the travel package to meet my preferences?",
@@ -59,16 +59,16 @@ const Faq = () => {
           </>
         ),
       },
-      {
-        question: "When will I receive my flight information?",
-        answer:
-          "You will receive your flight information when you book your slot, and it will be included as part of your travel itinerary. If you need it earlier, you can request the information before booking your slot.",
-      },
-      {
-        question: "What are the luggage restrictions?",
-        answer:
-          "Our trips are generally designed with backpack-style travel in mind, but you can add extra luggage bags for an additional fee paid to the airline.",
-      },
+      // {
+      //   question: "When will I receive my flight information?",
+      //   answer:
+      //     "You will receive your flight information when you book your slot, and it will be included as part of your travel itinerary. If you need it earlier, you can request the information before booking your slot.",
+      // },
+      // {
+      //   question: "What are the luggage restrictions?",
+      //   answer:
+      //     "Our trips are generally designed with backpack-style travel in mind, but you can add extra luggage bags for an additional fee paid to the airline.",
+      // },
       {
         question: "Is there a group chat or webinar for participants to connect?",
         answer:
