@@ -25,15 +25,6 @@ const PaymentTerms = () => {
         </p>
 
         <div>
-          {/* <p>
-            <span className="font-bold">$900</span> due 10th July, 2024
-          </p>
-          <p>
-            <span className="font-bold">$900</span> due 10th July, 2024
-          </p>
-          <p>
-            <span className="font-bold">$900</span> due 10th July, 2024
-          </p> */}
           {selectedTrip.installments.map((installment, index) => (
             <p key={index}>
               <span className="font-normal">
