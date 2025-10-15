@@ -8,7 +8,7 @@ export interface GeolocationData {
   longitude: number;
   country?: string;
   countryCode?: string;
-  currencyCode?: CurrencyType;
+  currencyCode?: CurrencyType | "EUR";
 }
 
 export const useGeolocation = () => {
@@ -42,7 +42,7 @@ export const useGeolocation = () => {
       const [countryData] = await countryResponse.json();
 
       // Get the first currency code from the country data
-      const currencyCode = Object.keys(countryData.currencies)[0] as CurrencyType;
+      const currencyCode = Object.keys(countryData.currencies)[0] as CurrencyType | "EUR";
 
       return {
         country: data.countryName,
@@ -59,6 +59,11 @@ export const useGeolocation = () => {
       setError("Geolocation is not supported by your browser");
       return;
     }
+
+    // check for saved userCurrency in local storage
+    const _savedCurrency = localStorage.getItem("userCurrency");
+    const savedCurrency = _savedCurrency ? JSON.parse(_savedCurrency) : null;
+    if (savedCurrency) return;
 
     setLoading(true);
     setError(null);
@@ -80,11 +85,16 @@ export const useGeolocation = () => {
           //   if currencycode is supported by app, set it as selected currency
           //   otherwise, default to USD
           const supportedCurrencies = CURRENCIES.map((c) => c.code);
-
-          setSelectedCurrency(
-            supportedCurrencies.includes(currencyCode) ? currencyCode : "USD"
-          );
-
+          let _appCurrency: CurrencyType;
+          if (currencyCode === "EUR") {
+            _appCurrency = "GBP";
+          } else if (supportedCurrencies.includes(currencyCode as CurrencyType)) {
+            _appCurrency = currencyCode as CurrencyType;
+          } else {
+            _appCurrency = "USD";
+          }
+          setSelectedCurrency(_appCurrency);
+          localStorage.setItem("userCurrency", JSON.stringify(_appCurrency));
           setLoading(false);
         } catch (err) {
           setError(

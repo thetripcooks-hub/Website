@@ -44,6 +44,8 @@ interface GeneralStore {
   setRates: (rate: { USD: number; CAD: number; GBP: number }) => void;
 }
 
+const initialCurrency = (typeof window !== "undefined" && localStorage.getItem("userCurrency")) ? JSON.parse(localStorage.getItem("userCurrency") || '"USD"') : 'USD';
+
 const useGeneralStore = create<GeneralStore>()(
   persist(
     (set) => ({
@@ -58,7 +60,7 @@ const useGeneralStore = create<GeneralStore>()(
       loadingTripcooksExperience: false,
       privateTrip: [],
       loadingPrivateTrip: false,
-      selectedCurrency: "USD",
+      selectedCurrency: initialCurrency as CurrencyType,
       setShowNav: (showNav) => set({ showNav }),
       setAbout: (about) => set({ about }),
       setLoadingAbout: (loadingAbout) => set({ loadingAbout }),

@@ -9,7 +9,7 @@ import useGeneralStore from "@/stores/generalStore";
 import { ApolloWrapper } from "./apollo-provider";
 import GeneralData from "./general-data";
 import emailjs from "@emailjs/browser";
-// import { useGeolocation } from "@/hooks/useGeolocation";
+import { useGeolocation } from "@/hooks/useGeolocation";
 
 const publicKey = process.env.NEXT_PUBLIC_EMAIL_JS_KEY_PUBLIC_KEY || "";
 
@@ -17,7 +17,14 @@ emailjs.init({
   publicKey: publicKey,
 });
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
+  const { getCurrentPosition } = useGeolocation();
   const { showNav, setRates, setLoadingRates } = useGeneralStore();
+
+  useEffect(() => {
+    getCurrentPosition();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   useEffect(() => {
     setLoadingRates(true);
     // Fetch exchange rates
