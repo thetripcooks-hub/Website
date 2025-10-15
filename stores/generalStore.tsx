@@ -58,7 +58,7 @@ const useGeneralStore = create<GeneralStore>()(
       loadingTripcooksExperience: false,
       privateTrip: [],
       loadingPrivateTrip: false,
-      selectedCurrency: "USD",
+      selectedCurrency: JSON.parse(localStorage.getItem("userCurrency") || '"USD"'),
       setShowNav: (showNav) => set({ showNav }),
       setAbout: (about) => set({ about }),
       setLoadingAbout: (loadingAbout) => set({ loadingAbout }),
