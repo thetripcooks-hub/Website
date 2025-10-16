@@ -26,7 +26,7 @@ const Reviews = () => {
       ? review?.subText?.json?.content[0]?.content[0]?.value
       : "",
     name: review.location,
-    year: dayjs(review.date).format("YYYY"),
+    year: dayjs.utc(review.date).format("YYYY"),
     flag: "",
     starCount: review.starCount,
     imageUrl: review.reviewImage ? review.reviewImage.url : "",

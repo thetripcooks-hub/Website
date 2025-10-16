@@ -71,7 +71,7 @@ const InstallmentItem = () => {
                 <p key={index}>
                   <br />
                   {formatAmount(Number(installment.amount), selectedCurrency)} due{" "}
-                  {dayjs(installment.date).format("Do MMMM, YYYY")}
+                  {dayjs.utc(installment.date).format("Do MMMM, YYYY")}
                 </p>
               ))}
             </TooltipContent>
