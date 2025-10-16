@@ -78,10 +78,15 @@ export const formatAmount = (amount: number, currency: string) => {
   }
 };
 
-export const formatTripDate = (item: TripType) =>
-  `${dayjs(item.startDate).format("MMM Do - ")}${dayjs(item.endDate).format(
+export const formatTripDate = (item: TripType) => {
+  const startDate = dayjs.utc(item.startDate);
+  const endDate = dayjs.utc(item.endDate);
+  
+  return `${startDate.format("MMM Do - ")}${endDate.format(
     "MMM Do, "
-  )}${dayjs(item.startDate).format("YYYY")}`;
+  )}${startDate.format("YYYY")}`;
+};
+
 
 export function percentage(percent: number, total: number) {
   return (percent / 100) * total;

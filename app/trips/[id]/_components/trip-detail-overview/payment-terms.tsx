@@ -31,7 +31,7 @@ const PaymentTerms = () => {
                 {formatAmount(Number(installment.amount), selectedCurrency)}
               </span>{" "}
               due{" "}
-              {dayjs(installment.date, "MM-DD-YYYY").format("Do MMMM, YYYY")}
+              {dayjs.utc(installment.date, "MM-DD-YYYY").format("Do MMMM, YYYY")}
             </p>
           ))}
         </div>

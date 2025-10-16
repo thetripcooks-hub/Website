@@ -22,8 +22,8 @@ const PaymentCardMobile = () => {
           </h6>
           <p className="items-center flex text-[12px] leading-[14.63px] gap-1 text-neutral-subtext">
             <span>
-              {dayjs(selectedTrip.endDate).diff(
-                dayjs(selectedTrip.startDate),
+              {dayjs.utc(selectedTrip.endDate).diff(
+                dayjs.utc(selectedTrip.startDate),
                 "day"
               )}{" "}
               Days

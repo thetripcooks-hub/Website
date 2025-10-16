@@ -59,7 +59,7 @@ const PaymentCard = () => {
 
           <p className="items-center flex text-[16px] leading-[19.5px] gap-2.5 text-neutral-subtext dark:text-[#8C909B]">
             <span>
-              {dayjs(selectedTrip.endDate).diff(selectedTrip.startDate, "d")}{" "}
+              {dayjs.utc(selectedTrip.endDate).diff(dayjs.utc(selectedTrip.startDate), "d")}{" "}
               Days
             </span>
             <svg

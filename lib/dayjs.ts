@@ -10,7 +10,5 @@ dayjs.extend(timezone);
 dayjs.extend(customParseFormat);
 dayjs.extend(advancedFormat);
 
-// Set default timezone to GMT/UTC
-dayjs.tz.setDefault("GMT");
 
 export default dayjs;
