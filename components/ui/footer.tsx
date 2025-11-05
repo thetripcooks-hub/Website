@@ -1,0 +1,125 @@
+"use client";
+import Image from "next/image";
+import React from "react";
+import LogoBig from "~/logo-big.svg";
+import Instagram from "@/components/icons/svg/instagram.svg";
+import InstagramDark from "@/components/icons/svg/instagram-dark.svg";
+import Tiktok from "@/components/icons/svg/tiktok.svg";
+import TiktokDark from "@/components/icons/svg/tiktok-dark.svg";
+// import Facebook from "@/components/icons/svg/facebook.svg";
+// import X from "@/components/icons/svg/x.svg";
+import Link from "next/link";
+import SectionWrapper from "@/app/home/_components/section-wrapper";
+import { useRouter } from "next/navigation";
+
+const config = [
+  {
+    title: "Company",
+    routes: [
+      {
+        name: "About Us",
+        url: "/about",
+      },
+      {
+        name: "Contact Us",
+        url: "/contact",
+      },
+    ],
+  },
+  {
+    title: "Trips",
+    routes: [
+      {
+        name: "Destinations",
+        url: "/trips",
+      },
+      {
+        name: "Private Trips",
+        url: "/private-trips",
+      },
+    ],
+  },
+  {
+    title: "Travel Policy",
+    routes: [
+      {
+        name: "Privacy Policy",
+        url: "/legal",
+      },
+      {
+        name: "Terms and Conditions",
+        url: "/legal",
+      },
+    ],
+  },
+];
+
+const Footer = () => {
+  const router = useRouter();
+  const socials = [{
+    name: "Instagram",
+    url: "https://www.instagram.com/tripcooks/",
+    icon: Instagram,
+    darkIcon: InstagramDark,
+  }, {
+    name: "Tiktok",
+    url: "https://www.tiktok.com/@tripcooks?_t=ZM-8smTfjMee4k&_r=1",
+    icon: Tiktok,
+    darkIcon: TiktokDark,
+  }]
+  return (
+    <section className="px-5 py-5 sm:px-[8%]">
+      <SectionWrapper className="flex flex-col sm:flex-row sm:justify-between gap-5">
+        <div className="flex flex-col gap-5 sm:w-2/5">
+          <Image src={LogoBig} alt="logo" />
+          <div className="flex gap-4">
+            {socials.map((social, index) => (
+              <div
+                className="border border-neutral-grey-300 rounded-full h-[46px] w-[46px] flex items-center justify-center cursor-pointer bg-background dark:border-[#383E47]"
+                key={index}
+                onClick={() =>
+                  router.push(social.url)
+                }
+              >
+                <Image
+                  src={social.icon}
+                  className="w-5 h-5 sm:w-[25px] sm:h-[25px] dark:hidden"
+                  alt="social-media-icon"
+                />
+                <Image
+                  src={social.darkIcon}
+                  className="w-5 h-5 sm:w-[25px] sm:h-[25px] hidden dark:block"
+                  alt="social-media-icon"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row sm:w-3/5 sm:justify-between sm:max-w-[600px] gap-10 sm:gap-5 mb-12">
+          {config.map((item, index) => (
+            <div key={index}>
+              <h3 className="text-[20px] leading-[24px] text-neutral-text dark:text-foreground">
+                {item.title}
+              </h3>
+              <ul className="mt-4 flex flex-col gap-2">
+                {item.routes.map((route, index) => (
+                  <li key={index}>
+                    <Link
+                      className="text-[18px] leading-[24px] text-neutral-subtext dark:text-[#BFC0C2]"
+                      href={route.url}
+                    >
+                      {route.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </SectionWrapper>
+    </section>
+  );
+};
+
+export { Footer };
