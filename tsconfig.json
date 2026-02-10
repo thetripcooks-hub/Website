@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -19,11 +23,26 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"],
-      "~/*": ["./public/*"],
-      "@/hooks": ["./hooks"]
-    }
+      "@/*": [
+        "./*"
+      ],
+      "~/*": [
+        "./public/*"
+      ],
+      "@/hooks": [
+        "./hooks"
+      ]
+    },
+    "target": "ES2017"
   },
-  "include": ["video.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "video.d.ts",
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

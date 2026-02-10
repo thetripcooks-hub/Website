@@ -11,7 +11,7 @@ import { convertPrice, formatAmount } from "@/lib/utils";
 import useGeneralStore from "@/stores/generalStore";
 
 const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
 );
 const useStripe = ({
   items,
@@ -38,22 +38,24 @@ const useStripe = ({
       updatedItems
         ?.filter((trip) => !trip.soldOut)
         ?.map((trip) => {
-          return ({
+          return {
             price_data: {
               currency: currency,
               product_data: {
                 name: trip.location,
                 images:
-                  trip.bannerImagesCollection?.items?.map((image) => image.url) ??
-                  [],
+                  trip.bannerImagesCollection?.items?.map(
+                    (image) => image.url,
+                  ) ?? [],
               },
-              unit_amount: Number(convertPrice(trip.downPayment, currency, rates)) * 100,
+              unit_amount:
+                Number(convertPrice(trip.downPayment, currency, rates)) * 100,
             },
             quantity: trip.quantity,
             adjustable_quantity: {
               enabled: true,
             },
-          })
+          };
         });
     try {
       if (isPaying) return;
@@ -64,7 +66,7 @@ const useStripe = ({
           lineItems: formattedPayload,
           success_url,
           cancel_url,
-          currency
+          currency,
         }),
       });
 

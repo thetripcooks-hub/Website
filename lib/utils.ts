@@ -43,9 +43,9 @@ export async function fetchExchangeRates(): Promise<ExchangeRates> {
 export function convertPrice(
   priceInGBP: number,
   targetCurrency: CurrencyType,
-  rates: ExchangeRates
+  rates: ExchangeRates,
 ): number {
-  return priceInGBP * rates[targetCurrency];
+  return Math.round(priceInGBP * rates[targetCurrency] * 100) / 100;
 }
 
 export const pounds = Intl.NumberFormat("en-GB", {
@@ -81,12 +81,11 @@ export const formatAmount = (amount: number, currency: string) => {
 export const formatTripDate = (item: TripType) => {
   const startDate = dayjs.utc(item.startDate);
   const endDate = dayjs.utc(item.endDate);
-  
+
   return `${startDate.format("MMM Do - ")}${endDate.format(
-    "MMM Do, "
+    "MMM Do, ",
   )}${startDate.format("YYYY")}`;
 };
-
 
 export function percentage(percent: number, total: number) {
   return (percent / 100) * total;
@@ -103,7 +102,7 @@ export function percentage(percent: number, total: number) {
 export function searchInArray(
   array: any[],
   key: string,
-  searchTerm: string
+  searchTerm: string,
 ): Array<any> {
   if (!Array.isArray(array)) {
     throw new Error("First argument must be an array.");
