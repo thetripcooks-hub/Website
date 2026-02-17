@@ -1,0 +1,107 @@
+import React from "react";
+import type { Metadata } from "next";
+import { getClient } from "@/lib/apollo-client";
+import { queryTripById } from "@/queries/trips-query";
+import { TripByIdResponse } from "@/types/trip";
+
+type Props = {
+  params: { id: string; name: string };
+  children: React.ReactNode;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  try {
+    const { data } = await getClient().query<TripByIdResponse>({
+      query: queryTripById(params.id),
+    });
+    const trip = data?.trip;
+    if (!trip) return {};
+
+    const location = trip.location;
+    const image = trip.bannerImagesCollection?.items?.[0]?.url;
+    const desc = trip.description
+      ? trip.description.slice(0, 155)
+      : `Join the Trip Cooks group trip to ${location}. Book your slot and secure your adventure today.`;
+    const url = `https://tripcooks.tours/trips/${params.id}/${params.name}`;
+
+    return {
+      title: `${location} Group Trip | Trip Cooks`,
+      description: desc,
+      alternates: { canonical: url },
+      openGraph: {
+        title: `${location} Group Trip | Trip Cooks`,
+        description: desc,
+        url,
+        type: "website",
+        ...(image
+          ? { images: [{ url: image, width: 1200, height: 630, alt: `${location} group trip` }] }
+          : {}),
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: `${location} Group Trip | Trip Cooks`,
+        description: desc,
+        ...(image ? { images: [image] } : {}),
+      },
+    };
+  } catch {
+    return {};
+  }
+}
+
+export default async function TripDetailLayout({ children, params }: Props) {
+  let jsonLd = null;
+
+  try {
+    const { data } = await getClient().query<TripByIdResponse>({
+      query: queryTripById(params.id),
+    });
+    const trip = data?.trip;
+
+    if (trip) {
+      const image = trip.bannerImagesCollection?.items?.[0]?.url;
+      const url = `https://tripcooks.tours/trips/${params.id}/${params.name}`;
+
+      jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "TouristTrip",
+        name: `${trip.location} Group Trip`,
+        description:
+          trip.description ||
+          `Group trip to ${trip.location} organised by Trip Cooks.`,
+        touristType: "Group travellers",
+        url,
+        ...(image ? { image } : {}),
+        ...(trip.startDate
+          ? { startDate: trip.startDate, endDate: trip.endDate }
+          : {}),
+        offers: {
+          "@type": "Offer",
+          price: trip.downPayment,
+          priceCurrency: "GBP",
+          description: "Deposit to secure your slot",
+          url,
+        },
+        provider: {
+          "@type": "Organization",
+          name: "Trip Cooks",
+          url: "https://tripcooks.tours",
+        },
+      };
+    }
+  } catch {
+    // continue without JSON-LD
+  }
+
+  return (
+    <>
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
+      {children}
+    </>
+  );
+}

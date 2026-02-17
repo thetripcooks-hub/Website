@@ -1,7 +1,5 @@
-import React from "react";
+import { redirect } from "next/navigation";
 
-const Page = () => {
-  return <div>Privacy</div>;
-};
-
-export default Page;
+export default function PrivacyPage() {
+  redirect("/legal");
+}

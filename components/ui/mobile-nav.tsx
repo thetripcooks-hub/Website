@@ -48,10 +48,10 @@ const MobileNav = ({
       <DropdownMenu open={open} onOpenChange={setOpen}>
         <DropdownMenuTrigger asChild>
           <div className="flex gap-2">
-            <Image src={Menu} alt="hamburger-menu" className="dark:hidden" />
+            <Image src={Menu} alt="Open navigation menu" className="dark:hidden" />
             <Image
               src={MenuDark}
-              alt="hamburger-menu"
+              alt="Open navigation menu"
               className="hidden dark:block"
             />
           </div>
@@ -102,7 +102,7 @@ const MobileNav = ({
                   >
                     <Image
                       src={social.icon}
-                      alt="instagram-logo"
+                      alt={social.name}
                       width={19.88}
                       className="dark:hidden"
                     />
@@ -110,7 +110,7 @@ const MobileNav = ({
                       src={social.darkIcon}
                       width={19.88}
                       className=" hidden dark:block"
-                      alt="social-media-icon"
+                      alt={social.name}
                     />
                   </div>
                 ))}

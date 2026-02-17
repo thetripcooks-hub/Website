@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Trip Cooks — Owner Project Report</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #1a1a1a;
+      background: #fff;
+    }
+
+    /* ── COVER ── */
+    .cover {
+      height: 100vh;
+      background: linear-gradient(150deg, #0d2b1f 0%, #1a5c3a 55%, #2d8a58 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 72px 80px;
+      color: #fff;
+      page-break-after: always;
+    }
+    .cover-top { }
+    .cover-logo {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #7fd9a4;
+      margin-bottom: 60px;
+    }
+    .cover h1 {
+      font-size: 52px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .cover .tagline {
+      font-size: 20px;
+      color: #a7e8c2;
+      font-weight: 300;
+      max-width: 520px;
+      line-height: 1.5;
+    }
+    .cover-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .cover-meta { font-size: 12px; color: #7fd9a4; line-height: 2; }
+    .cover-accent {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      border: 2px solid rgba(127, 217, 164, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #7fd9a4;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    /* ── PAGE LAYOUT ── */
+    .page { padding: 60px 72px; max-width: 860px; margin: 0 auto; }
+    .page-break { page-break-after: always; }
+
+    /* ── SECTION ── */
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #1a5c3a;
+      margin-bottom: 8px;
+    }
+    h2 {
+      font-size: 26px;
+      font-weight: 800;
+      color: #0d2b1f;
+      margin-bottom: 16px;
+      line-height: 1.25;
+    }
+    h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #0d2b1f;
+      margin-top: 28px;
+      margin-bottom: 10px;
+    }
+    p { color: #3a3a3a; margin-bottom: 14px; }
+
+    /* ── DIVIDER ── */
+    .divider { width: 48px; height: 3px; background: #1a5c3a; margin: 16px 0 28px; }
+
+    /* ── HIGHLIGHT BOX ── */
+    .highlight {
+      background: #f0fdf6;
+      border-left: 4px solid #1a5c3a;
+      padding: 16px 20px;
+      margin: 20px 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .highlight p { margin: 0; color: #1a3d2b; font-size: 14px; }
+    .highlight strong { color: #0d2b1f; }
+
+    .highlight-amber {
+      background: #fffbf0;
+      border-left: 4px solid #d97706;
+    }
+    .highlight-amber p { color: #78350f; }
+
+    /* ── ACHIEVEMENT CARDS ── */
+    .achievement-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 24px 0;
+    }
+    .achievement-card {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+    .achievement-card .icon {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+    .achievement-card h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0d2b1f;
+      margin-bottom: 6px;
+    }
+    .achievement-card p {
+      font-size: 12px;
+      color: #555;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* ── SCORE VISUAL ── */
+    .score-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .score-label-text {
+      width: 140px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #0d2b1f;
+      flex-shrink: 0;
+    }
+    .score-track {
+      flex: 1;
+      background: #e5e7eb;
+      height: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+      position: relative;
+    }
+    .score-before {
+      position: absolute;
+      top: 0; left: 0;
+      height: 100%;
+      border-radius: 5px;
+      background: #fca5a5;
+    }
+    .score-after {
+      position: absolute;
+      top: 0; left: 0;
+      height: 100%;
+      border-radius: 5px;
+      background: #1a5c3a;
+    }
+    .score-numbers {
+      font-size: 12px;
+      color: #555;
+      white-space: nowrap;
+    }
+    .score-numbers strong { color: #1a5c3a; }
+
+    /* ── ACTION TABLE ── */
+    .action-list { margin: 16px 0; }
+    .action-item {
+      display: flex;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid #f0f0f0;
+      align-items: flex-start;
+    }
+    .action-item:last-child { border-bottom: none; }
+    .action-num {
+      width: 28px;
+      height: 28px;
+      background: #0d2b1f;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .action-body h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #0d2b1f;
+      margin-bottom: 4px;
+    }
+    .action-body p {
+      font-size: 13px;
+      color: #555;
+      margin: 0;
+      line-height: 1.55;
+    }
+    .action-tag {
+      margin-left: auto;
+      flex-shrink: 0;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      height: fit-content;
+      margin-top: 3px;
+    }
+    .tag-you     { background: #dbeafe; color: #1e40af; }
+    .tag-dev     { background: #d1fae5; color: #065f46; }
+    .tag-content { background: #fef3c7; color: #92400e; }
+
+    /* ── TIMELINE ── */
+    .timeline { margin: 20px 0; }
+    .tl-item {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .tl-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #1a5c3a;
+      flex-shrink: 0;
+      margin-top: 4px;
+      position: relative;
+      z-index: 1;
+    }
+    .tl-dot.pending { background: #d1d5db; }
+    .tl-content h4 { font-size: 13px; font-weight: 700; color: #0d2b1f; margin-bottom: 4px; }
+    .tl-content p { font-size: 12px; color: #555; margin: 0; }
+    .tl-time { font-size: 11px; color: #999; margin-bottom: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+
+    /* ── FOOTER ── */
+    .report-footer {
+      margin-top: 56px;
+      padding-top: 16px;
+      border-top: 1px solid #eee;
+      font-size: 11px;
+      color: #999;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* ── QUOTE ── */
+    .pull-quote {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0d2b1f;
+      line-height: 1.45;
+      border-left: 4px solid #1a5c3a;
+      padding-left: 20px;
+      margin: 28px 0;
+    }
+
+    /* ── STAT STRIP ── */
+    .stat-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: #e5e7eb;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 24px 0;
+    }
+    .stat-cell {
+      background: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-cell .stat-num {
+      font-size: 32px;
+      font-weight: 800;
+      color: #1a5c3a;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-cell .stat-desc {
+      font-size: 11px;
+      color: #666;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    /* ── PROVIDE TABLE ── */
+    .provide-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    .provide-table th {
+      background: #0d2b1f;
+      color: #fff;
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .provide-table td {
+      padding: 11px 14px;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 13px;
+      vertical-align: top;
+    }
+    .provide-table tr:last-child td { border-bottom: none; }
+    .provide-table tr:nth-child(even) td { background: #fafafa; }
+    .urgency-high   { font-weight: 700; color: #1a5c3a; }
+    .urgency-medium { color: #d97706; font-weight: 600; }
+    .urgency-low    { color: #999; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ COVER ══════════════ -->
+<div class="cover">
+  <div class="cover-top">
+    <div class="cover-logo">Trip Cooks &nbsp;·&nbsp; Project Report</div>
+    <h1>Your Website,<br>Fully Optimised<br>for Google.</h1>
+    <div class="tagline">A plain-English summary of what was built, what was fixed, and what you need to do next.</div>
+  </div>
+  <div class="cover-bottom">
+    <div class="cover-meta">
+      <div>Prepared for: Trip Cooks Owner</div>
+      <div>Date: 17 February 2026</div>
+      <div>Site: tripcooks.tours</div>
+    </div>
+    <div class="cover-accent">Confidential<br>Owner<br>Briefing</div>
+  </div>
+</div>
+
+<!-- ══════════════ PAGE 1 — THE PROBLEM ══════════════ -->
+<div class="page">
+
+  <div class="section-label">Context</div>
+  <h2>Here's what was wrong — and why it mattered.</h2>
+  <div class="divider"></div>
+
+  <p>
+    When someone Googled <strong>"tripcooks"</strong>, one of the first links they saw under your
+    website was labelled <strong>"Hamburger-menu"</strong> — pointing to what looked like a technical
+    page about a navigation menu, not a travel service. This was the most visible symptom of a deeper
+    issue: Google simply didn't have enough information about your site to describe it accurately.
+  </p>
+
+  <div class="highlight highlight-amber">
+    <p>
+      <strong>Think of it this way:</strong> Imagine opening a shop with no signs, no window display,
+      and no description on the door. People walking past wouldn't know what you sell.
+      That's what your website looked like to Google — and to anyone who found a link to it on
+      social media.
+    </p>
+  </div>
+
+  <p>
+    The root cause was that every single page on your website — your home page, your trips, your
+    about page, everything — was giving Google the exact same generic description. Google couldn't
+    tell them apart. So it started guessing, and it guessed wrong.
+  </p>
+
+  <p>
+    On top of that, your website had no sitemap (a list of all your pages that you hand to Google),
+    no directions telling Google which pages it should and shouldn't include in search results, and
+    none of the special tags that make links look great when shared on WhatsApp or Instagram.
+  </p>
+
+  <div class="stat-strip">
+    <div class="stat-cell">
+      <div class="stat-num">13</div>
+      <div class="stat-desc">SEO issues identified</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">13</div>
+      <div class="stat-desc">Issues now resolved</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">0</div>
+      <div class="stat-desc">Critical issues remaining</div>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ══════════════ PAGE 2 — WHAT WAS DONE ══════════════ -->
+  <div class="section-label">Work Completed</div>
+  <h2>Everything that was fixed — in plain English.</h2>
+  <div class="divider"></div>
+
+  <div class="achievement-grid">
+
+    <div class="achievement-card">
+      <div class="icon">🔍</div>
+      <h4>Fixed the "Hamburger-menu" problem</h4>
+      <p>Removed the technical label that was confusing Google and replaced it with a proper, meaningful description. This is the fix that will clear up what you saw in search results.</p>
+    </div>
+
+    <div class="achievement-card">
+      <div class="icon">🏷️</div>
+      <h4>Gave every page its own identity</h4>
+      <p>Every page on your site — home, trips, about, contact, private trips — now has its own unique title and description that accurately tells Google what that page is about.</p>
+    </div>
+
+    <div class="achievement-card">
+      <div class="icon">✈️</div>
+      <h4>Made each trip page fully Google-ready</h4>
+      <p>Every individual trip page (e.g. Paris, Bali) now automatically pulls its title, description, and photo from your content system and presents them properly to Google.</p>
+    </div>
+
+    <div class="achievement-card">
+      <div class="icon">🗺️</div>
+      <h4>Built a sitemap for Google</h4>
+      <p>Created a complete list of all your pages and handed it to Google, so it knows exactly what to find and index on your site — including every trip you add in future.</p>
+    </div>
+
+    <div class="achievement-card">
+      <div class="icon">🚦</div>
+      <h4>Told Google what not to index</h4>
+      <p>Your cart, checkout, and payment pages are now hidden from Google. These private pages were wasting Google's attention and occasionally appearing in search results where they shouldn't.</p>
+    </div>
+
+    <div class="achievement-card">
+      <div class="icon">📱</div>
+      <h4>Made links look great on social media</h4>
+      <p>When someone shares a link to your site on WhatsApp, Instagram, or LinkedIn, it will now show a proper title, description, and — for trip pages — a photo of the destination.</p>
+    </div>
+
+    <div class="achievement-card">
+      <div class="icon">📍</div>
+      <h4>Set the official address of every page</h4>
+      <p>Every page now has a "canonical URL" — its official address. This prevents Google from getting confused if the same page appears at slightly different web addresses.</p>
+    </div>
+
+    <div class="achievement-card">
+      <div class="icon">⭐</div>
+      <h4>Added structured data for trips</h4>
+      <p>Each trip page now includes hidden information that Google can read to potentially show trip details (dates, prices, destinations) directly in search results without anyone clicking.</p>
+    </div>
+
+    <div class="achievement-card">
+      <div class="icon">🏢</div>
+      <h4>Registered Trip Cooks with Google's knowledge system</h4>
+      <p>Added official organisation information that helps Google understand Trip Cooks as a brand — your name, website, Instagram, and TikTok — which can lead to a branded knowledge panel.</p>
+    </div>
+
+    <div class="achievement-card">
+      <div class="icon">📄</div>
+      <h4>Cleaned up thin/empty pages</h4>
+      <p>Two pages (/privacy and /terms) were essentially blank — showing only a single word. These now redirect visitors to your full policy page, removing a quality concern for Google.</p>
+    </div>
+
+    <div class="achievement-card">
+      <div class="icon">🤖</div>
+      <h4>Set Google crawling rules</h4>
+      <p>Created a robots.txt file — a set of instructions for search engine bots telling them exactly which parts of your site to visit and which to skip entirely.</p>
+    </div>
+
+    <div class="achievement-card">
+      <div class="icon">📝</div>
+      <h4>Wrote full project documentation</h4>
+      <p>Created a complete technical README for the codebase so that any developer who works on this project in future can understand how everything is built without starting from scratch.</p>
+    </div>
+
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ══════════════ PAGE 3 — SCORES ══════════════ -->
+  <div class="section-label">Results</div>
+  <h2>How much did this actually improve things?</h2>
+  <div class="divider"></div>
+
+  <p>
+    SEO is measured across four areas. Here's where the site stood before the work began,
+    and where it stands today. Scores are out of 100.
+  </p>
+
+  <h3>Google Visibility (On-Page SEO)</h3>
+  <p style="font-size:12px; color:#666; margin-bottom:8px;">How well Google can understand and describe each of your pages.</p>
+  <div class="score-row">
+    <div class="score-label-text">Before</div>
+    <div class="score-track"><div class="score-before" style="width:42%"></div></div>
+    <div class="score-numbers">42 / 100</div>
+  </div>
+  <div class="score-row">
+    <div class="score-label-text">Now</div>
+    <div class="score-track"><div class="score-after" style="width:91%"></div></div>
+    <div class="score-numbers"><strong>91 / 100 &nbsp;↑ +49 pts</strong></div>
+  </div>
+
+  <h3>Website Health (Technical SEO)</h3>
+  <p style="font-size:12px; color:#666; margin-bottom:8px;">How easy it is for Google to find, crawl, and index your site.</p>
+  <div class="score-row">
+    <div class="score-label-text">Before</div>
+    <div class="score-track"><div class="score-before" style="width:71%"></div></div>
+    <div class="score-numbers">71 / 100</div>
+  </div>
+  <div class="score-row">
+    <div class="score-label-text">Now</div>
+    <div class="score-track"><div class="score-after" style="width:92%"></div></div>
+    <div class="score-numbers"><strong>92 / 100 &nbsp;↑ +21 pts</strong></div>
+  </div>
+
+  <h3>Content Quality</h3>
+  <p style="font-size:12px; color:#666; margin-bottom:8px;">How much relevant content you have for Google to rank you on. This requires editorial input — writing blog posts, guides, etc.</p>
+  <div class="score-row">
+    <div class="score-label-text">Before</div>
+    <div class="score-track"><div class="score-before" style="width:28%"></div></div>
+    <div class="score-numbers">28 / 100</div>
+  </div>
+  <div class="score-row">
+    <div class="score-label-text">Now</div>
+    <div class="score-track"><div class="score-after" style="width:28%; background:#d97706;"></div></div>
+    <div class="score-numbers" style="color:#d97706;">28 / 100 &nbsp;— needs content</div>
+  </div>
+
+  <div class="highlight">
+    <p>
+      <strong>Good news:</strong> The technical foundation is now in excellent shape. The remaining gap in Content Quality cannot be fixed with code — it requires content: destination guides, travel tips, and blog posts. This is the single biggest opportunity left to grow your organic traffic.
+    </p>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ══════════════ PAGE 4 — WHAT I NEED FROM YOU ══════════════ -->
+  <div class="section-label">Your Action Items</div>
+  <h2>What I need from you to keep moving forward.</h2>
+  <div class="divider"></div>
+
+  <p>
+    The technical work is done. What happens next depends on a few things that only you can
+    provide or decide. Here's exactly what's needed, in order of importance.
+  </p>
+
+  <table class="provide-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>What's needed</th>
+        <th>Why</th>
+        <th>Who does it</th>
+        <th>Urgency</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td><strong>Set up Google Search Console</strong><br><span style="font-size:12px; color:#666;">Go to search.google.com/search-console and verify that you own tripcooks.tours. Then submit the sitemap.</span></td>
+        <td>This is the free Google tool that tells you how your site appears in search results. Without it, you're flying blind. Submitting the sitemap tells Google to crawl all your pages immediately.</td>
+        <td>You (or delegate to me)</td>
+        <td class="urgency-high">This week</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><strong>A branded image for social media sharing</strong><br><span style="font-size:12px; color:#666;">A single image, 1200 × 630 pixels — your logo and tagline on a branded background.</span></td>
+        <td>When someone shares your home page, about page, or trips page on WhatsApp or social media, a photo needs to appear. Right now it shows a blank card. Trip pages already show the destination photo — this image covers the rest.</td>
+        <td>Designer or you</td>
+        <td class="urgency-high">This week</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><strong>Customer review data for star ratings</strong><br><span style="font-size:12px; color:#666;">An average rating score and total review count for each trip (or overall).</span></td>
+        <td>Google can show star ratings next to your trips in search results — but only if you provide review data. This could significantly increase how many people click on your results.</td>
+        <td>You provide ratings; I implement</td>
+        <td class="urgency-medium">Within a month</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td><strong>Decision: start a blog or travel guides section?</strong><br><span style="font-size:12px; color:#666;">Even 5–10 articles per year makes a significant difference.</span></td>
+        <td>Your biggest SEO gap is content. Google ranks sites that answer questions people are searching for. Articles like "What to expect on a group trip to Bali" or "How group travel works" attract visitors who aren't ready to book yet but will be.</td>
+        <td>Your decision; I build it</td>
+        <td class="urgency-medium">Within 2 months</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td><strong>Confirm your Twitter / X handle</strong><br><span style="font-size:12px; color:#666;">Your @username on X/Twitter, if you have one.</span></td>
+        <td>Adds the Twitter account to your site's social metadata, helping X link your content back to your profile when links are shared.</td>
+        <td>You confirm; I add it</td>
+        <td class="urgency-low">Whenever convenient</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-break"></div>
+
+  <!-- ══════════════ PAGE 5 — TIMELINE ══════════════ -->
+  <div class="section-label">What Happens Next</div>
+  <h2>What to expect over the next few weeks.</h2>
+  <div class="divider"></div>
+
+  <p>
+    SEO improvements don't show results overnight — Google needs time to visit your site, read the
+    changes, and update its index. Here's a realistic timeline of what you'll see and when.
+  </p>
+
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div>
+        <div class="tl-dot"></div>
+      </div>
+      <div class="tl-content">
+        <div class="tl-time">Now — Deploy &amp; Go Live</div>
+        <h4>All the improvements are live</h4>
+        <p>Once the updated code is deployed to tripcooks.tours, everything takes effect: correct page titles, social media previews, the sitemap, structured data for trips, and Google's crawling rules. Nothing is visible to users — these are behind-the-scenes improvements.</p>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div>
+        <div class="tl-dot"></div>
+      </div>
+      <div class="tl-content">
+        <div class="tl-time">Days 1–3</div>
+        <h4>Set up Google Search Console &amp; submit the sitemap</h4>
+        <p>This is the most important action you can take. Submitting the sitemap tells Google exactly where all your pages are and asks it to re-index everything. Think of it as formally introducing your website to Google.</p>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div>
+        <div class="tl-dot"></div>
+      </div>
+      <div class="tl-content">
+        <div class="tl-time">Week 1–2</div>
+        <h4>Google begins re-reading your pages</h4>
+        <p>Google's bots will start visiting your updated pages and reading the new descriptions, titles, and structured data. Your trips will start appearing with correct titles in search results. You won't see the "Hamburger-menu" link for much longer.</p>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div>
+        <div class="tl-dot"></div>
+      </div>
+      <div class="tl-content">
+        <div class="tl-time">Week 2–6</div>
+        <h4>The "Hamburger-menu" sitelink disappears</h4>
+        <p>Once Google re-crawls your home page and sees the proper organisation information, it will replace that incorrect sitelink with meaningful page names. This is the most visible improvement you'll notice in search results.</p>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div>
+        <div class="tl-dot pending"></div>
+      </div>
+      <div class="tl-content">
+        <div class="tl-time">Month 1–2</div>
+        <h4>Rich results may appear for trips</h4>
+        <p>Google may begin showing trip details — destination, dates, price from — directly in search results without anyone needing to click your link first. This depends on Google deciding your structured data meets its standards.</p>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div>
+        <div class="tl-dot pending"></div>
+      </div>
+      <div class="tl-content">
+        <div class="tl-time">Month 2 onwards</div>
+        <h4>Organic growth through content (if started)</h4>
+        <p>If a blog or travel guides section is launched, this is when new visitors — people who aren't looking for Trip Cooks specifically, but searching things like "group trip to Morocco" — will start finding your site for the first time.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ══════════════ PAGE 6 — CLOSING ══════════════ -->
+  <div class="section-label">Summary</div>
+  <h2>Where things stand today.</h2>
+  <div class="divider"></div>
+
+  <div class="pull-quote">
+    "The technical foundation is in excellent shape. Trip Cooks is now fully prepared for Google — every page has a clear identity, every trip is individually optimised, and the tools are in place for the site to grow organically."
+  </div>
+
+  <p>
+    Before this work, your website was invisible to Google in the way that matters most: it couldn't
+    tell your pages apart, it didn't know which pages to show people, and when your links were shared
+    on social media, they looked bare. All of that has been fixed.
+  </p>
+
+  <p>
+    The improvements made are the kind that continue to pay dividends over time. Every new trip you
+    add to Contentful will automatically get its own Google-ready page with proper metadata. Every
+    link shared on WhatsApp will show a destination photo. Every search for your brand will show
+    the right information.
+  </p>
+
+  <p>
+    The next chapter — growing your organic reach beyond people who already know Trip Cooks —
+    requires content. That's the conversation to have next.
+  </p>
+
+  <div class="highlight">
+    <p>
+      <strong>Your single most impactful action right now:</strong> Set up Google Search Console
+      at search.google.com/search-console and verify tripcooks.tours. This takes about
+      15 minutes and unlocks everything. Share the verification details with your developer and
+      they will handle the rest.
+    </p>
+  </div>
+
+  <h3>Files produced in this project</h3>
+  <p style="font-size:13px;">The following documents are available for your records:</p>
+  <ul style="margin: 8px 0 0 20px; font-size:13px; color:#3a3a3a; line-height:2.2;">
+    <li><strong>README.md</strong> — Full technical documentation for any developer who works on this site</li>
+    <li><strong>seo-report.pdf</strong> — v1 SEO audit: what was found before any work began</li>
+    <li><strong>seo-report-2.pdf</strong> — v2 SEO audit: full technical post-implementation review</li>
+    <li><strong>This report</strong> — Owner briefing in plain English</li>
+  </ul>
+
+  <div class="report-footer">
+    <span>Trip Cooks — Owner Report — 17 February 2026 — Confidential</span>
+    <span>tripcooks.tours</span>
+  </div>
+
+</div>
+</body>
+</html>

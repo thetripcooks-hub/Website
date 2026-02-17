@@ -1,7 +1,5 @@
-import React from "react";
+import { redirect } from "next/navigation";
 
-const Page = () => {
-  return <div>Terms and Conditions</div>;
-};
-
-export default Page;
+export default function TermsPage() {
+  redirect("/legal");
+}
