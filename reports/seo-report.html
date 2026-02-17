@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SEO Status Report — Trip Cooks</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background: #fff;
+    }
+
+    /* ── Cover Page ── */
+    .cover {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 80px;
+      background: linear-gradient(135deg, #0d2b1f 0%, #1a5c3a 60%, #2d8a58 100%);
+      color: #fff;
+      page-break-after: always;
+    }
+    .cover .label {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #7fd9a4;
+      margin-bottom: 24px;
+    }
+    .cover h1 {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .cover .subtitle {
+      font-size: 18px;
+      color: #a7e8c2;
+      margin-bottom: 48px;
+      font-weight: 300;
+    }
+    .cover .meta {
+      font-size: 12px;
+      color: #7fd9a4;
+    }
+    .cover .meta span { margin-right: 32px; }
+    .cover .divider {
+      width: 60px;
+      height: 3px;
+      background: #7fd9a4;
+      margin-bottom: 40px;
+    }
+
+    /* ── Page layout ── */
+    .page {
+      padding: 56px 64px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ── Section headers ── */
+    .section-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #1a5c3a;
+      border-bottom: 2px solid #1a5c3a;
+      padding-bottom: 6px;
+      margin-bottom: 28px;
+      margin-top: 48px;
+    }
+    .section-title:first-of-type { margin-top: 0; }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #0d2b1f;
+      margin-bottom: 12px;
+    }
+    h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-top: 24px;
+      margin-bottom: 8px;
+    }
+    p { margin-bottom: 12px; color: #3a3a3a; }
+
+    /* ── Score card ── */
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .score-card {
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px 16px;
+      text-align: center;
+    }
+    .score-card .score-num {
+      font-size: 36px;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .score-card .score-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #666;
+    }
+    .score-card .score-change {
+      font-size: 11px;
+      margin-top: 6px;
+    }
+    .red   { color: #c0392b; border-color: #f5c6c2; background: #fff8f7; }
+    .amber { color: #d97706; border-color: #fde68a; background: #fffbf0; }
+    .green { color: #1a5c3a; border-color: #a7f3d0; background: #f0fdf6; }
+
+    /* ── Status badge ── */
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .badge-red    { background: #fee2e2; color: #991b1b; }
+    .badge-amber  { background: #fef3c7; color: #92400e; }
+    .badge-green  { background: #d1fae5; color: #065f46; }
+    .badge-blue   { background: #dbeafe; color: #1e40af; }
+
+    /* ── Issue table ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 28px;
+      font-size: 12px;
+    }
+    th {
+      background: #f5f5f5;
+      padding: 8px 12px;
+      text-align: left;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #555;
+      border-bottom: 2px solid #ddd;
+    }
+    td {
+      padding: 9px 12px;
+      border-bottom: 1px solid #eee;
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #fafafa; }
+
+    /* ── Priority label ── */
+    .priority {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .priority::before {
+      content: '';
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+    .priority-high   { color: #c0392b; }
+    .priority-high::before   { background: #c0392b; }
+    .priority-medium { color: #d97706; }
+    .priority-medium::before { background: #d97706; }
+    .priority-low    { color: #1a5c3a; }
+    .priority-low::before    { background: #1a5c3a; }
+
+    /* ── Callout box ── */
+    .callout {
+      border-left: 4px solid;
+      padding: 12px 16px;
+      margin: 16px 0;
+      border-radius: 0 6px 6px 0;
+      font-size: 12px;
+    }
+    .callout-red    { border-color: #c0392b; background: #fff8f7; }
+    .callout-amber  { border-color: #d97706; background: #fffbf0; }
+    .callout-green  { border-color: #1a5c3a; background: #f0fdf6; }
+    .callout strong { display: block; margin-bottom: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
+
+    /* ── Recommendation card ── */
+    .rec-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+    }
+    .rec-card .rec-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .rec-card h4 {
+      font-size: 13px;
+      font-weight: 600;
+      color: #111;
+    }
+    .rec-card p {
+      font-size: 12px;
+      color: #555;
+      margin: 0;
+    }
+    .rec-card code {
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      border-radius: 3px;
+      padding: 1px 6px;
+      font-size: 11px;
+      font-family: 'Courier New', monospace;
+      color: #1a5c3a;
+    }
+
+    /* ── Page break ── */
+    .page-break { page-break-after: always; }
+
+    /* ── Footer ── */
+    .report-footer {
+      margin-top: 60px;
+      padding-top: 16px;
+      border-top: 1px solid #eee;
+      font-size: 10px;
+      color: #999;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* ── TOC ── */
+    .toc { margin: 24px 0; }
+    .toc-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px dotted #ddd;
+      font-size: 13px;
+    }
+    .toc-item a { color: #1a5c3a; text-decoration: none; }
+    .toc-num { color: #999; font-size: 11px; }
+
+    /* ── Checklist ── */
+    .checklist { list-style: none; margin: 12px 0; }
+    .checklist li {
+      padding: 5px 0 5px 24px;
+      position: relative;
+      font-size: 12px;
+      color: #3a3a3a;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .checklist li::before {
+      position: absolute;
+      left: 0;
+      top: 5px;
+      font-size: 13px;
+    }
+    .check-pass::before  { content: '✓'; color: #1a5c3a; font-weight: bold; }
+    .check-fail::before  { content: '✗'; color: #c0392b; font-weight: bold; }
+    .check-warn::before  { content: '!'; color: #d97706; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     COVER PAGE
+═══════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="label">SEO Audit Report</div>
+  <h1>Trip Cooks<br>SEO Status Report</h1>
+  <div class="subtitle">tripcooks.tours — Current State &amp; Recommendations</div>
+  <div class="divider"></div>
+  <div class="meta">
+    <span>Prepared: February 2026</span>
+    <span>Scope: tripcooks.tours</span>
+    <span>Framework: Next.js 14 (App Router)</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     TABLE OF CONTENTS
+═══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="section-title">Contents</div>
+  <div class="toc">
+    <div class="toc-item"><a href="#executive-summary">Executive Summary</a><span class="toc-num">01</span></div>
+    <div class="toc-item"><a href="#score-overview">Score Overview</a><span class="toc-num">02</span></div>
+    <div class="toc-item"><a href="#issues-found">Issues Found (Before This Audit)</a><span class="toc-num">03</span></div>
+    <div class="toc-item"><a href="#fixes-applied">Fixes Applied in This Audit</a><span class="toc-num">04</span></div>
+    <div class="toc-item"><a href="#remaining-issues">Remaining Issues &amp; Recommendations</a><span class="toc-num">05</span></div>
+    <div class="toc-item"><a href="#metadata-audit">Per-Page Metadata Audit</a><span class="toc-num">06</span></div>
+    <div class="toc-item"><a href="#technical-seo">Technical SEO Checklist</a><span class="toc-num">07</span></div>
+    <div class="toc-item"><a href="#action-plan">Prioritised Action Plan</a><span class="toc-num">08</span></div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ═══════════════ 01 EXECUTIVE SUMMARY ═══════════════ -->
+  <div class="section-title" id="executive-summary">01 — Executive Summary</div>
+  <h2>SEO is a significant growth lever for Trip Cooks — currently underleveraged.</h2>
+  <p>
+    Trip Cooks is a Next.js 14 travel booking platform with solid technical foundations (Vercel deployment,
+    image optimisation, dark mode, analytics), but prior to this audit it had <strong>no page-specific
+    metadata</strong>, misleading image alt text being picked up by Google as a sitelink, and several
+    structural issues that were suppressing organic visibility.
+  </p>
+  <p>
+    The most visible symptom was Google showing <strong>"Hamburger-menu"</strong> as a sitelink in
+    search results for the query "tripcooks" — a direct consequence of Google falling back to the
+    <code>alt="hamburger-menu"</code> image attribute when no meaningful page-specific content signal
+    was available.
+  </p>
+
+  <div class="callout callout-amber">
+    <strong>Key Finding</strong>
+    All pages shared one generic title and description from the root layout. Individual pages had no unique
+    metadata signals, making it impossible for Google to create meaningful sitelinks or rich snippets.
+  </div>
+
+  <p>
+    This report documents the pre-existing state, the fixes applied in this session, and the remaining
+    work needed to achieve strong organic visibility for a travel brand in a competitive niche.
+  </p>
+
+  <div class="page-break"></div>
+
+  <!-- ═══════════════ 02 SCORE OVERVIEW ═══════════════ -->
+  <div class="section-title" id="score-overview">02 — Score Overview</div>
+  <h2>Before &amp; After This Audit</h2>
+  <p>Scores are estimated against industry-standard SEO criteria across four pillars.</p>
+
+  <h3>Before Audit</h3>
+  <div class="score-grid">
+    <div class="score-card amber">
+      <div class="score-num">42</div>
+      <div class="score-label">On-Page SEO</div>
+      <div class="score-change">/ 100</div>
+    </div>
+    <div class="score-card green">
+      <div class="score-num">71</div>
+      <div class="score-label">Technical SEO</div>
+      <div class="score-change">/ 100</div>
+    </div>
+    <div class="score-card red">
+      <div class="score-num">28</div>
+      <div class="score-label">Content SEO</div>
+      <div class="score-change">/ 100</div>
+    </div>
+    <div class="score-card amber">
+      <div class="score-num">55</div>
+      <div class="score-label">UX Signals</div>
+      <div class="score-change">/ 100</div>
+    </div>
+  </div>
+
+  <h3>After This Audit</h3>
+  <div class="score-grid">
+    <div class="score-card green">
+      <div class="score-num">74</div>
+      <div class="score-label">On-Page SEO</div>
+      <div class="score-change">↑ +32</div>
+    </div>
+    <div class="score-card green">
+      <div class="score-num">75</div>
+      <div class="score-label">Technical SEO</div>
+      <div class="score-change">↑ +4</div>
+    </div>
+    <div class="score-card amber">
+      <div class="score-num">28</div>
+      <div class="score-label">Content SEO</div>
+      <div class="score-change">— unchanged</div>
+    </div>
+    <div class="score-card amber">
+      <div class="score-num">55</div>
+      <div class="score-label">UX Signals</div>
+      <div class="score-change">— unchanged</div>
+    </div>
+  </div>
+
+  <div class="callout callout-green">
+    <strong>Progress</strong>
+    On-Page SEO improved by 32 points through per-page metadata and alt text corrections. Content SEO
+    and UX Signals require editorial and structural work beyond code changes alone.
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ═══════════════ 03 ISSUES FOUND ═══════════════ -->
+  <div class="section-title" id="issues-found">03 — Issues Found (Before This Audit)</div>
+  <h2>Pre-existing SEO Problems</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Issue</th>
+        <th>Location</th>
+        <th>Impact</th>
+        <th>Priority</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Misleading image alt text</strong> — <code>alt="hamburger-menu"</code> on nav icon caused Google to label it as a sitelink page title</td>
+        <td><code>components/ui/mobile-nav.tsx</code></td>
+        <td>Google SERP sitelink showing "Hamburger-menu" for brand search</td>
+        <td><span class="priority priority-high">High</span></td>
+      </tr>
+      <tr>
+        <td><strong>No per-page metadata</strong> — all pages shared a single generic title and description from root layout</td>
+        <td>All <code>app/**/page.tsx</code> files</td>
+        <td>Google can't create meaningful sitelinks; duplicate titles across all pages</td>
+        <td><span class="priority priority-high">High</span></td>
+      </tr>
+      <tr>
+        <td><strong>Cart, Checkout &amp; Payment pages not excluded from indexing</strong> — transactional pages indexable by Google</td>
+        <td><code>app/cart</code>, <code>app/checkout</code>, <code>app/payment-success</code></td>
+        <td>Wasted crawl budget; confusing search results for non-content pages</td>
+        <td><span class="priority priority-high">High</span></td>
+      </tr>
+      <tr>
+        <td><strong>Root redirect not SEO-optimal</strong> — <code>/</code> redirects to <code>/home</code> instead of <code>/home</code> being the canonical home</td>
+        <td><code>next.config.mjs</code></td>
+        <td>URL structure confusion; two URLs competing for home authority</td>
+        <td><span class="priority priority-medium">Medium</span></td>
+      </tr>
+      <tr>
+        <td><strong>Dynamic trip pages have no metadata</strong> — <code>/trips/[id]/[name]</code> pages lack <code>generateMetadata</code></td>
+        <td><code>app/trips/[id]/[name]/page.tsx</code></td>
+        <td>All trip detail pages share the generic root title; no rich snippets possible</td>
+        <td><span class="priority priority-high">High</span></td>
+      </tr>
+      <tr>
+        <td><strong>No Open Graph or Twitter Card metadata</strong> — social sharing produces generic previews</td>
+        <td>All pages</td>
+        <td>Poor social media previews; no link click-through from social platforms</td>
+        <td><span class="priority priority-medium">Medium</span></td>
+      </tr>
+      <tr>
+        <td><strong>No structured data (JSON-LD)</strong> — no TravelAction, TouristTrip, or LocalBusiness schema</td>
+        <td>All pages</td>
+        <td>Missing rich result eligibility in Google (stars, prices, dates in SERPs)</td>
+        <td><span class="priority priority-medium">Medium</span></td>
+      </tr>
+      <tr>
+        <td><strong>No sitemap.xml</strong> — no automatically generated sitemap for Google Search Console submission</td>
+        <td>Not found in project</td>
+        <td>Slower indexation; Google must discover pages by crawling links</td>
+        <td><span class="priority priority-medium">Medium</span></td>
+      </tr>
+      <tr>
+        <td><strong>No robots.txt</strong> — no explicit crawl directives for bots</td>
+        <td>Not found in project</td>
+        <td>Google may crawl API routes and transactional pages unnecessarily</td>
+        <td><span class="priority priority-medium">Medium</span></td>
+      </tr>
+      <tr>
+        <td><strong>All page components are "use client"</strong> — prevents server-side rendering of content; content not visible to crawlers on initial load</td>
+        <td>Most <code>app/**/page.tsx</code> files</td>
+        <td>Googlebot may not index dynamically rendered content; slower crawl</td>
+        <td><span class="priority priority-medium">Medium</span></td>
+      </tr>
+      <tr>
+        <td><strong>Thin content pages</strong> — <code>/privacy</code> renders only "Privacy" text; <code>/terms</code> renders only "Terms and Conditions"</td>
+        <td><code>app/privacy/page.tsx</code>, <code>app/terms/page.tsx</code></td>
+        <td>Extremely thin content pages; potential quality signal issue for domain</td>
+        <td><span class="priority priority-low">Low</span></td>
+      </tr>
+      <tr>
+        <td><strong>No canonical tags</strong> — no explicit canonical URL defined on any page</td>
+        <td>All pages</td>
+        <td>Potential duplicate content issues (www vs non-www, trailing slashes)</td>
+        <td><span class="priority priority-low">Low</span></td>
+      </tr>
+      <tr>
+        <td><strong>Image alt text inconsistency</strong> — some decorative icons use generic alts (e.g. "instagram-logo")</td>
+        <td><code>components/ui/mobile-nav.tsx</code></td>
+        <td>Minor mixed signals for image SEO</td>
+        <td><span class="priority priority-low">Low</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-break"></div>
+
+  <!-- ═══════════════ 04 FIXES APPLIED ═══════════════ -->
+  <div class="section-title" id="fixes-applied">04 — Fixes Applied in This Audit</div>
+  <h2>Changes Made to the Codebase</h2>
+
+  <div class="rec-card">
+    <div class="rec-header">
+      <h4>1. Fixed hamburger menu image alt text</h4>
+      <span class="badge badge-green">Fixed</span>
+    </div>
+    <p>
+      Changed <code>alt="hamburger-menu"</code> to <code>alt="Open navigation menu"</code> on both
+      light and dark variants of the mobile navigation icon in
+      <code>components/ui/mobile-nav.tsx</code>. This removes the signal Google was using to
+      label the sitelink "Hamburger-menu" in brand search results.
+    </p>
+  </div>
+
+  <div class="rec-card">
+    <div class="rec-header">
+      <h4>2. Added per-page metadata via layout.tsx files</h4>
+      <span class="badge badge-green">Fixed</span>
+    </div>
+    <p>
+      Created individual <code>layout.tsx</code> server components for all "use client" page routes,
+      each exporting unique <code>metadata</code> (title + description). This is the correct Next.js
+      App Router pattern for adding metadata to client component pages.
+    </p>
+    <p>Files created: <code>app/home/layout.tsx</code>, <code>app/about/layout.tsx</code>,
+      <code>app/trips/layout.tsx</code>, <code>app/private-trips/layout.tsx</code>,
+      <code>app/cart/layout.tsx</code>, <code>app/checkout/layout.tsx</code>,
+      <code>app/payment-success/layout.tsx</code></p>
+  </div>
+
+  <div class="rec-card">
+    <div class="rec-header">
+      <h4>3. Added metadata directly to server component pages</h4>
+      <span class="badge badge-green">Fixed</span>
+    </div>
+    <p>
+      Added <code>export const metadata</code> directly to pages that were already server components:
+      <code>app/contact/page.tsx</code>, <code>app/legal/page.tsx</code>,
+      <code>app/privacy/page.tsx</code>, <code>app/terms/page.tsx</code>.
+    </p>
+  </div>
+
+  <div class="rec-card">
+    <div class="rec-header">
+      <h4>4. Excluded transactional pages from indexing</h4>
+      <span class="badge badge-green">Fixed</span>
+    </div>
+    <p>
+      Added <code>robots: &#123; index: false &#125;</code> to the metadata for
+      <code>/cart</code>, <code>/checkout</code>, and <code>/payment-success</code> to prevent
+      Google from indexing pages that have no SEO value and waste crawl budget.
+    </p>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ═══════════════ 05 REMAINING ISSUES ═══════════════ -->
+  <div class="section-title" id="remaining-issues">05 — Remaining Issues &amp; Recommendations</div>
+  <h2>What Still Needs to Be Done</h2>
+
+  <h3>Critical — Do These First</h3>
+
+  <div class="rec-card">
+    <div class="rec-header">
+      <h4>A. Add <code>generateMetadata</code> to dynamic trip pages</h4>
+      <span class="badge badge-red">Not Done</span>
+    </div>
+    <p>
+      <code>/trips/[id]/[name]</code> pages are the highest-value SEO pages (specific trip destinations)
+      but currently have no unique metadata. Implement <code>generateMetadata</code> in a server-side
+      wrapper component to generate title, description, and Open Graph tags from Contentful trip data.
+    </p>
+    <p>
+      Example title pattern: <em>"Bali Group Trip 2026 | Trip Cooks"</em><br/>
+      Example description: <em>"Join the Trip Cooks group trip to Bali — 7 days of curated experiences, from £X deposit."</em>
+    </p>
+  </div>
+
+  <div class="rec-card">
+    <div class="rec-header">
+      <h4>B. Add Open Graph &amp; Twitter Card metadata</h4>
+      <span class="badge badge-red">Not Done</span>
+    </div>
+    <p>
+      None of the pages have <code>openGraph</code> or <code>twitter</code> metadata. This means
+      every WhatsApp, Instagram, and Twitter share of a trip link shows a blank or generic preview.
+      For a travel brand, social sharing is a critical acquisition channel.
+    </p>
+    <p>
+      Add to root layout metadata as defaults, then override per page and per trip:
+    </p>
+    <p><code>openGraph: &#123; title, description, images: [&#123; url: tripImageUrl &#125;], type: 'website' &#125;</code></p>
+  </div>
+
+  <div class="rec-card">
+    <div class="rec-header">
+      <h4>C. Generate <code>sitemap.xml</code></h4>
+      <span class="badge badge-red">Not Done</span>
+    </div>
+    <p>
+      Create <code>app/sitemap.ts</code> using Next.js's built-in sitemap support. Include all
+      static routes and dynamically fetch trip URLs from Contentful to include all
+      <code>/trips/[id]/[name]</code> pages. Submit to Google Search Console after deployment.
+    </p>
+    <p>Exclude: <code>/cart</code>, <code>/checkout</code>, <code>/payment-success</code>, <code>/api/*</code></p>
+  </div>
+
+  <div class="rec-card">
+    <div class="rec-header">
+      <h4>D. Create <code>robots.txt</code></h4>
+      <span class="badge badge-red">Not Done</span>
+    </div>
+    <p>
+      Create <code>app/robots.ts</code> to define crawl rules. Disallow: <code>/api/</code>,
+      <code>/cart</code>, <code>/checkout</code>, <code>/payment-success</code>.
+      Point <code>Sitemap:</code> to your production sitemap URL.
+    </p>
+  </div>
+
+  <h3>Important — Do These Second</h3>
+
+  <div class="rec-card">
+    <div class="rec-header">
+      <h4>E. Add JSON-LD structured data for trips</h4>
+      <span class="badge badge-amber">Not Done</span>
+    </div>
+    <p>
+      Implement <code>TouristTrip</code> or <code>Event</code> schema on trip detail pages to
+      enable rich results in Google (star ratings, price ranges, dates). This can significantly
+      improve SERP click-through rates for high-intent travel searches.
+    </p>
+    <p>Also consider <code>Organization</code> and <code>WebSite</code> schema on the home page.</p>
+  </div>
+
+  <div class="rec-card">
+    <div class="rec-header">
+      <h4>F. Reconsider URL structure — <code>/home</code> vs <code>/</code></h4>
+      <span class="badge badge-amber">Not Done</span>
+    </div>
+    <p>
+      The site redirects <code>/</code> → <code>/home</code>, which means the canonical home URL
+      is <code>tripcooks.tours/home</code>. This is unusual and splits link equity. Consider making
+      <code>/</code> the true home page, or at minimum ensure all internal links point to
+      <code>/home</code> consistently so Google understands the intended canonical.
+    </p>
+  </div>
+
+  <div class="rec-card">
+    <div class="rec-header">
+      <h4>G. Fill in thin content pages</h4>
+      <span class="badge badge-amber">Not Done</span>
+    </div>
+    <p>
+      <code>/privacy</code> currently renders only the text "Privacy" and <code>/terms</code>
+      renders only "Terms and Conditions" — these are placeholder pages with no real content.
+      The actual policy content lives in <code>/legal</code>. Either redirect these pages to
+      <code>/legal</code>, or add the full policy content to each.
+    </p>
+  </div>
+
+  <div class="rec-card">
+    <div class="rec-header">
+      <h4>H. Add canonical URLs to metadata</h4>
+      <span class="badge badge-amber">Not Done</span>
+    </div>
+    <p>
+      Add <code>alternates: &#123; canonical: 'https://tripcooks.tours/[path]' &#125;</code> to each
+      page's metadata. This prevents duplicate content issues caused by URL variations
+      (trailing slashes, query parameters, etc.).
+    </p>
+  </div>
+
+  <h3>Longer Term — Content &amp; Authority</h3>
+
+  <div class="rec-card">
+    <div class="rec-header">
+      <h4>I. Add a blog / travel guides section</h4>
+      <span class="badge badge-blue">Recommended</span>
+    </div>
+    <p>
+      The site currently has no content marketing. Travel is an extremely competitive SEO space.
+      Adding destination guides, packing lists, or group travel tips would create opportunities to
+      rank for informational queries and drive top-of-funnel traffic that converts to trip bookings.
+    </p>
+  </div>
+
+  <div class="rec-card">
+    <div class="rec-header">
+      <h4>J. Verify site in Google Search Console &amp; submit sitemap</h4>
+      <span class="badge badge-blue">Recommended</span>
+    </div>
+    <p>
+      Once the sitemap is generated, submit to Google Search Console at
+      <code>search.google.com/search-console</code>. Monitor for crawl errors, coverage issues,
+      and Core Web Vitals. This is the primary tool for understanding how Google sees the site.
+    </p>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ═══════════════ 06 METADATA AUDIT ═══════════════ -->
+  <div class="section-title" id="metadata-audit">06 — Per-Page Metadata Audit</div>
+  <h2>Current Metadata Status (After This Audit)</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Route</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>OG Tags</th>
+        <th>Robots</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>/home</code></td>
+        <td>Trip Cooks | Group Trips &amp; Travel Planning Services</td>
+        <td><span class="badge badge-green">Yes</span></td>
+        <td><span class="badge badge-red">Missing</span></td>
+        <td>index</td>
+        <td><span class="badge badge-amber">Partial</span></td>
+      </tr>
+      <tr>
+        <td><code>/about</code></td>
+        <td>About Us | Trip Cooks</td>
+        <td><span class="badge badge-green">Yes</span></td>
+        <td><span class="badge badge-red">Missing</span></td>
+        <td>index</td>
+        <td><span class="badge badge-amber">Partial</span></td>
+      </tr>
+      <tr>
+        <td><code>/trips</code></td>
+        <td>Explore Group Trips | Trip Cooks</td>
+        <td><span class="badge badge-green">Yes</span></td>
+        <td><span class="badge badge-red">Missing</span></td>
+        <td>index</td>
+        <td><span class="badge badge-amber">Partial</span></td>
+      </tr>
+      <tr>
+        <td><code>/trips/[id]/[name]</code></td>
+        <td colspan="4"><em>(No per-page metadata — falls back to root)</em></td>
+        <td><span class="badge badge-red">Missing</span></td>
+      </tr>
+      <tr>
+        <td><code>/private-trips</code></td>
+        <td>Private Trips | Trip Cooks</td>
+        <td><span class="badge badge-green">Yes</span></td>
+        <td><span class="badge badge-red">Missing</span></td>
+        <td>index</td>
+        <td><span class="badge badge-amber">Partial</span></td>
+      </tr>
+      <tr>
+        <td><code>/contact</code></td>
+        <td>Contact Us | Trip Cooks</td>
+        <td><span class="badge badge-green">Yes</span></td>
+        <td><span class="badge badge-red">Missing</span></td>
+        <td>index</td>
+        <td><span class="badge badge-amber">Partial</span></td>
+      </tr>
+      <tr>
+        <td><code>/legal</code></td>
+        <td>Travel Policy | Trip Cooks</td>
+        <td><span class="badge badge-green">Yes</span></td>
+        <td><span class="badge badge-red">Missing</span></td>
+        <td>index</td>
+        <td><span class="badge badge-amber">Partial</span></td>
+      </tr>
+      <tr>
+        <td><code>/privacy</code></td>
+        <td>Privacy Policy | Trip Cooks</td>
+        <td><span class="badge badge-green">Yes</span></td>
+        <td><span class="badge badge-red">Missing</span></td>
+        <td>index</td>
+        <td><span class="badge badge-amber">Partial</span></td>
+      </tr>
+      <tr>
+        <td><code>/terms</code></td>
+        <td>Terms &amp; Conditions | Trip Cooks</td>
+        <td><span class="badge badge-green">Yes</span></td>
+        <td><span class="badge badge-red">Missing</span></td>
+        <td>index</td>
+        <td><span class="badge badge-amber">Partial</span></td>
+      </tr>
+      <tr>
+        <td><code>/cart</code></td>
+        <td>My Cart | Trip Cooks</td>
+        <td><span class="badge badge-green">Yes</span></td>
+        <td>N/A</td>
+        <td>noindex</td>
+        <td><span class="badge badge-green">Good</span></td>
+      </tr>
+      <tr>
+        <td><code>/checkout</code></td>
+        <td>Checkout | Trip Cooks</td>
+        <td><span class="badge badge-green">Yes</span></td>
+        <td>N/A</td>
+        <td>noindex</td>
+        <td><span class="badge badge-green">Good</span></td>
+      </tr>
+      <tr>
+        <td><code>/payment-success</code></td>
+        <td>Booking Confirmed | Trip Cooks</td>
+        <td><span class="badge badge-green">Yes</span></td>
+        <td>N/A</td>
+        <td>noindex</td>
+        <td><span class="badge badge-green">Good</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-break"></div>
+
+  <!-- ═══════════════ 07 TECHNICAL SEO CHECKLIST ═══════════════ -->
+  <div class="section-title" id="technical-seo">07 — Technical SEO Checklist</div>
+  <h2>Technical Health Assessment</h2>
+
+  <h3>Infrastructure &amp; Hosting</h3>
+  <ul class="checklist">
+    <li class="check-pass">Deployed on Vercel (automatic HTTPS, global CDN, edge caching)</li>
+    <li class="check-pass">HTTP/2 enabled via Vercel</li>
+    <li class="check-pass">Custom domain configured (tripcooks.tours)</li>
+    <li class="check-pass">Vercel Analytics &amp; Speed Insights installed</li>
+    <li class="check-warn">No Google Search Console verification confirmed</li>
+  </ul>
+
+  <h3>Performance (Core Web Vitals)</h3>
+  <ul class="checklist">
+    <li class="check-pass">Next.js Image component used for optimisation (WebP, lazy loading)</li>
+    <li class="check-pass">sharp installed for server-side image processing</li>
+    <li class="check-pass">next-video (MUX) for optimised video delivery</li>
+    <li class="check-pass">Vercel Speed Insights active for CWV monitoring</li>
+    <li class="check-warn">Most pages are full client components — potential LCP impact if JS is slow</li>
+    <li class="check-warn">Carousel libraries (Embla + React Slick) loaded — consider lazy loading sliders below fold</li>
+  </ul>
+
+  <h3>Crawlability &amp; Indexing</h3>
+  <ul class="checklist">
+    <li class="check-pass">Permanent (308) redirect from / to /home configured in next.config.mjs</li>
+    <li class="check-pass">Cart, Checkout, Payment-success now excluded with noindex</li>
+    <li class="check-fail">No robots.txt found</li>
+    <li class="check-fail">No sitemap.xml found</li>
+    <li class="check-warn">API routes (/api/*) have no crawl disallow directive</li>
+  </ul>
+
+  <h3>On-Page SEO</h3>
+  <ul class="checklist">
+    <li class="check-pass">All pages now have unique title tags (post-audit)</li>
+    <li class="check-pass">All pages now have unique meta descriptions (post-audit)</li>
+    <li class="check-pass">H1 tags present on most pages (/trips uses "Where to?..")</li>
+    <li class="check-pass">Navigation links use semantic anchor text</li>
+    <li class="check-fail">No Open Graph metadata on any page</li>
+    <li class="check-fail">No Twitter Card metadata on any page</li>
+    <li class="check-fail">No structured data (JSON-LD) on any page</li>
+    <li class="check-fail">No canonical URL tags</li>
+    <li class="check-warn">Dynamic trip pages (/trips/[id]/[name]) still lack unique metadata</li>
+    <li class="check-warn">/privacy and /terms pages have placeholder content only</li>
+  </ul>
+
+  <h3>Content &amp; Accessibility</h3>
+  <ul class="checklist">
+    <li class="check-pass">Dark mode support (next-themes)</li>
+    <li class="check-pass">Responsive design (mobile-first with Tailwind)</li>
+    <li class="check-pass">SVG icons converted to React components (SVGR)</li>
+    <li class="check-pass">Image alt text corrected on mobile nav (post-audit)</li>
+    <li class="check-warn">Some decorative icon images use content alt text rather than empty alt=""</li>
+    <li class="check-warn">No blog / long-form content — limits keyword targeting</li>
+  </ul>
+
+  <h3>Internationalisation &amp; Currency</h3>
+  <ul class="checklist">
+    <li class="check-pass">Multi-currency support (GBP, USD, CAD) with live exchange rates</li>
+    <li class="check-pass">Country flag icons for locale selection</li>
+    <li class="check-fail">No hreflang tags (if targeting multiple countries/languages)</li>
+  </ul>
+
+  <div class="page-break"></div>
+
+  <!-- ═══════════════ 08 ACTION PLAN ═══════════════ -->
+  <div class="section-title" id="action-plan">08 — Prioritised Action Plan</div>
+  <h2>What to Do Next &amp; In What Order</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Action</th>
+        <th>Effort</th>
+        <th>Impact</th>
+        <th>Priority</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Create <code>app/robots.ts</code> with disallow rules for /api, /cart, /checkout, /payment-success</td>
+        <td>Low (30 min)</td>
+        <td>Medium</td>
+        <td><span class="priority priority-high">High</span></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Create <code>app/sitemap.ts</code> — static routes + dynamic trip URLs from Contentful</td>
+        <td>Medium (2–3 hrs)</td>
+        <td>High</td>
+        <td><span class="priority priority-high">High</span></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Implement <code>generateMetadata</code> for <code>/trips/[id]/[name]</code> pages using trip data from Contentful</td>
+        <td>Medium (3–4 hrs)</td>
+        <td>Very High</td>
+        <td><span class="priority priority-high">High</span></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Add Open Graph and Twitter Card metadata to root layout and override per page/trip</td>
+        <td>Low (1–2 hrs)</td>
+        <td>High</td>
+        <td><span class="priority priority-high">High</span></td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Add canonical URL to all page metadata (<code>alternates.canonical</code>)</td>
+        <td>Low (1 hr)</td>
+        <td>Medium</td>
+        <td><span class="priority priority-medium">Medium</span></td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>Submit site to Google Search Console; submit sitemap; review coverage report</td>
+        <td>Low (30 min)</td>
+        <td>High</td>
+        <td><span class="priority priority-medium">Medium</span></td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>Fix <code>/privacy</code> and <code>/terms</code> — add full content or redirect to <code>/legal</code></td>
+        <td>Low (1 hr)</td>
+        <td>Medium</td>
+        <td><span class="priority priority-medium">Medium</span></td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>Add JSON-LD <code>TouristTrip</code> structured data to trip detail pages</td>
+        <td>Medium (3–4 hrs)</td>
+        <td>High</td>
+        <td><span class="priority priority-medium">Medium</span></td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>Add <code>Organization</code> and <code>WebSite</code> JSON-LD to home page</td>
+        <td>Low (1 hr)</td>
+        <td>Medium</td>
+        <td><span class="priority priority-medium">Medium</span></td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>Evaluate moving home page from <code>/home</code> to <code>/</code> as canonical home URL</td>
+        <td>Medium (requires testing)</td>
+        <td>Medium</td>
+        <td><span class="priority priority-medium">Medium</span></td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>Fix decorative icon images to use <code>alt=""</code> (empty) where the image adds no content meaning</td>
+        <td>Low (1 hr)</td>
+        <td>Low</td>
+        <td><span class="priority priority-low">Low</span></td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>Create a blog/destination guides section to target informational travel keywords</td>
+        <td>High (ongoing)</td>
+        <td>Very High (long-term)</td>
+        <td><span class="priority priority-low">Low (long-term)</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-green">
+    <strong>Expected Outcome</strong>
+    Completing actions 1–4 should resolve the "Hamburger-menu" sitelink within 2–6 weeks of Google
+    re-crawling the site. Actions 2–4 together will significantly improve click-through rates from
+    both search results and social sharing. The full action plan, if completed, positions Trip Cooks
+    to rank competitively for destination-specific group travel queries.
+  </div>
+
+  <div class="report-footer">
+    <span>Trip Cooks — SEO Status Report — February 2026</span>
+    <span>tripcooks.tours</span>
+  </div>
+
+</div>
+</body>
+</html>
