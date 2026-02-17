@@ -5,14 +5,15 @@ import { queryTripById } from "@/queries/trips-query";
 import { TripByIdResponse } from "@/types/trip";
 
 type Props = {
-  params: { id: string; name: string };
+  params: Promise<{ id: string; name: string }>;
   children: React.ReactNode;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
+    const { id, name } = await params;
     const { data } = await getClient().query<TripByIdResponse>({
-      query: queryTripById(params.id),
+      query: queryTripById(id),
     });
     const trip = data?.trip;
     if (!trip) return {};
@@ -22,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const desc = trip.description
       ? trip.description.slice(0, 155)
       : `Join the Trip Cooks group trip to ${location}. Book your slot and secure your adventure today.`;
-    const url = `https://tripcooks.tours/trips/${params.id}/${params.name}`;
+    const url = `https://tripcooks.tours/trips/${id}/${name}`;
 
     return {
       title: `${location} Group Trip | Trip Cooks`,
@@ -50,17 +51,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function TripDetailLayout({ children, params }: Props) {
+  const { id, name } = await params;
   let jsonLd = null;
 
   try {
     const { data } = await getClient().query<TripByIdResponse>({
-      query: queryTripById(params.id),
+      query: queryTripById(id),
     });
     const trip = data?.trip;
 
     if (trip) {
       const image = trip.bannerImagesCollection?.items?.[0]?.url;
-      const url = `https://tripcooks.tours/trips/${params.id}/${params.name}`;
+      const url = `https://tripcooks.tours/trips/${id}/${name}`;
 
       jsonLd = {
         "@context": "https://schema.org",
