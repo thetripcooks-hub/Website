@@ -37,7 +37,7 @@ const useTripStore = create<TripState>()(
       setTotalTrips: (totalTrips) => set({ totalTrips }),
       setSelectedTrip: (selectedTrip) => set({ selectedTrip }),
     }),
-    { name: "trip-storage" }
+    { name: "trip-storage-v3" }
   )
 );
 

@@ -1,21 +1,24 @@
 import React from "react";
 import type { Metadata } from "next";
 import { getClient } from "@/lib/apollo-client";
-import { queryTripById } from "@/queries/trips-query";
-import { TripByIdResponse } from "@/types/trip";
+import { queryGetAllTrips } from "@/queries/trips-query";
+import { AllTripsResponse } from "@/types/trip";
+import { locationToSlug } from "@/lib/utils";
 
 type Props = {
-  params: Promise<{ id: string; name: string }>;
+  params: Promise<{ slug: string }>;
   children: React.ReactNode;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
-    const { id, name } = await params;
-    const { data } = await getClient().query<TripByIdResponse>({
-      query: queryTripById(id),
+    const { slug } = await params;
+    const { data } = await getClient().query<AllTripsResponse>({
+      query: queryGetAllTrips,
     });
-    const trip = data?.trip;
+    const trip = data?.tripCollection.items.find(
+      (t) => locationToSlug(t.location) === slug
+    );
     if (!trip) return {};
 
     const location = trip.location;
@@ -23,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const desc = trip.description
       ? trip.description.slice(0, 155)
       : `Join the Trip Cooks group trip to ${location}. Book your slot and secure your adventure today.`;
-    const url = `https://tripcooks.tours/trips/${id}/${name}`;
+    const url = `https://tripcooks.tours/trips/${slug}`;
 
     return {
       title: `${location} Group Trip | Trip Cooks`,
@@ -51,18 +54,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function TripDetailLayout({ children, params }: Props) {
-  const { id, name } = await params;
+  const { slug } = await params;
   let jsonLd = null;
 
   try {
-    const { data } = await getClient().query<TripByIdResponse>({
-      query: queryTripById(id),
+    const { data } = await getClient().query<AllTripsResponse>({
+      query: queryGetAllTrips,
     });
-    const trip = data?.trip;
+    const trip = data?.tripCollection.items.find(
+      (t) => locationToSlug(t.location) === slug
+    );
 
     if (trip) {
       const image = trip.bannerImagesCollection?.items?.[0]?.url;
-      const url = `https://tripcooks.tours/trips/${id}/${name}`;
+      const url = `https://tripcooks.tours/trips/${slug}`;
 
       jsonLd = {
         "@context": "https://schema.org",

@@ -141,9 +141,9 @@ export default function contentfulLoader({
   return url.href;
 }
 
+export const locationToSlug = (location: string) =>
+  location.replace(/,/g, "").replace(/ /g, "-").toLowerCase();
+
 export const generateTripLink = (trip: TripType) => {
-  return `/trips/${trip.sys.id}/${trip.location
-    .replace(/,/g, "")
-    .replace(/ /g, "-")
-    .toLowerCase()}`;
+  return `/trips/${locationToSlug(trip.location)}`;
 };

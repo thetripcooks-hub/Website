@@ -2,6 +2,7 @@ import { MetadataRoute } from "next";
 import { getClient } from "@/lib/apollo-client";
 import { queryGetAllTrips } from "@/queries/trips-query";
 import { AllTripsResponse } from "@/types/trip";
+import { locationToSlug } from "@/lib/utils";
 
 const BASE = "https://tripcooks.tours";
 
@@ -23,12 +24,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const tripRoutes: MetadataRoute.Sitemap = (
       data?.tripCollection?.items ?? []
     ).map((trip) => {
-      const slug = trip.location
-        .replace(/,/g, "")
-        .replace(/ /g, "-")
-        .toLowerCase();
       return {
-        url: `${BASE}/trips/${trip.sys.id}/${slug}`,
+        url: `${BASE}/trips/${locationToSlug(trip.location)}`,
         lastModified: new Date(),
         changeFrequency: "weekly",
         priority: 0.8,

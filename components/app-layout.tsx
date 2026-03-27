@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import { Toaster } from "@/components/ui";
 import { alexandria } from "@/app/font";
@@ -11,6 +12,7 @@ import GeneralData from "./general-data";
 import emailjs from "@emailjs/browser";
 import { useGeolocation } from "@/hooks/useGeolocation";
 import Script from "next/script";
+import Head from "next/head";
 
 const publicKey = process.env.NEXT_PUBLIC_EMAIL_JS_KEY_PUBLIC_KEY || "";
 
@@ -44,6 +46,12 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
         showNav && "mt-[75px] sm:mt-[95px]",
       )}
     >
+      <Head>
+        <meta
+          name="google-site-verification"
+          content="t7cMRitp47Z7BEvSui_RcDUKS8otTBk7njDu7tNpE5c"
+        />
+      </Head>
       <Script
         id="meta-pixel"
         strategy="afterInteractive"

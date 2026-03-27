@@ -21,6 +21,7 @@ const FeatureTrip = () => {
               featuredTripArray[0].bannerImagesCollection.items[0].url ??
               FeatureTripImage
             }
+            priority
             width={390}
             height={398.72}
             alt="featured-trip-image"

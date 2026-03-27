@@ -13,32 +13,28 @@ const TripCard = ({ handleClick, handleAddToCart, item }: { handleClick: () => v
   const { selectedCurrency } = useGeneralStore();
   return (
     <div>
-      <div className="text-foreground cursor-pointer hidden sm:flex sm:flex-col relative">
-        {item.soldOut ? (
-          <div className="absolute right-3 top-3">
-            <ComingSoonBadge text="Sold Out" />
-          </div>
-        ) : (
-          <div
-            className="bg-[#020E0B4D] rounded-full w-8 h-8 flex items-center justify-center absolute right-3 top-3"
-            onClick={() => {
-              if (!item.soldOut) {
-                handleAddToCart();
-              }
-            }}
-          >
-            <Image src={CartIcon} width={18} height={18} alt="cart-icon" />
-          </div>
-        )}
-        <Image
-          src={item.bannerImagesCollection.items[0].url}
-          alt="img"
-          priority
-          className="rounded-[18px] w-full sm:w-[291px]  object-cover lg:w-full h-[301px]"
-          width={291}
-          height={301}
-          onClick={handleClick}
-        />
+      <div className="text-foreground cursor-pointer hidden sm:flex sm:flex-col">
+        <div className="relative rounded-[18px] w-full sm:w-[291px] lg:w-full h-[301px] overflow-hidden" onClick={handleClick}>
+          {item.soldOut ? (
+            <div className="absolute right-3 top-3 z-10">
+              <ComingSoonBadge text="Sold Out" />
+            </div>
+          ) : (
+            <div
+              className="bg-[#020E0B4D] rounded-full w-8 h-8 flex items-center justify-center absolute right-3 top-3 z-10"
+              onClick={(e) => { e.stopPropagation(); if (!item.soldOut) handleAddToCart(); }}
+            >
+              <Image src={CartIcon} width={18} height={18} alt="cart-icon" />
+            </div>
+          )}
+          <Image
+            src={item.bannerImagesCollection.items[0].url}
+            alt="img"
+            priority
+            fill
+            className="object-cover rounded-[18px]"
+          />
+        </div>
         <div className="flex flex-col gap-1 mt-2.5">
           <h5 className="text-lg">{item.location}</h5>
           <p className="text-sm text-neutral-grey-500">
@@ -62,31 +58,27 @@ const TripCard = ({ handleClick, handleAddToCart, item }: { handleClick: () => v
         </div>
       </div>
 
-      <div className="text-foreground cursor-pointer sm:hidden relative">
-        {item.soldOut ? (
-          <div className="absolute right-3 top-3">
-            <ComingSoonBadge text="Sold Out" />
-          </div>
-        ) : (
-          <div
-            className="bg-[#020E0B4D] rounded-full w-8 h-8 flex items-center justify-center absolute right-3 top-3"
-            onClick={() => {
-              if (!item.soldOut) {
-                handleAddToCart();
-              }
-            }}
-          >
-            <Image src={CartIcon} width={18} height={18} alt="cart-icon" />
-          </div>
-        )}
-        <Image
-          src={item.bannerImagesCollection.items[0].url}
-          alt="img"
-          className="rounded-[18px] w-full sm:w-[291px]  object-cover lg:w-full h-[301px]"
-          width={291}
-          height={301}
-          onClick={handleClick}
-        />
+      <div className="text-foreground cursor-pointer sm:hidden">
+        <div className="relative rounded-[18px] w-full sm:w-[291px] lg:w-full h-[301px] overflow-hidden" onClick={handleClick}>
+          {item.soldOut ? (
+            <div className="absolute right-3 top-3 z-10">
+              <ComingSoonBadge text="Sold Out" />
+            </div>
+          ) : (
+            <div
+              className="bg-[#020E0B4D] rounded-full w-8 h-8 flex items-center justify-center absolute right-3 top-3 z-10"
+              onClick={(e) => { e.stopPropagation(); if (!item.soldOut) handleAddToCart(); }}
+            >
+              <Image src={CartIcon} width={18} height={18} alt="cart-icon" />
+            </div>
+          )}
+          <Image
+            src={item.bannerImagesCollection.items[0].url}
+            alt="img"
+            fill
+            className="object-cover rounded-[18px]"
+          />
+        </div>
         <div className="flex flex-col gap-1 mt-2.5">
           <h5 className="text-lg">{item.location}</h5>
           <p className="text-sm text-neutral-grey-500">

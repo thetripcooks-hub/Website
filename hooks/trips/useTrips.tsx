@@ -7,12 +7,11 @@ import { useEffect } from "react";
 const useTrips = () => {
   const { loading: tripsLoading, data } =
     useQuery<AllTripsResponse>(queryGetAllTrips);
-  const { setTrips, setLoading, trips, setTotalTrips } = useTripStore();
+  const { setTrips, setLoading, trips } = useTripStore();
 
   useEffect(() => {
     setTrips(data?.tripCollection.items ?? []);
-    setTotalTrips(data?.tripCollection?.total ?? 9);
-  }, [data, setTotalTrips, setTrips]);
+  }, [data, setTrips]);
 
   useEffect(() => {
     setLoading(tripsLoading);

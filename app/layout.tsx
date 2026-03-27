@@ -4,7 +4,7 @@ import "./globals.css";
 import type { Viewport } from "next";
 import AppLayout from "@/components/app-layout";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import '@/lib/dayjs'; 
+import "@/lib/dayjs";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://tripcooks.tours"),
@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     site: "@tripcooks",
+  },
+  verification: {
+    google: "t7cMRitp47Z7BEvSui_RcDUKS8otTBk7njDu7tNpE5c",
   },
 };
 
