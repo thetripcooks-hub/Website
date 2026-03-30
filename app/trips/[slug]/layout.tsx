@@ -10,6 +10,19 @@ type Props = {
   children: React.ReactNode;
 };
 
+export async function generateStaticParams() {
+  try {
+    const { data } = await getClient().query<AllTripsResponse>({
+      query: queryGetAllTrips,
+    });
+    return (data?.tripCollection?.items ?? []).map((trip) => ({
+      slug: locationToSlug(trip.location),
+    }));
+  } catch {
+    return [];
+  }
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
     const { slug } = await params;

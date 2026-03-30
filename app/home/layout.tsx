@@ -5,12 +5,12 @@ export const metadata: Metadata = {
   title: "Trip Cooks | Group Trips & Travel Planning Services",
   description:
     "We're your personal travel planners — crafting unforgettable group adventures cooked just for you.",
-  alternates: { canonical: "https://tripcooks.tours/home" },
+  alternates: { canonical: "https://tripcooks.tours/" },
   openGraph: {
     title: "Trip Cooks | Group Trips & Travel Planning Services",
     description:
       "We're your personal travel planners — crafting unforgettable group adventures cooked just for you.",
-    url: "https://tripcooks.tours/home",
+    url: "https://tripcooks.tours/",
     type: "website",
   },
   twitter: {

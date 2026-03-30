@@ -11,10 +11,12 @@ export const metadata: Metadata = {
   title: "Trip Cooks | Group Trips & Travel Planning Services",
   description:
     "We're your personal travel planners — crafting unforgettable group adventures cooked just for you.",
+  alternates: { canonical: "https://tripcooks.tours/" },
   openGraph: {
     siteName: "Trip Cooks",
     type: "website",
     locale: "en_US",
+    url: "https://tripcooks.tours/",
   },
   twitter: {
     card: "summary_large_image",

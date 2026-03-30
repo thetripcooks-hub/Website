@@ -7,7 +7,7 @@ import { locationToSlug } from "@/lib/utils";
 const BASE = "https://tripcooks.tours";
 
 const staticRoutes: MetadataRoute.Sitemap = [
-  { url: `${BASE}/home`, lastModified: new Date(), changeFrequency: "weekly", priority: 1.0 },
+  { url: `${BASE}/`, lastModified: new Date(), changeFrequency: "weekly", priority: 1.0 },
   { url: `${BASE}/trips`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
   { url: `${BASE}/private-trips`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
   { url: `${BASE}/about`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
