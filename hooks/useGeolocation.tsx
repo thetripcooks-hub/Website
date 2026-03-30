@@ -108,7 +108,7 @@ export const useGeolocation = () => {
       (err) => {
         setError(err.message);
         setLoading(false);
-        console.error("Error getting location:", err);
+        console.error(`Error getting location: ${err.code} - ${err.message}`);
       },
       {
         enableHighAccuracy: true,

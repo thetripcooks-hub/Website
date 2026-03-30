@@ -4,7 +4,7 @@ import PrivateTripHero from "./_components/private-trip-hero";
 import { SubcribeToNewsLetter, Footer } from "@/components/ui";
 // import ReadyToStart from "../home/_components/ready-to-start";
 import Reviews from "../home/_components/reviews";
-import ViewOfLocation from "../trips/[id]/_components/view-of-location";
+import ViewOfLocation from "../trips/[slug]/_components/view-of-location";
 import useGeneralStore from "@/stores/generalStore";
 
 const Page = () => {

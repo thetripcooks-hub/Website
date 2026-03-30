@@ -79,13 +79,14 @@ const ViewOfLocation = ({
                 className="text-foreground cursor-pointer basis-3/4 sm:basis-1/3"
                 key={item + Math.random()}
               >
-                <Image
-                  src={item}
-                  width={394}
-                  height={279}
-                  alt="shots from the  location"
-                  className="sm:w-full object-cover rounded-[18px] h-[279px] w-[394px]"
-                />
+                <div className="relative sm:w-full rounded-[18px] h-[279px] w-[394px] overflow-hidden">
+                  <Image
+                    src={item}
+                    fill
+                    alt="shots from the location"
+                    className="object-cover rounded-[18px]"
+                  />
+                </div>
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -100,13 +101,14 @@ const ViewOfLocation = ({
                     className="text-foreground cursor-pointer basis-3/4 sm:basis-1/3"
                     key={item + Math.random()}
                   >
-                    <Image
-                      src={item}
-                      alt="group-trip"
-                      width={394}
-                      height={279}
-                      className="sm:w-full object-cover rounded-[18px] h-[279px] w-[394px]"
-                    />
+                    <div className="relative sm:w-full rounded-[18px] h-[279px] w-[394px] overflow-hidden">
+                      <Image
+                        src={item}
+                        fill
+                        alt="group-trip"
+                        className="object-cover rounded-[18px]"
+                      />
+                    </div>
                   </CarouselItem>
                 ))}
               </CarouselContent>

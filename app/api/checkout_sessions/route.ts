@@ -4,7 +4,7 @@ import { headers } from "next/headers";
 import type Stripe from "stripe";
 
 export async function POST(req: Request) {
-  const origin: string = headers().get("origin") as string;
+  const origin: string = (await headers()).get("origin") as string;
 
   const { lineItems, success_url, cancel_url, currency } = await req.json();
 

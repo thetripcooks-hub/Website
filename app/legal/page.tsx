@@ -1,5 +1,26 @@
+import type { Metadata } from "next";
 import { SubcribeToNewsLetter, Footer } from "@/components/ui";
 import React from "react";
+
+export const metadata: Metadata = {
+  title: "Travel Policy | Trip Cooks",
+  description:
+    "Read Trip Cooks' privacy policy, terms and conditions, cancellation, refund policy, and travel guidelines.",
+  alternates: { canonical: "https://tripcooks.tours/legal" },
+  openGraph: {
+    title: "Travel Policy | Trip Cooks",
+    description:
+      "Read Trip Cooks' privacy policy, terms and conditions, cancellation, refund policy, and travel guidelines.",
+    url: "https://tripcooks.tours/legal",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Travel Policy | Trip Cooks",
+    description:
+      "Read Trip Cooks' privacy policy, terms and conditions, cancellation, refund policy, and travel guidelines.",
+  },
+};
 import ReadyToStart from "../home/_components/ready-to-start";
 
 const Page = () => {

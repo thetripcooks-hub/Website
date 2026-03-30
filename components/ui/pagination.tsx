@@ -104,10 +104,10 @@ const PaginationPrevious = ({
       <path
         d="M12.5 16.5999L7.0667 11.1666C6.42503 10.5249 6.42503 9.4749 7.0667 8.83324L12.5 3.3999"
         stroke="white"
-        stroke-width="1.25"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.25"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   </PaginationLink>
@@ -152,10 +152,10 @@ const PaginationNext = ({
       <path
         d="M7.49997 3.4001L12.9333 8.83343C13.575 9.4751 13.575 10.5251 12.9333 11.1668L7.49997 16.6001"
         stroke="white"
-        stroke-width="1.25"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.25"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   </PaginationLink>

@@ -105,14 +105,17 @@ const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
                           />
                         </div>
                       )}
-                      <Image
-                        src={trip.bannerImagesCollection.items[0].url}
-                        alt="img"
-                        className="rounded-[18px] w-full sm:w-[291px]  object-cover h-[285.41px] lg:w-full"
-                        width={291}
-                        height={301}
+                      <div
+                        className="relative rounded-[18px] w-full sm:w-[291px] lg:w-full h-[285px] overflow-hidden"
                         onClick={() => router.push(generateTripLink(trip))}
-                      />
+                      >
+                        <Image
+                          src={trip.bannerImagesCollection.items[0].url}
+                          alt="img"
+                          fill
+                          className="object-cover rounded-[18px]"
+                        />
+                      </div>
                       <div className="flex flex-col gap-1 mt-2.5">
                         <h5 className="text-lg">{trip.location}</h5>
                         <p className="text-sm text-neutral-grey-500">

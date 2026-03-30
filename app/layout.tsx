@@ -4,11 +4,27 @@ import "./globals.css";
 import type { Viewport } from "next";
 import AppLayout from "@/components/app-layout";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import '@/lib/dayjs'; 
+import "@/lib/dayjs";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://tripcooks.tours"),
   title: "Trip Cooks | Group Trips & Travel Planning Services",
-  description: "Your personal travel planners",
+  description:
+    "We're your personal travel planners — crafting unforgettable group adventures cooked just for you.",
+  alternates: { canonical: "https://tripcooks.tours/" },
+  openGraph: {
+    siteName: "Trip Cooks",
+    type: "website",
+    locale: "en_US",
+    url: "https://tripcooks.tours/",
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@tripcooks",
+  },
+  verification: {
+    google: "t7cMRitp47Z7BEvSui_RcDUKS8otTBk7njDu7tNpE5c",
+  },
 };
 
 export const viewport: Viewport = {
