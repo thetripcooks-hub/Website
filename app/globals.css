@@ -77,6 +77,7 @@ body {
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
     --bg-primary: 0 0% 100%;
+    --bg-secondary: 0 0% 98%;
     --text-primary: 0 0% 13%;
     --text-secondary: 220 6% 45%;
     --text-tertiary: 0 0% 46%;
@@ -103,6 +104,7 @@ body {
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
     --bg-primary: 240 10% 3.9%;
+    --bg-secondary: 240 4% 11%;
     --text-primary: 0 0% 96%;
     --text-secondary: 220 5% 63%;
     --text-tertiary: 0 0% 62%;

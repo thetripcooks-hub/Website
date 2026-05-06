@@ -7,19 +7,18 @@ import {
   FormItem,
   FormMessage,
   Input,
-  Separator,
 } from "@/components/ui";
 import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import SectionWrapper from "@/app/home/_components/section-wrapper";
 import jsonp from "jsonp";
 import { toast } from "sonner";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
 });
+
 const SubcribeToNewsLetter = () => {
   const [loading, setLoading] = React.useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -49,34 +48,34 @@ const SubcribeToNewsLetter = () => {
   };
 
   return (
-    <section className="px-5 py-10 sm:py-20 sm:px-[8%]">
-      <SectionWrapper className="flex flex-col gap-10 sm:gap-20">
-        <div className="flex w-full justify-between flex-col sm:flex-row mb-5 sm:gap-5">
-          <div>
-            <h3 className="text-xl text-[#000000] font-medium dark:text-foreground">
-              Join Our Community{" "}
+    <section className="px-5 py-10 sm:py-[64px] sm:px-[100px]">
+      <div className="max-w-[1440px] mx-auto">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-8 sm:gap-[109px]">
+          <div className="sm:w-[337px] shrink-0">
+            <h3 className="font-medium text-[20px] leading-[30px] text-[hsl(var(--text-primary))]">
+              Subscribe to our Newsletter
             </h3>
-            <p className="text-base text-neutral-subtext mt-4 sm:max-w-[337px] dark:text-[#BFC0C2]">
-              Be the first to know where we are going next!
+            <p className="text-[16px] leading-[24px] text-[hsl(var(--text-secondary))] mt-[5px]">
+              Receive promo packages, be the first to know where we are going next!
             </p>
           </div>
-          <div>
+
+          <div className="flex-1">
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="flex gap-5 flex-col lg:flex-row mt-10 sm:mt-0"
+                className="flex flex-col sm:flex-row gap-[22px]"
               >
                 <FormField
                   control={form.control}
                   name="email"
                   render={({ field }) => (
-                    <FormItem className="sm:w-[384px]">
+                    <FormItem className="flex-1">
                       <FormControl>
                         <Input
                           type="email"
                           placeholder="Enter your email address"
-                          className="h-[54px] w-full bg-neutral-grey-100 outline-none border-none focus-visible:ring-0 
-                      text-neutral-text placeholder:text-neutral-text placeholder:opacity-50 dark:placeholder:opacity-100 dark:placeholder:text-foreground"
+                          className="h-[54px] rounded-full bg-[hsl(var(--bg-secondary))] border-none focus-visible:ring-0 text-[hsl(var(--text-primary))] placeholder:text-[hsl(var(--text-secondary))]"
                           {...field}
                           name="EMAIL"
                           id="mce-EMAIL"
@@ -87,7 +86,7 @@ const SubcribeToNewsLetter = () => {
                   )}
                 />
                 <Button
-                  className="h-[54px] w-full sm:w-[166px]"
+                  className="h-[56px] w-full sm:w-[185px] rounded-full shrink-0"
                   loading={loading}
                   disabled={loading}
                 >
@@ -97,8 +96,9 @@ const SubcribeToNewsLetter = () => {
             </Form>
           </div>
         </div>
-        <Separator className="dark:bg-neutral-grey-300" />
-      </SectionWrapper>
+
+        <div className="w-full border-t border-dashed border-[hsl(var(--border))] mt-10 sm:mt-[64px]" />
+      </div>
     </section>
   );
 };

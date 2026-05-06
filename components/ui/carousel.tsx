@@ -238,9 +238,9 @@ const CarouselPrevious = React.forwardRef<
             <path
               d="M19 12H5M5 12L12 19M5 12L12 5"
               stroke={canScrollPrev ? "#212121" : "#BDBDBD"}
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               className="dark:stroke-[#BDBDBD]"
             />
           </svg>
@@ -300,9 +300,9 @@ const CarouselNext = React.forwardRef<
             <path
               d="M1 8H15M15 8L8 1M15 8L8 15"
               stroke="#212121"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         ) : (
