@@ -37,7 +37,7 @@ const FeatureTrip = () => {
     <section className="px-5 py-10 sm:py-[62px] sm:px-[109px]">
       <SectionWrapper>
         <h2 className="font-ogg-trial text-[32px] sm:text-[48px] leading-tight mb-8 sm:mb-12">
-          Featured trip
+          Featured Trip
         </h2>
 
         {/* Desktop: side by side | Mobile: stacked */}

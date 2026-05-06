@@ -33,7 +33,7 @@ const Reviews = () => {
     <section className="bg-[#f8f9fc] dark:bg-[#121716] px-5 py-12 sm:py-24 sm:px-[8%] w-full">
       <SectionWrapper>
         <h2 className="font-ogg-trial text-[32px] sm:text-[44px] text-center text-neutral-text dark:text-foreground mb-10 sm:mb-16">
-          People actually really like us..
+          People Actually Really Like Us..
         </h2>
 
         {loadingReviews ? (

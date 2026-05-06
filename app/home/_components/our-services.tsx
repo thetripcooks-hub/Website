@@ -15,7 +15,7 @@ import Link from "next/link";
 const SERVICES = [
   {
     key: "groupTrips",
-    title: "Group trips",
+    title: "Group Trips",
     description:
       "Get those travel plans out of the group chat. Join like-minded travellers and explore new destinations together.",
     href: "/trips",

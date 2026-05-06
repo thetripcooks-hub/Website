@@ -44,7 +44,7 @@ const WhyChooseUs = () => {
     <section className="px-5 py-10 sm:py-20 sm:pb-28 sm:px-[8%] bg-background dark:bg-[#1D2120]">
       <SectionWrapper>
         <h2 className="font-ogg-trial text-[36px] sm:text-[42px] text-center max-w-[446px] mx-auto mb-10 sm:mb-20 leading-normal sm:leading-[60px] font-semibold">
-          Why choose us to curate your travel?
+          Why Choose Us To Curate Your Travel?
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 w-full">
           {items.map((item) => (
