@@ -18,6 +18,7 @@
   --primary-500: 298, 62%, 70%;
   --primary-600: 297, 43%, 58%;
   --secondary-forest-green: 164, 89%, 7%;
+  --secondary-forest-green-100: 162, 26%, 49%;
   --secondary-irish-green: 120, 91%, 30%;
   --success: 160, 85%, 93%;
   --warning-100: 49, 85%, 96%;
@@ -44,6 +45,10 @@
   }
 }
 
+body {
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -54,7 +59,7 @@
     --popover-foreground: 240 10% 3.9%;
     --primary: 240 5.9% 10%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
+    --secondary: 223 6% 45%;
     --secondary-foreground: 240 5.9% 10%;
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
@@ -71,6 +76,11 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --bg-primary: 0 0% 100%;
+    --text-primary: 0 0% 13%;
+    --text-secondary: 220 6% 45%;
+    --text-tertiary: 0 0% 46%;
+    --bg-tertiary: 220 40% 98%;
   }
   .dark {
     --background: 168, 12%, 8%;
@@ -81,7 +91,7 @@
     --popover-foreground: 0 0% 98%;
     --primary: 0 0% 98%;
     --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
+    --secondary: 220 2% 75%;
     --secondary-foreground: 0 0% 98%;
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
@@ -92,6 +102,11 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
+    --bg-primary: 240 10% 3.9%;
+    --text-primary: 0 0% 96%;
+    --text-secondary: 220 5% 63%;
+    --text-tertiary: 0 0% 62%;
+    --bg-tertiary: 240 3.7% 15.9%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
@@ -119,11 +134,10 @@
   left: 40% !important;
   border-radius: 200px;
 }
-.slick-dots li button:before{
+.slick-dots li button:before {
   /* width: fit-content !important; */
   margin: 0px !important;
-
 }
-.slick-dots li{
+.slick-dots li {
   margin: 0px !important;
 }

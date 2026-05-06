@@ -3,104 +3,99 @@ import ComingSoonBadge from "@/app/home/_components/coming-soon-badge";
 import { formatAmount, formatTripDate, percentage } from "@/lib/utils";
 import useGeneralStore from "@/stores/generalStore";
 import { CartItem } from "@/types/cart";
-import { TripType } from "@/types/trip";
 import Image from "next/image";
+import CartIconSvg from "~/img/cart-icon.svg";
 import React from "react";
-import img from "~/img/private-trip.svg";
-import CartIcon from "~/img/shopping-cart.svg";
+import { Button } from "@/components/ui/button";
 
-const TripCard = ({ handleClick, handleAddToCart, item }: { handleClick: () => void; handleAddToCart: () => void; item: CartItem }) => {
+const TripCard = ({
+  handleClick,
+  handleAddToCart,
+  item,
+}: {
+  handleClick: () => void;
+  handleAddToCart: () => void;
+  item: CartItem;
+}) => {
   const { selectedCurrency } = useGeneralStore();
+
+  const price = item.discount
+    ? formatAmount(
+        item.fullAmount - percentage(item.discount, item.fullAmount),
+        selectedCurrency
+      )
+    : formatAmount(item.fullAmount, selectedCurrency);
+
+  const originalPrice = item.discount
+    ? formatAmount(item.fullAmount, selectedCurrency)
+    : null;
+
   return (
-    <div>
-      <div className="text-foreground cursor-pointer hidden sm:flex sm:flex-col">
-        <div className="relative rounded-[18px] w-full sm:w-[291px] lg:w-full h-[301px] overflow-hidden" onClick={handleClick}>
-          {item.soldOut ? (
-            <div className="absolute right-3 top-3 z-10">
-              <ComingSoonBadge text="Sold Out" />
-            </div>
-          ) : (
-            <div
-              className="bg-[#020E0B4D] rounded-full w-8 h-8 flex items-center justify-center absolute right-3 top-3 z-10"
-              onClick={(e) => { e.stopPropagation(); if (!item.soldOut) handleAddToCart(); }}
-            >
-              <Image src={CartIcon} width={18} height={18} alt="cart-icon" />
-            </div>
-          )}
-          <Image
-            src={item.bannerImagesCollection.items[0].url}
-            alt="img"
-            priority
-            fill
-            className="object-cover rounded-[18px]"
-          />
-        </div>
-        <div className="flex flex-col gap-1 mt-2.5">
-          <h5 className="text-lg">{item.location}</h5>
-          <p className="text-sm text-neutral-grey-500">
-            {formatTripDate(item)}
-          </p>
-          <div className="flex gap-1 items-center">
-            {item.discount && (
-              <h3 className="font-medium text-xl text-neutral-grey-500 line-through">
-                {formatAmount(item.fullAmount, selectedCurrency)}
-              </h3>
-            )}
-            <h3 className="font-medium text-xl">
-              {item.discount
-                ? formatAmount(
-                    item.fullAmount - percentage(item.discount, item.fullAmount),
-                    selectedCurrency
-                  )
-                : formatAmount(item.fullAmount, selectedCurrency)}
-            </h3>
+    <div className="bg-background dark:bg-[#121716] border border-neutral-grey-200 dark:border-[#585E6A] rounded-[12px] p-4 flex flex-col gap-10 relative cursor-pointer">
+      {/* Image */}
+      <div
+        className="relative h-[301px] w-full rounded-[12px] overflow-hidden"
+        onClick={handleClick}
+      >
+        {item.soldOut ? (
+          <div className="absolute right-3 top-3 z-10">
+            <ComingSoonBadge text="Sold Out" />
           </div>
+        ) : (
+          <button
+            className="absolute right-3 top-3 z-10"
+            onClick={(e) => {
+              e.stopPropagation();
+              if (!item.soldOut) handleAddToCart();
+            }}
+            aria-label="Add to cart"
+          >
+            <Image src={CartIconSvg} alt="add to cart" width={32} height={32} />
+          </button>
+        )}
+        <Image
+          src={item.bannerImagesCollection.items[0].url}
+          alt={item.location}
+          priority
+          fill
+          className="object-cover rounded-[12px]"
+        />
+        {/* Host badge */}
+        <div className="absolute top-3 left-3 bg-white rounded-full px-3 py-1 z-10 flex items-center border border-[#eee]">
+          <span className="text-xs font-medium text-neutral-text">
+            Trip Cooks
+          </span>
         </div>
       </div>
 
-      <div className="text-foreground cursor-pointer sm:hidden">
-        <div className="relative rounded-[18px] w-full sm:w-[291px] lg:w-full h-[301px] overflow-hidden" onClick={handleClick}>
-          {item.soldOut ? (
-            <div className="absolute right-3 top-3 z-10">
-              <ComingSoonBadge text="Sold Out" />
-            </div>
-          ) : (
-            <div
-              className="bg-[#020E0B4D] rounded-full w-8 h-8 flex items-center justify-center absolute right-3 top-3 z-10"
-              onClick={(e) => { e.stopPropagation(); if (!item.soldOut) handleAddToCart(); }}
-            >
-              <Image src={CartIcon} width={18} height={18} alt="cart-icon" />
-            </div>
-          )}
-          <Image
-            src={item.bannerImagesCollection.items[0].url}
-            alt="img"
-            fill
-            className="object-cover rounded-[18px]"
-          />
+      {/* Details */}
+      <div onClick={handleClick} className="flex flex-col items-start justify-between gap-6 font-plus-jakarta-sans">
+        <div className="flex flex-col gap-1 min-w-0">
+          <h5 className="text-[24px] font-medium text-neutral-text dark:text-white leading-[36px] truncate">
+            {item.location}
+          </h5>
+          <p className="text-base text-neutral-subtext dark:text-[#BFC0C2]">{formatTripDate(item)}</p>
         </div>
-        <div className="flex flex-col gap-1 mt-2.5">
-          <h5 className="text-lg">{item.location}</h5>
-          <p className="text-sm text-neutral-grey-500">
-            {formatTripDate(item)}
+        <div className="shrink-0">
+          {originalPrice && (
+            <p className="text-base text-neutral-subtext line-through dark:text-[#BFC0C2]">{originalPrice}</p>
+          )}
+          <p className="font-ogg-trial text-[28px] text-neutral-text leading-tight dark:text-white">
+            {price}
           </p>
-          <div className="flex gap-1 items-center">
-            {item.discount && (
-              <h3 className="font-medium text-xl text-neutral-grey-500 line-through">
-                {formatAmount(item.fullAmount, selectedCurrency)}
-              </h3>
-            )}
-            <h3 className="font-medium text-xl">
-              {item.discount
-                ? formatAmount(
-                    item.fullAmount - percentage(item.discount, item.fullAmount),
-                    selectedCurrency
-                  )
-                : formatAmount(item.fullAmount, selectedCurrency)}
-            </h3>
-          </div>
+          <p className="text-sm text-neutral-subtext dark:text-[#BFC0C2]">Per person</p>
         </div>
       </div>
+
+      {/* CTA */}
+      <Button
+        variant="green-outline"
+        className="w-full"
+        onClick={handleClick}
+        disabled={item.soldOut}
+      >
+        {item.soldOut ? "Sold Out" : "View more"}
+      </Button>
     </div>
   );
 };

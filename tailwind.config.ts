@@ -12,6 +12,8 @@ const config: Config = {
       fontFamily: {
         alexandria: ["var(--font-alexandria)"],
         arial: ["var(--font-arial)"],
+        "plus-jakarta-sans": ["var(--font-plus-jakarta-sans)", "sans-serif"],
+        "ogg-trial": ["var(--font-ogg-trial)", "serif"],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -19,6 +21,8 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         "hero-desktop": "url(/img/hero-desktop.svg)",
         "hero-mobile": "url(/img/hero-mobile.svg)",
+        "hero-desktop-png": "url(/img/hero-desktop.png)",
+        "hero-mobile-png": "url(/img/hero-mobile.png)",
         "new-home": "url(/img/home/new-home.avif)",
         "group-trip": "url(/img/public-trip.svg)",
         "private-trip": "url(/img/private-trip.svg)",
@@ -55,6 +59,7 @@ const config: Config = {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
           "forest-green": "hsl(var(--secondary-forest-green))",
+          "forest-green-100": "hsl(var(--secondary-forest-green-100))",
           "irish-green": "hsl(var(--secondary-irish-green))",
         },
         muted: {

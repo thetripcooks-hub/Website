@@ -43,13 +43,20 @@ const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
   };
   const { trips, loading } = useTripStore();
 
-  // const currentDate = new Date();
+  const currentDate = new Date();
 
   const formatttedTrips =
-    trips?.map((x) => ({
-      ...x,
-      quantity: 1,
-    })) ?? [];
+    trips
+      ?.map((x) => ({
+        ...x,
+        quantity: 1,
+      }))
+      ?.filter(
+        (item) => new Date(item.startDate) >= currentDate && !item?.soldOut,
+      )
+      .sort(
+        (a, b) => Number(new Date(a?.startDate)) - Number(new Date(b?.startDate)),
+      ) ?? [];
   // ?.filter((item) => new Date(item.startDate) >= currentDate)
   // .sort(
   //   (a, b) => Number(new Date(a.startDate)) - Number(new Date(b.startDate)))
@@ -57,7 +64,9 @@ const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
   return formatttedTrips.length > 0 ? (
     <section className="px-5 py-10 sm:py-20 sm:px-[8%]">
       <SectionWrapper>
-        <h3 className="text-[32px] font-medium sm:text-5xl">Upcoming Trips</h3>
+        <h3 className="font-ogg-trial text-[32px] sm:text-[48px] text-center mb-2">
+          Upcoming group trips
+        </h3>
         {loading ? (
           <div className="w-full h-[300px] flex justify-center items-center">
             <Loader className="text-secondary-irish-green animate-spin" />
@@ -65,7 +74,7 @@ const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
         ) : (
           <>
             {/* desktop */}
-            <div className="hidden sm:grid mt-10 grid-cols-3 gap-10">
+            <div className="hidden sm:grid mt-10 grid-cols-3 gap-5">
               {/* (isCart ? 3 : 6) */}
               {formatttedTrips.slice(0, 3).map((trip) => (
                 <TripCard
@@ -132,7 +141,7 @@ const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
                               ? formatAmount(
                                   trip.fullAmount -
                                     percentage(trip.discount, trip.fullAmount),
-                                  selectedCurrency
+                                  selectedCurrency,
                                 )
                               : formatAmount(trip.fullAmount, selectedCurrency)}
                           </h3>
@@ -152,7 +161,7 @@ const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
               role="link"
               className="mt-10 sm:mt-14 w-full sm:w-fit mx-auto"
             >
-              See more trips
+              See all trips
             </Button>
           </Link>
         </div>
