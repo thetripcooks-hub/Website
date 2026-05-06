@@ -1,7 +1,12 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { Button, Carousel, CarouselContent, CarouselItem } from "@/components/ui";
+import {
+  Button,
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui";
 import type { CarouselApi } from "@/components/ui/carousel";
 import { ArrowRight } from "lucide-react";
 import useGeneralStore from "@/stores/generalStore";
@@ -51,11 +56,16 @@ const OurServices = () => {
   const getImage = (key: string) => {
     if (!data?.[0]) return "";
     switch (key) {
-      case "groupTrips":    return data[0].groupTrips?.url ?? "/img/public-trip.svg";
-      case "privateTrips":  return data[0].privateTrips?.url ?? "/img/private-trip.svg";
-      case "travelGuide":   return data[0].travelPlanning?.url ?? "/img/travel-planning.svg";
-      case "travelPlanning": return data[0].travelPlanning?.url ?? "/img/travel-planning.svg";
-      default:              return "/img/public-trip.svg";
+      case "groupTrips":
+        return data[0].groupTrips?.url ?? "/img/public-trip.svg";
+      case "privateTrips":
+        return data[0].privateTrips?.url ?? "/img/private-trip.svg";
+      case "travelGuide":
+        return data[0].travelPlanning?.url ?? "/img/travel-planning.svg";
+      case "travelPlanning":
+        return data[0].travelPlanning?.url ?? "/img/travel-planning.svg";
+      default:
+        return "/img/public-trip.svg";
     }
   };
 
@@ -66,7 +76,7 @@ const OurServices = () => {
         <h2 className="font-ogg-trial text-[32px] sm:text-[48px] text-white leading-tight">
           Our Services
         </h2>
-        <p className="text-[#5d9f8b] text-base sm:text-[18px] max-w-[554px]">
+        <p className="text-[#5d9f8b] text-base sm:text-[18px] max-w-[554px] leading-[22px] sm:leading-[28px]">
           From organizing unforgettable group trips to crafting tailor-made
           adventures, our services cover every aspect of your journey.
         </p>
@@ -78,14 +88,14 @@ const OurServices = () => {
         opts={{ align: "start", loop: false }}
         className="w-full"
       >
-        <CarouselContent className="-ml-4 px-5 sm:px-[48px]">
+        <CarouselContent className="sm:-ml-4 px-5 sm:px-[48px]">
           {SERVICES.map((service, i) => {
             const imgSrc = getImage(service.key);
             const isActive = i === current;
             return (
               <CarouselItem
                 key={service.key}
-                className="pl-4 basis-[85%] sm:basis-[58%]"
+                className="sm:pl-4 basis-full sm:basis-[58%]"
               >
                 <div
                   className="relative h-[350px] sm:h-[485px] rounded-[16px] overflow-hidden"
@@ -99,32 +109,29 @@ const OurServices = () => {
                   <div
                     className={cn(
                       "absolute inset-0 rounded-[16px] transition-all duration-300",
-                      isActive ? "bg-black/50" : "bg-black/50 opacity-50"
+                      isActive ? "bg-black/50" : "bg-black/50 opacity-50",
                     )}
                   />
 
                   {/* Bottom content */}
-                  <div className="absolute bottom-6 sm:bottom-8 left-5 right-5 sm:left-6 sm:right-6 flex items-end gap-4">
+                  <div className="absolute bottom-4 sm:bottom-8 left-5 right-5 sm:left-6 sm:right-6 flex items-end gap-4">
                     <div className="flex-1 flex flex-col gap-2 text-white min-w-0">
                       <h3 className="font-ogg-trial text-[28px] sm:text-[44px] leading-tight">
                         {service.title}
                       </h3>
-                      {isActive && (
-                        <p className="text-sm sm:text-[20px] leading-snug">
-                          {service.description}
-                        </p>
-                      )}
+
+                      <p className="text-sm sm:text-[20px] leading-6 sm:leading-[30px] font-plus-jakarta-sans font-normal">
+                        {service.description}
+                      </p>
                     </div>
-                    {isActive && (
-                      <Link href={service.href} className="shrink-0">
-                        <Button
-                          variant="ghost-arrow"
-                          className="flex items-center gap-2 whitespace-nowrap"
-                        >
-                          Learn more <ArrowRight className="w-4 h-4" />
-                        </Button>
-                      </Link>
-                    )}
+                    <Link href={service.href} className="shrink-0">
+                      <Button
+                        variant="ghost-arrow"
+                        className="items-center gap-2 whitespace-nowrap font-plus-jakarta-sans font-normal hidden sm:flex"
+                      >
+                        Learn more <ArrowRight className="w-4 h-4" />
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </CarouselItem>
@@ -140,8 +147,10 @@ const OurServices = () => {
             key={i}
             onClick={() => api?.scrollTo(i)}
             className={cn(
-              "h-[8px] rounded-full transition-all duration-300",
-              i === current ? "w-[40px] bg-white" : "w-[8px] bg-white/40"
+              "h-4 rounded-full transition-all duration-300",
+              i === current
+                ? "w-[63px] bg-white"
+                : "w-4 bg-secondary-forest-green-100",
             )}
             aria-label={`Go to service ${i + 1}`}
           />

@@ -15,6 +15,7 @@ import {
 import { Command as CommandPrimitive } from "cmdk";
 import React, { useMemo } from "react";
 import SearchIcon from "@/components/icons/svg/search-icon.svg";
+import SearchIconLg from "@/components/icons/svg/search-icon-lg.svg";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
@@ -94,7 +95,7 @@ function TripSearch<T extends string>({
             <div className="bg-background w-full rounded-[200px] max-w-[604px] px-4 py-3 sm:px-[16px] sm:py-[12px] flex gap-5 items-center border border-[#E1E6EF] dark:border-[#383E47]">
               {/* Search icon — desktop only, left side */}
               <Image
-                src={SearchIcon}
+                src={SearchIconLg}
                 alt="search-icon"
                 width={34}
                 height={34}
@@ -178,7 +179,7 @@ function TripSearch<T extends string>({
                   }}
                 />
               </button> */}
-               <Image
+              <Image
                 src={SearchIcon}
                 alt="search"
                 width={49}

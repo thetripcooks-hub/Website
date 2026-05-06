@@ -59,6 +59,7 @@ const config: Config = {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
           "forest-green": "hsl(var(--secondary-forest-green))",
+          "forest-green-100": "hsl(var(--secondary-forest-green-100))",
           "irish-green": "hsl(var(--secondary-irish-green))",
         },
         muted: {

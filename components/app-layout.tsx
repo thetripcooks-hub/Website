@@ -42,8 +42,8 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
       suppressHydrationWarning
       className={cn(
         "m-0 w-full overflow-x-hidden-hidden text-justify",
-        alexandria.className,
         plusJakartaSans.variable,
+        alexandria.className,
         oggTrial.variable,
         showNav && "mt-[75px] sm:mt-[95px]",
       )}

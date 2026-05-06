@@ -31,7 +31,7 @@ const TripCard = ({
     : null;
 
   return (
-    <div className="bg-background border border-neutral-grey-200 rounded-[12px] p-4 flex flex-col gap-10 relative cursor-pointer">
+    <div className="bg-background dark:bg-[#121716] border border-neutral-grey-200 dark:border-[#585E6A] rounded-[12px] p-4 flex flex-col gap-10 relative cursor-pointer">
       {/* Image */}
       <div
         className="relative h-[301px] w-full rounded-[12px] overflow-hidden"
@@ -61,7 +61,7 @@ const TripCard = ({
           className="object-cover rounded-[12px]"
         />
         {/* Host badge */}
-        <div className="absolute top-3 left-3 bg-white rounded-full px-3 py-1 z-10">
+        <div className="absolute top-3 left-3 bg-white rounded-full px-3 py-1 z-10 flex items-center border border-[#eee]">
           <span className="text-xs font-medium text-neutral-text">
             Trip Cooks
           </span>
@@ -69,21 +69,21 @@ const TripCard = ({
       </div>
 
       {/* Details */}
-      <div onClick={handleClick} className="flex items-start justify-between gap-2">
+      <div onClick={handleClick} className="flex flex-col items-start justify-between gap-6 font-plus-jakarta-sans">
         <div className="flex flex-col gap-1 min-w-0">
-          <h5 className="text-[24px] font-medium text-neutral-text leading-[36px] truncate">
+          <h5 className="text-[24px] font-medium text-neutral-text dark:text-white leading-[36px] truncate">
             {item.location}
           </h5>
-          <p className="text-base text-neutral-subtext">{formatTripDate(item)}</p>
+          <p className="text-base text-neutral-subtext dark:text-[#BFC0C2]">{formatTripDate(item)}</p>
         </div>
-        <div className="text-right shrink-0">
+        <div className="shrink-0">
           {originalPrice && (
-            <p className="text-base text-neutral-subtext line-through">{originalPrice}</p>
+            <p className="text-base text-neutral-subtext line-through dark:text-[#BFC0C2]">{originalPrice}</p>
           )}
-          <p className="font-ogg-trial text-[28px] text-neutral-text leading-tight">
+          <p className="font-ogg-trial text-[28px] text-neutral-text leading-tight dark:text-white">
             {price}
           </p>
-          <p className="text-sm text-neutral-subtext">Per person</p>
+          <p className="text-sm text-neutral-subtext dark:text-[#BFC0C2]">Per person</p>
         </div>
       </div>
 

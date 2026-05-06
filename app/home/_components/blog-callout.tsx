@@ -62,7 +62,7 @@ const BlogCallout = () => {
         <Carousel opts={{ align: "start" }}>
           {/* Header with nav buttons inside Carousel context */}
           <div className="flex items-start justify-between mb-8 sm:mb-12">
-            <h2 className="font-ogg-trial text-[28px] sm:text-[48px] text-neutral-text max-w-[455px] leading-tight">
+            <h2 className="font-ogg-trial text-[28px] sm:text-[48px] text-neutral-text dark:text-white max-w-[455px] leading-tight">
               Travel Insights from our blog
             </h2>
             <div className="hidden sm:flex gap-2 items-center">
