@@ -18,7 +18,8 @@ import Logo from "~/logo.svg";
 import { ModeToggle } from "./mode-toggle";
 import { useRouter } from "next/navigation";
 import CurrencyToggle from "./currency-toggle";
-import { ChevronDown } from "lucide-react";
+import Cart from "./cart";
+import { ChevronDown, X } from "lucide-react";
 import type { NavItem } from "./navbar";
 
 const MobileNav = ({
@@ -49,7 +50,11 @@ const MobileNav = ({
     },
   ];
 
-  const allItems: NavItem[] = [...navConfig, { name: "My Cart", url: "/cart" }];
+  const plainLinks: NavItem[] = [
+    ...navConfig.filter((item) => !item.children?.length),
+    { name: "My Cart", url: "/cart" },
+  ];
+  const accordionItems = navConfig.filter((item) => item.children?.length);
 
   const handleClose = () => {
     setOpen(false);
@@ -58,7 +63,6 @@ const MobileNav = ({
 
   return (
     <div className="sm:hidden flex gap-1">
-      {open ? null : <CurrencyToggle />}
       <DropdownMenu
         open={open}
         onOpenChange={(v) => {
@@ -67,7 +71,7 @@ const MobileNav = ({
         }}
       >
         <DropdownMenuTrigger asChild>
-          <div className="flex gap-2">
+          <div className="flex gap-2 cursor-pointer">
             <Image
               src={isHome ? MenuDark : Menu}
               alt="Open navigation menu"
@@ -82,105 +86,144 @@ const MobileNav = ({
             )}
           </div>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-screen rounded-none border-none p-5 py-10 h-[85vh] shadow-top-none sm:hidden -top-[75px] absolute -right-[36px] z-[99]">
-          <div className="flex justify-between my-6">
-            <Link href="/home" className="cursor-pointer">
+        <DropdownMenuContent className="w-screen rounded-none border-none p-4 h-[85vh] shadow-none sm:hidden -top-[75px] absolute -right-[36px] z-[99] flex flex-col">
+          {/* Header */}
+          <div className="flex justify-between items-center mb-6">
+            <Link href="/home" className="cursor-pointer" onClick={handleClose}>
               <Image src={Logo} alt="logo" />
             </Link>
-            <div className="flex items-center gap-2">
-              <CurrencyToggle mobileNavOpen={open} />
-              <ModeToggle />
-            </div>
+            <button
+              onClick={handleClose}
+              className="size-[47px] rounded-full bg-[hsl(var(--bg-tertiary))] dark:bg-[hsl(var(--bg-tertiary))] flex items-center justify-center shrink-0"
+            >
+              <X size={20} />
+            </button>
           </div>
-          <section className={cn("flex flex-col gap-6 h-[75%] justify-between")}>
-            <div className="flex flex-col gap-4">
-              {allItems.map((item) => {
-                if (!item.children?.length) {
-                  return (
-                    <Link
-                      key={item.name}
-                      href={item.url!}
-                      onClick={handleClose}
+
+          {/* Accordion nav items */}
+          <div className="flex flex-col gap-4">
+            {accordionItems.map((item) => {
+              const isExpanded = openItem === item.name;
+              return (
+                <div
+                  key={item.name}
+                  className={cn(
+                    "bg-[hsl(var(--bg-tertiary))] rounded-xl w-full transition-all",
+                    isExpanded ? "p-6" : "p-4"
+                  )}
+                >
+                  <button
+                    className="flex items-center justify-between w-full"
+                    onClick={() =>
+                      setOpenItem((prev) =>
+                        prev === item.name ? null : item.name
+                      )
+                    }
+                  >
+                    <span
                       className={cn(
-                        item.url &&
-                          pathname.includes(item.url) &&
-                          "text-secondary-irish-green"
+                        "font-medium text-base leading-6",
+                        isExpanded
+                          ? "text-[hsl(var(--text-secondary))]"
+                          : "text-[hsl(var(--text-secondary))]"
                       )}
                     >
                       {item.name}
-                    </Link>
-                  );
-                }
-
-                const isExpanded = openItem === item.name;
-                return (
-                  <div key={item.name}>
-                    <button
-                      className="flex items-center justify-between w-full text-left"
-                      onClick={() =>
-                        setOpenItem((prev) =>
-                          prev === item.name ? null : item.name
-                        )
-                      }
-                    >
-                      <span>{item.name}</span>
-                      <ChevronDown
-                        width={20}
-                        height={20}
-                        className={cn(
-                          "transition-transform duration-200",
-                          isExpanded && "rotate-180"
-                        )}
-                      />
-                    </button>
-                    {isExpanded && (
-                      <div className="flex flex-col gap-3 mt-3 pl-4">
-                        {item.children.map((child) => (
-                          <Link
-                            key={child.name}
-                            href={child.url}
-                            onClick={handleClose}
-                            className="text-sm text-muted-foreground"
-                          >
+                    </span>
+                    <ChevronDown
+                      size={20}
+                      className={cn(
+                        "transition-transform duration-200 text-[hsl(var(--text-secondary))]",
+                        isExpanded && "rotate-180"
+                      )}
+                    />
+                  </button>
+                  {isExpanded && (
+                    <div className="flex flex-col gap-3 mt-4">
+                      {item.children!.map((child) => (
+                        <Link
+                          key={child.name}
+                          href={child.url}
+                          onClick={handleClose}
+                          className="flex flex-col gap-[6px]"
+                        >
+                          <span className="font-medium text-[14px] leading-[21px] text-[hsl(var(--text-primary))]">
                             {child.name}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
+                          </span>
+                          {child.description && (
+                            <span className="text-xs font-normal leading-[18px] text-[hsl(var(--text-tertiary))]">
+                              {child.description}
+                            </span>
+                          )}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
 
-            <div className="flex flex-col mt-5 gap-6">
-              <h4>Follow us on Instagram</h4>
-              <div className="flex gap-4">
-                {socials.map((social, index) => (
-                  <div
-                    className="w-[46px] h-[46px] rounded-full border-neutral-300 border border-solid items-center justify-center flex dark:border-[#383E47]"
-                    key={index}
-                    onClick={() => {
-                      handleClose();
-                      router.push(social.url);
-                    }}
-                  >
-                    <Image
-                      src={social.icon}
-                      alt={social.name}
-                      width={19.88}
-                      className="dark:hidden"
-                    />
-                    <Image
-                      src={social.darkIcon}
-                      width={19.88}
-                      className="hidden dark:block"
-                      alt={social.name}
-                    />
-                  </div>
-                ))}
-              </div>
+            {/* Plain links */}
+            {plainLinks.map((item) => (
+              <Link
+                key={item.name}
+                href={item.url!}
+                onClick={handleClose}
+                className={cn(
+                  "font-medium text-base text-[hsl(var(--text-primary))] dark:text-foreground",
+                  item.url && pathname.includes(item.url) && "text-secondary-irish-green"
+                )}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </div>
+
+          {/* Spacer */}
+          <div className="flex-1" />
+
+          {/* Bottom controls */}
+          <div className="flex gap-2 items-center mb-4">
+            <div className="bg-[hsl(var(--bg-tertiary))] rounded-full">
+              <CurrencyToggle mobileNavOpen={open} />
             </div>
-          </section>
+            <div className="bg-[hsl(var(--bg-tertiary))] rounded-full size-[47px] flex items-center justify-center">
+              <ModeToggle />
+            </div>
+            <div className="bg-[hsl(var(--bg-tertiary))] rounded-full size-[47px] flex items-center justify-center">
+              <Cart transparent={false} />
+            </div>
+          </div>
+
+          {/* Social links */}
+          <div className="flex flex-col gap-4">
+            <h4 className="text-sm font-medium text-[hsl(var(--text-secondary))]">Follow us on Instagram</h4>
+            <div className="flex gap-4">
+              {socials.map((social, index) => (
+                <div
+                  className="w-[46px] h-[46px] rounded-full border-neutral-300 border border-solid items-center justify-center flex dark:border-[#383E47]"
+                  key={index}
+                  onClick={() => {
+                    handleClose();
+                    router.push(social.url);
+                  }}
+                >
+                  <Image
+                    src={social.icon}
+                    alt={social.name}
+                    width={19.88}
+                    className="dark:hidden"
+                  />
+                  <Image
+                    src={social.darkIcon}
+                    width={19.88}
+                    className="hidden dark:block"
+                    alt={social.name}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
