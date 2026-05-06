@@ -11,8 +11,6 @@ import Link from "next/link";
 import useGeneralStore from "@/stores/generalStore";
 import { formatAmount } from "@/lib/utils";
 
-
-
 const Faq = () => {
   const selectedCurrency = useGeneralStore.getState().selectedCurrency;
   const faq = useMemo(
@@ -29,13 +27,11 @@ const Faq = () => {
       },
       {
         question: "How much does a trip cost?",
-        answer:
-          `The cost of a trip with us generally ranges from ${formatAmount(500, selectedCurrency)} to ${formatAmount(1000, selectedCurrency)}, depending on the destination and the activities included. To get a more detailed breakdown, please visit our trips page, where you will find the specific prices for each destination.`,
+        answer: `The cost of a trip with us generally ranges from ${formatAmount(500, selectedCurrency)} to ${formatAmount(1000, selectedCurrency)}, depending on the destination and the activities included. To get a more detailed breakdown, please visit our trips page, where you will find the specific prices for each destination.`,
       },
       {
         question: "Can I pay in instalments?",
-        answer:
-          `Absolutely! We offer flexible payment plans for our trips. However, to reserve your spot, a deposit of ${formatAmount(300, selectedCurrency)} is required.`,
+        answer: `Absolutely! We offer flexible payment plans for our trips. However, to reserve your spot, a deposit of ${formatAmount(300, selectedCurrency)} is required.`,
       },
       {
         question: "What is your refund policy?",
@@ -70,7 +66,8 @@ const Faq = () => {
       //     "Our trips are generally designed with backpack-style travel in mind, but you can add extra luggage bags for an additional fee paid to the airline.",
       // },
       {
-        question: "Is there a group chat or webinar for participants to connect?",
+        question:
+          "Is there a group chat or webinar for participants to connect?",
         answer:
           "Yes! All trippers are added to the Trip Cooks WhatsApp group after the deadline for securing a slot. We also host an e-Meet & Greet before the trip for every one to get familiar with each other.",
       },
@@ -89,16 +86,23 @@ const Faq = () => {
         answer:
           "Our travel packages embrace a mix of travel and vacation experiences. Included activities often feature cruises, landmark sightseeing, adrenaline-pumping adventures, and dining experiences. Rest assured, there is something for everyone to enjoy.",
       },
-    ], [selectedCurrency]);
+    ],
+    [selectedCurrency],
+  );
   return (
     <section className="px-5 py-10 sm:py-[64px] sm:px-[109px]">
       <SectionWrapper className="flex flex-col sm:flex-row gap-5 xl:gap-[109px] w-full justify-between">
         <div className="sm:w-[445px] shrink-0">
-          <h2 className="font-ogg-trial text-[32px] sm:text-[48px] text-neutral-text dark:text-foreground">FAQs</h2>
+          <h2 className="font-ogg-trial text-[32px] sm:text-[48px] text-neutral-text dark:text-foreground">
+            FAQs
+          </h2>
           <p className="w-full sm:max-w-[451px] text-neutral-subtext mt-5 dark:text-[#BFC0C2] text-base sm:text-[20px] leading-[30px]">
             Everything you need to know about TripCooks and pricing. Can&apos;t
             find what you&apos;re looking for? Please contact{" "}
-            <a href="mailto:mail@tripcooks.com" className="text-secondary-irish-green">
+            <a
+              href="mailto:mail@tripcooks.com"
+              className="text-secondary-irish-green"
+            >
               mail@TripCooks.com
             </a>
           </p>
