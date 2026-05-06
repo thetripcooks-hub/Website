@@ -18,18 +18,22 @@ import Logo from "~/logo.svg";
 import { ModeToggle } from "./mode-toggle";
 import { useRouter } from "next/navigation";
 import CurrencyToggle from "./currency-toggle";
+import { ChevronDown } from "lucide-react";
+import type { NavItem } from "./navbar";
 
 const MobileNav = ({
   navConfig,
   pathname,
   isHome,
 }: {
-  navConfig: { name: string; url: string }[];
+  navConfig: NavItem[];
   pathname: string;
   isHome?: boolean;
 }) => {
   const [open, setOpen] = React.useState(false);
+  const [openItem, setOpenItem] = React.useState<string | null>(null);
   const router = useRouter();
+
   const socials = [
     {
       name: "Instagram",
@@ -44,13 +48,31 @@ const MobileNav = ({
       darkIcon: TiktokDark,
     },
   ];
+
+  const allItems: NavItem[] = [...navConfig, { name: "My Cart", url: "/cart" }];
+
+  const handleClose = () => {
+    setOpen(false);
+    setOpenItem(null);
+  };
+
   return (
     <div className="sm:hidden flex gap-1">
       {open ? null : <CurrencyToggle />}
-      <DropdownMenu open={open} onOpenChange={setOpen}>
+      <DropdownMenu
+        open={open}
+        onOpenChange={(v) => {
+          setOpen(v);
+          if (!v) setOpenItem(null);
+        }}
+      >
         <DropdownMenuTrigger asChild>
           <div className="flex gap-2">
-            <Image src={isHome ? MenuDark : Menu} alt="Open navigation menu" className={cn(isHome ? "block" : "block dark:hidden")} />
+            <Image
+              src={isHome ? MenuDark : Menu}
+              alt="Open navigation menu"
+              className={cn(isHome ? "block" : "block dark:hidden")}
+            />
             {!isHome && (
               <Image
                 src={MenuDark}
@@ -70,27 +92,65 @@ const MobileNav = ({
               <ModeToggle />
             </div>
           </div>
-          <section
-            className={cn("flex flex-col gap-6 h-[75%] justify-between")}
-          >
-            {[
-              ...navConfig,
-              {
-                name: "My Cart",
-                url: "/cart",
-              },
-            ].map((item) => (
-              <Link
-                key={item.name}
-                href={item.url}
-                onClick={() => setOpen(false)}
-                className={cn(
-                  pathname.includes(item.url) && "text-secondary-irish-green"
-                )}
-              >
-                {item.name}
-              </Link>
-            ))}
+          <section className={cn("flex flex-col gap-6 h-[75%] justify-between")}>
+            <div className="flex flex-col gap-4">
+              {allItems.map((item) => {
+                if (!item.children?.length) {
+                  return (
+                    <Link
+                      key={item.name}
+                      href={item.url!}
+                      onClick={handleClose}
+                      className={cn(
+                        item.url &&
+                          pathname.includes(item.url) &&
+                          "text-secondary-irish-green"
+                      )}
+                    >
+                      {item.name}
+                    </Link>
+                  );
+                }
+
+                const isExpanded = openItem === item.name;
+                return (
+                  <div key={item.name}>
+                    <button
+                      className="flex items-center justify-between w-full text-left"
+                      onClick={() =>
+                        setOpenItem((prev) =>
+                          prev === item.name ? null : item.name
+                        )
+                      }
+                    >
+                      <span>{item.name}</span>
+                      <ChevronDown
+                        width={20}
+                        height={20}
+                        className={cn(
+                          "transition-transform duration-200",
+                          isExpanded && "rotate-180"
+                        )}
+                      />
+                    </button>
+                    {isExpanded && (
+                      <div className="flex flex-col gap-3 mt-3 pl-4">
+                        {item.children.map((child) => (
+                          <Link
+                            key={child.name}
+                            href={child.url}
+                            onClick={handleClose}
+                            className="text-sm text-muted-foreground"
+                          >
+                            {child.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
 
             <div className="flex flex-col mt-5 gap-6">
               <h4>Follow us on Instagram</h4>
@@ -100,7 +160,7 @@ const MobileNav = ({
                     className="w-[46px] h-[46px] rounded-full border-neutral-300 border border-solid items-center justify-center flex dark:border-[#383E47]"
                     key={index}
                     onClick={() => {
-                      setOpen(false);
+                      handleClose();
                       router.push(social.url);
                     }}
                   >
@@ -113,7 +173,7 @@ const MobileNav = ({
                     <Image
                       src={social.darkIcon}
                       width={19.88}
-                      className=" hidden dark:block"
+                      className="hidden dark:block"
                       alt={social.name}
                     />
                   </div>

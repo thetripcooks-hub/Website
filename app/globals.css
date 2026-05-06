@@ -75,6 +75,10 @@ body {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --bg-primary: 0 0% 100%;
+    --text-primary: 0 0% 13%;
+    --text-secondary: 220 6% 45%;
+    --text-tertiary: 0 0% 46%;
   }
   .dark {
     --background: 168, 12%, 8%;
@@ -96,6 +100,10 @@ body {
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
+    --bg-primary: 240 10% 3.9%;
+    --text-primary: 0 0% 96%;
+    --text-secondary: 220 5% 63%;
+    --text-tertiary: 0 0% 62%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
