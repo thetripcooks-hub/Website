@@ -16,7 +16,6 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 const Community = () => {
-
   const { reviews, loadingReviews } = useGeneralStore();
   const [api, setApi] = useState<EmblaCarouselType | undefined>(undefined);
   const [current, setCurrent] = useState(0);
@@ -59,13 +58,15 @@ const Community = () => {
           <div className="h-[300px] flex items-center justify-center">
             <CustomLoader />
           </div>
-
         ) : (
           <>
             <Carousel setApi={setApi} opts={{ align: "start" }}>
               <CarouselContent className="-ml-4">
                 {data.map((review) => (
-                  <CarouselItem key={review.id} className="pl-4 basis-full sm:basis-auto sm:w-[calc(100%-80px)]">
+                  <CarouselItem
+                    key={review.id}
+                    className="pl-4 basis-full sm:basis-auto sm:w-[calc(100%-80px)]"
+                  >
                     <div className="bg-white dark:bg-[#121716] rounded-[20px] p-[25px] flex gap-6">
                       {/* Image */}
                       {review.imageUrl && (
@@ -98,8 +99,12 @@ const Community = () => {
                             </div>
                           )}
                           <div>
-                            <p className="text-[18px] font-medium text-neutral-text dark:text-white">{review.name}</p>
-                            <p className="text-base text-neutral-subtext dark:text-[#BFC0C2]">{review.handle}</p>
+                            <p className="text-[18px] font-medium text-neutral-text dark:text-white">
+                              {review.name}
+                            </p>
+                            <p className="text-base text-neutral-subtext dark:text-[#BFC0C2]">
+                              {review.handle}
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -117,8 +122,8 @@ const Community = () => {
                   className={cn(
                     "h-4 rounded-full transition-all duration-300",
                     i === current
-                      ? "w-[63px] bg-[#02231A] dark:bg-white"
-                      : "w-4 bg-secondary-forest-green"
+                      ? "w-[63px] bg-[#09AF0D]"
+                      : "w-4 bg-[#EEE] dark:bg-[#597971]",
                   )}
                   aria-label={`Go to review ${i + 1}`}
                 />

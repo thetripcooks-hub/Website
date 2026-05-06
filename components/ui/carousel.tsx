@@ -55,14 +55,14 @@ const Carousel = React.forwardRef<
       children,
       ...props
     },
-    ref
+    ref,
   ) => {
     const [carouselRef, api] = useEmblaCarousel(
       {
         ...opts,
         axis: orientation === "horizontal" ? "x" : "y",
       },
-      plugins
+      plugins,
     );
     const [canScrollPrev, setCanScrollPrev] = React.useState(false);
     const [canScrollNext, setCanScrollNext] = React.useState(false);
@@ -94,7 +94,7 @@ const Carousel = React.forwardRef<
           scrollNext();
         }
       },
-      [scrollPrev, scrollNext]
+      [scrollPrev, scrollNext],
     );
 
     React.useEffect(() => {
@@ -145,7 +145,7 @@ const Carousel = React.forwardRef<
         </div>
       </CarouselContext.Provider>
     );
-  }
+  },
 );
 Carousel.displayName = "Carousel";
 
@@ -162,7 +162,7 @@ const CarouselContent = React.forwardRef<
         className={cn(
           "flex",
           orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
-          className
+          className,
         )}
         {...props}
       />
@@ -185,7 +185,7 @@ const CarouselItem = React.forwardRef<
       className={cn(
         "min-w-0 shrink-0 grow-0 basis-full",
         orientation === "horizontal" ? "pl-4" : "pt-4",
-        className
+        className,
       )}
       {...props}
     />
@@ -207,7 +207,7 @@ const CarouselPrevious = React.forwardRef<
       customIcon = false,
       ...props
     },
-    ref
+    ref,
   ) => {
     const { orientation, scrollPrev, canScrollPrev } = useCarousel();
 
@@ -217,11 +217,11 @@ const CarouselPrevious = React.forwardRef<
         variant={variant}
         size={size}
         className={cn(
-          "absolute  h-8 w-8 rounded-full hover:bg-[#14382E]",
+          "absolute  h-8 w-8 rounded-full hover:bg-[#14382E] dark:bg-[#eee]",
           orientation === "horizontal"
             ? "-left-12 top-1/2 -translate-y-1/2"
             : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
-          className
+          className,
         )}
         disabled={!canScrollPrev}
         onClick={scrollPrev}
@@ -229,19 +229,19 @@ const CarouselPrevious = React.forwardRef<
       >
         {customIcon ? (
           <svg
-            width="29"
-            height="29"
-            viewBox="0 0 29 29"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M18.0605 5.37457L10.5484 12.8867C9.6612 13.7739 9.6612 15.2257 10.5484 16.1128L18.0605 23.625"
-              stroke="white"
-              strokeWidth="1.72826"
-              strokeMiterlimit="10"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+              d="M19 12H5M5 12L12 19M5 12L12 5"
+              stroke={canScrollPrev ? "#212121" : "#BDBDBD"}
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              className="dark:stroke-[#BDBDBD]"
             />
           </svg>
         ) : (
@@ -251,7 +251,7 @@ const CarouselPrevious = React.forwardRef<
         <span className="sr-only">Previous slide</span>
       </Button>
     );
-  }
+  },
 );
 CarouselPrevious.displayName = "CarouselPrevious";
 
@@ -269,7 +269,7 @@ const CarouselNext = React.forwardRef<
       customIcon = false,
       ...props
     },
-    ref
+    ref,
   ) => {
     const { orientation, scrollNext, canScrollNext } = useCarousel();
 
@@ -283,7 +283,7 @@ const CarouselNext = React.forwardRef<
           orientation === "horizontal"
             ? "-right-12 top-1/2 -translate-y-1/2"
             : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
-          className
+          className,
         )}
         disabled={!canScrollNext}
         onClick={scrollNext}
@@ -291,19 +291,18 @@ const CarouselNext = React.forwardRef<
       >
         {customIcon ? (
           <svg
-            width="28"
-            height="29"
-            viewBox="0 0 28 29"
-            fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
           >
             <path
-              d="M10.374 23.6254L17.8862 16.1133C18.7734 15.2261 18.7734 13.7743 17.8862 12.8872L10.374 5.375"
-              stroke="white"
-              strokeWidth="1.72826"
-              strokeMiterlimit="10"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+              d="M1 8H15M15 8L8 1M15 8L8 15"
+              stroke="#212121"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
             />
           </svg>
         ) : (
@@ -313,7 +312,7 @@ const CarouselNext = React.forwardRef<
         <span className="sr-only">Next slide</span>
       </Button>
     );
-  }
+  },
 );
 CarouselNext.displayName = "CarouselNext";
 

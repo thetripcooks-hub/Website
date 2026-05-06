@@ -66,7 +66,10 @@ const BlogCallout = () => {
               Travel Insights from our blog
             </h2>
             <div className="hidden sm:flex gap-2 items-center">
-              <CarouselPrevious className="relative left-0 top-0 translate-y-0 w-[48px] h-[48px] bg-neutral-grey-200 border-none rounded-full hover:bg-neutral-grey-200/80" />
+              <CarouselPrevious
+                className="relative left-0 top-0 translate-y-0 w-[48px] h-[48px] bg-[#EEE] border-none rounded-full hover:bg-[#eee]/80"
+                customIcon
+              />
               <CarouselNext
                 className="relative right-0 top-0 translate-y-0 w-[48px] h-[48px] bg-gradient-to-r from-[#FA93F4] from-[28.5%] to-[#EE7FE7] border-none rounded-full hover:opacity-90"
                 customIcon
@@ -76,7 +79,10 @@ const BlogCallout = () => {
 
           <CarouselContent className="-ml-3">
             {BLOG_POSTS.map((post) => (
-              <CarouselItem key={post.id} className="pl-3 basis-full sm:basis-[399px] shrink-0">
+              <CarouselItem
+                key={post.id}
+                className="pl-3 basis-full sm:basis-[399px] shrink-0"
+              >
                 <div className="flex flex-col gap-3 p-4">
                   {/* Image */}
                   <div className="h-[220px] rounded-[12px] overflow-hidden relative">
@@ -89,7 +95,7 @@ const BlogCallout = () => {
                   </div>
 
                   {/* Meta */}
-                  <div className="flex items-center gap-2 text-sm font-medium text-neutral-subtext">
+                  <div className="flex items-center gap-2 text-sm font-medium text-neutral-subtext dark:text-[#BFC0C2]">
                     <span>{post.date}</span>
                     <span>·</span>
                     <span>{post.readTime}</span>
@@ -97,10 +103,10 @@ const BlogCallout = () => {
 
                   {/* Title + excerpt */}
                   <div className="flex flex-col gap-1.5">
-                    <h3 className="text-[24px] font-semibold text-neutral-text leading-[36px]">
+                    <h3 className="text-[24px] font-semibold text-neutral-text dark:text-white leading-[36px]">
                       {post.title}
                     </h3>
-                    <p className="text-sm text-neutral-subtext leading-[22px] line-clamp-3">
+                    <p className="text-sm text-neutral-subtext dark:text-[#BFC0C2] leading-[22px] line-clamp-3">
                       {post.excerpt}
                     </p>
                   </div>

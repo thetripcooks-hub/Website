@@ -4,7 +4,7 @@ import * as React from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 
 import { cn } from "@/lib/utils";
-import { MinusCircle, PlusCircle } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 
 const Accordion = AccordionPrimitive.Root;
 
@@ -29,17 +29,17 @@ const AccordionTrigger = React.forwardRef<
       ref={ref}
       className={cn(
         "flex flex-1 gap-5 items-center justify-between py-4 text-sm font-medium transition-all group",
-        className
+        className,
       )}
       {...props}
     >
       {children}
 
-      <MinusCircle
+      <Minus
         className="h-[26px] w-[26px] sm:h-8 sm:w-8 text-secondary-irish-green shrink-0 transition-transform duration-200 group-data-[state=closed]:hidden"
         style={{ strokeWidth: 1.5 }}
       />
-      <PlusCircle
+      <Plus
         className="h-[26px] w-[26px] sm:h-8 sm:w-8 text-secondary-irish-green shrink-0 transition-transform duration-200 group-data-[state=open]:hidden"
         style={{ strokeWidth: 1.5 }}
       />

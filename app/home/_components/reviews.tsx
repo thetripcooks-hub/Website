@@ -30,7 +30,7 @@ const Reviews = () => {
   }));
 
   return (
-    <section className="bg-[#f8f9fc] px-5 py-12 sm:py-24 sm:px-[8%] w-full">
+    <section className="bg-[#f8f9fc] dark:bg-[#121716] px-5 py-12 sm:py-24 sm:px-[8%] w-full">
       <SectionWrapper>
         <h2 className="font-ogg-trial text-[32px] sm:text-[44px] text-center text-neutral-text dark:text-foreground mb-10 sm:mb-16">
           People actually really like us..
@@ -70,16 +70,22 @@ const Reviews = () => {
                         &quot;{review.text}
                         {review.subText && (
                           <>
-                            <br /><br />{review.subText}
+                            <br />
+                            <br />
+                            {review.subText}
                           </>
-                        )}&quot;
+                        )}
+                        &quot;
                       </p>
-                      <div className="flex items-center gap-2">
+                      <p className="text-lg font-plus-jakarta-sans font-medium">
+                        - Lanre
+                      </p>
+                      {/* <div className="flex items-center gap-2">
                         <Star className="w-5 h-5 fill-secondary-irish-green text-secondary-irish-green" />
                         <span className="text-[20px] font-medium text-neutral-text">
                           {review.starCount}
                         </span>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </CarouselItem>
@@ -88,8 +94,14 @@ const Reviews = () => {
 
             {/* Nav buttons centered below */}
             <div className="flex justify-center gap-4 mt-8">
-              <CarouselPrevious className="relative left-0 top-0 w-[48px] h-[48px] bg-neutral-grey-200 border-none rounded-full hover:bg-neutral-grey-200/80" />
-              <CarouselNext className="relative right-0 top-0 w-[48px] h-[48px] bg-gradient-to-r from-[#FA93F4] from-[28.5%] to-[#EE7FE7] border-none rounded-full hover:opacity-90" customIcon />
+              <CarouselPrevious
+                className="relative left-0 top-0 w-[48px] h-[48px] bg-[#EEE] border-none rounded-full hover:bg-[#eee]/80"
+                customIcon
+              />
+              <CarouselNext
+                className="relative right-0 top-0 w-[48px] h-[48px] bg-gradient-to-r from-[#FA93F4] from-[28.5%] to-[#EE7FE7] border-none rounded-full hover:opacity-90"
+                customIcon
+              />
             </div>
           </Carousel>
         )}
