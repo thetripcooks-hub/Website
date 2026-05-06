@@ -113,14 +113,18 @@ const Faq = () => {
             type="single"
             defaultValue={faq[0].question}
             collapsible
-            className="w-full"
+            className="w-full flex flex-col gap-6"
           >
             {faq.map((item) => (
-              <AccordionItem value={item.question} key={item.question}>
-                <AccordionTrigger className="text-left text-neutral-text text-[18px] sm:text-[22px] font-semibold dark:text-foreground">
+              <AccordionItem
+                value={item.question}
+                key={item.question}
+                className="border-0 rounded-[10px] p-4 data-[state=closed]:bg-[hsl(var(--bg-primary))] data-[state=open]:bg-[hsl(var(--bg-secondary))]"
+              >
+                <AccordionTrigger className="text-left text-[hsl(var(--text-primary))] text-[18px] sm:text-[22px] font-semibold py-0">
                   {item.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-neutral-subtext text-base dark:text-[#BFC0C2] text-start">
+                <AccordionContent className="text-[hsl(var(--text-secondary))] text-[18px] leading-[28px] pt-[10px] pb-0">
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>
