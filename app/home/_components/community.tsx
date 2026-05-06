@@ -47,7 +47,7 @@ const Community = () => {
         {/* Header */}
         <div className="flex items-start justify-between mb-10 sm:mb-[179px]">
           <h2 className="font-ogg-trial text-[28px] sm:text-[48px] text-neutral-text dark:text-white max-w-[521px] leading-tight">
-            Why our community loves TripCooks
+            Why Our Community Loves TripCooks
           </h2>
           <Link href="/reviews" className="shrink-0 hidden sm:block">
             <Button>Read more</Button>
