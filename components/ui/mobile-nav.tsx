@@ -22,9 +22,11 @@ import CurrencyToggle from "./currency-toggle";
 const MobileNav = ({
   navConfig,
   pathname,
+  isHome,
 }: {
   navConfig: { name: string; url: string }[];
   pathname: string;
+  isHome?: boolean;
 }) => {
   const [open, setOpen] = React.useState(false);
   const router = useRouter();
@@ -48,12 +50,14 @@ const MobileNav = ({
       <DropdownMenu open={open} onOpenChange={setOpen}>
         <DropdownMenuTrigger asChild>
           <div className="flex gap-2">
-            <Image src={Menu} alt="Open navigation menu" className="dark:hidden" />
-            <Image
-              src={MenuDark}
-              alt="Open navigation menu"
-              className="hidden dark:block"
-            />
+            <Image src={isHome ? MenuDark : Menu} alt="Open navigation menu" className={cn(isHome ? "block" : "block dark:hidden")} />
+            {!isHome && (
+              <Image
+                src={MenuDark}
+                alt="Open navigation menu"
+                className="hidden dark:block"
+              />
+            )}
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-screen rounded-none border-none p-5 py-10 h-[85vh] shadow-top-none sm:hidden -top-[75px] absolute -right-[36px] z-[99]">

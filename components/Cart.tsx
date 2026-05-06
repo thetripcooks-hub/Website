@@ -2,7 +2,8 @@
 
 import { useCartStore } from '@/stores/shopifyCartStore';
 import Image from 'next/image';
-import { X, ShoppingCart, Minus, Plus } from 'lucide-react';
+import { X, Minus, Plus } from 'lucide-react';
+import CartIconSvg from "~/img/cart-icon.svg";
 
 export default function Cart() {
   const { cart, isCartOpen, closeCart, removeFromCart, updateQuantity, isLoading } = useCartStore();
@@ -35,7 +36,7 @@ export default function Cart() {
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b">
           <div className="flex items-center gap-2">
-            <ShoppingCart className="w-6 h-6" />
+            <Image src={CartIconSvg} alt="cart" width={24} height={24} />
             <h2 className="text-2xl font-bold">Cart</h2>
           </div>
           <button
@@ -50,7 +51,7 @@ export default function Cart() {
         <div className="flex-1 overflow-y-auto p-6">
           {!cart || cart.lineItems.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-gray-500">
-              <ShoppingCart className="w-16 h-16 mb-4 opacity-30" />
+              <Image src={CartIconSvg} alt="cart" width={64} height={64} className="mb-4 opacity-30" />
               <p className="text-lg">Your cart is empty</p>
             </div>
           ) : (

@@ -3,7 +3,6 @@ import {
   Command,
   CommandEmpty,
   CommandGroup,
-  // CommandInput,
   CommandItem,
   CommandList,
   CommandSeparator,
@@ -11,7 +10,6 @@ import {
   Popover,
   PopoverAnchor,
   PopoverContent,
-  // PopoverTrigger,
   Skeleton,
 } from "@/components/ui";
 import { Command as CommandPrimitive } from "cmdk";
@@ -47,11 +45,14 @@ function TripSearch<T extends string>({
   const [open, setOpen] = React.useState(false);
   const labels = useMemo(
     () =>
-      items?.reduce((acc, item) => {
-        acc[item.location] = item.location;
-        return acc;
-      }, {} as Record<string, string>),
-    [items]
+      items?.reduce(
+        (acc, item) => {
+          acc[item.location] = item.location;
+          return acc;
+        },
+        {} as Record<string, string>,
+      ),
+    [items],
   );
 
   const reset = () => {
@@ -70,14 +71,12 @@ function TripSearch<T extends string>({
 
   const onSelectItem = (inputValue: string) => {
     const selectedTripArray = items.filter(
-      (item) => item.location === inputValue
+      (item) => item.location === inputValue,
     );
 
     if (inputValue === selectedValue) {
       return;
-      //   reset();
     } else {
-      //   onSelectedValueChange(inputValue as T);
       onSearchValueChange(labels[inputValue] ?? "");
     }
 
@@ -90,39 +89,116 @@ function TripSearch<T extends string>({
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <Command className="bg-transparent">
-        <div
-          className="flex items-center justify-center mt-10 px-2.5 w-full"
-          // role="combobox"
-          // aria-expanded={open}
-          // aria-controls="search"
-        >
+        <div className="flex items-center justify-center mt-10 px-2.5 w-full">
           <PopoverAnchor asChild>
-            <div className="bg-background w-full h-[69px] sm:h-[81px] rounded-[200px] max-w-[604px] px-5 sm:px-6 py-2 sm:py-4 flex gap-5 items-center border border-[#E1E6EF] dark:border-[#383E47]">
-              <Image src={SearchIcon} alt="search-icon" />
-              <div className="flex flex-col w-full gap-0">
-                <label
-                  htmlFor="location"
-                  className="text-[#000000] text-sm sm:text-base dark:text-foreground"
-                >
-                  Where
-                </label>
-                <CommandPrimitive.Input
-                  asChild
-                  value={searchValue}
-                  onValueChange={onSearchValueChange}
-                  onKeyDown={(e) => setOpen(e.key !== "Escape")}
-                  onMouseDown={() => setOpen((open) => !!searchValue || !open)}
-                  onFocus={() => setOpen(true)}
-                  onBlur={onInputBlur}
-                >
-                  <Input
-                    id="location"
-                    type="search"
-                    placeholder="Where are we going to?"
-                    className="p-0 border-none hover:outline-none shadow-none focus-visible:ring-0 h-fit text-neutral-grey-500 text-xs sm:text-sm dark:bg-transparent"
-                  />
-                </CommandPrimitive.Input>
-              </div>
+            <div className="bg-background w-full rounded-[200px] max-w-[604px] px-4 py-3 sm:px-[16px] sm:py-[12px] flex gap-5 items-center border border-[#E1E6EF] dark:border-[#383E47]">
+              {/* Search icon — desktop only, left side */}
+              <Image
+                src={SearchIcon}
+                alt="search-icon"
+                width={34}
+                height={34}
+                className="hidden sm:block shrink-0"
+              />
+              <CommandPrimitive.Input
+                asChild
+                value={searchValue}
+                onValueChange={onSearchValueChange}
+                onKeyDown={(e) => setOpen(e.key !== "Escape")}
+                onMouseDown={() => setOpen((open) => !!searchValue || !open)}
+                onFocus={() => setOpen(true)}
+                onBlur={onInputBlur}
+              >
+                <Input
+                  id="location"
+                  type="search"
+                  placeholder="Where are we going to?"
+                  className="p-0 border-none hover:outline-none shadow-none focus-visible:ring-0 h-fit text-[#616161] dark:text-neutral-grey-500 text-base sm:text-[20px] sm:font-medium sm:leading-[30px] dark:bg-transparent"
+                />
+              </CommandPrimitive.Input>
+              {/* Desktop button — pill with "Search" label */}
+              <button
+                type="button"
+                onMouseDown={(e) => e.preventDefault()}
+                onClick={() => {
+                  if (searchValue) {
+                    const match = items.find((i) =>
+                      i.location
+                        .toLowerCase()
+                        .includes(searchValue.toLowerCase()),
+                    );
+                    if (match) router.push(generateTripLink(match));
+                    else router.push("/trips");
+                  } else {
+                    router.push("/trips");
+                  }
+                }}
+                className="hidden sm:flex shrink-0 bg-gradient-to-r from-[#fa93f4] from-[28.5%] to-[#ee7fe7] h-[48px] w-[148px] rounded-full items-center justify-center font-medium text-black text-sm transition-opacity hover:opacity-90"
+              >
+                Search
+              </button>
+              {/* Mobile button — circular with search icon */}
+              {/* <button
+                type="button"
+                onMouseDown={(e) => e.preventDefault()}
+                onClick={() => {
+                  if (searchValue) {
+                    const match = items.find((i) =>
+                      i.location
+                        .toLowerCase()
+                        .includes(searchValue.toLowerCase()),
+                    );
+                    if (match) router.push(generateTripLink(match));
+                    else router.push("/trips");
+                  } else {
+                    router.push("/trips");
+                  }
+                }}
+                className="sm:hidden shrink-0 bg-gradient-to-r from-[#fa93f4] from-[28.5%] to-[#ee7fe7] h-[49px] w-[49px] rounded-full flex items-center justify-center transition-opacity hover:opacity-90"
+              >
+                <Image
+                  src={SearchIcon}
+                  alt="search"
+                  width={20}
+                  height={20}
+                  type="button"
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => {
+                    if (searchValue) {
+                      const match = items.find((i) =>
+                        i.location
+                          .toLowerCase()
+                          .includes(searchValue.toLowerCase()),
+                      );
+                      if (match) router.push(generateTripLink(match));
+                      else router.push("/trips");
+                    } else {
+                      router.push("/trips");
+                    }
+                  }}
+                />
+              </button> */}
+               <Image
+                src={SearchIcon}
+                alt="search"
+                width={49}
+                height={49}
+                className="sm:hidden"
+                onMouseDown={(e) => e.preventDefault()}
+                onClick={() => {
+                  if (searchValue) {
+                    const match = items.find((i) =>
+                      i.location
+                        .toLowerCase()
+                        .includes(searchValue.toLowerCase()),
+                    );
+                    if (match) router.push(generateTripLink(match));
+                    else router.push("/trips");
+                  } else {
+                    router.push("/trips");
+                  }
+                }}
+              />
             </div>
           </PopoverAnchor>
         </div>
@@ -159,14 +235,6 @@ function TripSearch<T extends string>({
                         onMouseDown={(e) => e.preventDefault()}
                         onSelect={onSelectItem}
                       >
-                        {/* <Check
-                        className={cn(
-                          "mr-2 h-4 w-4",
-                          selectedValue === option.value
-                            ? "opacity-100"
-                            : "opacity-0"
-                        )}
-                      /> */}
                         {option.location}
                       </CommandItem>
                       {items.length > 0 && !pathname.includes("/trips") && (

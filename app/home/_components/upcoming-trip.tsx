@@ -57,7 +57,7 @@ const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
   return formatttedTrips.length > 0 ? (
     <section className="px-5 py-10 sm:py-20 sm:px-[8%]">
       <SectionWrapper>
-        <h3 className="text-[32px] font-medium sm:text-5xl">Upcoming Trips</h3>
+        <h3 className="font-ogg-trial text-[32px] sm:text-[48px] text-center mb-2">Upcoming group trips</h3>
         {loading ? (
           <div className="w-full h-[300px] flex justify-center items-center">
             <Loader className="text-secondary-irish-green animate-spin" />
@@ -65,7 +65,7 @@ const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
         ) : (
           <>
             {/* desktop */}
-            <div className="hidden sm:grid mt-10 grid-cols-3 gap-10">
+            <div className="hidden sm:grid mt-10 grid-cols-3 gap-5">
               {/* (isCart ? 3 : 6) */}
               {formatttedTrips.slice(0, 3).map((trip) => (
                 <TripCard

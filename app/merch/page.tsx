@@ -5,7 +5,8 @@ import shopifyClient from '@/lib/shopify';
 import ProductCard from '@/components/ProductCard';
 import Cart from '@/components/Cart';
 import { useCartStore } from '@/stores/shopifyCartStore';
-import { ShoppingCart } from 'lucide-react';
+import Image from 'next/image';
+import CartIconSvg from "~/img/cart-icon.svg";
 
 export default function MerchPage() {
   const [products, setProducts] = useState<any[]>([]);
@@ -64,7 +65,7 @@ export default function MerchPage() {
               onClick={openCart}
               className="relative p-3 bg-black text-white rounded-full hover:bg-gray-800 transition-colors"
             >
-              <ShoppingCart className="w-6 h-6" />
+              <Image src={CartIconSvg} alt="cart" width={46} height={46} />
               {cartItemCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
                   {cartItemCount}

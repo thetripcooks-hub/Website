@@ -91,16 +91,16 @@ const Faq = () => {
       },
     ], [selectedCurrency]);
   return (
-    <section className="px-5 py-10 sm:py-20 sm:px-[8%]">
-      <SectionWrapper className="flex flex-col sm:flex-row gap-5 xl:gap-32 w-full justify-between">
-        <div>
-          <h3 className="text-[32px] font-medium sm:text-5xl">FAQs</h3>
-          <p className="w-full sm:max-w-[582px] text-neutral-subtext mt-5 dark:text-[#BFC0C2]">
-            Everything you need to know about traveling with Trip Cooks. Can’t
-            find what you’re looking for? Contact us using our{" "}
-            <Link href="/contact" className="text-secondary-irish-green">
-              form.
-            </Link>
+    <section className="px-5 py-10 sm:py-[64px] sm:px-[109px]">
+      <SectionWrapper className="flex flex-col sm:flex-row gap-5 xl:gap-[109px] w-full justify-between">
+        <div className="sm:w-[445px] shrink-0">
+          <h2 className="font-ogg-trial text-[32px] sm:text-[48px] text-neutral-text dark:text-foreground">FAQs</h2>
+          <p className="w-full sm:max-w-[451px] text-neutral-subtext mt-5 dark:text-[#BFC0C2] text-base sm:text-[20px] leading-[30px]">
+            Everything you need to know about TripCooks and pricing. Can&apos;t
+            find what you&apos;re looking for? Please contact{" "}
+            <a href="mailto:mail@tripcooks.com" className="text-secondary-irish-green">
+              mail@TripCooks.com
+            </a>
           </p>
         </div>
 
@@ -113,7 +113,7 @@ const Faq = () => {
           >
             {faq.map((item) => (
               <AccordionItem value={item.question} key={item.question}>
-                <AccordionTrigger className="text-left text-neutral-text text-lg sm:text-lg dark:text-foreground">
+                <AccordionTrigger className="text-left text-neutral-text text-[18px] sm:text-[22px] font-semibold dark:text-foreground">
                   {item.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-neutral-subtext text-base dark:text-[#BFC0C2] text-start sm:text-justify">

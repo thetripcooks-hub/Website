@@ -31,7 +31,7 @@ import EmptyCart from "@/app/cart/_components/empty-cart";
 import useTripStore from "@/stores/trip-store";
 import { Loader } from "lucide-react";
 
-const Cart = () => {
+const Cart = ({ transparent }: { transparent?: boolean }) => {
   const { selectedCurrency } = useGeneralStore();
   const { theme = "system" } = useTheme()
 
@@ -60,12 +60,7 @@ const Cart = () => {
           <Image
             src={CartIcon}
             alt="cart-icon"
-            className="cursor-pointer h-[32px] sm:h-[46px] dark:hidden"
-          />
-          <Image
-            src={CartDarkIcon}
-            alt="cart-icon"
-            className="cursor-pointer h-[32px] sm:h-[46px] hidden dark:block"
+            className={`cursor-pointer h-[32px] sm:h-[46px] ${!transparent ? "invert dark:invert-0" : ""}`}
           />
         </div>
       </DropdownMenuTrigger>

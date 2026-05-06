@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import { Toaster } from "@/components/ui";
-import { alexandria } from "@/app/font";
+import { alexandria, plusJakartaSans, oggTrial } from "@/app/font";
 import { cn, fetchExchangeRates } from "@/lib/utils";
 import React, { useEffect } from "react";
 import { ThemeProvider } from "./theme-provider";
@@ -43,6 +43,8 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
       className={cn(
         "m-0 w-full overflow-x-hidden-hidden text-justify",
         alexandria.className,
+        plusJakartaSans.variable,
+        oggTrial.variable,
         showNav && "mt-[75px] sm:mt-[95px]",
       )}
     >

@@ -6,12 +6,12 @@ import { cn } from "@/lib/utils";
 import { Loader } from "lucide-react";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:opacity-85",
   {
     variants: {
       variant: {
         default:
-          "bg-gradient-to-r from-[#FA93F4] to-[#EE7FE7] hover:from-[#FA84F3] hover:to-[#FA93F4] text-neutral-text",
+          "bg-gradient-to-r from-[#FA93F4] from-[28.5%] to-[#EE7FE7] hover:from-[#FA84F3] hover:to-[#FA93F4] text-neutral-text",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
@@ -19,12 +19,17 @@ const buttonVariants = cva(
         secondary: "bg-[#020E0B] text-white hover:opacity-80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        "green-outline":
+          "border border-secondary-irish-green text-secondary-irish-green bg-transparent hover:bg-secondary-irish-green/5",
+        "ghost-arrow":
+          "border border-white text-white bg-transparent hover:bg-white/10",
       },
       size: {
-        default: "h-[54px] p-4 min-w-[134px] text-base",
-        sm: "h-8 rounded-md px-3 text-xs",
-        lg: "h-10 rounded-md px-8",
+        default: "h-[56px] px-[16px] min-w-[134px] text-base font-medium",
+        sm: "h-8 rounded-full px-3 text-xs",
+        lg: "h-10 rounded-full px-8",
         icon: "h-9 w-9",
+        "icon-circle": "h-[48px] w-[48px] p-0 rounded-full",
       },
     },
     defaultVariants: {
