@@ -85,7 +85,7 @@ const OurServices = () => {
       {/* Cards carousel */}
       <Carousel
         setApi={setApi}
-        opts={{ align: "start", loop: false }}
+        opts={{ align: "center", loop: false }}
         className="w-full"
       >
         <CarouselContent className="sm:-ml-4 px-5 sm:px-[48px]">

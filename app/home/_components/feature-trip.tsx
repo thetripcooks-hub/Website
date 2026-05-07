@@ -52,7 +52,7 @@ const FeatureTrip = () => {
               className="object-cover rounded-[22px]"
             />
             {/* Bestseller badge */}
-            <div className="absolute top-5 left-6 bg-white dark:bg-[#121716] rounded-full px-4 py-1 text-sm font-medium text-neutral-text dark:text-primary flex items-center gap-1 border-[#eee] border">
+            <div className="absolute top-5 left-6 bg-white dark:bg-[#121716] rounded-full px-4 py-1 text-sm font-medium text-neutral-text dark:text-primary flex items-center gap-1 border-2 border-[#d0d0d0] dark:border-[#585E6A]">
               Bestseller <span className="text-[20.68px]">💸</span>
             </div>
             {/* Cart icon */}
@@ -94,7 +94,7 @@ const FeatureTrip = () => {
 
             {/* Meta row */}
             <div className="flex flex-col gap-4">
-              <hr className="border-[#eee] border-dashed" />
+              <div className="h-px w-full dark:hidden" style={{ backgroundImage: "repeating-linear-gradient(to right, #eee 0, #eee 6px, transparent 6px, transparent 14px)" }} /><div className="h-px w-full hidden dark:block" style={{ backgroundImage: "repeating-linear-gradient(to right, #585E6A 0, #585E6A 6px, transparent 6px, transparent 14px)" }} />
               <div className="flex flex-wrap gap-8 sm:gap-[45px] sm:max-w-[483px]">
                 <div className="flex items-start gap-2">
                   <Image
@@ -157,7 +157,7 @@ const FeatureTrip = () => {
                   </div>
                 </div>
               </div>
-              <hr className="border-[#eee] border-dashed" />
+              <div className="h-px w-full dark:hidden" style={{ backgroundImage: "repeating-linear-gradient(to right, #eee 0, #eee 6px, transparent 6px, transparent 14px)" }} /><div className="h-px w-full hidden dark:block" style={{ backgroundImage: "repeating-linear-gradient(to right, #585E6A 0, #585E6A 6px, transparent 6px, transparent 14px)" }} />
             </div>
 
             {/* Checklist */}

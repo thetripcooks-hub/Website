@@ -33,7 +33,7 @@ const TripCard = ({
     : null;
 
   return (
-    <div className="bg-background dark:bg-[#121716] border border-neutral-grey-200 dark:border-[#585E6A] rounded-[12px] p-4 flex flex-col gap-10 relative cursor-pointer">
+    <div className="bg-background dark:bg-[#121716] border border-neutral-grey-200 dark:border-[#585E6A] rounded-[12px] p-4 flex flex-col gap-6 relative cursor-pointer">
       {/* Image */}
       <div
         className="relative h-[301px] w-full rounded-[12px] overflow-hidden"
@@ -77,7 +77,7 @@ const TripCard = ({
         onClick={handleClick}
         className={cn(
           "flex flex-col items-start justify-between font-plus-jakarta-sans",
-          isPast ? "gap-12" : "gap-6"
+          isPast ? "gap-8" : "gap-4"
         )}
       >
         <div className="flex flex-col gap-1 min-w-0">

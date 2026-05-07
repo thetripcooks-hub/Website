@@ -8,7 +8,6 @@ import TheTripCooksExperience from "./home/_components/the-tripcooks-experience"
 import TravelChef from "./home/_components/travel-chef";
 import UpcomingTrips from "./home/_components/upcoming-trip";
 import WhyChooseUs from "./home/_components/why-choose-us";
-import Community from "./home/_components/community";
 import BlogCallout from "./home/_components/blog-callout";
 import { HomeHero } from "./home/_components";
 import useTrips from "@/hooks/trips/useTrips";
@@ -32,7 +31,6 @@ export default function Home() {
       <OurServices />
       <UpcomingTrips />
       <WhyChooseUs />
-      <Community />
       <BlogCallout />
       <Faq />
       <TheTripCooksExperience />
