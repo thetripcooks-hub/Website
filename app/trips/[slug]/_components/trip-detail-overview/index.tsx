@@ -1,96 +1,154 @@
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import React from "react";
-// import img1 from "../img/trip-detail-overview/1-desktop.svg";
-// import img2 from "../img/trip-detail-overview/2-desktop.svg";
-// import img3 from "../img/trip-detail-overview/3-desktop.svg";
+"use client";
+import React, { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import SectionWrapper from "@/app/home/_components/section-wrapper";
+import { Image as ImageIcon } from "lucide-react";
 import TripInfo from "./trip-info";
 import TravelWithOwners from "./travel-with-owners";
 import WhatsIncluded from "./whats-included";
 import PaymentCard from "./payment-card";
-import PaymentTermsMobile from "./payment-terms-mobile";
-import Slider from "react-slick";
 import useTripStore from "@/stores/trip-store";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui";
+import type { CarouselApi } from "@/components/ui/carousel";
+import { cn } from "@/lib/utils";
 
 const TripDetailOverview = () => {
-  // const tripImages = [img1, img2, img3];
-  const settings = {
-    dots: true,
-    infinite: true,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    speed: 1000,
-    fade: true,
-    autoplaySpeed: 3000,
-    cssEase: "linear",
-    arrows: false,
-  };
   const { selectedTrip } = useTripStore();
+  const [mobileApi, setMobileApi] = useState<CarouselApi>();
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const onSelect = useCallback(() => {
+    if (!mobileApi) return;
+    setSelectedIndex(mobileApi.selectedScrollSnap());
+  }, [mobileApi]);
+
+  useEffect(() => {
+    if (!mobileApi) return;
+    mobileApi.on("select", onSelect);
+    return () => { mobileApi.off("select", onSelect); };
+  }, [mobileApi, onSelect]);
+
+  if (!selectedTrip) return null;
+
+  const images = selectedTrip.bannerImagesCollection.items;
+  const img0 = images[0]?.url;
+  const img1 = images[1]?.url ?? img0;
+  const img2 = images[2]?.url ?? img0;
 
   return (
-    selectedTrip && (
-      <div className="px-5 py=5 sm:pt-10 sm:pb-20 text-neutral-text sm:px-[8%]">
-        <SectionWrapper>
-          <h3 className="font-medium text-neutral-text leading-[39.01px] text-[32px] hidden sm:flex mb-5 dark:text-foreground">
-            {selectedTrip?.location || ""}
-          </h3>
-          {/* desktop image section */}
-          <div className="sm:grid grid-cols-2 gap-2 sm:gap-5 hidden">
-            <Image
-              src={selectedTrip?.bannerImagesCollection.items[0].url}
-              alt="trip location images"
-              width={581}
-              height={537}
-              className="w-full object-cover rounded-[18px] h-[268.5px] sm:h-[537px]"
-            />
-            <div className="flex flex-col sm:gap-5 justify-between">
-              {selectedTrip?.bannerImagesCollection.items
-                .slice(1)
-                .map((item) => (
+    <div className="px-4 py-6 sm:px-[109px] sm:py-10 bg-[hsl(var(--bg-primary))]">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:gap-5">
+        {/* Left column */}
+        <div className="flex-1 min-w-0 flex flex-col gap-6">
+          {/* Location title — desktop only */}
+          <h1 className="hidden sm:block font-ogg-trial text-[40px] leading-[60px] text-[hsl(var(--text-primary))]">
+            {selectedTrip.location}
+          </h1>
+
+          {/* Desktop image grid */}
+          <div className="hidden sm:flex gap-2 h-[520px] relative overflow-hidden">
+            {/* Large image */}
+            <div className="w-[394px] shrink-0 relative rounded-[8px] overflow-hidden">
+              {img0 && (
+                <Image
+                  src={img0}
+                  alt={selectedTrip.location}
+                  fill
+                  priority
+                  className="object-cover"
+                />
+              )}
+            </div>
+            {/* Two stacked images */}
+            <div className="flex-1 flex flex-col gap-2">
+              <div className="flex-1 relative rounded-[8px] overflow-hidden">
+                {img1 && (
                   <Image
-                    key={`${item}-${Math.random()}`}
-                    src={item.url}
-                    alt="trip location images"
-                    width={581}
-                    height={259}
-                    className="w-full object-cover rounded-[18px] h-[129.5px] sm:h-[259px]"
+                    src={img1}
+                    alt={selectedTrip.location}
+                    fill
+                    className="object-cover"
                   />
-                ))}
+                )}
+              </div>
+              <div className="flex-1 relative rounded-[8px] overflow-hidden">
+                {img2 && (
+                  <Image
+                    src={img2}
+                    alt={selectedTrip.location}
+                    fill
+                    className="object-cover"
+                  />
+                )}
+              </div>
+            </div>
+            {/* View all pill */}
+            <div className="absolute bottom-[22px] right-[26px] bg-[hsl(var(--bg-primary))] rounded-full px-4 py-1.5 flex items-center gap-1.5 cursor-pointer">
+              <ImageIcon width={20} height={20} className="text-[hsl(var(--text-primary))]" />
+              <span className="text-[16px] text-[hsl(var(--text-primary))]">View all</span>
             </div>
           </div>
-          {/* mobile images */}
-          <div className="sm:hidden">
-            <Slider {...settings}>
-              {selectedTrip?.bannerImagesCollection?.items?.map((item) => (
-                <Image
-                  key={`${item}-${Math.random()}`}
-                  src={item.url}
-                  width={581}
-                  height={259}
-                  alt="trip location images"
-                  className="w-[80vw] object-cover rounded-[18px] h-[268.5px]"
+
+          {/* Mobile image carousel */}
+          <div className="sm:hidden flex flex-col gap-4">
+            {/* Location title — mobile */}
+            <h1 className="font-ogg-trial text-[40px] leading-[60px] text-[hsl(var(--text-primary))]">
+              {selectedTrip.location}
+            </h1>
+            <Carousel
+              setApi={setMobileApi}
+              opts={{ loop: true }}
+              className="w-full"
+            >
+              <CarouselContent>
+                {images.map((img, i) => (
+                  <CarouselItem key={i} className="relative h-[354px] rounded-[8px] overflow-hidden">
+                    <Image
+                      src={img.url}
+                      alt={selectedTrip.location}
+                      fill
+                      priority={i === 0}
+                      className="object-cover rounded-[8px]"
+                    />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+            {/* Dots */}
+            <div className="flex gap-2 items-center justify-center">
+              {images.map((_, i) => (
+                <div
+                  key={i}
+                  className={cn(
+                    "rounded-full transition-all duration-200",
+                    i === selectedIndex
+                      ? "w-8 h-1.5 bg-secondary-irish-green"
+                      : "w-1.5 h-1.5 bg-border"
+                  )}
                 />
               ))}
-            </Slider>
+            </div>
           </div>
 
-          <div className="flex w-full justify-between mt-5 sm:mt-10">
-            <section className="sm:w-1/2 sm:max-w-[601px]">
-              <TripInfo />
-              {selectedTrip.travelWithOwners ? <TravelWithOwners /> : null}
-              <PaymentTermsMobile />
-              <WhatsIncluded />
-            </section>
-            <section className="hidden sm:flex sm:w-1/2 sm:max-w-[424px]">
-              <PaymentCard />
-            </section>
+          {/* Trip info, dividers, travel-with-owners, included */}
+          <div className="flex flex-col gap-6">
+            <TripInfo />
+            <div className="border-t border-border" />
+            {selectedTrip.travelWithOwners && (
+              <>
+                <TravelWithOwners />
+                <div className="border-t border-border" />
+              </>
+            )}
+            <WhatsIncluded />
           </div>
-        </SectionWrapper>
+        </div>
+
+        {/* Right column — desktop payment card (sticky) */}
+        <div className="hidden sm:block shrink-0 w-[394px] sticky top-[95px] self-start">
+          <PaymentCard />
+        </div>
       </div>
-    )
+    </div>
   );
 };
 

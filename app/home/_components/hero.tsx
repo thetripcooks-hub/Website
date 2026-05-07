@@ -12,7 +12,7 @@ const HomeHero = () => {
   return (
     <div className="bg-neutral-grey-100 -mt-[75px] sm:-mt-[95px] h-[calc(65vh+75px)] sm:h-screen bg-no-repeat bg-hero-mobile-png sm:bg-hero-desktop-png bg-cover">
       <main className="pt-[115px] sm:pt-[155px] flex flex-col items-center justify-between gap-10 sm:gap-[82px]">
-        <div className="px-5 flex flex-col items-center justify-center dark:text-[#212121] text-white">
+        <div className="px-5 flex flex-col items-center justify-center text-white">
           <h3 className="text-center text-4xl sm:text-[90px]  leading-[66px] font-ogg-trial sm:leading-[108px] sm:max-w-[634px] sm:px-5 max-w-[291px]">
             Group Trips, <br /> The Easy Way
           </h3>

@@ -8,7 +8,6 @@ import ViewOfLocation from "./_components/view-of-location";
 import Itinerary from "./_components/Itinerary";
 import TripDetailOverview from "./_components/trip-detail-overview";
 import PaymentCardMobile from "./_components/trip-detail-overview/payment-card-mobile";
-import MobilePageHeader from "@/components/ui/mobile-page-header";
 import { queryGetAllTrips, queryTripById } from "@/queries/trips-query";
 import { AllTripsResponse, TripByIdResponse } from "@/types/trip";
 import { useQuery } from "@apollo/client";
@@ -67,7 +66,6 @@ const Page = () => {
   return (
     <main className={cn("bg-white dark:bg-background w-full")}>
       <div ref={ref}>
-        <MobilePageHeader title={selectedTrip?.location || ""} />
         <TripDetailOverview />
         <Itinerary />
         {inView ? <PaymentCardMobile /> : null}
