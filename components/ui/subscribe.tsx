@@ -60,17 +60,17 @@ const SubcribeToNewsLetter = () => {
             </p>
           </div>
 
-          <div className="flex-1">
+          <div className="flex-1 sm:flex-initial">
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="flex flex-col sm:flex-row gap-[22px]"
+                className="flex flex-col sm:flex-row gap-[22px] sm:items-start"
               >
                 <FormField
                   control={form.control}
                   name="email"
                   render={({ field }) => (
-                    <FormItem className="flex-1">
+                    <FormItem className="w-full sm:w-[384px] sm:max-w-[384px] shrink-0">
                       <FormControl>
                         <Input
                           type="email"

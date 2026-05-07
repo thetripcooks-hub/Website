@@ -17,8 +17,13 @@ const Faq = () => {
     () => [
       {
         question: "What is included in the package details?",
-        answer:
-          "A typical package includes a planned itinerary, accommodation, activities, and occasionally breakfast or other meals. It varies depending on the destination country. We recommend you review the details for each package on our website to know what is covered and what might incur additional costs.",
+        answer: (
+          <>
+            <p>A typical package includes flights, transportation, accommodation, activities, and occasionally breakfast or other meals.</p>
+            <br />
+            <p>It varies depending on the destination country. We recommend you review the details for each package on our website to know what is covered and what might incur additional costs.</p>
+          </>
+        ),
       },
       {
         question: "Can I customize the travel package to meet my preferences?",
@@ -100,10 +105,10 @@ const Faq = () => {
             Everything you need to know about TripCooks and pricing. Can&apos;t
             find what you&apos;re looking for? Please contact{" "}
             <a
-              href="mailto:mail@tripcooks.com"
+              href="mailto:hello@tripcooks.tours"
               className="text-secondary-irish-green"
             >
-              mail@TripCooks.com
+              hello@tripcooks.tours
             </a>
           </p>
         </div>

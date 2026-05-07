@@ -69,7 +69,7 @@ const Footer = () => {
   return (
     <section className="px-5 pb-10 sm:pb-[64px] sm:px-[100px]">
       <div className="max-w-[1440px] mx-auto">
-        <div className="flex flex-col sm:flex-row gap-10 sm:gap-[109px]">
+        <div className="flex flex-col sm:flex-row sm:justify-between gap-10">
           {/* Logo + socials */}
           <div className="flex flex-col gap-[25px] shrink-0">
             <Image src={LogoBig} alt="TripCooks logo" />
@@ -103,7 +103,7 @@ const Footer = () => {
           </div>
 
           {/* Nav columns */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-[36px] flex-1">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-[36px]">
             {footerConfig.map((section) => (
               <div key={section.title} className="flex flex-col gap-[23px]">
                 <h3 className="font-medium text-[18px] leading-[27px] text-[hsl(var(--text-primary))]">

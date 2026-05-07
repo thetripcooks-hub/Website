@@ -9,7 +9,6 @@ import {
 } from "@/components/ui";
 import Image from "next/image";
 import React from "react";
-import { Star } from "lucide-react";
 import SectionWrapper from "./section-wrapper";
 import useGeneralStore from "@/stores/generalStore";
 import dayjs from "@/lib/dayjs";
@@ -33,7 +32,7 @@ const Reviews = () => {
     <section className="bg-[#f8f9fc] dark:bg-[#121716] px-5 py-12 sm:py-24 sm:px-[8%] w-full">
       <SectionWrapper>
         <h2 className="font-ogg-trial text-[32px] sm:text-[44px] text-center text-neutral-text dark:text-foreground mb-10 sm:mb-16">
-          People Actually Really Like Us..
+          People actually really like us..
         </h2>
 
         {loadingReviews ? (
