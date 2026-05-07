@@ -1,6 +1,6 @@
 "use client";
 import ComingSoonBadge from "@/app/home/_components/coming-soon-badge";
-import { formatAmount, formatTripDate, percentage } from "@/lib/utils";
+import { cn, formatAmount, formatTripDate, percentage } from "@/lib/utils";
 import useGeneralStore from "@/stores/generalStore";
 import { CartItem } from "@/types/cart";
 import Image from "next/image";
@@ -12,10 +12,12 @@ const TripCard = ({
   handleClick,
   handleAddToCart,
   item,
+  isPast,
 }: {
   handleClick: () => void;
-  handleAddToCart: () => void;
+  handleAddToCart?: () => void;
   item: CartItem;
+  isPast?: boolean;
 }) => {
   const { selectedCurrency } = useGeneralStore();
 
@@ -37,21 +39,23 @@ const TripCard = ({
         className="relative h-[301px] w-full rounded-[12px] overflow-hidden"
         onClick={handleClick}
       >
-        {item.soldOut ? (
-          <div className="absolute right-3 top-3 z-10">
-            <ComingSoonBadge text="Sold Out" />
-          </div>
-        ) : (
-          <button
-            className="absolute right-3 top-3 z-10"
-            onClick={(e) => {
-              e.stopPropagation();
-              if (!item.soldOut) handleAddToCart();
-            }}
-            aria-label="Add to cart"
-          >
-            <Image src={CartIconSvg} alt="add to cart" width={32} height={32} />
-          </button>
+        {!isPast && (
+          item.soldOut ? (
+            <div className="absolute right-3 top-3 z-10">
+              <ComingSoonBadge text="Sold Out" />
+            </div>
+          ) : (
+            <button
+              className="absolute right-3 top-3 z-10"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleAddToCart?.();
+              }}
+              aria-label="Add to cart"
+            >
+              <Image src={CartIconSvg} alt="add to cart" width={32} height={32} />
+            </button>
+          )
         )}
         <Image
           src={item.bannerImagesCollection.items[0].url}
@@ -69,7 +73,13 @@ const TripCard = ({
       </div>
 
       {/* Details */}
-      <div onClick={handleClick} className="flex flex-col items-start justify-between gap-6 font-plus-jakarta-sans">
+      <div
+        onClick={handleClick}
+        className={cn(
+          "flex flex-col items-start justify-between font-plus-jakarta-sans",
+          isPast ? "gap-12" : "gap-6"
+        )}
+      >
         <div className="flex flex-col gap-1 min-w-0">
           <h5 className="text-[24px] font-medium text-neutral-text dark:text-white leading-[36px] truncate">
             {item.location}
@@ -77,25 +87,35 @@ const TripCard = ({
           <p className="text-base text-neutral-subtext dark:text-[#BFC0C2]">{formatTripDate(item)}</p>
         </div>
         <div className="shrink-0">
-          {originalPrice && (
-            <p className="text-base text-neutral-subtext line-through dark:text-[#BFC0C2]">{originalPrice}</p>
+          {isPast ? (
+            <p className="font-ogg-trial text-[28px] text-neutral-subtext dark:text-[#BFC0C2] leading-tight">
+              Sold out
+            </p>
+          ) : (
+            <>
+              {originalPrice && (
+                <p className="text-base text-neutral-subtext line-through dark:text-[#BFC0C2]">{originalPrice}</p>
+              )}
+              <p className="font-ogg-trial text-[28px] text-neutral-text leading-tight dark:text-white">
+                {price}
+              </p>
+              <p className="text-sm text-neutral-subtext dark:text-[#BFC0C2]">Per person</p>
+            </>
           )}
-          <p className="font-ogg-trial text-[28px] text-neutral-text leading-tight dark:text-white">
-            {price}
-          </p>
-          <p className="text-sm text-neutral-subtext dark:text-[#BFC0C2]">Per person</p>
         </div>
       </div>
 
       {/* CTA */}
-      <Button
-        variant="green-outline"
-        className="w-full"
-        onClick={handleClick}
-        disabled={item.soldOut}
-      >
-        {item.soldOut ? "Sold Out" : "View more"}
-      </Button>
+      {!isPast && (
+        <Button
+          variant="green-outline"
+          className="w-full"
+          onClick={handleClick}
+          disabled={item.soldOut}
+        >
+          {item.soldOut ? "Sold Out" : "View more"}
+        </Button>
+      )}
     </div>
   );
 };

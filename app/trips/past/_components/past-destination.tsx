@@ -1,5 +1,4 @@
 "use client";
-import { toast } from "sonner";
 import SectionWrapper from "@/app/home/_components/section-wrapper";
 import {
   Pagination,
@@ -13,16 +12,14 @@ import {
 import React, { useEffect, useState } from "react";
 import TripCard from "@/components/ui/trip-card";
 import { useRouter } from "next/navigation";
-import SortByButton from "./sort-by";
-import useCartStore from "@/stores/cartStore";
+import SortByButton from "@/app/trips/_components/sort-by";
 import { CartItem } from "@/types/cart";
-import { useIsMobile } from "@/hooks";
 import EmptyCart from "@/app/cart/_components/empty-cart";
-import usePaginatedTrips from "@/hooks/trips/usePaginatedTrips";
+import usePastTrips from "@/hooks/trips/usePastTrips";
 import { cn, generateTripLink } from "@/lib/utils";
 import { Loader } from "lucide-react";
 
-const Destination = () => {
+const PastDestination = () => {
   const {
     paginatedTrips,
     page: currentPage,
@@ -32,24 +29,14 @@ const Destination = () => {
     handlePreviousPage,
     handlePageChange,
     getPaginationNumbers,
-  } = usePaginatedTrips();
+  } = usePastTrips();
 
-  const isMobile = useIsMobile(640);
   const router = useRouter();
-  const { addToCart, setShowCart, showCart } = useCartStore();
 
-  const handleAddToCart = (item: CartItem) => {
-    if (!showCart && !isMobile) {
-      setShowCart(true);
-    }
-    toast.success("Added to cart");
-    addToCart(item);
-  };
-
-  const [formatttedTrips, setFormattedValue] = useState<CartItem[]>([]);
+  const [formattedTrips, setFormattedTrips] = useState<CartItem[]>([]);
 
   useEffect(() => {
-    setFormattedValue(
+    setFormattedTrips(
       paginatedTrips?.map((x) => ({
         ...x,
         quantity: 1,
@@ -60,19 +47,20 @@ const Destination = () => {
   return (
     <div className="px-4 py-9 sm:px-[109px]">
       {loading ? (
-        <div className="w-full h-[20vh] flex text-foreground justify-center  items-center">
+        <div className="w-full h-[20vh] flex text-foreground justify-center items-center">
           <Loader className="w-5 h-5 text-secondary-irish-green animate-spin" />
         </div>
-      ) : formatttedTrips.length > 0 ? (
+      ) : formattedTrips.length > 0 ? (
         <SectionWrapper>
           <SortByButton />
           <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 gap-y-8 sm:gap-y-12">
-            {formatttedTrips.map((item) => (
+            {formattedTrips.map((item) => (
               <TripCard
                 key={item.sys.id}
                 item={item}
+                isPast
                 handleClick={() => router.push(generateTripLink(item))}
-                handleAddToCart={() => handleAddToCart(item)}
+                handleAddToCart={() => {}}
               />
             ))}
           </section>
@@ -82,7 +70,6 @@ const Destination = () => {
                 <PaginationPrevious
                   href={{}}
                   className={cn(currentPage === 1 && "cursor-not-allowed")}
-                  // scroll={false}
                   onClick={(e) => e.preventDefault()}
                 />
               </PaginationItem>
@@ -105,23 +92,6 @@ const Destination = () => {
                   </PaginationItem>
                 );
               })}
-              {/* <PaginationItem>
-                <PaginationLink href="#" isActive>
-                  1
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">2</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">3</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">6</PaginationLink>
-              </PaginationItem> */}
               <PaginationItem
                 onClick={handleNextPage}
                 className={cn(
@@ -130,7 +100,6 @@ const Destination = () => {
               >
                 <PaginationNext
                   href={{}}
-                  // scroll={false}
                   onClick={(e) => e.preventDefault()}
                 />
               </PaginationItem>
@@ -141,7 +110,7 @@ const Destination = () => {
         <div className="my-5">
           <EmptyCart
             isModal={true}
-            text="Not sure you’re searching for the right thing here. Try again?"
+            text="No past trips to show yet."
           />
         </div>
       )}
@@ -149,4 +118,4 @@ const Destination = () => {
   );
 };
 
-export default Destination;
+export default PastDestination;
