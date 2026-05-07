@@ -1,27 +1,18 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { SubcribeToNewsLetter, Footer } from "@/components/ui";
-import Destination from "./_components/destination";
-import TripsHero from "./_components/trips-hero";
+import PastTripsHero from "./_components/past-trips-hero";
+import PastDestination from "./_components/past-destination";
 import Faq from "@/app/home/_components/faq";
 import Reviews from "@/app/home/_components/reviews";
 import useTrips from "@/hooks/trips/useTrips";
-import useTripStore from "@/stores/trip-store";
-import { useEffect } from "react";
 
 const Page = () => {
   useTrips();
-  const { setOrderKey } = useTripStore();
-
-  useEffect(() => {
-    setOrderKey(null);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <main className={cn("bg-white dark:bg-background w-full")}>
-      <TripsHero />
-      <Destination />
+      <PastTripsHero />
+      <PastDestination />
       <Faq />
       <Reviews />
       <SubcribeToNewsLetter />

@@ -5,26 +5,14 @@ import { useEffect, useMemo, useState } from "react";
 
 const PAGE_SIZE = AppConfig.pagination.pageSize;
 
-function sortTrips(
+function sortPastTrips(
   trips: TripType[],
   orderKey: { key: string; value: string } | null
 ): TripType[] {
   if (!orderKey) {
-    const now = new Date();
-    const byDateAsc = (a: TripType, b: TripType) =>
-      new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
-
-    // Future trips (active + sold-out) sorted by date — sold-out ones appear naturally in order
-    const upcoming = trips
-      .filter((t) => new Date(t.startDate) >= now)
-      .sort(byDateAsc);
-
-    // Past sold-out trips at the bottom, most recent first (Feb 2026 before Oct 2025)
-    const pastSoldOut = trips
-      .filter((t) => t.soldOut && new Date(t.startDate) < now)
-      .sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime());
-
-    return [...upcoming, ...pastSoldOut];
+    return [...trips].sort(
+      (a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime()
+    );
   }
 
   const sorted = [...trips];
@@ -43,19 +31,21 @@ function sortTrips(
   }
 }
 
-const usePaginatedTrips = () => {
+const usePastTrips = () => {
   const { trips, loading, orderKey } = useTripStore();
   const [page, setPage] = useState(1);
 
-  // Reset to page 1 whenever sort changes
   useEffect(() => {
     setPage(1);
   }, [orderKey]);
 
-  const sorted = useMemo(
-    () => sortTrips(trips.filter((t) => !t.soldOut), orderKey),
-    [trips, orderKey]
-  );
+  const sorted = useMemo(() => {
+    const now = new Date();
+    return sortPastTrips(
+      trips.filter((t) => new Date(t.endDate) < now),
+      orderKey
+    );
+  }, [trips, orderKey]);
 
   const totalPages = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE));
   const paginatedTrips = useMemo(
@@ -102,4 +92,4 @@ const usePaginatedTrips = () => {
   };
 };
 
-export default usePaginatedTrips;
+export default usePastTrips;

@@ -150,19 +150,24 @@ const NavDropdownItem = ({
 const Navbar = () => {
   const pathname = usePathname();
   const isHome = pathname === "/home" || pathname === "/";
+  const isTrips = pathname === "/trips";
+  const isPastTrips = pathname === "/trips/past";
   const [heroVisible, setHeroVisible] = React.useState(true);
 
   React.useEffect(() => {
-    if (!isHome) return;
+    if (!isHome && !isTrips && !isPastTrips) return;
     setHeroVisible(true);
     const handleScroll = () => {
       setHeroVisible(window.scrollY === 0);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [isHome]);
+  }, [isHome, isTrips, isPastTrips]);
 
-  const transparent = isHome && heroVisible;
+  // transparent bg for hero pages; white text only on home (dark image bg)
+  const transparent = (isHome || isTrips || isPastTrips) && heroVisible;
+  const whiteText = isHome && heroVisible;
+
   return (
     <div
       className={cn(
@@ -178,26 +183,26 @@ const Navbar = () => {
         <section
           className={cn(
             "hidden sm:flex gap-5 text-base sm:items-center transition-colors duration-300",
-            transparent ? "text-white" : "text-neutral-text dark:text-foreground"
+            whiteText ? "text-white" : "text-neutral-text dark:text-foreground"
           )}
         >
           {navConfig.map((item) => (
             <NavDropdownItem
               key={item.name}
               item={item}
-              transparent={transparent}
+              transparent={whiteText}
               pathname={pathname}
             />
           ))}
         </section>
 
         <section className="hidden sm:flex">
-          <CurrencyToggle transparent={transparent} />
-          <ModeToggle transparent={transparent} />
-          {!pathname.includes("cart") && <Cart transparent={transparent} />}
+          <CurrencyToggle transparent={whiteText} />
+          <ModeToggle transparent={whiteText} />
+          {!pathname.includes("cart") && <Cart transparent={whiteText} />}
         </section>
 
-        <MobileNav navConfig={navConfig} pathname={pathname} isHome={transparent} />
+        <MobileNav navConfig={navConfig} pathname={pathname} isHome={whiteText} />
       </div>
     </div>
   );

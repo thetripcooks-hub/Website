@@ -50,7 +50,7 @@ const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
         <Carousel opts={{ align: "start" }}>
           <div className="flex items-center justify-between mb-8 sm:mb-9">
             <h2 className="font-ogg-trial text-[32px] sm:text-[42px] leading-tight text-[hsl(var(--text-primary))]">
-              Upcoming Group Trips
+              Upcoming group trips
             </h2>
             <div className="flex gap-2 items-center">
               <CarouselPrevious
@@ -73,7 +73,7 @@ const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
               {formattedTrips.map((trip) => (
                 <CarouselItem
                   key={trip.sys.id}
-                  className="pl-5 basis-4/5 sm:basis-[394px] shrink-0"
+                  className="pl-5 basis-4/5 sm:basis-[416px] shrink-0"
                 >
                   <TripCard
                     handleClick={() => router.push(generateTripLink(trip))}
