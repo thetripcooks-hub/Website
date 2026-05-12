@@ -106,16 +106,14 @@ const TripCard = ({
       </div>
 
       {/* CTA */}
-      {!isPast && (
-        <Button
-          variant="green-outline"
-          className="w-full"
-          onClick={handleClick}
-          disabled={item.soldOut}
-        >
-          {item.soldOut ? "Sold Out" : "View more"}
-        </Button>
-      )}
+      <Button
+        variant="green-outline"
+        className="w-full"
+        onClick={handleClick}
+        disabled={!isPast && item.soldOut}
+      >
+        {!isPast && item.soldOut ? "Sold Out" : "View more"}
+      </Button>
     </div>
   );
 };
