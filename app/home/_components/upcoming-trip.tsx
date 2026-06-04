@@ -11,7 +11,6 @@ import {
 import TripCard from "@/components/ui/trip-card";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 import useTripStore from "@/stores/trip-store";
 import { generateTripLink } from "@/lib/utils";
 import { Loader } from "lucide-react";
@@ -23,14 +22,11 @@ const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
   const isMobile = useIsMobile(640);
   const router = useRouter();
 
-  const { addToCart, setShowCart, showCart } = useCartStore();
+  const { addToCart, setLastAddedItem } = useCartStore();
 
   const handleAddToCart = (item: CartItem) => {
-    if (!showCart && !isMobile) {
-      setShowCart(true);
-    }
-    toast.success("Added to cart");
     addToCart(item);
+    setLastAddedItem(item);
   };
 
   const { trips, loading } = useTripStore();

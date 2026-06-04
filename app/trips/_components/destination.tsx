@@ -1,5 +1,4 @@
 "use client";
-import { toast } from "sonner";
 import SectionWrapper from "@/app/home/_components/section-wrapper";
 import {
   Pagination,
@@ -16,7 +15,6 @@ import { useRouter } from "next/navigation";
 import SortByButton from "./sort-by";
 import useCartStore from "@/stores/cartStore";
 import { CartItem } from "@/types/cart";
-import { useIsMobile } from "@/hooks";
 import EmptyCart from "@/app/cart/_components/empty-cart";
 import usePaginatedTrips from "@/hooks/trips/usePaginatedTrips";
 import { cn, generateTripLink } from "@/lib/utils";
@@ -34,16 +32,12 @@ const Destination = () => {
     getPaginationNumbers,
   } = usePaginatedTrips();
 
-  const isMobile = useIsMobile(640);
   const router = useRouter();
-  const { addToCart, setShowCart, showCart } = useCartStore();
+  const { addToCart, setLastAddedItem } = useCartStore();
 
   const handleAddToCart = (item: CartItem) => {
-    if (!showCart && !isMobile) {
-      setShowCart(true);
-    }
-    toast.success("Added to cart");
     addToCart(item);
+    setLastAddedItem(item);
   };
 
   const [formatttedTrips, setFormattedValue] = useState<CartItem[]>([]);
