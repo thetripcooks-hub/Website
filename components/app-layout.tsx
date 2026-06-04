@@ -6,6 +6,7 @@ import { cn, fetchExchangeRates } from "@/lib/utils";
 import React, { useEffect } from "react";
 import { ThemeProvider } from "./theme-provider";
 import Navbar from "./ui/navbar";
+import CartToastBanner from "./ui/cart-toast-banner";
 import useGeneralStore from "@/stores/generalStore";
 import { ApolloWrapper } from "./apollo-provider";
 import GeneralData from "./general-data";
@@ -86,6 +87,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
             </GeneralData>
           </ApolloWrapper>
         </ThemeProvider>
+        <CartToastBanner />
         <Toaster richColors position="top-right" />
         <noscript>
           <img

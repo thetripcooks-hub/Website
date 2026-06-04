@@ -17,6 +17,8 @@ interface CartState {
   setShowCart: (showCart: boolean) => void;
   hasHydrated: boolean;
   setHasHydrated: (hasHydrated: boolean) => void;
+  lastAddedItem: CartItem | null;
+  setLastAddedItem: (item: CartItem | null) => void;
 }
 
 const useCartStore = create<CartState>()(
@@ -70,6 +72,8 @@ const useCartStore = create<CartState>()(
       setShowCart: (showCart) => set({ showCart }),
       hasHydrated: false,
       setHasHydrated: (hasHydrated) => set({ hasHydrated }),
+      lastAddedItem: null,
+      setLastAddedItem: (lastAddedItem) => set({ lastAddedItem }),
     }),
     {
       name: "cart-storage",
