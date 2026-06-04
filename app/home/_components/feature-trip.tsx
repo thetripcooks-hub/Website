@@ -93,9 +93,22 @@ const FeatureTrip = () => {
             </div>
 
             {/* Meta row */}
-            <div className="flex flex-col gap-4">
-              <div className="h-px w-full dark:hidden" style={{ backgroundImage: "repeating-linear-gradient(to right, #eee 0, #eee 6px, transparent 6px, transparent 14px)" }} /><div className="h-px w-full hidden dark:block" style={{ backgroundImage: "repeating-linear-gradient(to right, #585E6A 0, #585E6A 6px, transparent 6px, transparent 14px)" }} />
-              <div className="flex flex-wrap gap-8 sm:gap-[45px] sm:max-w-[483px]">
+            <div className="flex flex-col gap-4 sm:gap-[30px]">
+              <div
+                className="h-px w-full dark:hidden"
+                style={{
+                  backgroundImage:
+                    "repeating-linear-gradient(to right, #c8c8c8 0, #c8c8c8 6px, transparent 6px, transparent 14px)",
+                }}
+              />
+              <div
+                className="h-px w-full hidden dark:block"
+                style={{
+                  backgroundImage:
+                    "repeating-linear-gradient(to right, #585E6A 0, #585E6A 6px, transparent 6px, transparent 14px)",
+                }}
+              />
+              <div className="flex flex-wrap gap-8 sm:gap-[45px] sm:max-w-[483px] justify-between">
                 <div className="flex items-start gap-2">
                   <Image
                     src="/img/featured-trip/clock.svg"
@@ -157,7 +170,20 @@ const FeatureTrip = () => {
                   </div>
                 </div>
               </div>
-              <div className="h-px w-full dark:hidden" style={{ backgroundImage: "repeating-linear-gradient(to right, #eee 0, #eee 6px, transparent 6px, transparent 14px)" }} /><div className="h-px w-full hidden dark:block" style={{ backgroundImage: "repeating-linear-gradient(to right, #585E6A 0, #585E6A 6px, transparent 6px, transparent 14px)" }} />
+              <div
+                className="h-px w-full dark:hidden"
+                style={{
+                  backgroundImage:
+                    "repeating-linear-gradient(to right, #c8c8c8 0, #c8c8c8 6px, transparent 6px, transparent 14px)",
+                }}
+              />
+              <div
+                className="h-px w-full hidden dark:block"
+                style={{
+                  backgroundImage:
+                    "repeating-linear-gradient(to right, #585E6A 0, #585E6A 6px, transparent 6px, transparent 14px)",
+                }}
+              />
             </div>
 
             {/* Checklist */}
@@ -178,7 +204,7 @@ const FeatureTrip = () => {
             </div>
 
             <Button
-              className="w-full sm:w-[185px]"
+              className="w-full sm:w-[185px] sm:mt-2.5 mx-auto"
               onClick={() => router.push(generateTripLink(trip))}
             >
               View more

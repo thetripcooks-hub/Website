@@ -53,6 +53,13 @@ const OurServices = () => {
     api.on("select", () => setCurrent(api.selectedScrollSnap()));
   }, [api]);
 
+  // Reinit so Embla recalculates scroll positions after card widths change
+  useEffect(() => {
+    if (!api) return;
+    const t = setTimeout(() => api.reInit(), 0);
+    return () => clearTimeout(t);
+  }, [current, api]);
+
   const getImage = (key: string) => {
     if (!data?.[0]) return "";
     switch (key) {
@@ -73,7 +80,7 @@ const OurServices = () => {
     <section className="bg-[#02231A] py-10 sm:py-[62px] rounded-[28px] my-4 overflow-hidden">
       {/* Header */}
       <div className="flex flex-col items-center gap-4 text-center mb-10 sm:mb-[75px] px-5">
-        <h2 className="font-ogg-trial text-[32px] sm:text-[48px] text-white leading-tight">
+        <h2 className="font-ogg-trial text-[32px] sm:text-[42px] text-white leading-tight">
           Our Services
         </h2>
         <p className="text-[#5d9f8b] text-base sm:text-[18px] max-w-[554px] leading-[22px] sm:leading-[28px]">
@@ -85,41 +92,46 @@ const OurServices = () => {
       {/* Cards carousel */}
       <Carousel
         setApi={setApi}
-        opts={{ align: "center", loop: false }}
+        opts={{ align: "start", loop: false }}
         className="w-full"
       >
-        <CarouselContent className="sm:-ml-4 px-5 sm:px-[48px]">
+        <CarouselContent className="-ml-4 sm:-ml-6 px-5 sm:px-[109px]">
           {SERVICES.map((service, i) => {
             const imgSrc = getImage(service.key);
             const isActive = i === current;
             return (
               <CarouselItem
                 key={service.key}
-                className="sm:pl-4 basis-full sm:basis-[58%]"
+                className={cn(
+                  "pl-4 sm:pl-6 transition-all duration-300 basis-[85%]",
+                  isActive ? "sm:basis-[57%]" : "sm:basis-[44%]"
+                )}
               >
                 <div
-                  className="relative h-[350px] sm:h-[485px] rounded-[16px] overflow-hidden"
+                  className={cn(
+                    "relative h-[350px] sm:h-[485px] rounded-[16px] overflow-hidden transition-opacity duration-300",
+                    !isActive && "opacity-50"
+                  )}
                   style={{
                     backgroundImage: imgSrc ? `url(${imgSrc})` : undefined,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                   }}
                 >
-                  {/* Overlay — active cards darker, inactive dimmer */}
+                  {/* Overlay */}
                   <div
                     className={cn(
                       "absolute inset-0 rounded-[16px] transition-all duration-300",
-                      isActive ? "bg-black/50" : "bg-black/50 opacity-50",
+                      isActive ? "bg-black/50" : "bg-black/35"
                     )}
                   />
 
                   {/* Bottom content */}
-                  <div className="absolute bottom-4 sm:bottom-8 left-5 right-5 sm:left-6 sm:right-6 flex items-end gap-4">
-                    <div className="flex-1 flex flex-col gap-2 text-white min-w-0">
-                      <h3 className="font-ogg-trial text-[28px] sm:text-[44px] leading-tight">
+                  <div className="absolute bottom-4 sm:bottom-8 left-5 right-5 sm:left-6 sm:right-6 flex items-end gap-4 sm:gap-9">
+                    <div className="flex-1 flex flex-col gap-2 sm:gap-[11px] text-white min-w-0">
+                      <h3 className="font-ogg-trial text-[28px] sm:text-[44px] leading-tight sm:leading-[66px]">
                         {service.title}
                       </h3>
-
                       <p className="text-sm sm:text-[20px] leading-6 sm:leading-[30px] font-plus-jakarta-sans font-normal">
                         {service.description}
                       </p>
@@ -127,9 +139,9 @@ const OurServices = () => {
                     <Link href={service.href} className="shrink-0">
                       <Button
                         variant="ghost-arrow"
-                        className="items-center gap-2 whitespace-nowrap font-plus-jakarta-sans font-normal hidden sm:flex"
+                        className="items-center gap-2 whitespace-nowrap font-plus-jakarta-sans font-medium hidden sm:flex"
                       >
-                        Learn more <ArrowRight className="w-4 h-4" />
+                        Learn more <ArrowRight className="w-5 h-5" />
                       </Button>
                     </Link>
                   </div>
