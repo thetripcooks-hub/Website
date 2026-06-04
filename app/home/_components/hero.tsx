@@ -21,7 +21,7 @@ const HomeHero = () => {
               "mt-2.5 sm:mt-[34px] max-w-[309px] sm:max-w-[357px] text-center text-xl sm:text-[22px] font-normal text-white dark:text-white",
             )}
           >
-            Join our group trips or curate <br className="sm:hidden" /> one for
+            Join our group trips or let us curate <br className="sm:hidden" /> one for
             you.
           </p>
         </div>

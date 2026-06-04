@@ -6,7 +6,7 @@ const PastTripsHero = () => {
           Past Trips
         </h1>
         <p className="text-[16px] sm:text-[20px] leading-[1.5] font-normal text-neutral-text dark:text-foreground">
-          Browse our rollout!
+          We&apos;ve been touring!
         </p>
       </div>
     </div>
