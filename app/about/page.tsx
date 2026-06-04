@@ -2,8 +2,8 @@
 import React, { useEffect } from "react";
 import OurServices from "../home/_components/our-services";
 import TheTripCooksExperience from "../home/_components/the-tripcooks-experience";
+import Faq from "../home/_components/faq";
 import { SubcribeToNewsLetter, Footer } from "@/components/ui";
-import ReadyToStart from "../home/_components/ready-to-start";
 import AboutHero from "./_components/about-hero";
 import Adventurers from "./_components/adventurers";
 import { useQuery } from "@apollo/client";
@@ -31,10 +31,10 @@ const Page = () => {
       <AboutHero />
       <Adventurers />
       <OurServices />
+      <Faq />
       <div className="pt-5 pb-10 sm:pt-10 sm:pb-14">
-        <TheTripCooksExperience showLastRow={false} />
+        <TheTripCooksExperience />
       </div>
-      <ReadyToStart />
       <SubcribeToNewsLetter />
       <Footer />
     </main>
