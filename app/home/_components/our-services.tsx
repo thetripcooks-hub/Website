@@ -53,13 +53,6 @@ const OurServices = () => {
     api.on("select", () => setCurrent(api.selectedScrollSnap()));
   }, [api]);
 
-  // Reinit so Embla recalculates scroll positions after card widths change
-  useEffect(() => {
-    if (!api) return;
-    const t = setTimeout(() => api.reInit(), 0);
-    return () => clearTimeout(t);
-  }, [current, api]);
-
   const getImage = (key: string) => {
     if (!data?.[0]) return "";
     switch (key) {
@@ -92,7 +85,7 @@ const OurServices = () => {
       {/* Cards carousel */}
       <Carousel
         setApi={setApi}
-        opts={{ align: "start", loop: false }}
+        opts={{ align: "center", loop: false, containScroll: false }}
         className="w-full"
       >
         <CarouselContent className="-ml-4 sm:-ml-6 px-5 sm:px-[109px]">
