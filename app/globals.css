@@ -82,6 +82,8 @@ body {
     --text-secondary: 220 6% 45%;
     --text-tertiary: 0 0% 46%;
     --bg-tertiary: 220 40% 98%;
+    --bg-irishgreen: #daf3db;
+    --text-inverse: #ffffff;
   }
   .dark {
     --background: 168, 12%, 8%;
@@ -109,6 +111,8 @@ body {
     --text-secondary: 220 5% 63%;
     --text-tertiary: 0 0% 62%;
     --bg-tertiary: 240 3.7% 15.9%;
+    --bg-irishgreen: hsl(240, 10%, 3.9%);
+    --text-inverse: #ffffff;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;

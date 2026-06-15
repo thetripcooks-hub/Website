@@ -31,7 +31,7 @@ import EmptyCart from "@/app/cart/_components/empty-cart";
 import useTripStore from "@/stores/trip-store";
 import { Loader } from "lucide-react";
 
-const Cart = ({ transparent }: { transparent?: boolean }) => {
+const Cart = ({ transparent, isActive }: { transparent?: boolean; isActive?: boolean }) => {
   const { selectedCurrency } = useGeneralStore();
   const { theme = "system" } = useTheme()
 
@@ -52,16 +52,27 @@ const Cart = ({ transparent }: { transparent?: boolean }) => {
   });
 
   const hasTrips = trips.length > 0;
+  const itemCount = trips.reduce((sum, t) => sum + t.quantity, 0);
 
   return (
     <DropdownMenu modal={false} open={showCart} onOpenChange={setShowCart}>
       <DropdownMenuTrigger asChild>
-        <div>
-          <Image
-            src={CartIcon}
-            alt="cart-icon"
-            className={`cursor-pointer h-[32px] sm:h-[46px] ${!transparent ? "invert dark:invert-0" : ""}`}
-          />
+        <div className="flex flex-col items-center gap-0.5 cursor-pointer">
+          <div className="relative">
+            <Image
+              src={CartIcon}
+              alt="cart-icon"
+              className={`h-[32px] sm:h-[46px] ${!transparent ? "invert dark:invert-0" : ""}`}
+            />
+            {itemCount > 0 && (
+              <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] rounded-full bg-[#09AF0D] text-white text-[11px] font-medium leading-none flex items-center justify-center px-1">
+                {itemCount}
+              </span>
+            )}
+          </div>
+          {isActive && (
+            <span className="block w-full h-[2px] rounded-full bg-[#09AF0D]" />
+          )}
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent
