@@ -28,6 +28,7 @@ const config: Config = {
         "private-trip": "url(/img/private-trip.svg)",
         "travel-planning": "url(/img/travel-planning.svg)",
         "tripcook-pattern": "url(/img/Tripcooks_Pattern.svg)",
+        "group-trips-hero": "url(/img/group-trips-hero-bg.svg)",
       },
       borderRadius: {
         lg: "var(--radius)",

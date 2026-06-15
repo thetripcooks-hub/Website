@@ -3,8 +3,8 @@ import React from "react";
 import { formatAmount, percentage } from "@/lib/utils";
 import useGeneralStore from "@/stores/generalStore";
 import usePaymentCard from "@/hooks/payment/usePaymentCard";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
+import PaymentTermsDrawer from "./payment-terms-drawer";
 
 const PaymentCard = () => {
   const { selectedCurrency } = useGeneralStore();
@@ -93,12 +93,7 @@ const PaymentCard = () => {
         <p className="text-[16px] leading-[24px] text-[hsl(var(--text-secondary))]">
           Flexible payment plans are available
         </p>
-        <Link
-          href="/legal"
-          className="text-[16px] text-secondary-irish-green underline leading-[24px]"
-        >
-          Learn More
-        </Link>
+        <PaymentTermsDrawer />
       </div>
     </div>
   );

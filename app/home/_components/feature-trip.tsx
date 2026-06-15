@@ -24,7 +24,7 @@ const FeatureTrip = () => {
   const router = useRouter();
   const { trips } = useTripStore();
   const { selectedCurrency } = useGeneralStore();
-  const { addToCart, setShowCart, showCart } = useCartStore();
+  const { addToCart, setLastAddedItem } = useCartStore();
   const featuredTripArray = trips.filter((x) => x.isFeaturedTrip);
 
   if (featuredTripArray.length === 0) return null;
@@ -59,10 +59,9 @@ const FeatureTrip = () => {
             <button
               className="absolute top-[18px] right-[26px]"
               onClick={() => {
-                addToCart({ ...trip, quantity: 1 });
-                if (!showCart) {
-                  setShowCart(true);
-                }
+                const item = { ...trip, quantity: 1 };
+                addToCart(item);
+                setLastAddedItem(item);
               }}
               aria-label="Add to cart"
             >

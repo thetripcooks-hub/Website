@@ -17,14 +17,12 @@ import Head from "next/head";
 
 const publicKey = process.env.NEXT_PUBLIC_EMAIL_JS_KEY_PUBLIC_KEY || "";
 
-emailjs.init({
-  publicKey: publicKey,
-});
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const { getCurrentPosition } = useGeolocation();
   const { showNav, setRates, setLoadingRates } = useGeneralStore();
 
   useEffect(() => {
+    emailjs.init({ publicKey });
     getCurrentPosition();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

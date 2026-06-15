@@ -83,14 +83,17 @@ const NavDropdownItem = ({
   const [open, setOpen] = React.useState(false);
 
   if (!item.children?.length) {
+    const isActive =
+      !!item.url &&
+      (pathname === item.url ||
+        (item.url === "/home" && pathname === "/") ||
+        pathname.startsWith(item.url + "/"));
     return (
       <Link
         href={item.url!}
         className={cn(
-          !transparent &&
-            item.url &&
-            pathname.includes(item.url) &&
-            "text-secondary-irish-green"
+          isActive && "underline underline-offset-4",
+          !transparent && isActive && "text-secondary-irish-green"
         )}
       >
         {item.name}
@@ -99,11 +102,22 @@ const NavDropdownItem = ({
   }
 
   const hasDescriptions = item.children.some((c) => c.description);
+  const isParentActive =
+    !transparent &&
+    !!item.children?.some(
+      (child) =>
+        pathname === child.url || pathname.startsWith(child.url + "/")
+    );
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
       <DropdownMenuTrigger asChild>
-        <button className="flex items-center gap-2 outline-none cursor-pointer">
+        <button
+          className={cn(
+            "flex items-center gap-2 outline-none cursor-pointer",
+            isParentActive && "text-secondary-irish-green underline underline-offset-4"
+          )}
+        >
           {item.name}
           <ChevronDown
             width={20}
@@ -152,20 +166,21 @@ const Navbar = () => {
   const isHome = pathname === "/home" || pathname === "/";
   const isTrips = pathname === "/trips";
   const isPastTrips = pathname === "/trips/past";
+  const isBlog = pathname === "/blog";
   const [heroVisible, setHeroVisible] = React.useState(true);
 
   React.useEffect(() => {
-    if (!isHome && !isTrips && !isPastTrips) return;
+    if (!isHome && !isTrips && !isPastTrips && !isBlog) return;
     setHeroVisible(true);
     const handleScroll = () => {
       setHeroVisible(window.scrollY === 0);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [isHome, isTrips, isPastTrips]);
+  }, [isHome, isTrips, isPastTrips, isBlog]);
 
   // transparent bg for hero pages; white text only on home (dark image bg)
-  const transparent = (isHome || isTrips || isPastTrips) && heroVisible;
+  const transparent = (isHome || isTrips || isPastTrips || isBlog) && heroVisible;
   const whiteText = isHome && heroVisible;
 
   return (
@@ -199,7 +214,7 @@ const Navbar = () => {
         <section className="hidden sm:flex">
           <CurrencyToggle transparent={whiteText} />
           <ModeToggle transparent={whiteText} />
-          {!pathname.includes("cart") && <Cart transparent={whiteText} />}
+          <Cart transparent={whiteText} isActive={pathname.startsWith("/cart")} />
         </section>
 
         <MobileNav navConfig={navConfig} pathname={pathname} isHome={whiteText} />

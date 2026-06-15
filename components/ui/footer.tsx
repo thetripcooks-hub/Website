@@ -3,11 +3,9 @@ import Image from "next/image";
 import React from "react";
 import LogoBig from "~/logo-big.svg";
 import Instagram from "@/components/icons/svg/instagram.svg";
-import InstagramDark from "@/components/icons/svg/instagram-dark.svg";
 import Tiktok from "@/components/icons/svg/tiktok.svg";
-import TiktokDark from "@/components/icons/svg/tiktok-dark.svg";
+import WhatsApp from "@/components/icons/svg/whatsapp.svg";
 import LinkedIn from "@/components/icons/svg/linkedin.svg";
-import LinkedInDark from "@/components/icons/svg/linkedin-dark.svg";
 import Link from "next/link";
 
 const footerConfig = [
@@ -49,19 +47,21 @@ const socials = [
     name: "Instagram",
     url: "https://www.instagram.com/tripcooks/",
     icon: Instagram,
-    darkIcon: InstagramDark,
   },
   {
     name: "TikTok",
     url: "https://www.tiktok.com/@tripcooks?_t=ZM-8smTfjMee4k&_r=1",
     icon: Tiktok,
-    darkIcon: TiktokDark,
+  },
+  {
+    name: "WhatsApp",
+    url: "https://wa.me/447310016389",
+    icon: WhatsApp,
   },
   {
     name: "LinkedIn",
     url: "https://www.linkedin.com/company/tripcooks/",
     icon: LinkedIn,
-    darkIcon: LinkedInDark,
   },
 ];
 
@@ -88,14 +88,7 @@ const Footer = () => {
                     alt={social.name}
                     width={20}
                     height={20}
-                    className="dark:hidden"
-                  />
-                  <Image
-                    src={social.darkIcon}
-                    alt={social.name}
-                    width={20}
-                    height={20}
-                    className="hidden dark:block"
+                    className="dark:brightness-0 dark:invert"
                   />
                 </a>
               ))}

@@ -1,157 +1,142 @@
 "use client";
+import MobilePageHeader from "@/components/ui/mobile-page-header";
+import { cn, formatAmount } from "@/lib/utils";
 import React from "react";
-import { Check, Loader } from "lucide-react";
-import useCartStore from "@/stores/cartStore";
-import useGeneralStore from "@/stores/generalStore";
-import useStripe from "@/hooks/payment/useStripe";
-import CartCard from "./_components/cart-card";
-import EmptyCart from "./_components/empty-cart";
 import UpcomingTrips from "@/app/home/_components/upcoming-trip";
-import Faq from "@/app/home/_components/faq";
-import { SubcribeToNewsLetter, Footer } from "@/components/ui";
-import { formatAmount } from "@/lib/utils";
+import { Button, Card, Footer, SubcribeToNewsLetter } from "@/components/ui";
+import CardCard from "./_components/cart-card";
+import useCartStore from "@/stores/cartStore";
+import SectionWrapper from "@/app/home/_components/section-wrapper";
+// import PoweredByStrip from "@/components/ui/powered-by-stripe";
+import { useInView } from "react-intersection-observer";
+import MobileFloatingCard from "@/components/ui/mobile-floating-card";
+// import { useHideNavOnMobile } from "@/hooks";
+import useStripe from "@/hooks/payment/useStripe";
+import EmptyCart from "./_components/empty-cart";
+import { Loader } from "lucide-react";
+import useGeneralStore from "@/stores/generalStore";
 
 const Page = () => {
-  const { items, getTotalTripDeposit, hasHydrated } = useCartStore();
-  const { selectedCurrency } = useGeneralStore();
+  const { items, getTripDeposit, getTotalTripDeposit, hasHydrated } =
+    useCartStore();
+  const { selectedCurrency } = useGeneralStore()
+  const { ref, inView } = useInView();
+  // useHideNavOnMobile();
+
   const { handlePay, isPaying } = useStripe({ items });
 
-  const total = getTotalTripDeposit(items);
-  const itemCount = items.length;
-
   return (
-    <main className="bg-white dark:bg-background w-full">
-      {!hasHydrated ? (
-        <div className="w-full h-[300px] flex justify-center items-center">
-          <Loader className="text-secondary-irish-green animate-spin w-6 h-6" />
-        </div>
-      ) : items.length > 0 ? (
-        <div className="px-5 sm:px-[109px] pt-7 pb-16">
-          <h1 className="font-ogg-trial font-bold text-[40px] leading-[60px] text-[#1d2433] dark:text-foreground mb-[35px] hidden sm:block">
-            Cart
-          </h1>
-          <h1 className="font-ogg-trial font-bold text-[40px] leading-[60px] text-[#1d2433] dark:text-foreground mb-[26px] sm:hidden">
-            Cart
-          </h1>
-
-          {/* Desktop: 2-column layout */}
-          <div className="hidden sm:flex gap-10 items-start">
-            {/* Left: cart items */}
-            <div className="flex flex-col gap-6 flex-1 min-w-0 max-w-[808px]">
-              {items.map((trip) => (
-                <CartCard key={trip.sys.id} trip={trip} />
-              ))}
+    <main className={cn("bg-white dark:bg-background w-full")}>
+      <div ref={ref}>
+        <MobilePageHeader title="My cart" showCartBtn={false} />
+        <div className="px-5 py=5 sm:pt-10 sm:pb-20 text-neutral-text sm:px-[8%]">
+          <SectionWrapper>
+            <h3 className="font-medium text-neutral-text leading-[39.01px] text-[32px] hidden sm:flex mb-5 dark:text-foreground">
+              My Cart
+            </h3>
+          </SectionWrapper>
+          {!hasHydrated ? (
+            <div className="w-full h-[150px] flex justify-center items-center">
+              <Loader className="text-secondary-irish-green animate-spin w-5 h-5" />
             </div>
-
-            {/* Right: sticky checkout card */}
-            <div className="w-[394px] shrink-0 sticky top-[120px]">
-              <div className="bg-white dark:bg-background border border-[#eee] dark:border-border rounded-[8px] p-6 flex flex-col gap-[22px]">
-                <div className="flex items-center justify-between">
-                  <p className="font-medium text-[22px] leading-[33px] text-[#6c707a] dark:text-[#8C909B] max-w-[244px]">
-                    Total ({itemCount} {itemCount === 1 ? "item" : "items"})
-                  </p>
-                  <p className="font-medium text-[24px] leading-[36px] text-[var(--text-primary,#212121)] dark:text-foreground whitespace-nowrap">
-                    {formatAmount(total, selectedCurrency)}
-                  </p>
+          ) : items.length > 0 ? (
+            <SectionWrapper className="flex flex-col sm:flex-row justify-between gap-2.5 sm:gap-10">
+              <div className="w-full sm:w-1/2">
+                {items.map((trip) => (
+                  <CardCard key={trip.sys.id} trip={trip} />
+                ))}
+              </div>
+              <Card className="hidden p-5 w-full sm:w-1/2 sm:max-w-[423px] h-fit shadow-none border-neutral-grey-300 gap-5 sm:flex flex-col dark:bg-background dark:border-[#8C909B]">
+                {items.map((trip) => (
+                  <div
+                    className="w-full flex justify-between"
+                    key={trip.sys.id}
+                  >
+                    <h6 className="text-neutral-subtext text-[16px] leading-[19.5px] font-alexandria font-normal max-w-[192px] dark:text-[#8C909B]">
+                      Deposit for trip to {trip.location} ({trip.quantity} slot
+                      {trip.quantity > 1 ? "s" : ""})
+                    </h6>
+                    <h3 className="text-[#000000] font-semibold text-2xl leading-[29.26px] dark:text-foreground">
+                      {formatAmount(getTripDeposit(trip), selectedCurrency)}
+                    </h3>
+                  </div>
+                ))}
+                <div className="w-full flex justify-between">
+                  <h6 className="text-neutral-subtext text-[16px] leading-[19.5px] font-alexandria font-normal dark:text-[#8C909B]">
+                    Est. total
+                  </h6>
+                  <h3 className="text-[#000000] font-semibold text-2xl leading-[29.26px] dark:text-foreground">
+                    {formatAmount(getTotalTripDeposit(items), selectedCurrency)}
+                  </h3>
                 </div>
-
-                <button
+                <Button
+                  className="w-full"
+                  type="submit"
+                  role="link"
+                  loading={isPaying}
                   onClick={() => handlePay(selectedCurrency)}
                   disabled={isPaying}
-                  className="w-full h-[56px] bg-gradient-to-r from-[#fa93f4] from-[28.5%] to-[#ee7fe7] text-[#212121] font-medium text-[16px] leading-[24px] rounded-full disabled:opacity-70"
                 >
-                  {isPaying ? "Loading..." : "Checkout"}
-                </button>
-
-                <hr className="border-[#eee] dark:border-border" />
-
-                <div className="flex flex-col gap-4">
-                  <TrustBadge
-                    title="No Hidden Costs"
-                    description="All taxes and fees have been included to the final price"
-                  />
-                  <TrustBadge
-                    title="Secure Payments"
-                    description="Our payments are secured and powered by Stripe."
-                  />
+                  Proceed to Checkout
+                </Button>
+                {/* <PoweredByStrip /> */}
+              </Card>
+              {items.length > 0 ? (
+                <div className="my-4 sm:my-0 flex sm:hidden flex-col gap-3">
+                  <div className="flex flex-col gap-3 text-[14px] leading-[17.07px] font-alexandria">
+                    <h3 className="font-medium text-black dark:text-foreground">
+                      Cart breakdown
+                    </h3>
+                    {items.map((trip) => (
+                      <div key={trip.sys.id} className="flex justify-between">
+                        <h6 className="max-w-[192px] text-neutral-subtext dark:text-foreground">
+                          Deposit for trip to {trip.location} ({trip.quantity}{" "}
+                          slots)
+                        </h6>
+                        <h3 className="text-[#000000] font-semibold text-[20px] leading-[24.38px] dark:text-foreground">
+                          {formatAmount(getTripDeposit(trip), selectedCurrency)}
+                        </h3>
+                      </div>
+                    ))}
+                  </div>
+                  {/* <PoweredByStrip /> */}
                 </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Mobile: stacked layout */}
-          <div className="sm:hidden flex flex-col gap-4">
-            {items.map((trip) => (
-              <CartCard key={trip.sys.id} trip={trip} />
-            ))}
-
-            <div className="flex items-center justify-between mt-2">
-              <p className="font-medium text-[22px] leading-[33px] text-[#6c707a] dark:text-[#8C909B]">
-                Total ({itemCount} {itemCount === 1 ? "item" : "items"})
-              </p>
-              <p className="font-medium text-[24px] leading-[36px] text-[var(--text-primary,#212121)] dark:text-foreground whitespace-nowrap">
-                {formatAmount(total, selectedCurrency)}
-              </p>
-            </div>
-
-            <button
-              onClick={() => handlePay(selectedCurrency)}
-              disabled={isPaying}
-              className="w-full h-[56px] bg-gradient-to-r from-[#fa93f4] from-[28.5%] to-[#ee7fe7] text-[#212121] font-medium text-[16px] leading-[24px] rounded-full disabled:opacity-70"
-            >
-              {isPaying ? "Loading..." : "Checkout"}
-            </button>
-
-            <hr className="border-[#eee] dark:border-border" />
-
-            <div className="flex flex-col gap-4">
-              <TrustBadge
-                title="No Hidden Costs"
-                description="All taxes and fees have been included to the final price"
-              />
-              <TrustBadge
-                title="Secure Payments"
-                description="Our payments are secured and powered by Stripe."
-              />
-            </div>
-          </div>
+              ) : null}
+            </SectionWrapper>
+          ) : (
+            <EmptyCart />
+          )}
         </div>
-      ) : (
-        <EmptyCart />
-      )}
-
+        {inView && items.length > 0 ? (
+          <MobileFloatingCard>
+            <div className="w-full flex items-end justify-between gap-2 mb-2">
+              <h6 className="text-neutral-subtext text-[14px] leading-[17px] font-alexandria font-normal dark:text-[#8C909B]">
+                Est. total
+              </h6>
+              <h3 className="text-[#000000] font-semibold text-2xl leading-[29.26px] dark:text-foreground">
+                {formatAmount(getTotalTripDeposit(items), selectedCurrency)}
+              </h3>
+            </div>
+            {/* <Separator />
+            <div className="w-full flex flex-col justify-between gap-2">
+              <h6 className="text-neutral-subtext text-[16px] leading-[19.5px] font-alexandria font-normal">
+                Or 3 payments starting at{" "}
+              </h6>
+              <h3 className="text-[#000000] font-semibold text-2xl leading-[29.26px]">
+                {formatAmount(getTotalPrice(trips) / 3, selectedCurrency)}
+              </h3>
+            </div> */}
+            <Button loading={isPaying} onClick={() => handlePay(selectedCurrency)} disabled={isPaying}>
+              Proceed to Checkout
+            </Button>
+          </MobileFloatingCard>
+        ) : null}
+      </div>
       <UpcomingTrips isCart={true} />
-      <Faq />
       <SubcribeToNewsLetter />
       <Footer />
     </main>
   );
 };
-
-const TrustBadge = ({
-  title,
-  description,
-}: {
-  title: string;
-  description: string;
-}) => (
-  <div className="flex gap-[7px] items-start">
-    <div className="size-6 flex items-center justify-center shrink-0 mt-0.5">
-      <Check
-        size={20}
-        strokeWidth={2.5}
-        className="text-[var(--text-primary,#212121)] dark:text-foreground"
-      />
-    </div>
-    <div className="flex flex-col gap-[7px]">
-      <p className="font-medium text-[16px] leading-[24px] text-[var(--text-primary,#212121)] dark:text-foreground whitespace-nowrap">
-        {title}
-      </p>
-      <p className="font-normal text-[14px] leading-[22px] text-[#6c707a] dark:text-[#8C909B]">
-        {description}
-      </p>
-    </div>
-  </div>
-);
 
 export default Page;

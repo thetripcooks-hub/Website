@@ -1,0 +1,117 @@
+import { BlogPost } from "@/app/blog/_components/blog-data";
+
+export type CommunityMember = {
+  name: string;
+  country: string;
+  image: string;
+};
+
+export const COMMUNITY_MEMBERS: CommunityMember[] = [
+  { name: "Onyinda Esther", country: "Nigeria", image: "/img/hero-desktop.png" },
+  { name: "Amara Diallo", country: "Ghana", image: "/img/hero-desktop.png" },
+  { name: "Kezia Mensah", country: "Kenya", image: "/img/hero-desktop.png" },
+  { name: "Tolu Adeyemi", country: "Nigeria", image: "/img/hero-desktop.png" },
+  { name: "Zara Osei", country: "Ghana", image: "/img/hero-desktop.png" },
+];
+
+export const COMMUNITY_POSTS: BlogPost[] = [
+  {
+    id: "c1",
+    slug: "marrakech-tangier-2024",
+    category: "stories",
+    author: "Lanre O.",
+    date: "April 9, 2026",
+    readTime: "4 min read",
+    title: "Marrakech and Tangier 2024 — the trip that changed everything",
+    excerpt: "Getting to meet everyone was the highlight. Camel riding at Agafay Desert was amazing.",
+    image: "/img/hero-desktop.png",
+  },
+  {
+    id: "c2",
+    slug: "istanbul-2024-memories",
+    category: "stories",
+    author: "Amara D.",
+    date: "March 15, 2026",
+    readTime: "5 min read",
+    title: "Istanbul 2024 — where East meets West and my heart stayed",
+    excerpt: "From the Grand Bazaar to the Bosphorus cruise, every moment was unforgettable.",
+    image: "/img/hero-desktop.png",
+  },
+  {
+    id: "c3",
+    slug: "dubai-new-year-2025",
+    category: "stories",
+    author: "Kezia M.",
+    date: "January 10, 2026",
+    readTime: "3 min read",
+    title: "New Year in Dubai — fireworks, skyscrapers and new friendships",
+    excerpt: "Watching the fireworks from the beach with our Tripcooks crew was pure magic.",
+    image: "/img/hero-desktop.png",
+  },
+  {
+    id: "c4",
+    slug: "ghana-homecoming-2025",
+    category: "stories",
+    author: "Tolu A.",
+    date: "February 20, 2026",
+    readTime: "6 min read",
+    title: "Ghana Homecoming 2025 — a journey back to roots",
+    excerpt: "The Year of Return trip was an emotional and joyful experience I will never forget.",
+    image: "/img/hero-desktop.png",
+  },
+  {
+    id: "c5",
+    slug: "bali-2025-retreat",
+    category: "stories",
+    author: "Zara O.",
+    date: "May 2, 2026",
+    readTime: "4 min read",
+    title: "Bali 2025 — temples, rice terraces and true connection",
+    excerpt: "Watching sunrise over Mount Batur with 20 strangers who became lifelong friends.",
+    image: "/img/hero-desktop.png",
+  },
+  {
+    id: "c6",
+    slug: "cape-town-2025",
+    category: "stories",
+    author: "Dami I.",
+    date: "June 8, 2026",
+    readTime: "5 min read",
+    title: "Cape Town 2025 — the Mother City stole our hearts",
+    excerpt: "Table Mountain, Boulders Beach and the most vibrant food scene on the continent.",
+    image: "/img/hero-desktop.png",
+  },
+  {
+    id: "c7",
+    slug: "egypt-pyramids-2025",
+    category: "stories",
+    author: "Chidi E.",
+    date: "April 22, 2026",
+    readTime: "4 min read",
+    title: "Egypt 2025 — standing before the Pyramids left me speechless",
+    excerpt: "No picture prepares you for the scale and history of Giza. A bucket list moment.",
+    image: "/img/hero-desktop.png",
+  },
+  {
+    id: "c8",
+    slug: "thailand-2025-adventure",
+    category: "stories",
+    author: "Sade B.",
+    date: "March 30, 2026",
+    readTime: "5 min read",
+    title: "Thailand 2025 — floating markets, elephants and pure wonder",
+    excerpt: "Chiang Mai, Bangkok and the islands — we packed a lifetime into two weeks.",
+    image: "/img/hero-desktop.png",
+  },
+  {
+    id: "c9",
+    slug: "lisbon-porto-2026",
+    category: "stories",
+    author: "Yemi F.",
+    date: "May 18, 2026",
+    readTime: "3 min read",
+    title: "Lisbon and Porto 2026 — pastel de nata and golden sunsets",
+    excerpt: "Tram rides, fado music and the most beautiful tiles — Portugal is a dream.",
+    image: "/img/hero-desktop.png",
+  },
+];

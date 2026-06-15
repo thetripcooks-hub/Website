@@ -42,7 +42,7 @@ type PrivateTripInformation = {
   specialRequest: string;
 };
 
-export const PrivateTripSchema: ZodType<PrivateTripInformation> = z.object({
+const PrivateTripSchema: ZodType<PrivateTripInformation> = z.object({
   email: z.string().email({
     message: "Please enter a valid email address",
   }),
