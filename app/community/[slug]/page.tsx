@@ -5,48 +5,42 @@ import Instagram from "@/components/icons/svg/instagram.svg";
 import Tiktok from "@/components/icons/svg/tiktok.svg";
 import WhatsApp from "@/components/icons/svg/whatsapp.svg";
 import LinkedIn from "@/components/icons/svg/linkedin.svg";
-import { Footer } from "@/components/ui";
-import BlogCallout from "@/app/home/_components/blog-callout";
-import BlogArticleToc from "../_components/blog-article-toc";
-import MobileBackToTop from "../_components/mobile-back-to-top";
-import {
-  BLOG_POSTS,
-  ARTICLE_SECTIONS,
-  CATEGORY_LABEL,
-  LOREM,
-} from "../_components/blog-data";
+import { Footer, SubcribeToNewsLetter } from "@/components/ui";
+import BlogArticleToc from "@/app/blog/_components/blog-article-toc";
+import MobileBackToTop from "@/app/blog/_components/mobile-back-to-top";
+import { ARTICLE_SECTIONS, LOREM } from "@/app/blog/_components/blog-data";
+import { COMMUNITY_POSTS } from "../_components/community-data";
 
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = BLOG_POSTS.find((p) => p.slug === slug) ?? BLOG_POSTS[0];
+  const post = COMMUNITY_POSTS.find((p) => p.slug === slug) ?? COMMUNITY_POSTS[0];
   return {
-    title: `${post.title} | Trip Cooks Blog`,
+    title: `${post.title} | Trip Cooks Community`,
     description: post.excerpt,
-    alternates: { canonical: `https://tripcooks.tours/blog/${post.slug}` },
+    alternates: { canonical: `https://tripcooks.tours/community/${post.slug}` },
     openGraph: {
-      title: `${post.title} | Trip Cooks Blog`,
+      title: `${post.title} | Trip Cooks Community`,
       description: post.excerpt,
-      url: `https://tripcooks.tours/blog/${post.slug}`,
+      url: `https://tripcooks.tours/community/${post.slug}`,
       type: "article",
     },
     twitter: {
       card: "summary_large_image",
-      title: `${post.title} | Trip Cooks Blog`,
+      title: `${post.title} | Trip Cooks Community`,
       description: post.excerpt,
     },
   };
 }
 
 export function generateStaticParams() {
-  return BLOG_POSTS.map((p) => ({ slug: p.slug }));
+  return COMMUNITY_POSTS.map((p) => ({ slug: p.slug }));
 }
 
-export default async function ArticlePage({ params }: Props) {
+export default async function CommunityArticlePage({ params }: Props) {
   const { slug } = await params;
-  const post = BLOG_POSTS.find((p) => p.slug === slug) ?? BLOG_POSTS[0];
-  const categoryLabel = CATEGORY_LABEL[post.category];
+  const post = COMMUNITY_POSTS.find((p) => p.slug === slug) ?? COMMUNITY_POSTS[0];
 
   return (
     <main className="flex flex-col min-h-screen bg-[color:var(--bg-primary)]">
@@ -55,20 +49,17 @@ export default async function ArticlePage({ params }: Props) {
         {/* Breadcrumbs */}
         <nav className="flex items-center gap-1.5 flex-wrap">
           <Link
-            href="/blog"
+            href="/community"
             className="text-[16px] font-medium leading-[24px] text-[#09af0d] font-plus-jakarta-sans hover:underline"
           >
-            Blog
+            Community
           </Link>
           <span className="text-[16px] text-[color:var(--text-primary)] font-plus-jakarta-sans">
             /
           </span>
-          <Link
-            href={`/blog?category=${post.category}`}
-            className="text-[16px] font-medium leading-[24px] text-[color:var(--text-primary)] font-plus-jakarta-sans hover:text-[#09af0d] transition-colors"
-          >
-            {categoryLabel}
-          </Link>
+          <span className="text-[16px] font-medium leading-[24px] text-[color:var(--text-primary)] font-plus-jakarta-sans line-clamp-1">
+            {post.title}
+          </span>
         </nav>
 
         {/* Title */}
@@ -139,6 +130,9 @@ export default async function ArticlePage({ params }: Props) {
               Overview
             </h2>
             <p className="text-[18px] max-sm:text-[16px] font-normal leading-[28px] max-sm:leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
+              {post.excerpt}
+            </p>
+            <p className="text-[18px] max-sm:text-[16px] font-normal leading-[28px] max-sm:leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
               {LOREM}
             </p>
           </section>
@@ -167,7 +161,7 @@ export default async function ArticlePage({ params }: Props) {
                   />
                 </div>
                 <p className="text-[18px] font-normal leading-[28px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
-                  Image: Trip from Morocco
+                  Image: {post.title}
                 </p>
               </div>
             </div>
@@ -185,8 +179,7 @@ export default async function ArticlePage({ params }: Props) {
                   Ready to Start Your Next Adventure?
                 </h3>
                 <p className="text-[14px] max-sm:text-[12px] font-normal leading-[22px] text-[color:var(--text-inverse)] font-plus-jakarta-sans max-w-[514px]">
-                  Join a group trip or let us create a personalized journey just
-                  for you. Your unforgettable experience awaits
+                  Join a group trip or let us create a personalized journey just for you. Your unforgettable experience awaits
                 </p>
               </div>
               <Link
@@ -212,13 +205,10 @@ export default async function ArticlePage({ params }: Props) {
           </section>
         </article>
 
-        {/* Mobile back-to-top button (fixed) */}
         <MobileBackToTop />
       </div>
 
-      {/* Read more from our blog */}
-      <BlogCallout />
-
+      <SubcribeToNewsLetter />
       <Footer />
     </main>
   );

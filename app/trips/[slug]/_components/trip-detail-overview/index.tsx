@@ -1,7 +1,7 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import { Image as ImageIcon } from "lucide-react";
+import { Image as ImageIcon, ChevronLeft } from "lucide-react";
 import TripInfo from "./trip-info";
 import TravelWithOwners from "./travel-with-owners";
 import WhatsIncluded from "./whats-included";
@@ -10,11 +10,13 @@ import useTripStore from "@/stores/trip-store";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui";
 import type { CarouselApi } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 const TripDetailOverview = () => {
   const { selectedTrip } = useTripStore();
   const [mobileApi, setMobileApi] = useState<CarouselApi>();
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const router = useRouter();
 
   const onSelect = useCallback(() => {
     if (!mobileApi) return;
@@ -40,9 +42,18 @@ const TripDetailOverview = () => {
         {/* Left column */}
         <div className="flex-1 min-w-0 flex flex-col gap-6">
           {/* Location title — desktop only */}
-          <h1 className="hidden sm:block font-ogg-trial text-[40px] leading-[60px] text-[hsl(var(--text-primary))]">
-            {selectedTrip.location}
-          </h1>
+          <div className="hidden sm:flex items-center gap-3">
+            <button
+              onClick={() => router.back()}
+              aria-label="Go back"
+              className="w-10 h-10 rounded-full bg-[hsl(var(--bg-secondary))] flex items-center justify-center shrink-0 hover:opacity-80 transition-opacity"
+            >
+              <ChevronLeft size={20} className="text-[hsl(var(--text-primary))]" />
+            </button>
+            <h1 className="font-ogg-trial text-[40px] leading-[60px] text-[hsl(var(--text-primary))]">
+              {selectedTrip.location}
+            </h1>
+          </div>
 
           {/* Desktop image grid */}
           <div className="hidden sm:flex gap-2 h-[520px] relative overflow-hidden">
@@ -91,9 +102,18 @@ const TripDetailOverview = () => {
           {/* Mobile image carousel */}
           <div className="sm:hidden flex flex-col gap-4">
             {/* Location title — mobile */}
-            <h1 className="font-ogg-trial text-[40px] leading-[60px] text-[hsl(var(--text-primary))]">
-              {selectedTrip.location}
-            </h1>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => router.back()}
+                aria-label="Go back"
+                className="w-10 h-10 rounded-full bg-[hsl(var(--bg-secondary))] flex items-center justify-center shrink-0 hover:opacity-80 transition-opacity"
+              >
+                <ChevronLeft size={20} className="text-[hsl(var(--text-primary))]" />
+              </button>
+              <h1 className="font-ogg-trial text-[40px] leading-[60px] text-[hsl(var(--text-primary))]">
+                {selectedTrip.location}
+              </h1>
+            </div>
             <Carousel
               setApi={setMobileApi}
               opts={{ loop: true }}

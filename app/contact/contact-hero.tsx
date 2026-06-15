@@ -27,7 +27,7 @@ type ContactInformation = {
   message: string;
 };
 
-export const ContactSchema: ZodType<ContactInformation> = z.object({
+const ContactSchema: ZodType<ContactInformation> = z.object({
   email: z.string({}).email({
     message: "Please enter a valid email address",
   }),
@@ -93,7 +93,7 @@ const ContactHero = () => {
           <FormBgSvg className="absolute pointer-events-none w-[2012px] max-w-none -left-[593px] top-[36px] h-[642px] [--fill-0:#9EC99F] dark:[--fill-0:#5DB86C]" />
 
           {/* Inner form card */}
-          <div className="relative z-10 bg-background border border-border rounded-[12px] flex flex-col gap-[21px] p-[29.5px] sm:w-[469px] w-[calc(100%-32px)] my-8 sm:my-0">
+          <div className="relative z-10 bg-[#FAFAFA] dark:bg-background border border-border rounded-[12px] flex flex-col gap-[21px] p-[29.5px] sm:w-[469px] w-[calc(100%-32px)] my-8 sm:my-0">
             <h2 className="font-ogg-trial text-[24px] sm:text-[32px] leading-9 sm:leading-[48px] text-[hsl(var(--text-primary))]">
               Leave us a message
             </h2>

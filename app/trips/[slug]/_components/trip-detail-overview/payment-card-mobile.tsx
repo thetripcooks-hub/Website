@@ -3,7 +3,7 @@ import usePaymentCard from "@/hooks/payment/usePaymentCard";
 import { cn, formatAmount, percentage } from "@/lib/utils";
 import useGeneralStore from "@/stores/generalStore";
 import React from "react";
-import Link from "next/link";
+import PaymentTermsDrawer from "./payment-terms-drawer";
 
 const PaymentCardMobile = () => {
   const { selectedTrip, handleAddToCart, handlePay, isPaying } = usePaymentCard();
@@ -90,12 +90,7 @@ const PaymentCardMobile = () => {
         <p className="text-[16px] leading-[24px] text-[hsl(var(--text-secondary))]">
           Flexible payment plans are available
         </p>
-        <Link
-          href="/legal"
-          className="text-[16px] text-secondary-irish-green underline leading-[24px]"
-        >
-          Learn More
-        </Link>
+        <PaymentTermsDrawer />
       </div>
     </div>
   );

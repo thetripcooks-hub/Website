@@ -65,7 +65,7 @@ const Cart = ({ transparent, isActive }: { transparent?: boolean; isActive?: boo
               className={`h-[32px] sm:h-[46px] ${!transparent ? "invert dark:invert-0" : ""}`}
             />
             {itemCount > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 min-w-[20px] h-[20px] rounded-full bg-[#09AF0D] text-white text-[9px] font-normal leading-none flex items-center justify-center p-[4px]">
+              <span className="absolute top-1 right-1 min-w-[20px] h-[20px] rounded-full bg-[#09AF0D] text-white text-[9px] font-normal leading-none flex items-center justify-center p-[4px]">
                 {itemCount}
               </span>
             )}

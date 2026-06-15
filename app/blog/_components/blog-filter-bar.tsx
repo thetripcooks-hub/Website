@@ -27,7 +27,7 @@ export default function BlogFilterBar({
               onClick={() => onCategoryChange(cat)}
               className={`text-[14px] font-medium leading-[21px] font-plus-jakarta-sans px-3 py-1 rounded-full transition-colors ${
                 activeCategory === cat
-                  ? "bg-[color:var(--text-primary)] text-[color:var(--text-inverse)]"
+                  ? "bg-black text-white dark:bg-white dark:text-black"
                   : "text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)]"
               }`}
             >
@@ -78,7 +78,7 @@ export default function BlogFilterBar({
         </select>
       </div>
 
-      <hr className="border-[color:var(--border)] w-full" />
+      <hr className="border-0 border-t border-dashed border-[#EEEEEE] dark:border-white/10 w-full" />
     </div>
   );
 }
