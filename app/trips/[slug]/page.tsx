@@ -24,7 +24,7 @@ const Page = () => {
     useQuery<AllTripsResponse>(queryGetAllTrips);
 
   const tripBySlug = allTripsData?.tripCollection.items.find(
-    (t) => locationToSlug(t.location) === slug
+    (t) => locationToSlug(t.location) === slug,
   );
 
   // Fallback: slug might be an old Contentful ID — try fetching by ID

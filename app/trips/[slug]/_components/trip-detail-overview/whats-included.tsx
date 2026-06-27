@@ -4,27 +4,21 @@ import useTripStore from "@/stores/trip-store";
 import { Check, X } from "lucide-react";
 import Link from "next/link";
 
+// TODO (CMS): Replace with a `whatsNotIncluded` field in Contentful once configured per trip
+const DEFAULT_NOT_INCLUDED = [
+  { title: "Flight ticket" },
+  { title: "Breakfast" },
+  { title: "Airport pickup and transfer" },
+];
+
 const WhatsIncluded = () => {
   const { selectedTrip } = useTripStore();
 
   if (!selectedTrip) return null;
 
-  type IncludedItem = {
-    icon?: string;
-    title: string;
-    isHighlighted?: string | boolean;
-    isHightlighted?: boolean;
-  };
+  type IncludedItem = { title: string };
 
-  const items = selectedTrip.whatsIncluded as IncludedItem[];
-
-  const isIncluded = (item: IncludedItem) =>
-    item.isHighlighted === true ||
-    item.isHighlighted === "true" ||
-    item.isHightlighted === true;
-
-  const included = items.filter(isIncluded);
-  const notIncluded = items.filter((item) => !isIncluded(item));
+  const included = (selectedTrip.whatsIncluded ?? []) as IncludedItem[];
 
   return (
     <div className="flex flex-col gap-6">
@@ -47,23 +41,21 @@ const WhatsIncluded = () => {
         </div>
 
         {/* Not Included */}
-        {notIncluded.length > 0 && (
-          <div className="sm:w-[319px] flex flex-col gap-[26px]">
-            <p className="font-medium text-[20px] leading-[30px] text-[hsl(var(--text-primary))]">
-              Not Included
-            </p>
-            <div className="flex flex-col gap-4">
-              {notIncluded.map((item, index) => (
-                <div key={index} className="flex gap-2 items-start">
-                  <X className="w-6 h-6 shrink-0 text-[#F04438] mt-0.5" />
-                  <p className="text-[16px] leading-[24px] text-[hsl(var(--text-primary))]">
-                    {item.title}
-                  </p>
-                </div>
-              ))}
-            </div>
+        <div className="sm:w-[319px] flex flex-col gap-[26px]">
+          <p className="font-medium text-[20px] leading-[30px] text-[hsl(var(--text-primary))]">
+            Not Included
+          </p>
+          <div className="flex flex-col gap-4">
+            {DEFAULT_NOT_INCLUDED.map((item, index) => (
+              <div key={index} className="flex gap-2 items-start">
+                <X className="w-6 h-6 shrink-0 text-[#F04438] mt-0.5" />
+                <p className="text-[16px] leading-[24px] text-[hsl(var(--text-primary))]">
+                  {item.title}
+                </p>
+              </div>
+            ))}
           </div>
-        )}
+        </div>
       </div>
 
       <div className="border-t border-border w-full" />

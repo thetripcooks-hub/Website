@@ -136,7 +136,7 @@ const Page = () => {
                 Trip details
               </h4>
               {trips.map((trip) => (
-                <div className="w-full flex justify-between" key={trip.sys.id}>
+                <div className="w-full flex justify-between items-start" key={trip.sys.id}>
                   <div className="flex flex-col gap-1.5">
                     <h3 className="text-neutral-text text-[24px] leading-[29.26px] font-medium">
                       {trip.location}
@@ -148,13 +148,14 @@ const Page = () => {
                       {formatAmount(trip.downPayment * trip.quantity, selectedCurrency)}
                     </p>
                   </div>
-                  <Image
-                    src={SampleCartIcon}
-                    alt="selected-trip-image"
-                    width={99}
-                    height={99.07}
-                    className="object-cover rounded-[3.32px]"
-                  />
+                  <div className="relative shrink-0 rounded-[3.32px] overflow-hidden" style={{ width: "99px", height: "99px" }}>
+                    <Image
+                      src={trip.bannerImagesCollection?.items[0]?.url || SampleCartIcon}
+                      alt={trip.location}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
                 </div>
               ))}
               <Separator />

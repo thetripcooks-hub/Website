@@ -64,10 +64,10 @@ const TripCard = ({
           fill
           className="object-cover rounded-[12px]"
         />
-        {/* Host badge */}
+        {/* Host / status badge */}
         <div className="absolute top-3 left-3 bg-white rounded-full px-3 py-1 z-10 flex items-center border border-[#eee]">
           <span className="text-xs font-medium text-neutral-text">
-            Trip Cooks
+            {isPast ? "Sold out" : "Trip Cooks"}
           </span>
         </div>
       </div>
@@ -86,23 +86,19 @@ const TripCard = ({
           </h5>
           <p className="text-base text-neutral-subtext dark:text-[#BFC0C2]">{formatTripDate(item)}</p>
         </div>
-        <div className="shrink-0">
-          {isPast ? (
-            <p className="font-ogg-trial text-[28px] text-neutral-subtext dark:text-[#BFC0C2] leading-tight">
-              Sold out
-            </p>
-          ) : (
-            <>
-              {originalPrice && (
-                <p className="text-base text-neutral-subtext line-through dark:text-[#BFC0C2]">{originalPrice}</p>
-              )}
+        {!isPast && (
+          <div className="shrink-0">
+            <div className="flex items-baseline gap-2">
               <p className="font-ogg-trial text-[28px] text-neutral-text leading-tight dark:text-white">
                 {price}
               </p>
-              <p className="text-sm text-neutral-subtext dark:text-[#BFC0C2]">Per person</p>
-            </>
-          )}
-        </div>
+              {originalPrice && (
+                <p className="text-base text-neutral-subtext line-through dark:text-[#BFC0C2]">{originalPrice}</p>
+              )}
+            </div>
+            <p className="text-sm text-neutral-subtext dark:text-[#BFC0C2]">Per person</p>
+          </div>
+        )}
       </div>
 
       {/* CTA */}

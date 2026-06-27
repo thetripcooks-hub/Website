@@ -1,11 +1,20 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useMemo } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { BlogPost } from "@/app/blog/_components/blog-data";
 import { COMMUNITY_POSTS } from "./community-data";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 function CommunityCard({ post }: { post: BlogPost }) {
   return (
@@ -39,59 +48,78 @@ function CommunityCard({ post }: { post: BlogPost }) {
 
 const PAGE_SIZE = 9;
 
+function getPageNumbers(current: number, total: number): (number | "...")[] {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+
+  const left = current - 1;
+  const right = current + 1;
+  const pages: (number | "...")[] = [1];
+
+  if (left > 2) pages.push("...");
+
+  for (let i = Math.max(2, left); i <= Math.min(total - 1, right); i++) {
+    pages.push(i);
+  }
+
+  if (right < total - 1) pages.push("...");
+
+  pages.push(total);
+
+  return pages;
+}
+
 export default function AlumniGrid() {
-  const [currentPage, setCurrentPage] = useState(1);
+  const searchParams = useSearchParams();
+  const currentPage = Math.max(1, parseInt(searchParams.get("page") ?? "1", 10));
 
-  const filtered = useMemo(() => COMMUNITY_POSTS, []);
-
-  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const posts = useMemo(() => COMMUNITY_POSTS, []);
+  const totalPages = Math.max(1, Math.ceil(posts.length / PAGE_SIZE));
   const page = Math.min(currentPage, totalPages);
-  const visible = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const visible = posts.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const pageNumbers = getPageNumbers(page, totalPages);
 
   return (
     <section className="px-5 sm:px-[109px] py-9 flex flex-col gap-9 bg-[color:var(--bg-primary)]">
-      {/* Stories grid */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
         {visible.map((post) => (
           <CommunityCard key={post.id} post={post} />
         ))}
       </div>
 
-      {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-3">
-          <button
-            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-            disabled={page === 1}
-            className="w-6 h-6 flex items-center justify-center disabled:opacity-30"
-            aria-label="Previous page"
-          >
-            <ChevronLeft className="w-5 h-5 text-neutral-text dark:text-foreground" />
-          </button>
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                href={`?page=${page - 1}`}
+                aria-disabled={page === 1}
+                className={page === 1 ? "pointer-events-none opacity-30" : ""}
+              />
+            </PaginationItem>
 
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
-            <button
-              key={num}
-              onClick={() => setCurrentPage(num)}
-              className={`w-10 h-10 rounded-[20px] text-[14px] font-medium font-plus-jakarta-sans flex items-center justify-center transition-colors ${
-                page === num
-                  ? "bg-gradient-to-r from-[#FA93F4] from-[28.5%] to-[#EE7FE7] text-white"
-                  : "text-neutral-text dark:text-foreground hover:bg-[color:var(--bg-secondary)]"
-              }`}
-            >
-              {num}
-            </button>
-          ))}
+            {pageNumbers.map((num, i) =>
+              num === "..." ? (
+                <PaginationItem key={`ellipsis-${i}`}>
+                  <PaginationEllipsis />
+                </PaginationItem>
+              ) : (
+                <PaginationItem key={num}>
+                  <PaginationLink href={`?page=${num}`} isActive={page === num}>
+                    {num}
+                  </PaginationLink>
+                </PaginationItem>
+              )
+            )}
 
-          <button
-            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-            disabled={page === totalPages}
-            className="w-6 h-6 flex items-center justify-center disabled:opacity-30"
-            aria-label="Next page"
-          >
-            <ChevronRight className="w-5 h-5 text-neutral-text dark:text-foreground" />
-          </button>
-        </div>
+            <PaginationItem>
+              <PaginationNext
+                href={`?page=${page + 1}`}
+                aria-disabled={page === totalPages}
+                className={page === totalPages ? "pointer-events-none opacity-30" : ""}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       )}
     </section>
   );
