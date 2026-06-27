@@ -190,6 +190,11 @@ const TripDetailOverview = () => {
             )}
             <WhatsIncluded />
           </div>
+
+          {/* Inline booking card — mobile only */}
+          <div className="sm:hidden mt-2">
+            <PaymentCard />
+          </div>
         </div>
 
         {/* Right column — desktop payment card (sticky) */}
