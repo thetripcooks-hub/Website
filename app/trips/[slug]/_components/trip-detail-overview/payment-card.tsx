@@ -35,14 +35,14 @@ const PaymentCard = () => {
           )}
         </div>
         <div className="flex items-center gap-[11px] flex-wrap">
+          <span className="text-[32px] leading-[48px] font-medium text-[hsl(var(--text-primary))]">
+            {formatAmount(displayPrice, selectedCurrency)}
+          </span>
           {selectedTrip.discount && (
             <span className="line-through text-[24px] leading-[36px] font-medium text-[hsl(var(--text-secondary))]">
               {formatAmount(selectedTrip.fullAmount, selectedCurrency)}
             </span>
           )}
-          <span className="text-[32px] leading-[48px] font-medium text-[hsl(var(--text-primary))]">
-            {formatAmount(displayPrice, selectedCurrency)}
-          </span>
           <span className="text-[16px] font-medium text-[hsl(var(--text-primary))]">
             per person
           </span>

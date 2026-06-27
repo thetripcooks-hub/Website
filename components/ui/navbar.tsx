@@ -65,7 +65,7 @@ const navConfig: NavItem[] = [
     children: [
       { name: "Blog", url: "/blog" },
       { name: "Community", url: "/community" },
-      { name: "Travel guides", url: "/travel-guides" },
+      { name: "Travel guides", url: "https://tripcooks.gumroad.com/" },
     ],
   },
   { name: "Contact", url: "/contact" },
@@ -138,23 +138,27 @@ const NavDropdownItem = ({
           {item.name}
         </p>
         <div className="flex flex-col gap-3">
-          {item.children.map((child) => (
-            <Link
-              key={child.name}
-              href={child.url}
-              onClick={() => setOpen(false)}
-              className="flex flex-col gap-[6px]"
-            >
-              <p className="text-base font-medium leading-6 text-[hsl(var(--text-primary))]">
-                {child.name}
-              </p>
-              {child.description && (
-                <p className="text-xs font-normal leading-[18px] text-[hsl(var(--text-tertiary))]">
-                  {child.description}
+          {item.children.map((child) => {
+            const isExternal = child.url.startsWith("http");
+            return (
+              <Link
+                key={child.name}
+                href={child.url}
+                onClick={() => setOpen(false)}
+                className="flex flex-col gap-[6px]"
+                {...(isExternal && { target: "_blank", rel: "noopener noreferrer" })}
+              >
+                <p className="text-base font-medium leading-6 text-[hsl(var(--text-primary))]">
+                  {child.name}
                 </p>
-              )}
-            </Link>
-          ))}
+                {child.description && (
+                  <p className="text-xs font-normal leading-[18px] text-[hsl(var(--text-tertiary))]">
+                    {child.description}
+                  </p>
+                )}
+              </Link>
+            );
+          })}
         </div>
       </DropdownMenuContent>
     </DropdownMenu>

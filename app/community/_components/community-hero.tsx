@@ -26,7 +26,7 @@ function MemberCard({ member }: { member: CommunityMember }) {
 
 const CommunityHero = () => {
   return (
-    <div className="relative w-full h-[calc(530px+75px)] sm:h-[calc(760px+95px)] -mt-[75px] sm:-mt-[95px] bg-[#daf3db] dark:bg-[#133114] overflow-hidden flex flex-col items-center pt-[75px] sm:pt-[95px]">
+    <div className="relative w-full h-[calc(430px+75px)] sm:h-[calc(640px+95px)] -mt-[75px] sm:-mt-[95px] bg-[#daf3db] dark:bg-[#133114] overflow-hidden flex flex-col items-center pt-[75px] sm:pt-[95px]">
       {/* Decorative SVG background */}
       <svg
         className="absolute inset-0 w-full h-full"

@@ -1,24 +1,15 @@
 "use client";
-import React from "react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "./dropdown-menu";
+import React, { useEffect } from "react";
 import Menu from "~/img/harmburger-menu.svg";
 import MenuDark from "~/img/harmburger-menu-dark.svg";
+import CartIcon from "~/img/cart.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import Instagram from "@/components/icons/svg/instagram.svg";
-import InstagramDark from "@/components/icons/svg/instagram-dark.svg";
-import Tiktok from "@/components/icons/svg/tiktok.svg";
-import TiktokDark from "@/components/icons/svg/tiktok-dark.svg";
 import Logo from "~/logo.svg";
 import { ModeToggle } from "./mode-toggle";
-import { useRouter } from "next/navigation";
 import CurrencyToggle from "./currency-toggle";
-import Cart from "./cart";
+import useCartStore from "@/stores/cartStore";
 import { ChevronDown, X } from "lucide-react";
 import type { NavItem } from "./navbar";
 
@@ -33,27 +24,10 @@ const MobileNav = ({
 }) => {
   const [open, setOpen] = React.useState(false);
   const [openItem, setOpenItem] = React.useState<string | null>(null);
-  const router = useRouter();
+  const { items } = useCartStore();
+  const itemCount = items.reduce((sum, t) => sum + t.quantity, 0);
 
-  const socials = [
-    {
-      name: "Instagram",
-      url: "https://www.instagram.com/tripcooks/",
-      icon: Instagram,
-      darkIcon: InstagramDark,
-    },
-    {
-      name: "Tiktok",
-      url: "https://www.tiktok.com/@tripcooks?_t=ZM-8smTfjMee4k&_r=1",
-      icon: Tiktok,
-      darkIcon: TiktokDark,
-    },
-  ];
-
-  const plainLinks: NavItem[] = [
-    ...navConfig.filter((item) => !item.children?.length),
-    { name: "My Cart", url: "/cart" },
-  ];
+  const plainLinks: NavItem[] = navConfig.filter((item) => !item.children?.length);
   const accordionItems = navConfig.filter((item) => item.children?.length);
 
   const handleClose = () => {
@@ -61,32 +35,37 @@ const MobileNav = ({
     setOpenItem(null);
   };
 
+  // Lock body scroll while open
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
+
   return (
     <div className="sm:hidden flex gap-1">
-      <DropdownMenu
-        open={open}
-        onOpenChange={(v) => {
-          setOpen(v);
-          if (!v) setOpenItem(null);
-        }}
+      {/* Hamburger trigger */}
+      <button
+        onClick={() => setOpen(true)}
+        aria-label="Open navigation menu"
+        className="flex gap-2 cursor-pointer"
       >
-        <DropdownMenuTrigger asChild>
-          <div className="flex gap-2 cursor-pointer">
-            <Image
-              src={isHome ? MenuDark : Menu}
-              alt="Open navigation menu"
-              className={cn(isHome ? "block" : "block dark:hidden")}
-            />
-            {!isHome && (
-              <Image
-                src={MenuDark}
-                alt="Open navigation menu"
-                className="hidden dark:block"
-              />
-            )}
-          </div>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-screen rounded-none border-none p-4 h-[85vh] shadow-none sm:hidden -top-[75px] absolute -right-[36px] z-[99] flex flex-col">
+        <Image
+          src={isHome ? MenuDark : Menu}
+          alt="Open navigation menu"
+          className={cn(isHome ? "block" : "block dark:hidden")}
+        />
+        {!isHome && (
+          <Image
+            src={MenuDark}
+            alt="Open navigation menu"
+            className="hidden dark:block"
+          />
+        )}
+      </button>
+
+      {/* Overlay panel */}
+      {open && (
+        <div className="fixed inset-0 z-[150] flex flex-col bg-[hsl(var(--bg-primary))] p-4 overflow-y-auto">
           {/* Header */}
           <div className="flex justify-between items-center mb-6">
             <Link href="/home" className="cursor-pointer" onClick={handleClose}>
@@ -94,7 +73,7 @@ const MobileNav = ({
             </Link>
             <button
               onClick={handleClose}
-              className="size-[47px] rounded-full bg-[hsl(var(--bg-tertiary))] dark:bg-[hsl(var(--bg-tertiary))] flex items-center justify-center shrink-0"
+              className="size-[47px] rounded-full bg-[hsl(var(--bg-tertiary))] flex items-center justify-center shrink-0"
             >
               <X size={20} />
             </button>
@@ -120,14 +99,7 @@ const MobileNav = ({
                       )
                     }
                   >
-                    <span
-                      className={cn(
-                        "font-medium text-base leading-6",
-                        isExpanded
-                          ? "text-[hsl(var(--text-secondary))]"
-                          : "text-[hsl(var(--text-secondary))]"
-                      )}
-                    >
+                    <span className="font-medium text-base leading-6 text-[hsl(var(--text-secondary))]">
                       {item.name}
                     </span>
                     <ChevronDown
@@ -140,12 +112,15 @@ const MobileNav = ({
                   </button>
                   {isExpanded && (
                     <div className="flex flex-col gap-3 mt-4">
-                      {item.children!.map((child) => (
+                      {item.children!.map((child) => {
+                        const isExternal = child.url.startsWith("http");
+                        return (
                         <Link
                           key={child.name}
                           href={child.url}
                           onClick={handleClose}
                           className="flex flex-col gap-[6px]"
+                          {...(isExternal && { target: "_blank", rel: "noopener noreferrer" })}
                         >
                           <span className="font-medium text-[14px] leading-[21px] text-[hsl(var(--text-primary))]">
                             {child.name}
@@ -156,7 +131,8 @@ const MobileNav = ({
                             </span>
                           )}
                         </Link>
-                      ))}
+                        );
+                      })}
                     </div>
                   )}
                 </div>
@@ -183,49 +159,28 @@ const MobileNav = ({
           <div className="flex-1" />
 
           {/* Bottom controls */}
-          <div className="flex gap-2 items-center mb-4">
+          <div className="flex gap-2 items-center py-4">
             <div className="bg-[hsl(var(--bg-tertiary))] rounded-full">
               <CurrencyToggle mobileNavOpen={open} />
             </div>
             <div className="bg-[hsl(var(--bg-tertiary))] rounded-full size-[47px] flex items-center justify-center">
               <ModeToggle />
             </div>
-            <div className="bg-[hsl(var(--bg-tertiary))] rounded-full size-[47px] flex items-center justify-center">
-              <Cart transparent={false} />
-            </div>
+            <Link
+              href="/cart"
+              onClick={handleClose}
+              className="bg-[hsl(var(--bg-tertiary))] rounded-full size-[47px] flex items-center justify-center relative"
+            >
+              <Image src={CartIcon} alt="cart" className="h-[32px] invert dark:invert-0" />
+              {itemCount > 0 && (
+                <span className="absolute top-1 right-1 min-w-[16px] h-[16px] rounded-full bg-[#09AF0D] text-white text-[9px] font-normal flex items-center justify-center p-[3px]">
+                  {itemCount}
+                </span>
+              )}
+            </Link>
           </div>
-
-          {/* Social links */}
-          <div className="flex flex-col gap-4">
-            <h4 className="text-sm font-medium text-[hsl(var(--text-secondary))]">Follow us on Instagram</h4>
-            <div className="flex gap-4">
-              {socials.map((social, index) => (
-                <div
-                  className="w-[46px] h-[46px] rounded-full border-neutral-300 border border-solid items-center justify-center flex dark:border-[#383E47]"
-                  key={index}
-                  onClick={() => {
-                    handleClose();
-                    router.push(social.url);
-                  }}
-                >
-                  <Image
-                    src={social.icon}
-                    alt={social.name}
-                    width={19.88}
-                    className="dark:hidden"
-                  />
-                  <Image
-                    src={social.darkIcon}
-                    width={19.88}
-                    className="hidden dark:block"
-                    alt={social.name}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </DropdownMenuContent>
-      </DropdownMenu>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 const TripsHeroBackground = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="relative w-full h-[calc(350px+75px)] sm:h-[calc(460px+95px)] -mt-[75px] sm:-mt-[95px] bg-[#daf3db] dark:bg-[#133114] overflow-hidden flex items-center justify-center pt-[75px] sm:pt-[95px]">
+    <div className="relative w-full h-[calc(260px+75px)] sm:h-[calc(340px+95px)] -mt-[75px] sm:-mt-[95px] bg-[#daf3db] dark:bg-[#133114] overflow-hidden flex items-center justify-center pt-[75px] sm:pt-[95px]">
       <svg
         className="absolute inset-0 w-full h-full"
         viewBox="0 0 1440 460"

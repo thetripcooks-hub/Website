@@ -174,24 +174,24 @@ export default async function ArticlePage({ params }: Props) {
           </section>
 
           {/* Mid-article CTA */}
-          <div className="h-[242px] max-sm:h-auto max-sm:py-10 rounded-[12px] overflow-hidden relative">
+          <div className="h-[242px] max-sm:h-auto max-sm:py-10 rounded-[12px] overflow-hidden relative bg-[#09AF0D]">
             <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: "url(/img/Tripcooks_Pattern.svg)" }}
+              className="absolute inset-0 bg-cover bg-center opacity-20"
+              style={{ backgroundImage: "url(/img/group-trips-hero-bg.svg)" }}
             />
             <div className="relative z-10 flex flex-col items-center justify-center h-full gap-5 text-center px-8">
               <div className="flex flex-col gap-1 items-center">
-                <h3 className="font-ogg-trial text-[32px] max-sm:text-[24px] leading-[48px] text-[color:var(--text-inverse)]">
+                <h3 className="font-ogg-trial text-[32px] max-sm:text-[24px] leading-[48px] text-white">
                   Ready to Start Your Next Adventure?
                 </h3>
-                <p className="text-[14px] max-sm:text-[12px] font-normal leading-[22px] text-[color:var(--text-inverse)] font-plus-jakarta-sans max-w-[514px]">
+                <p className="text-[14px] max-sm:text-[12px] font-normal leading-[22px] text-white/90 font-plus-jakarta-sans max-w-[514px]">
                   Join a group trip or let us create a personalized journey just
                   for you. Your unforgettable experience awaits
                 </p>
               </div>
               <Link
                 href="/trips"
-                className="bg-[color:var(--bg-primary)] text-[color:var(--text-primary)] text-[16px] font-medium font-plus-jakarta-sans px-6 py-3 rounded-full hover:opacity-90 transition-opacity"
+                className="bg-[hsl(var(--bg-primary))] text-[hsl(var(--text-primary))] text-[16px] font-medium font-plus-jakarta-sans px-6 py-3 rounded-full hover:opacity-90 transition-opacity"
               >
                 View current trips
               </Link>
