@@ -135,7 +135,7 @@ const TripDetailOverview = () => {
               >
                 <ChevronLeft size={20} className="text-[hsl(var(--text-primary))]" />
               </button>
-              <h1 className="font-ogg-trial text-[28px] leading-[42px] text-[hsl(var(--text-primary))]">
+              <h1 className="font-ogg-trial text-[40px] leading-[60px] text-[hsl(var(--text-primary))]">
                 {selectedTrip.location}
               </h1>
             </div>
