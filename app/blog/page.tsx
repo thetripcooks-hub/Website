@@ -59,7 +59,7 @@ export default function BlogPage() {
           />
         </svg>
         <div className="relative z-10 px-[100px] max-sm:px-6 flex flex-col gap-4">
-          <h1 className="font-ogg-trial text-[52px] max-sm:text-[40px] leading-[78px] max-sm:leading-[52px] text-neutral-text dark:text-foreground">
+          <h1 className="font-ogg-trial text-[52px] max-sm:text-[32px] leading-[78px] max-sm:leading-[48px] text-neutral-text dark:text-foreground">
             Here&apos;s our blog!
           </h1>
           <p className="text-[16px] sm:text-[20px] font-normal leading-[30px] text-neutral-text dark:text-foreground font-plus-jakarta-sans">

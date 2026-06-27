@@ -47,7 +47,7 @@ const CommunityHero = () => {
 
       {/* Headline + subtext */}
       <div className="relative z-10 flex flex-col items-center gap-4 text-center mt-10 sm:mt-16 px-5">
-        <h1 className="font-ogg-trial text-[40px] sm:text-[64px] leading-[1.5] text-neutral-text dark:text-foreground">
+        <h1 className="font-ogg-trial text-[40px] max-sm:text-[28px] sm:text-[64px] leading-[1.5] text-neutral-text dark:text-foreground">
           Stories from our Trippers
         </h1>
         <p className="text-[16px] sm:text-[20px] font-normal leading-[1.5] text-neutral-text dark:text-foreground max-w-[396px] font-plus-jakarta-sans">

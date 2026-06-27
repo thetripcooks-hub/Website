@@ -36,7 +36,7 @@ const FeatureTrip = () => {
   return (
     <section className="px-5 py-10 sm:py-[62px] sm:px-[109px]">
       <SectionWrapper>
-        <h2 className="font-ogg-trial text-[32px] sm:text-[48px] leading-tight mb-8 sm:mb-12">
+        <h2 className="font-ogg-trial text-[26px] sm:text-[48px] leading-tight mb-8 sm:mb-12">
           Featured Trip
         </h2>
 
@@ -78,7 +78,7 @@ const FeatureTrip = () => {
           <div className="flex-1 bg-[#fafafa] dark:bg-[#1E2826] border border-[#eee] dark:border-[#585E6A] rounded-[14px] p-6 flex flex-col gap-8">
             {/* Name + price */}
             <div className="flex flex-col gap-2  sm:flex-row items-start justify-between">
-              <h3 className="font-ogg-trial text-[28px] sm:text-[40px] leading-tight text-neutral-text dark:text-white">
+              <h3 className="font-ogg-trial text-[22px] sm:text-[40px] leading-tight text-neutral-text dark:text-white">
                 {trip.location}
               </h3>
               <div className="sm:text-right shrink-0">

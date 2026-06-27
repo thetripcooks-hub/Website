@@ -31,7 +31,7 @@ const Reviews = () => {
   return (
     <section className="bg-[#f8f9fc] dark:bg-[#121716] px-5 py-12 sm:py-24 sm:px-[8%] w-full">
       <SectionWrapper>
-        <h2 className="font-ogg-trial text-[32px] sm:text-[44px] text-center text-neutral-text dark:text-foreground mb-10 sm:mb-8">
+        <h2 className="font-ogg-trial text-[26px] sm:text-[44px] text-center text-neutral-text dark:text-foreground mb-10 sm:mb-8">
           People actually really like us..
         </h2>
 
@@ -62,7 +62,7 @@ const Reviews = () => {
 
                     {/* Content */}
                     <div className="flex flex-col gap-4 max-w-[697px]">
-                      <h3 className="text-[28px] sm:text-[32px] font-semibold text-neutral-text dark:text-foreground leading-tight">
+                      <h3 className="text-[22px] sm:text-[32px] font-semibold text-neutral-text dark:text-foreground leading-tight">
                         {review.name} {review.year}
                       </h3>
                       <p className="text-base sm:text-[18px] text-neutral-subtext dark:text-[#BFC0C2] leading-[28px]">

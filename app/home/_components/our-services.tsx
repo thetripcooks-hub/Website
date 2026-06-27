@@ -73,7 +73,7 @@ const OurServices = () => {
     <section className="bg-[#02231A] py-10 sm:py-[62px] rounded-[28px] my-4 overflow-hidden">
       {/* Header */}
       <div className="flex flex-col items-center gap-4 text-center mb-10 sm:mb-[75px] px-5">
-        <h2 className="font-ogg-trial text-[32px] sm:text-[42px] text-white leading-tight">
+        <h2 className="font-ogg-trial text-[26px] sm:text-[42px] text-white leading-tight">
           Our Services
         </h2>
         <p className="text-[#5d9f8b] text-base sm:text-[18px] max-w-[554px] leading-[22px] sm:leading-[28px]">
@@ -122,7 +122,7 @@ const OurServices = () => {
                   {/* Bottom content */}
                   <div className="absolute bottom-4 sm:bottom-8 left-5 right-5 sm:left-6 sm:right-6 flex items-end gap-4 sm:gap-9">
                     <div className="flex-1 flex flex-col gap-2 sm:gap-[11px] text-white min-w-0">
-                      <h3 className="font-ogg-trial text-[28px] sm:text-[44px] leading-tight sm:leading-[66px]">
+                      <h3 className="font-ogg-trial text-[22px] sm:text-[44px] leading-tight sm:leading-[66px]">
                         {service.title}
                       </h3>
                       <p className="text-sm sm:text-[20px] leading-6 sm:leading-[30px] font-plus-jakarta-sans font-normal">
