@@ -21,7 +21,10 @@ export default function BlogPage() {
   const [searchValue, setSearchValue] = useState("");
 
   const { data, loading } = useQuery<BlogPostsResponse>(queryGetAllBlogPosts);
-  const posts: CmsBlogPost[] = data?.blogPostCollection.items ?? [];
+  const posts: CmsBlogPost[] = useMemo(
+    () => data?.blogPostCollection.items ?? [],
+    [data],
+  );
 
   const filteredPosts = useMemo(() => {
     const categorySlug =
