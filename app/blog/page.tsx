@@ -1,16 +1,14 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Footer, SubcribeToNewsLetter } from "@/components/ui";
+import { useQuery } from "@apollo/client";
+import { Footer, SubcribeToNewsLetter, CustomLoader } from "@/components/ui";
 import BlogFilterBar from "./_components/blog-filter-bar";
 import BlogCardBig from "./_components/blog-card-big";
 import BlogCardSmall from "./_components/blog-card-small";
-import {
-  BLOG_POSTS,
-  CATEGORY_MAP,
-  CATEGORY_LABEL,
-  BlogCategory,
-} from "./_components/blog-data";
+import { CATEGORY_MAP, CATEGORY_LABEL, BlogCategory } from "./_components/blog-data";
+import { queryGetAllBlogPosts } from "@/queries/blog-query";
+import { BlogPostsResponse, CmsBlogPost } from "@/types/blog";
 
 const BIG_CARD_CATEGORIES: BlogCategory[] = [
   "travel-updates",
@@ -22,10 +20,13 @@ export default function BlogPage() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchValue, setSearchValue] = useState("");
 
+  const { data, loading } = useQuery<BlogPostsResponse>(queryGetAllBlogPosts);
+  const posts: CmsBlogPost[] = data?.blogPostCollection.items ?? [];
+
   const filteredPosts = useMemo(() => {
     const categorySlug =
       activeCategory === "All" ? null : CATEGORY_MAP[activeCategory];
-    return BLOG_POSTS.filter((post) => {
+    return posts.filter((post) => {
       const matchesCategory = !categorySlug || post.category === categorySlug;
       const matchesSearch =
         !searchValue ||
@@ -33,10 +34,10 @@ export default function BlogPage() {
         post.excerpt.toLowerCase().includes(searchValue.toLowerCase());
       return matchesCategory && matchesSearch;
     });
-  }, [activeCategory, searchValue]);
+  }, [posts, activeCategory, searchValue]);
 
-  const featuredPost = BLOG_POSTS[0];
-  const featuredSmall = BLOG_POSTS.slice(1, 4);
+  const featuredPost = posts[0];
+  const featuredSmall = posts.slice(1, 4);
 
   return (
     <main className="flex flex-col min-h-screen bg-[color:var(--bg-primary)]">
@@ -77,8 +78,13 @@ export default function BlogPage() {
           onSearchChange={setSearchValue}
         />
 
-        {activeCategory === "All" ? (
+        {loading ? (
+          <div className="h-[400px] flex items-center justify-center">
+            <CustomLoader />
+          </div>
+        ) : activeCategory === "All" ? (
           <AllView
+            posts={posts}
             filteredPosts={filteredPosts}
             searchValue={searchValue}
             featuredPost={featuredPost}
@@ -88,6 +94,7 @@ export default function BlogPage() {
           <CategoryView
             activeCategory={activeCategory}
             filteredPosts={filteredPosts}
+            posts={posts}
           />
         )}
       </section>
@@ -101,15 +108,17 @@ export default function BlogPage() {
 /* ─── All view ─────────────────────────────────────────────────── */
 
 function AllView({
+  posts,
   filteredPosts,
   searchValue,
   featuredPost,
   featuredSmall,
 }: {
-  filteredPosts: (typeof BLOG_POSTS)[number][];
+  posts: CmsBlogPost[];
+  filteredPosts: CmsBlogPost[];
   searchValue: string;
-  featuredPost: (typeof BLOG_POSTS)[number];
-  featuredSmall: (typeof BLOG_POSTS)[number][];
+  featuredPost: CmsBlogPost | undefined;
+  featuredSmall: CmsBlogPost[];
 }) {
   if (searchValue && filteredPosts.length === 0) {
     return (
@@ -123,7 +132,7 @@ function AllView({
     return (
       <div className="grid grid-cols-3 max-sm:grid-cols-1 gap-5">
         {filteredPosts.map((post) => (
-          <BlogCardBig key={post.id} post={post} />
+          <BlogCardBig key={post.sys.id} post={post} />
         ))}
       </div>
     );
@@ -132,24 +141,26 @@ function AllView({
   return (
     <div className="flex flex-col gap-[42px]">
       {/* Featured articles */}
-      <div className="flex flex-col gap-5">
-        <h2 className="font-ogg-trial text-[42px] max-sm:text-[28px] leading-[60px] max-sm:leading-[40px] text-[color:var(--text-primary)]">
-          Featured Articles
-        </h2>
-        <div className="flex gap-5 max-sm:flex-col">
-          <BlogCardBig post={featuredPost} className="sm:w-1/2 max-sm:w-full" />
-          <div className="flex flex-col gap-4 flex-1">
-            {featuredSmall.map((post) => (
-              <BlogCardSmall key={post.id} post={post} />
-            ))}
+      {featuredPost && (
+        <div className="flex flex-col gap-5">
+          <h2 className="font-ogg-trial text-[42px] max-sm:text-[28px] leading-[60px] max-sm:leading-[40px] text-[color:var(--text-primary)]">
+            Featured Articles
+          </h2>
+          <div className="flex gap-5 max-sm:flex-col">
+            <BlogCardBig post={featuredPost} className="sm:w-1/2 max-sm:w-full" />
+            <div className="flex flex-col gap-4 flex-1">
+              {featuredSmall.map((post) => (
+                <BlogCardSmall key={post.sys.id} post={post} />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Big-card categories */}
       {BIG_CARD_CATEGORIES.map((cat) => {
-        const posts = BLOG_POSTS.filter((p) => p.category === cat).slice(0, 6);
-        if (!posts.length) return null;
+        const catPosts = posts.filter((p) => p.category === cat).slice(0, 6);
+        if (!catPosts.length) return null;
         return (
           <div key={cat} className="flex flex-col gap-5">
             <hr className="border-0 border-t border-dashed border-[#EEEEEE] dark:border-white/10" />
@@ -157,8 +168,8 @@ function AllView({
               {CATEGORY_LABEL[cat]}
             </h2>
             <div className="grid grid-cols-3 max-sm:grid-cols-1 gap-5">
-              {posts.map((post) => (
-                <BlogCardBig key={post.id} post={post} />
+              {catPosts.map((post) => (
+                <BlogCardBig key={post.sys.id} post={post} />
               ))}
             </div>
           </div>
@@ -167,8 +178,8 @@ function AllView({
 
       {/* Small-card categories */}
       {SMALL_CARD_CATEGORIES.map((cat) => {
-        const posts = BLOG_POSTS.filter((p) => p.category === cat).slice(0, 4);
-        if (!posts.length) return null;
+        const catPosts = posts.filter((p) => p.category === cat).slice(0, 4);
+        if (!catPosts.length) return null;
         return (
           <div key={cat} className="flex flex-col gap-5">
             <hr className="border-0 border-t border-dashed border-[#EEEEEE] dark:border-white/10" />
@@ -176,8 +187,8 @@ function AllView({
               {CATEGORY_LABEL[cat]}
             </h2>
             <div className="grid grid-cols-2 max-sm:grid-cols-1 gap-5">
-              {posts.map((post) => (
-                <BlogCardSmall key={post.id} post={post} />
+              {catPosts.map((post) => (
+                <BlogCardSmall key={post.sys.id} post={post} />
               ))}
             </div>
           </div>
@@ -192,21 +203,23 @@ function AllView({
 function CategoryView({
   activeCategory,
   filteredPosts,
+  posts,
 }: {
   activeCategory: string;
-  filteredPosts: (typeof BLOG_POSTS)[number][];
+  filteredPosts: CmsBlogPost[];
+  posts: CmsBlogPost[];
 }) {
   const [showMore, setShowMore] = useState(false);
   const PAGE_SIZE = 9;
   const visible = showMore ? filteredPosts : filteredPosts.slice(0, PAGE_SIZE);
   const slug = CATEGORY_MAP[activeCategory] as BlogCategory | undefined;
 
-  const crossCategoryTravel = BLOG_POSTS.filter(
-    (p) => p.category === "travel-updates"
-  ).slice(0, 3);
-  const crossCategoryCompany = BLOG_POSTS.filter(
-    (p) => p.category === "company-updates"
-  ).slice(0, 3);
+  const crossCategoryTravel = posts
+    .filter((p) => p.category === "travel-updates")
+    .slice(0, 3);
+  const crossCategoryCompany = posts
+    .filter((p) => p.category === "company-updates")
+    .slice(0, 3);
 
   return (
     <div className="flex flex-col gap-[42px]">
@@ -224,13 +237,13 @@ function CategoryView({
             {slug && SMALL_CARD_CATEGORIES.includes(slug) ? (
               <div className="grid grid-cols-2 max-sm:grid-cols-1 gap-5">
                 {visible.map((post) => (
-                  <BlogCardSmall key={post.id} post={post} />
+                  <BlogCardSmall key={post.sys.id} post={post} />
                 ))}
               </div>
             ) : (
               <div className="grid grid-cols-3 max-sm:grid-cols-1 gap-5">
                 {visible.map((post) => (
-                  <BlogCardBig key={post.id} post={post} />
+                  <BlogCardBig key={post.sys.id} post={post} />
                 ))}
               </div>
             )}
@@ -268,7 +281,7 @@ function CategoryView({
             </h3>
             <div className="grid grid-cols-3 max-sm:grid-cols-1 gap-5">
               {crossCategoryTravel.map((post) => (
-                <BlogCardBig key={post.id} post={post} />
+                <BlogCardBig key={post.sys.id} post={post} />
               ))}
             </div>
           </div>
@@ -281,7 +294,7 @@ function CategoryView({
             </h3>
             <div className="grid grid-cols-3 max-sm:grid-cols-1 gap-5">
               {crossCategoryCompany.map((post) => (
-                <BlogCardBig key={post.id} post={post} />
+                <BlogCardBig key={post.sys.id} post={post} />
               ))}
             </div>
           </div>

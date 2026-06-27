@@ -138,7 +138,7 @@ const FeatureTrip = () => {
                       Group Size
                     </p>
                     <p className="text-[18px] font-medium text-neutral-text dark:text-white">
-                      12–18 people
+                      {trip.groupSize ?? "12–18 people"}
                     </p>
                   </div>
                 </div>
