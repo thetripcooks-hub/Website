@@ -1,13 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
-import { BlogPost } from "./blog-data";
+import { CmsBlogPost } from "@/types/blog";
+import dayjs from "@/lib/dayjs";
+
+const FALLBACK_IMAGE = "/img/public-trip.svg";
 
 type Props = {
-  post: BlogPost;
+  post: CmsBlogPost;
   className?: string;
 };
 
 export default function BlogCardSmall({ post, className }: Props) {
+  const imageUrl = post.coverImage?.url ?? FALLBACK_IMAGE;
+  const dateLabel = dayjs.utc(post.date).format("MMM D, YYYY");
+
   return (
     <Link
       href={`/blog/${post.slug}`}
@@ -15,7 +21,7 @@ export default function BlogCardSmall({ post, className }: Props) {
     >
       <div className="w-[132px] h-[119px] rounded-[8px] overflow-hidden relative shrink-0">
         <Image
-          src={post.image}
+          src={imageUrl}
           alt={post.title}
           fill
           className="object-cover rounded-[8px] group-hover:scale-105 transition-transform duration-300"
@@ -29,7 +35,7 @@ export default function BlogCardSmall({ post, className }: Props) {
           </span>
           <span className="w-[5px] h-[5px] rounded-full bg-[color:var(--text-secondary)] inline-block shrink-0" />
           <span className="text-[14px] font-medium leading-[21px] text-[color:var(--text-secondary)] font-plus-jakarta-sans whitespace-nowrap">
-            {post.date}
+            {dateLabel}
           </span>
         </div>
         <p className="text-[16px] font-medium leading-[24px] text-[color:var(--text-primary)] font-plus-jakarta-sans line-clamp-2">

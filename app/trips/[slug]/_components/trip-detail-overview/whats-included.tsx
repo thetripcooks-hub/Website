@@ -4,7 +4,6 @@ import useTripStore from "@/stores/trip-store";
 import { Check, X } from "lucide-react";
 import Link from "next/link";
 
-// TODO (CMS): Replace with a `whatsNotIncluded` field in Contentful once configured per trip
 const DEFAULT_NOT_INCLUDED = [
   { title: "Flight ticket" },
   { title: "Breakfast" },
@@ -19,6 +18,10 @@ const WhatsIncluded = () => {
   type IncludedItem = { title: string };
 
   const included = (selectedTrip.whatsIncluded ?? []) as IncludedItem[];
+  const notIncluded: IncludedItem[] =
+    selectedTrip.whatsNotIncluded?.length
+      ? (selectedTrip.whatsNotIncluded as IncludedItem[])
+      : DEFAULT_NOT_INCLUDED;
 
   return (
     <div className="flex flex-col gap-6">
@@ -46,7 +49,7 @@ const WhatsIncluded = () => {
             Not Included
           </p>
           <div className="flex flex-col gap-4">
-            {DEFAULT_NOT_INCLUDED.map((item, index) => (
+            {notIncluded.map((item, index) => (
               <div key={index} className="flex gap-2 items-start">
                 <X className="w-6 h-6 shrink-0 text-[#F04438] mt-0.5" />
                 <p className="text-[16px] leading-[24px] text-[hsl(var(--text-primary))]">

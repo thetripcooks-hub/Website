@@ -7,60 +7,28 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  CustomLoader,
 } from "@/components/ui";
 import SectionWrapper from "./section-wrapper";
 import Image from "next/image";
 import Link from "next/link";
+import { useQuery } from "@apollo/client";
+import { queryGetLatestBlogPosts } from "@/queries/blog-query";
+import { BlogPostsResponse } from "@/types/blog";
+import dayjs from "@/lib/dayjs";
 
-const BLOG_POSTS = [
-  {
-    id: "1",
-    date: "Feb 28, 2026",
-    readTime: "5 min read",
-    title: "10 Things to Pack for a Group Trip (That Nobody Ever Does)",
-    excerpt:
-      "Veteran group travellers share the most overlooked essentials that make or break a shared adventure. From portable chargers to foldable tote bags.",
-    image: "/img/public-trip.svg",
-    href: "/blog",
-  },
-  {
-    id: "2",
-    date: "Mar 10, 2026",
-    readTime: "4 min read",
-    title: "Why Group Travel Is the New Solo Travel",
-    excerpt:
-      "Forget what you thought you knew about travelling in a group. The new wave of curated group trips is changing everything.",
-    image: "/img/private-trip.svg",
-    href: "/blog",
-  },
-  {
-    id: "3",
-    date: "Mar 18, 2026",
-    readTime: "6 min read",
-    title: "Top 5 Destinations for First-Time Group Travellers",
-    excerpt:
-      "Not sure where to start? These five destinations are perfectly suited for first-timers looking to explore with a crew.",
-    image: "/img/travel-planning.svg",
-    href: "/blog",
-  },
-  {
-    id: "4",
-    date: "Apr 1, 2026",
-    readTime: "3 min read",
-    title: "How to Budget for a Group Trip Without Losing Friends",
-    excerpt:
-      "Money talk can get awkward. Here's how top group travel organizers keep costs transparent and friendships intact.",
-    image: "/img/public-trip.svg",
-    href: "/blog",
-  },
-];
+const FALLBACK_IMAGE = "/img/public-trip.svg";
 
 const BlogCallout = () => {
+  const { data, loading } = useQuery<BlogPostsResponse>(
+    queryGetLatestBlogPosts(4)
+  );
+  const posts = data?.blogPostCollection.items ?? [];
+
   return (
     <section className="px-5 py-10 sm:py-[60px] sm:px-[109px]">
       <SectionWrapper>
         <Carousel opts={{ align: "start" }}>
-          {/* Header with nav buttons inside Carousel context */}
           <div className="flex items-start justify-between mb-8 sm:mb-12">
             <h2 className="font-ogg-trial text-[28px] sm:text-[42px] text-neutral-text dark:text-white leading-tight">
               Travel Insights from our blog
@@ -77,50 +45,50 @@ const BlogCallout = () => {
             </div>
           </div>
 
-          <CarouselContent className="-ml-3">
-            {BLOG_POSTS.map((post) => (
-              <CarouselItem
-                key={post.id}
-                className="pl-3 basis-full sm:basis-[399px] shrink-0"
-              >
-                <div className="flex flex-col gap-3 p-4">
-                  {/* Image */}
-                  <div className="h-[220px] rounded-[12px] overflow-hidden relative">
-                    <Image
-                      src={post.image}
-                      alt={post.title}
-                      fill
-                      className="object-cover rounded-[12px]"
-                    />
-                  </div>
+          {loading ? (
+            <div className="h-[280px] flex items-center justify-center">
+              <CustomLoader />
+            </div>
+          ) : (
+            <CarouselContent className="-ml-3">
+              {posts.map((post) => (
+                <CarouselItem
+                  key={post.sys.id}
+                  className="pl-3 basis-full sm:basis-[399px] shrink-0"
+                >
+                  <div className="flex flex-col gap-3 p-4">
+                    <div className="h-[220px] rounded-[12px] overflow-hidden relative">
+                      <Image
+                        src={post.coverImage?.url ?? FALLBACK_IMAGE}
+                        alt={post.title}
+                        fill
+                        className="object-cover rounded-[12px]"
+                      />
+                    </div>
 
-                  {/* Meta */}
-                  <div className="flex items-center gap-2 text-sm font-medium text-neutral-subtext dark:text-[#BFC0C2]">
-                    <span>{post.date}</span>
-                    <span>·</span>
-                    <span>{post.readTime}</span>
-                  </div>
+                    <div className="flex items-center gap-2 text-sm font-medium text-neutral-subtext dark:text-[#BFC0C2]">
+                      <span>{dayjs.utc(post.date).format("MMM D, YYYY")}</span>
+                    </div>
 
-                  {/* Title + excerpt */}
-                  <div className="flex flex-col gap-1.5">
-                    <h3 className="text-[24px] font-semibold text-neutral-text dark:text-white leading-[36px]">
-                      {post.title}
-                    </h3>
-                    <p className="text-sm text-neutral-subtext dark:text-[#BFC0C2] leading-[22px] line-clamp-3">
-                      {post.excerpt}
-                    </p>
-                  </div>
+                    <div className="flex flex-col gap-1.5">
+                      <h3 className="text-[24px] font-semibold text-neutral-text dark:text-white leading-[36px]">
+                        {post.title}
+                      </h3>
+                      <p className="text-sm text-neutral-subtext dark:text-[#BFC0C2] leading-[22px] line-clamp-3">
+                        {post.excerpt}
+                      </p>
+                    </div>
 
-                  {/* CTA */}
-                  <Link href={post.href}>
-                    <Button variant="green-outline" className="w-full mt-1">
-                      Read more
-                    </Button>
-                  </Link>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
+                    <Link href={`/blog/${post.slug}`}>
+                      <Button variant="green-outline" className="w-full mt-1">
+                        Read more
+                      </Button>
+                    </Link>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          )}
         </Carousel>
       </SectionWrapper>
     </section>

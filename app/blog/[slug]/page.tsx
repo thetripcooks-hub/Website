@@ -9,18 +9,50 @@ import { Footer } from "@/components/ui";
 import BlogCallout from "@/app/home/_components/blog-callout";
 import BlogArticleToc from "../_components/blog-article-toc";
 import MobileBackToTop from "../_components/mobile-back-to-top";
-import {
-  BLOG_POSTS,
-  ARTICLE_SECTIONS,
-  CATEGORY_LABEL,
-  LOREM,
-} from "../_components/blog-data";
+import { CATEGORY_LABEL } from "../_components/blog-data";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { calcReadTime } from "@/lib/read-time";
+import type { CmsBlogPost } from "@/types/blog";
+
+const SPACE_ID = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID;
+const ACCESS_TOKEN = process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN;
+const FALLBACK_IMAGE = "/img/public-trip.svg";
+
+async function fetchPostBySlug(slug: string): Promise<CmsBlogPost | null> {
+  const query = `
+    query {
+      blogPostCollection(where: { slug: "${slug}" }, limit: 1) {
+        items {
+          sys { id }
+          title slug category author date excerpt
+          coverImage { url title }
+          body { json }
+        }
+      }
+    }
+  `;
+  const res = await fetch(
+    `https://graphql.contentful.com/content/v1/spaces/${SPACE_ID}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+      body: JSON.stringify({ query }),
+      next: { revalidate: 60 },
+    }
+  );
+  const json = await res.json();
+  return json?.data?.blogPostCollection?.items?.[0] ?? null;
+}
 
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = BLOG_POSTS.find((p) => p.slug === slug) ?? BLOG_POSTS[0];
+  const post = await fetchPostBySlug(slug);
+  if (!post) return {};
   return {
     title: `${post.title} | Trip Cooks Blog`,
     description: post.excerpt,
@@ -39,14 +71,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export function generateStaticParams() {
-  return BLOG_POSTS.map((p) => ({ slug: p.slug }));
-}
-
 export default async function ArticlePage({ params }: Props) {
   const { slug } = await params;
-  const post = BLOG_POSTS.find((p) => p.slug === slug) ?? BLOG_POSTS[0];
+  const post = await fetchPostBySlug(slug);
+
+  if (!post) {
+    return (
+      <main className="flex flex-col min-h-screen bg-[color:var(--bg-primary)] items-center justify-center">
+        <p className="text-[18px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
+          Article not found.
+        </p>
+        <Link href="/blog" className="mt-4 text-[#09af0d] underline">
+          Back to blog
+        </Link>
+      </main>
+    );
+  }
+
+  const imageUrl = post.coverImage?.url ?? FALLBACK_IMAGE;
   const categoryLabel = CATEGORY_LABEL[post.category];
+  const readTime = post.body?.json ? calcReadTime(post.body.json) : null;
 
   return (
     <main className="flex flex-col min-h-screen bg-[color:var(--bg-primary)]">
@@ -76,23 +120,27 @@ export default async function ArticlePage({ params }: Props) {
           {post.title}
         </h1>
 
-        {/* Author + date */}
+        {/* Author + date + read time */}
         <div className="flex items-center gap-1.5">
-          <div className="w-8 h-8 rounded-full bg-[color:var(--bg-tertiary)] overflow-hidden relative shrink-0">
-            <Image
-              src="/img/public-trip.svg"
-              alt={post.author}
-              fill
-              className="object-cover"
-            />
-          </div>
           <span className="text-[16px] font-normal leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
             {post.author}
           </span>
           <span className="w-1.5 h-1.5 rounded-full bg-[color:var(--text-secondary)] inline-block shrink-0" />
           <span className="text-[16px] font-normal leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
-            {post.date}
+            {new Date(post.date).toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })}
           </span>
+          {readTime && (
+            <>
+              <span className="w-1.5 h-1.5 rounded-full bg-[color:var(--text-secondary)] inline-block shrink-0" />
+              <span className="text-[16px] font-normal leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
+                {readTime}
+              </span>
+            </>
+          )}
         </div>
 
         {/* Share icons */}
@@ -119,13 +167,13 @@ export default async function ArticlePage({ params }: Props) {
 
       {/* Body: sidebar + article content */}
       <div className="flex items-start px-[100px] max-sm:px-4 pt-6 pb-12 gap-0 bg-[color:var(--bg-primary)] relative">
-        <BlogArticleToc sections={ARTICLE_SECTIONS} />
+        <BlogArticleToc sections={[]} />
 
         <article className="flex-1 max-w-[768px] flex flex-col gap-10">
           {/* Hero image */}
           <div className="h-[442px] max-sm:h-[260px] rounded-[10px] overflow-hidden relative w-full">
             <Image
-              src={post.image}
+              src={imageUrl}
               alt={post.title}
               fill
               className="object-cover rounded-[10px]"
@@ -133,45 +181,16 @@ export default async function ArticlePage({ params }: Props) {
             />
           </div>
 
-          {/* Section 1 */}
-          <section id="section-1" className="flex flex-col gap-4 scroll-mt-8">
-            <h2 className="text-[20px] font-medium leading-[30px] text-[color:var(--text-primary)] font-plus-jakarta-sans">
-              Overview
-            </h2>
-            <p className="text-[18px] max-sm:text-[16px] font-normal leading-[28px] max-sm:leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
-              {LOREM}
-            </p>
-          </section>
-
-          {/* Section 2 */}
-          <section id="section-2" className="flex flex-col gap-4 scroll-mt-8">
-            <h2 className="text-[20px] font-medium leading-[30px] text-[color:var(--text-primary)] font-plus-jakarta-sans">
-              The background story
-            </h2>
-            <div className="flex flex-col gap-4">
-              <p className="text-[18px] max-sm:text-[16px] font-normal leading-[28px] max-sm:leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
-                {LOREM}
-              </p>
-              <p className="text-[18px] max-sm:text-[16px] font-normal leading-[28px] max-sm:leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
-                {LOREM}
-              </p>
-
-              {/* Inline image */}
-              <div className="flex flex-col gap-1.5">
-                <div className="h-[518px] max-sm:h-[280px] rounded-[10px] overflow-hidden relative w-full">
-                  <Image
-                    src={post.image}
-                    alt="Trip photo"
-                    fill
-                    className="object-cover rounded-[10px]"
-                  />
-                </div>
-                <p className="text-[18px] font-normal leading-[28px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
-                  Image: Trip from Morocco
-                </p>
-              </div>
+          {/* Rich text body */}
+          {post.body?.json ? (
+            <div className="prose prose-lg max-w-none text-[color:var(--text-secondary)] font-plus-jakarta-sans [&>p]:text-[18px] [&>p]:max-sm:text-[16px] [&>p]:leading-[28px] [&>h2]:font-medium [&>h2]:text-[color:var(--text-primary)]">
+              {documentToReactComponents(post.body.json)}
             </div>
-          </section>
+          ) : (
+            <p className="text-[18px] font-normal leading-[28px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
+              {post.excerpt}
+            </p>
+          )}
 
           {/* Mid-article CTA */}
           <div className="h-[242px] max-sm:h-auto max-sm:py-10 rounded-[12px] overflow-hidden relative bg-[#09AF0D]">
@@ -197,28 +216,12 @@ export default async function ArticlePage({ params }: Props) {
               </Link>
             </div>
           </div>
-
-          {/* Section 3 */}
-          <section id="section-3" className="flex flex-col gap-4 scroll-mt-8">
-            <h2 className="text-[20px] font-medium leading-[30px] text-[color:var(--text-primary)] font-plus-jakarta-sans">
-              Key takeaways
-            </h2>
-            <p className="text-[18px] max-sm:text-[16px] font-normal leading-[28px] max-sm:leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
-              {LOREM}
-            </p>
-            <p className="text-[18px] max-sm:text-[16px] font-normal leading-[28px] max-sm:leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
-              {LOREM}
-            </p>
-          </section>
         </article>
 
-        {/* Mobile back-to-top button (fixed) */}
         <MobileBackToTop />
       </div>
 
-      {/* Read more from our blog */}
       <BlogCallout />
-
       <Footer />
     </main>
   );

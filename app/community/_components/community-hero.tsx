@@ -1,12 +1,28 @@
-import Image from "next/image";
-import { COMMUNITY_MEMBERS, CommunityMember } from "./community-data";
+"use client";
 
-function MemberCard({ member }: { member: CommunityMember }) {
+import Image from "next/image";
+import { useQuery } from "@apollo/client";
+import { queryGetFeaturedCommunityStories } from "@/queries/community-query";
+
+const FALLBACK_IMAGE = "/img/hero-desktop.png";
+
+type FeaturedMember = {
+  sys: { id: string };
+  author: string;
+  country: string | null;
+  image: { url: string; title: string } | null;
+};
+
+interface FeaturedResponse {
+  communityStoryCollection: { items: FeaturedMember[] };
+}
+
+function MemberCard({ member }: { member: FeaturedMember }) {
   return (
     <div className="relative shrink-0 w-[140px] sm:w-[208px] h-[200px] sm:h-[278px] rounded-[11px] overflow-hidden">
       <Image
-        src={member.image}
-        alt={member.name}
+        src={member.image?.url ?? FALLBACK_IMAGE}
+        alt={member.author}
         fill
         className="object-cover"
       />
@@ -14,17 +30,22 @@ function MemberCard({ member }: { member: CommunityMember }) {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60" />
       <div className="absolute bottom-3 left-3 text-white font-plus-jakarta-sans">
         <p className="text-[14px] sm:text-[16px] font-medium leading-[1.4]">
-          {member.name}
+          {member.author}
         </p>
-        <p className="text-[10px] sm:text-[12px] font-medium leading-[1.4]">
-          {member.country}
-        </p>
+        {member.country && (
+          <p className="text-[10px] sm:text-[12px] font-medium leading-[1.4]">
+            {member.country}
+          </p>
+        )}
       </div>
     </div>
   );
 }
 
 const CommunityHero = () => {
+  const { data } = useQuery<FeaturedResponse>(queryGetFeaturedCommunityStories);
+  const members = data?.communityStoryCollection.items ?? [];
+
   return (
     <div className="relative w-full h-[calc(430px+75px)] sm:h-[calc(640px+95px)] -mt-[75px] sm:-mt-[95px] bg-[#daf3db] dark:bg-[#133114] overflow-hidden flex flex-col items-center pt-[75px] sm:pt-[95px]">
       {/* Decorative SVG background */}
@@ -55,10 +76,10 @@ const CommunityHero = () => {
         </p>
       </div>
 
-      {/* Community member photo cards */}
+      {/* Featured community member cards */}
       <div className="relative z-10 flex gap-[20px] sm:gap-[27px] items-end mt-auto px-5 sm:px-0 pb-0 overflow-x-auto scrollbar-none w-full sm:w-auto sm:justify-center">
-        {COMMUNITY_MEMBERS.map((member) => (
-          <MemberCard key={member.name} member={member} />
+        {members.map((member) => (
+          <MemberCard key={member.sys.id} member={member} />
         ))}
       </div>
     </div>

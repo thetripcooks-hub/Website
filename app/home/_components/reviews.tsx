@@ -23,6 +23,7 @@ const Reviews = () => {
       ? review?.subText?.json?.content[0]?.content[0]?.value
       : "",
     name: review.location,
+    reviewerName: review.reviewerName ?? null,
     year: dayjs.utc(review.date).format("YYYY"),
     starCount: review.starCount,
     imageUrl: review.reviewImage ? review.reviewImage.url : "",
@@ -76,9 +77,11 @@ const Reviews = () => {
                         )}
                         &quot;
                       </p>
-                      <p className="text-lg font-plus-jakarta-sans font-medium">
-                        - Lanre
-                      </p>
+                      {review.reviewerName && (
+                        <p className="text-lg font-plus-jakarta-sans font-medium">
+                          – {review.reviewerName}
+                        </p>
+                      )}
                       {/* <div className="flex items-center gap-2">
                         <Star className="w-5 h-5 fill-secondary-irish-green text-secondary-irish-green" />
                         <span className="text-[20px] font-medium text-neutral-text">

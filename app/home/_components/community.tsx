@@ -11,7 +11,6 @@ import {
 } from "@/components/ui";
 import SectionWrapper from "./section-wrapper";
 import useGeneralStore from "@/stores/generalStore";
-import dayjs from "@/lib/dayjs";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
@@ -27,7 +26,7 @@ const Community = () => {
       ? review?.subText?.json?.content[0]?.content[0]?.value
       : "",
     name: review.location,
-    handle: `@${review.location?.replace(/\s/g, "")}TC`,
+    handle: review.socialHandle ?? null,
     imageUrl: review.reviewImage ? review.reviewImage.url : "",
     avatarUrl: review.reviewImage ? review.reviewImage.url : "",
   }));
@@ -102,9 +101,11 @@ const Community = () => {
                             <p className="text-[18px] font-medium text-neutral-text dark:text-white">
                               {review.name}
                             </p>
-                            <p className="text-base text-neutral-subtext dark:text-[#BFC0C2]">
-                              {review.handle}
-                            </p>
+                            {review.handle && (
+                              <p className="text-base text-neutral-subtext dark:text-[#BFC0C2]">
+                                {review.handle}
+                              </p>
+                            )}
                           </div>
                         </div>
                       </div>

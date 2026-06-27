@@ -26,6 +26,8 @@ const tripQuery = `{
         fullAmount
         discount
         whatsIncluded
+        whatsNotIncluded
+        groupSize
         slots
         downPayment
         installments

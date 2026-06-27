@@ -10,6 +10,8 @@ export const queryGetReviews = gql`
         starCount
         date
         location
+        socialHandle
+        reviewerName
         reviewImage {
           url
           title

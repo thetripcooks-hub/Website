@@ -32,6 +32,8 @@ export const sampleTrip = {
     "Enjoy a trip to Paris with flight and accommodation inclusive. On this trip you get to experience the best of Paris, from the culture to the nifghtlife and then the adventure as a while.",
   fullAmount: 6500,
   discount: null,
+  whatsNotIncluded: null as Array<{ title: string }> | null,
+  groupSize: null as string | null,
   whatsIncluded: [
     {
       icon: "https://img.icons8.com/?size=100&id=UdCbQRjRZ92P&format=png&color=000000",

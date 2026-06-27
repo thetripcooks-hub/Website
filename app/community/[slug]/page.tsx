@@ -8,14 +8,47 @@ import LinkedIn from "@/components/icons/svg/linkedin.svg";
 import { Footer, SubcribeToNewsLetter } from "@/components/ui";
 import BlogArticleToc from "@/app/blog/_components/blog-article-toc";
 import MobileBackToTop from "@/app/blog/_components/mobile-back-to-top";
-import { ARTICLE_SECTIONS, LOREM } from "@/app/blog/_components/blog-data";
-import { COMMUNITY_POSTS } from "../_components/community-data";
+import type { CommunityStory } from "@/types/community";
+
+const SPACE_ID = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID;
+const ACCESS_TOKEN = process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN;
+const FALLBACK_IMAGE = "/img/hero-desktop.png";
+
+async function fetchStoryBySlug(slug: string): Promise<CommunityStory | null> {
+  const query = `
+    query {
+      communityStoryCollection(where: { slug: "${slug}" }, limit: 1) {
+        items {
+          sys { id }
+          title slug author date readTime excerpt
+          image { url title }
+          category
+        }
+      }
+    }
+  `;
+  const res = await fetch(
+    `https://graphql.contentful.com/content/v1/spaces/${SPACE_ID}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+      body: JSON.stringify({ query }),
+      next: { revalidate: 60 },
+    }
+  );
+  const json = await res.json();
+  return json?.data?.communityStoryCollection?.items?.[0] ?? null;
+}
 
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = COMMUNITY_POSTS.find((p) => p.slug === slug) ?? COMMUNITY_POSTS[0];
+  const post = await fetchStoryBySlug(slug);
+  if (!post) return {};
   return {
     title: `${post.title} | Trip Cooks Community`,
     description: post.excerpt,
@@ -34,13 +67,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export function generateStaticParams() {
-  return COMMUNITY_POSTS.map((p) => ({ slug: p.slug }));
-}
-
 export default async function CommunityArticlePage({ params }: Props) {
   const { slug } = await params;
-  const post = COMMUNITY_POSTS.find((p) => p.slug === slug) ?? COMMUNITY_POSTS[0];
+  const post = await fetchStoryBySlug(slug);
+
+  if (!post) {
+    return (
+      <main className="flex flex-col min-h-screen bg-[color:var(--bg-primary)] items-center justify-center">
+        <p className="text-[18px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
+          Story not found.
+        </p>
+        <Link href="/community" className="mt-4 text-[#09af0d] underline">
+          Back to community
+        </Link>
+      </main>
+    );
+  }
+
+  const imageUrl = post.image?.url ?? FALLBACK_IMAGE;
 
   return (
     <main className="flex flex-col min-h-screen bg-[color:var(--bg-primary)]">
@@ -67,23 +111,27 @@ export default async function CommunityArticlePage({ params }: Props) {
           {post.title}
         </h1>
 
-        {/* Author + date */}
+        {/* Author + date + read time */}
         <div className="flex items-center gap-1.5">
-          <div className="w-8 h-8 rounded-full bg-[color:var(--bg-tertiary)] overflow-hidden relative shrink-0">
-            <Image
-              src="/img/public-trip.svg"
-              alt={post.author}
-              fill
-              className="object-cover"
-            />
-          </div>
           <span className="text-[16px] font-normal leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
             {post.author}
           </span>
           <span className="w-1.5 h-1.5 rounded-full bg-[color:var(--text-secondary)] inline-block shrink-0" />
           <span className="text-[16px] font-normal leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
-            {post.date}
+            {new Date(post.date).toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })}
           </span>
+          {post.readTime && (
+            <>
+              <span className="w-1.5 h-1.5 rounded-full bg-[color:var(--text-secondary)] inline-block shrink-0" />
+              <span className="text-[16px] font-normal leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
+                {post.readTime}
+              </span>
+            </>
+          )}
         </div>
 
         {/* Share icons */}
@@ -110,13 +158,13 @@ export default async function CommunityArticlePage({ params }: Props) {
 
       {/* Body: sidebar + article content */}
       <div className="flex items-start px-[100px] max-sm:px-4 pt-6 pb-12 gap-0 bg-[color:var(--bg-primary)] relative">
-        <BlogArticleToc sections={ARTICLE_SECTIONS} />
+        <BlogArticleToc sections={[]} />
 
         <article className="flex-1 max-w-[768px] flex flex-col gap-10">
           {/* Hero image */}
           <div className="h-[442px] max-sm:h-[260px] rounded-[10px] overflow-hidden relative w-full">
             <Image
-              src={post.image}
+              src={imageUrl}
               alt={post.title}
               fill
               className="object-cover rounded-[10px]"
@@ -124,47 +172,11 @@ export default async function CommunityArticlePage({ params }: Props) {
             />
           </div>
 
-          {/* Section 1 */}
-          <section id="section-1" className="flex flex-col gap-4 scroll-mt-8">
-            <h2 className="text-[20px] font-medium leading-[30px] text-[color:var(--text-primary)] font-plus-jakarta-sans">
-              Overview
-            </h2>
+          {/* Story content */}
+          <section className="flex flex-col gap-4">
             <p className="text-[18px] max-sm:text-[16px] font-normal leading-[28px] max-sm:leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
               {post.excerpt}
             </p>
-            <p className="text-[18px] max-sm:text-[16px] font-normal leading-[28px] max-sm:leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
-              {LOREM}
-            </p>
-          </section>
-
-          {/* Section 2 */}
-          <section id="section-2" className="flex flex-col gap-4 scroll-mt-8">
-            <h2 className="text-[20px] font-medium leading-[30px] text-[color:var(--text-primary)] font-plus-jakarta-sans">
-              The background story
-            </h2>
-            <div className="flex flex-col gap-4">
-              <p className="text-[18px] max-sm:text-[16px] font-normal leading-[28px] max-sm:leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
-                {LOREM}
-              </p>
-              <p className="text-[18px] max-sm:text-[16px] font-normal leading-[28px] max-sm:leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
-                {LOREM}
-              </p>
-
-              {/* Inline image */}
-              <div className="flex flex-col gap-1.5">
-                <div className="h-[518px] max-sm:h-[280px] rounded-[10px] overflow-hidden relative w-full">
-                  <Image
-                    src={post.image}
-                    alt="Trip photo"
-                    fill
-                    className="object-cover rounded-[10px]"
-                  />
-                </div>
-                <p className="text-[18px] font-normal leading-[28px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
-                  Image: {post.title}
-                </p>
-              </div>
-            </div>
           </section>
 
           {/* Mid-article CTA */}
@@ -190,19 +202,6 @@ export default async function CommunityArticlePage({ params }: Props) {
               </Link>
             </div>
           </div>
-
-          {/* Section 3 */}
-          <section id="section-3" className="flex flex-col gap-4 scroll-mt-8">
-            <h2 className="text-[20px] font-medium leading-[30px] text-[color:var(--text-primary)] font-plus-jakarta-sans">
-              Key takeaways
-            </h2>
-            <p className="text-[18px] max-sm:text-[16px] font-normal leading-[28px] max-sm:leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
-              {LOREM}
-            </p>
-            <p className="text-[18px] max-sm:text-[16px] font-normal leading-[28px] max-sm:leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
-              {LOREM}
-            </p>
-          </section>
         </article>
 
         <MobileBackToTop />
