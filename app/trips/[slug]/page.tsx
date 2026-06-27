@@ -65,11 +65,11 @@ const Page = () => {
 
   return (
     <main className={cn("bg-white dark:bg-background w-full")}>
+      <TripDetailOverview />
       <div ref={ref}>
-        <TripDetailOverview />
+        <Itinerary />
       </div>
-      <Itinerary />
-      {!inView ? <PaymentCardMobile /> : null}
+      {inView ? <PaymentCardMobile /> : null}
       <ViewOfLocation
         title={`Our view of ${selectedTrip.location.split(",")[0]}`}
         items={selectedTrip.viewsOfLocationCollection.items ?? []}
