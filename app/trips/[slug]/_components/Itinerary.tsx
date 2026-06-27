@@ -81,19 +81,10 @@ const Itinerary = () => {
                     <h4 className="text-[24px] font-semibold leading-[36px] text-[hsl(var(--text-primary))]">
                       {item.activity}
                     </h4>
-                    {item.description ? (
+                    {item.description && (
                       <p className="text-[14px] leading-[22px] text-[hsl(var(--text-secondary))]">
                         {item.description}
                       </p>
-                    ) : (
-                      <div className="flex flex-col gap-2 mt-1">
-                        <div className="h-3 rounded bg-[hsl(var(--bg-tertiary))] w-full" />
-                        <div className="h-3 rounded bg-[hsl(var(--bg-tertiary))] w-full" />
-                        <div className="h-3 rounded bg-[hsl(var(--bg-tertiary))] w-4/5" />
-                        <div className="h-3 rounded bg-[hsl(var(--bg-tertiary))] w-full mt-2" />
-                        <div className="h-3 rounded bg-[hsl(var(--bg-tertiary))] w-full" />
-                        <div className="h-3 rounded bg-[hsl(var(--bg-tertiary))] w-3/4" />
-                      </div>
                     )}
                   </div>
                 </div>
