@@ -101,6 +101,9 @@ const MobileNav = ({
             {navConfig.map((item) => {
               if (item.children?.length) {
                 const isExpanded = openItem === item.name;
+                const isParentActive = item.children.some(
+                  (child) => pathname === child.url || pathname.startsWith(child.url + "/")
+                );
                 return (
                   <div
                     key={item.name}
@@ -117,13 +120,17 @@ const MobileNav = ({
                         )
                       }
                     >
-                      <span className="font-medium text-base leading-6 text-[hsl(var(--text-secondary))]">
+                      <span className={cn(
+                        "font-medium text-base leading-6",
+                        isParentActive ? "text-secondary-irish-green" : "text-[hsl(var(--text-secondary))]"
+                      )}>
                         {item.name}
                       </span>
                       <ChevronDown
                         size={20}
                         className={cn(
-                          "transition-transform duration-200 text-[hsl(var(--text-secondary))]",
+                          "transition-transform duration-200",
+                          isParentActive ? "text-secondary-irish-green" : "text-[hsl(var(--text-secondary))]",
                           isExpanded && "rotate-180"
                         )}
                       />
@@ -157,6 +164,11 @@ const MobileNav = ({
                 );
               }
 
+              const isActive =
+                !!item.url &&
+                (pathname === item.url ||
+                  (item.url === "/home" && pathname === "/") ||
+                  pathname.startsWith(item.url + "/"));
               return (
                 <Link
                   key={item.name}
@@ -164,9 +176,7 @@ const MobileNav = ({
                   onClick={handleClose}
                   className={cn(
                     "bg-[hsl(var(--bg-tertiary))] rounded-xl w-full p-4 font-medium text-base leading-6",
-                    item.url && pathname.includes(item.url)
-                      ? "text-secondary-irish-green"
-                      : "text-[hsl(var(--text-secondary))]"
+                    isActive ? "text-secondary-irish-green" : "text-[hsl(var(--text-secondary))]"
                   )}
                 >
                   {item.name}
