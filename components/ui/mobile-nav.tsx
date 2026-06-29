@@ -37,7 +37,9 @@ const MobileNav = ({
   return (
     <div className="sm:hidden flex gap-1 items-center">
       {/* Always-visible controls */}
-      <CurrencyToggle mobileNavOpen={open} />
+      <div className="bg-[hsl(var(--bg-tertiary))] rounded-full">
+        <CurrencyToggle mobileNavOpen={open} />
+      </div>
       <div className="bg-[hsl(var(--bg-tertiary))] rounded-full size-[40px] flex items-center justify-center">
         <ModeToggle />
       </div>
