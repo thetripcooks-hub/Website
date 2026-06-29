@@ -91,7 +91,7 @@ const FeatureTrip = () => {
                   </p>
                 </div>
                 {/* Group Size — mobile only here; desktop keeps it in meta row */}
-                <div className="flex items-end gap-1 sm:hidden">
+                <div className="flex items-start gap-1 sm:hidden">
                   <Image
                     src="/img/featured-trip/people.svg"
                     width={18}
