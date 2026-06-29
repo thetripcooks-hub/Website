@@ -171,20 +171,21 @@ const Navbar = () => {
   const isTrips = pathname === "/trips";
   const isPastTrips = pathname === "/trips/past";
   const isBlog = pathname === "/blog";
+  const isCommunity = pathname === "/community";
   const [heroVisible, setHeroVisible] = React.useState(true);
 
   React.useEffect(() => {
-    if (!isHome && !isTrips && !isPastTrips && !isBlog) return;
+    if (!isHome && !isTrips && !isPastTrips && !isBlog && !isCommunity) return;
     setHeroVisible(true);
     const handleScroll = () => {
       setHeroVisible(window.scrollY === 0);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [isHome, isTrips, isPastTrips, isBlog]);
+  }, [isHome, isTrips, isPastTrips, isBlog, isCommunity]);
 
   // transparent bg for hero pages; white text only on home (dark image bg)
-  const transparent = (isHome || isTrips || isPastTrips || isBlog) && heroVisible;
+  const transparent = (isHome || isTrips || isPastTrips || isBlog || isCommunity) && heroVisible;
   const whiteText = isHome && heroVisible;
 
   return (

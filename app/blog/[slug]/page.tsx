@@ -157,7 +157,7 @@ export default async function ArticlePage({ params }: Props) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Share on ${label}`}
-              className="w-[46px] h-[46px] rounded-[23px] bg-[color:var(--bg-secondary)] flex items-center justify-center hover:bg-[color:var(--bg-tertiary)] transition-colors shrink-0"
+              className="w-[46px] h-[46px] rounded-[23px] bg-[#F4F4F4] dark:bg-[#1E2826] flex items-center justify-center hover:opacity-80 transition-opacity shrink-0"
             >
               <Image src={icon} alt={label} width={20} height={20} className="dark:brightness-0 dark:invert" />
             </a>
