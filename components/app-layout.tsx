@@ -74,7 +74,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
       <body>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
