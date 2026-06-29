@@ -91,13 +91,21 @@ const FeatureTrip = () => {
                   </p>
                 </div>
                 {/* Group Size — mobile only here; desktop keeps it in meta row */}
-                <div className="text-right sm:hidden">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.55px] text-neutral-subtext dark:text-[#BFC0C2]">
-                    Group Size
-                  </p>
-                  <p className="text-[11px] font-medium text-neutral-text dark:text-white">
-                    {trip.groupSize ?? "12–18 people"}
-                  </p>
+                <div className="flex items-end gap-1 sm:hidden">
+                  <Image
+                    src="/img/featured-trip/people.svg"
+                    width={18}
+                    height={18}
+                    alt="Group Size"
+                  />
+                  <div className="text-right">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.55px] text-neutral-subtext dark:text-[#BFC0C2]">
+                      Group Size
+                    </p>
+                    <p className="text-[11px] font-medium text-neutral-text dark:text-white">
+                      {trip.groupSize ?? "12–18 people"}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
