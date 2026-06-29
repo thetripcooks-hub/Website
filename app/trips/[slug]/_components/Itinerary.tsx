@@ -58,7 +58,7 @@ const Itinerary = () => {
           {itinerary.map((item, index) => (
             <CarouselItem
               key={index}
-              className="pl-5 basis-[calc(100vw-32px)] sm:basis-[394px]"
+              className="pl-5 basis-[calc(100vw-12px)] sm:basis-[394px]"
             >
               <div className="bg-[hsl(var(--bg-primary))] dark:bg-[hsl(var(--bg-tertiary))] flex flex-col gap-3 p-4 h-full">
                 {item.coverImage ? (
