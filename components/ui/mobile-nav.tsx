@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import Logo from "~/logo.svg";
 import { ModeToggle } from "./mode-toggle";
 import CurrencyToggle from "./currency-toggle";
+import useCartStore from "@/stores/cartStore";
 import { ChevronDown, X } from "lucide-react";
 import type { NavItem } from "./navbar";
 
@@ -23,6 +24,9 @@ const MobileNav = ({
 }) => {
   const [open, setOpen] = React.useState(false);
   const [openItem, setOpenItem] = React.useState<string | null>(null);
+  const { items } = useCartStore();
+  const itemCount = items.reduce((sum, t) => sum + t.quantity, 0);
+
   const handleClose = () => {
     setOpen(false);
     setOpenItem(null);
@@ -43,8 +47,13 @@ const MobileNav = ({
       <div className="bg-[hsl(var(--bg-tertiary))] rounded-full size-[40px] flex items-center justify-center">
         <ModeToggle />
       </div>
-      <div className="bg-[hsl(var(--bg-tertiary))] rounded-full size-[40px] flex items-center justify-center">
-        <Cart />
+      <div className="relative bg-[hsl(var(--bg-tertiary))] rounded-full size-[40px] flex items-center justify-center">
+        <Cart hideBadge />
+        {itemCount > 0 && (
+          <span className="absolute -top-0.5 -right-0.5 min-w-[14px] h-[14px] rounded-full bg-[#09AF0D] text-white text-[8px] font-normal flex items-center justify-center p-[2px]">
+            {itemCount}
+          </span>
+        )}
       </div>
 
       {/* Hamburger trigger */}
