@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   DropdownMenuContent,
   DropdownMenuItem,
@@ -17,13 +17,14 @@ const CurrencyToggle = ({
   mobileNavOpen?: boolean;
   transparent?: boolean;
 }) => {
+  const [open, setOpen] = useState(false);
   const { selectedCurrency, setSelectedCurrency, hasHydrated } =
     useGeneralStore();
 
   const selected = CURRENCIES.find((c) => c.code === selectedCurrency);
 
   return (
-    <DropdownMenu modal={false}>
+    <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
       <DropdownMenuTrigger asChild>
         <button
           className={cn(
@@ -48,7 +49,7 @@ const CurrencyToggle = ({
           {CURRENCIES.map((currency) => (
             <button
               key={currency.code}
-              onClick={() => setSelectedCurrency(currency.code)}
+              onClick={() => { setSelectedCurrency(currency.code); setOpen(false); }}
               className="flex items-center gap-2 w-full"
             >
               <span className="font-medium text-[14px] leading-[21px] text-[hsl(var(--text-primary))]">
