@@ -2,14 +2,13 @@
 import React, { useEffect } from "react";
 import Menu from "~/img/harmburger-menu.svg";
 import MenuDark from "~/img/harmburger-menu-dark.svg";
-import CartIcon from "~/img/cart.svg";
 import Image from "next/image";
 import Link from "next/link";
+import Cart from "./cart";
 import { cn } from "@/lib/utils";
 import Logo from "~/logo.svg";
 import { ModeToggle } from "./mode-toggle";
 import CurrencyToggle from "./currency-toggle";
-import useCartStore from "@/stores/cartStore";
 import { ChevronDown, X } from "lucide-react";
 import type { NavItem } from "./navbar";
 
@@ -24,9 +23,6 @@ const MobileNav = ({
 }) => {
   const [open, setOpen] = React.useState(false);
   const [openItem, setOpenItem] = React.useState<string | null>(null);
-  const { items } = useCartStore();
-  const itemCount = items.reduce((sum, t) => sum + t.quantity, 0);
-
   const handleClose = () => {
     setOpen(false);
     setOpenItem(null);
@@ -43,18 +39,7 @@ const MobileNav = ({
       {/* Always-visible controls */}
       <CurrencyToggle mobileNavOpen={open} />
       <ModeToggle />
-      <Link
-        href="/cart"
-        className="flex items-center justify-center relative p-1"
-        aria-label="Cart"
-      >
-        <Image src={CartIcon} alt="cart" className="h-[22px] invert dark:invert-0" />
-        {itemCount > 0 && (
-          <span className="absolute top-0 right-0 min-w-[13px] h-[13px] rounded-full bg-[#09AF0D] text-white text-[8px] font-normal flex items-center justify-center p-[2px]">
-            {itemCount}
-          </span>
-        )}
-      </Link>
+      <Cart isActive={pathname.startsWith("/cart")} />
 
       {/* Hamburger trigger */}
       <button
