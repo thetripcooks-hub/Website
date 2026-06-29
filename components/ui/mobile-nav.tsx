@@ -139,7 +139,14 @@ const MobileNav = ({
                       <div className="flex flex-col gap-3 mt-4">
                         {item.children!.map((child) => {
                           const isExternal = child.url.startsWith("http");
-                          const isChildActive = pathname === child.url || pathname.startsWith(child.url + "/");
+                          const isChildActive =
+                            pathname === child.url ||
+                            (pathname.startsWith(child.url + "/") &&
+                              !item.children!.some(
+                                (sibling) =>
+                                  sibling.url !== child.url &&
+                                  (pathname === sibling.url || pathname.startsWith(sibling.url + "/"))
+                              ));
                           return (
                             <Link
                               key={child.name}
