@@ -81,14 +81,7 @@ const CartCard = ({ trip }: { trip: CartItem }) => {
       </div>
 
       {/* Mobile */}
-      <div className="relative sm:hidden flex flex-col gap-4 bg-white dark:bg-background border border-[#eee] dark:border-border rounded-[8px] p-4 w-full">
-        <button
-          onClick={() => removeFromCart(trip)}
-          className="absolute top-3 right-3 z-10 flex items-center justify-center size-8 rounded-full bg-red-50 dark:bg-red-900/20 text-red-500"
-          aria-label="Remove from cart"
-        >
-          <Trash2 size={16} />
-        </button>
+      <div className="sm:hidden flex flex-col gap-4 bg-white dark:bg-background border border-[#eee] dark:border-border rounded-[8px] p-4 w-full">
         {imageUrl && (
           <div className="relative w-full h-[199px] rounded-[6.634px] overflow-hidden shrink-0">
             <Image src={imageUrl} alt={trip.location} fill className="object-cover" />
@@ -104,9 +97,18 @@ const CartCard = ({ trip }: { trip: CartItem }) => {
                 {dateRange}
               </p>
             </div>
-            <p className="font-medium text-[32px] leading-[48px] text-[var(--text-primary,#212121)] dark:text-foreground">
-              {formatAmount(trip.downPayment * trip.quantity, selectedCurrency)}
-            </p>
+            <div className="flex items-center justify-between">
+              <p className="font-medium text-[32px] leading-[48px] text-[var(--text-primary,#212121)] dark:text-foreground">
+                {formatAmount(trip.downPayment * trip.quantity, selectedCurrency)}
+              </p>
+              <button
+                onClick={() => removeFromCart(trip)}
+                className="flex items-center justify-center size-9 rounded-full bg-red-50 dark:bg-red-900/20 text-red-500 shrink-0"
+                aria-label="Remove from cart"
+              >
+                <Trash2 size={17} />
+              </button>
+            </div>
           </div>
           <div className="flex items-center gap-[18px] bg-[var(--bg-secondary,#fafafa)] dark:bg-[#1a1a1a] rounded-full px-4 py-[10px] w-full justify-center">
             <span className="font-medium text-[16px] leading-[24px] text-[var(--text-primary,#212121)] dark:text-foreground">
