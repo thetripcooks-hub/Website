@@ -107,7 +107,7 @@ const FeatureTrip = () => {
                     "repeating-linear-gradient(to right, #585E6A 0, #585E6A 6px, transparent 6px, transparent 14px)",
                 }}
               />
-              <div className="flex flex-wrap gap-4 sm:gap-[45px] sm:max-w-[483px] justify-between">
+              <div className="grid grid-cols-3 sm:flex sm:gap-[45px] sm:max-w-[483px] sm:justify-between gap-2">
                 <div className="flex items-start gap-2">
                   <Image
                     src="/img/featured-trip/clock.svg"
