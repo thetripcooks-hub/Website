@@ -41,15 +41,11 @@ const MobileNav = ({
   return (
     <div className="sm:hidden flex gap-1 items-center">
       {/* Always-visible controls */}
-      <div className="bg-[hsl(var(--bg-tertiary))] rounded-full">
-        <CurrencyToggle mobileNavOpen={open} />
-      </div>
-      <div className="bg-[hsl(var(--bg-tertiary))] rounded-full size-[40px] flex items-center justify-center">
-        <ModeToggle />
-      </div>
+      <CurrencyToggle mobileNavOpen={open} />
+      <ModeToggle />
       <Link
         href="/cart"
-        className="bg-[hsl(var(--bg-tertiary))] rounded-full size-[40px] flex items-center justify-center relative"
+        className="flex items-center justify-center relative p-1"
         aria-label="Cart"
       >
         <Image src={CartIcon} alt="cart" className="h-[22px] invert dark:invert-0" />
