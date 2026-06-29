@@ -36,7 +36,7 @@ const CurrencyToggle = ({
           )}
         >
           <span>{selectedCurrency}</span>
-          {selected?.flag}
+          <span className="hidden sm:inline">{selected?.flag}</span>
           <ChevronDown size={20} />
         </button>
       </DropdownMenuTrigger>
