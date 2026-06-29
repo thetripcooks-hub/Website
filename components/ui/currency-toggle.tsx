@@ -28,7 +28,7 @@ const CurrencyToggle = ({
       <DropdownMenuTrigger asChild>
         <button
           className={cn(
-            "flex items-center gap-1 h-[40px] sm:h-[47px] sm:rounded-full px-1 sm:px-4 outline-none focus-visible:ring-0 text-sm sm:text-base font-normal",
+            "flex items-center gap-1 h-[32px] sm:h-[47px] sm:rounded-full px-1 sm:px-4 outline-none focus-visible:ring-0 text-sm sm:text-base font-normal",
             transparent
               ? "text-white"
               : "text-[hsl(var(--text-primary))] dark:text-foreground",
@@ -36,7 +36,7 @@ const CurrencyToggle = ({
           )}
         >
           <span>{selectedCurrency}</span>
-          <span className="inline">{selected?.flag}</span>
+          <span>{selected?.flag}</span>
           <ChevronDown size={20} />
         </button>
       </DropdownMenuTrigger>
