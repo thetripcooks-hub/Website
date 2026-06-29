@@ -81,13 +81,32 @@ const FeatureTrip = () => {
               <h3 className="font-ogg-trial text-[22px] sm:text-[40px] leading-tight text-neutral-text dark:text-white">
                 {trip.location}
               </h3>
-              <div className="sm:text-right sm:shrink-0">
-                <p className="text-[24px] sm:text-[32px] font-bold text-neutral-text leading-tight dark:text-white">
-                  {formatAmount(trip.fullAmount, selectedCurrency)}
-                </p>
-                <p className="text-sm text-neutral-subtext text-[#6C707A] dark:text-[#A0A0A0]">
-                  Per person
-                </p>
+              <div className="flex flex-row items-end justify-between sm:flex-col sm:items-end sm:text-right sm:shrink-0 w-full sm:w-auto">
+                <div>
+                  <p className="text-[24px] sm:text-[32px] font-bold text-neutral-text leading-tight dark:text-white">
+                    {formatAmount(trip.fullAmount, selectedCurrency)}
+                  </p>
+                  <p className="text-sm text-neutral-subtext text-[#6C707A] dark:text-[#A0A0A0]">
+                    Per person
+                  </p>
+                </div>
+                {/* Group Size — mobile only here; desktop keeps it in meta row */}
+                <div className="flex items-start gap-1 sm:hidden">
+                  <Image
+                    src="/img/featured-trip/people.svg"
+                    width={18}
+                    height={18}
+                    alt="Group Size"
+                  />
+                  <div className="text-right">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.55px] text-neutral-subtext dark:text-[#BFC0C2]">
+                      Group Size
+                    </p>
+                    <p className="text-[11px] font-medium text-neutral-text dark:text-white">
+                      {trip.groupSize ?? "12–18 people"}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -107,7 +126,7 @@ const FeatureTrip = () => {
                     "repeating-linear-gradient(to right, #585E6A 0, #585E6A 6px, transparent 6px, transparent 14px)",
                 }}
               />
-              <div className="grid grid-cols-3 sm:flex sm:gap-[45px] sm:max-w-[483px] sm:justify-between gap-2">
+              <div className="flex flex-wrap gap-8 sm:gap-[45px] sm:max-w-[483px] justify-between">
                 <div className="flex items-start gap-2">
                   <Image
                     src="/img/featured-trip/clock.svg"
@@ -126,7 +145,7 @@ const FeatureTrip = () => {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-start gap-2">
+                <div className="hidden sm:flex items-start gap-2">
                   <Image
                     src="/img/featured-trip/people.svg"
                     width={18}
