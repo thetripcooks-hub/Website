@@ -28,12 +28,11 @@ const CurrencyToggle = ({
       <DropdownMenuTrigger asChild>
         <button
           className={cn(
-            "flex items-center gap-1 h-[28px] sm:h-[47px] rounded-full px-2 sm:px-4 outline-none focus-visible:ring-0 text-sm sm:text-base font-normal",
+            "flex items-center gap-1 h-[40px] sm:h-[47px] sm:rounded-full px-1 sm:px-4 outline-none focus-visible:ring-0 text-sm sm:text-base font-normal",
             transparent
               ? "text-white"
               : "text-[hsl(var(--text-primary))] dark:text-foreground",
             !hasHydrated && "blur-sm",
-            mobileNavOpen && "h-[47px]"
           )}
         >
           <span>{selectedCurrency}</span>
@@ -49,7 +48,10 @@ const CurrencyToggle = ({
           {CURRENCIES.map((currency) => (
             <button
               key={currency.code}
-              onClick={() => { setSelectedCurrency(currency.code); setOpen(false); }}
+              onClick={() => {
+                setSelectedCurrency(currency.code);
+                setOpen(false);
+              }}
               className="flex items-center gap-2 w-full"
             >
               <span className="font-medium text-[14px] leading-[21px] text-[hsl(var(--text-primary))]">
@@ -57,7 +59,10 @@ const CurrencyToggle = ({
               </span>
               {currency.flag}
               {selectedCurrency === currency.code && (
-                <Check size={14} className="ml-auto text-[hsl(var(--text-secondary))]" />
+                <Check
+                  size={14}
+                  className="ml-auto text-[hsl(var(--text-secondary))]"
+                />
               )}
             </button>
           ))}

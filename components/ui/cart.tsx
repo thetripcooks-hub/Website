@@ -31,7 +31,7 @@ import EmptyCart from "@/app/cart/_components/empty-cart";
 import useTripStore from "@/stores/trip-store";
 import { Loader } from "lucide-react";
 
-const Cart = ({ transparent, isActive }: { transparent?: boolean; isActive?: boolean }) => {
+const Cart = ({ transparent, isActive, hideBadge }: { transparent?: boolean; isActive?: boolean; hideBadge?: boolean }) => {
   const { selectedCurrency } = useGeneralStore();
   const { theme = "system" } = useTheme()
 
@@ -64,7 +64,7 @@ const Cart = ({ transparent, isActive }: { transparent?: boolean; isActive?: boo
               alt="cart-icon"
               className={`h-[32px] sm:h-[46px] ${!transparent ? "invert dark:invert-0" : ""}`}
             />
-            {itemCount > 0 && (
+            {itemCount > 0 && !hideBadge && (
               <span className="absolute top-1 right-1 min-w-[20px] h-[20px] rounded-full bg-[#09AF0D] text-white text-[9px] font-normal leading-none flex items-center justify-center p-[4px]">
                 {itemCount}
               </span>
