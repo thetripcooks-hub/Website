@@ -6,6 +6,7 @@ import Instagram from "@/components/icons/svg/instagram.svg";
 import Tiktok from "@/components/icons/svg/tiktok.svg";
 import WhatsApp from "@/components/icons/svg/whatsapp.svg";
 import LinkedIn from "@/components/icons/svg/linkedin.svg";
+import Mail from "@/components/icons/svg/mail.svg";
 import Link from "next/link";
 
 const footerConfig = [
@@ -62,6 +63,11 @@ const socials = [
     name: "LinkedIn",
     url: "https://www.linkedin.com/company/tripcooks/",
     icon: LinkedIn,
+  },
+  {
+    name: "Email",
+    url: "mailto:hello@tripcooks.tours",
+    icon: Mail,
   },
 ];
 

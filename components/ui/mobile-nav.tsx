@@ -42,7 +42,27 @@ const MobileNav = ({
   }, [open]);
 
   return (
-    <div className="sm:hidden flex gap-1">
+    <div className="sm:hidden flex gap-2 items-center">
+      {/* Always-visible controls */}
+      <div className="bg-[hsl(var(--bg-tertiary))] rounded-full">
+        <CurrencyToggle mobileNavOpen={open} />
+      </div>
+      <div className="bg-[hsl(var(--bg-tertiary))] rounded-full size-[38px] flex items-center justify-center">
+        <ModeToggle />
+      </div>
+      <Link
+        href="/cart"
+        className="bg-[hsl(var(--bg-tertiary))] rounded-full size-[38px] flex items-center justify-center relative"
+        aria-label="Cart"
+      >
+        <Image src={CartIcon} alt="cart" className="h-[24px] invert dark:invert-0" />
+        {itemCount > 0 && (
+          <span className="absolute top-0 right-0 min-w-[14px] h-[14px] rounded-full bg-[#09AF0D] text-white text-[8px] font-normal flex items-center justify-center p-[2px]">
+            {itemCount}
+          </span>
+        )}
+      </Link>
+
       {/* Hamburger trigger */}
       <button
         onClick={() => setOpen(true)}
@@ -155,30 +175,6 @@ const MobileNav = ({
             ))}
           </div>
 
-          {/* Spacer */}
-          <div className="flex-1" />
-
-          {/* Bottom controls */}
-          <div className="flex gap-2 items-center py-4">
-            <div className="bg-[hsl(var(--bg-tertiary))] rounded-full">
-              <CurrencyToggle mobileNavOpen={open} />
-            </div>
-            <div className="bg-[hsl(var(--bg-tertiary))] rounded-full size-[47px] flex items-center justify-center">
-              <ModeToggle />
-            </div>
-            <Link
-              href="/cart"
-              onClick={handleClose}
-              className="bg-[hsl(var(--bg-tertiary))] rounded-full size-[47px] flex items-center justify-center relative"
-            >
-              <Image src={CartIcon} alt="cart" className="h-[32px] invert dark:invert-0" />
-              {itemCount > 0 && (
-                <span className="absolute top-1 right-1 min-w-[16px] h-[16px] rounded-full bg-[#09AF0D] text-white text-[9px] font-normal flex items-center justify-center p-[3px]">
-                  {itemCount}
-                </span>
-              )}
-            </Link>
-          </div>
         </div>
       )}
     </div>

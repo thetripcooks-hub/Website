@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { Minus, Plus } from "lucide-react";
+import { Minus, Plus, Trash2 } from "lucide-react";
 import useCartStore from "@/stores/cartStore";
 import useGeneralStore from "@/stores/generalStore";
 import { formatTripDate, formatAmount } from "@/lib/utils";
@@ -81,7 +81,14 @@ const CartCard = ({ trip }: { trip: CartItem }) => {
       </div>
 
       {/* Mobile */}
-      <div className="sm:hidden flex flex-col gap-4 bg-white dark:bg-background border border-[#eee] dark:border-border rounded-[8px] p-4 w-full">
+      <div className="relative sm:hidden flex flex-col gap-4 bg-white dark:bg-background border border-[#eee] dark:border-border rounded-[8px] p-4 w-full">
+        <button
+          onClick={() => removeFromCart(trip)}
+          className="absolute top-3 right-3 z-10 flex items-center justify-center size-8 rounded-full bg-red-50 dark:bg-red-900/20 text-red-500"
+          aria-label="Remove from cart"
+        >
+          <Trash2 size={16} />
+        </button>
         {imageUrl && (
           <div className="relative w-full h-[199px] rounded-[6.634px] overflow-hidden shrink-0">
             <Image src={imageUrl} alt={trip.location} fill className="object-cover" />
@@ -96,45 +103,34 @@ const CartCard = ({ trip }: { trip: CartItem }) => {
               <p className="text-[14px] leading-[21px] text-[#6c707a] dark:text-[#8C909B]">
                 {dateRange}
               </p>
-              <p className="text-[14px] leading-[21px] text-[#6c707a] dark:text-[#8C909B]">
-                Reserve your spot with {formatAmount(trip.downPayment, selectedCurrency)}
-              </p>
             </div>
             <p className="font-medium text-[32px] leading-[48px] text-[var(--text-primary,#212121)] dark:text-foreground">
               {formatAmount(trip.downPayment * trip.quantity, selectedCurrency)}
             </p>
           </div>
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-[18px] bg-[var(--bg-secondary,#fafafa)] dark:bg-[#1a1a1a] rounded-full px-4 py-[10px] w-full justify-center">
-              <span className="font-medium text-[16px] leading-[24px] text-[var(--text-primary,#212121)] dark:text-foreground">
-                Spots
+          <div className="flex items-center gap-[18px] bg-[var(--bg-secondary,#fafafa)] dark:bg-[#1a1a1a] rounded-full px-4 py-[10px] w-full justify-center">
+            <span className="font-medium text-[16px] leading-[24px] text-[var(--text-primary,#212121)] dark:text-foreground">
+              Spots
+            </span>
+            <div className="flex items-center gap-[15px]">
+              <button
+                onClick={() => decrementQuantity(trip)}
+                className="size-7 flex items-center justify-center rounded-full border border-[#eee] dark:border-border"
+                aria-label="Decrease spots"
+              >
+                <Minus size={15} strokeWidth={2} />
+              </button>
+              <span className="font-medium text-[18px] leading-[27px] text-[var(--text-primary,#212121)] dark:text-foreground min-w-[1ch] text-center">
+                {trip.quantity}
               </span>
-              <div className="flex items-center gap-[15px]">
-                <button
-                  onClick={() => decrementQuantity(trip)}
-                  className="size-7 flex items-center justify-center rounded-full border border-[#eee] dark:border-border"
-                  aria-label="Decrease spots"
-                >
-                  <Minus size={15} strokeWidth={2} />
-                </button>
-                <span className="font-medium text-[18px] leading-[27px] text-[var(--text-primary,#212121)] dark:text-foreground min-w-[1ch] text-center">
-                  {trip.quantity}
-                </span>
-                <button
-                  onClick={() => incrementQuantity(trip)}
-                  className="size-7 flex items-center justify-center rounded-full bg-[var(--bg-secondary,#fafafa)] dark:bg-[#2a2a2a] border border-[#eee] dark:border-border"
-                  aria-label="Increase spots"
-                >
-                  <Plus size={15} strokeWidth={2} />
-                </button>
-              </div>
+              <button
+                onClick={() => incrementQuantity(trip)}
+                className="size-7 flex items-center justify-center rounded-full bg-[var(--bg-secondary,#fafafa)] dark:bg-[#2a2a2a] border border-[#eee] dark:border-border"
+                aria-label="Increase spots"
+              >
+                <Plus size={15} strokeWidth={2} />
+              </button>
             </div>
-            <button
-              onClick={() => removeFromCart(trip)}
-              className="border border-[#09af0d] text-[#09af0d] font-medium text-[16px] leading-[24px] rounded-full px-4 py-[10px] w-full text-center"
-            >
-              Remove from cart
-            </button>
           </div>
         </div>
       </div>

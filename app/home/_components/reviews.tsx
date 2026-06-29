@@ -32,7 +32,7 @@ const Reviews = () => {
   return (
     <section className="bg-[#f8f9fc] dark:bg-[#121716] px-5 py-12 sm:py-24 sm:px-[8%] w-full">
       <SectionWrapper>
-        <h2 className="font-ogg-trial text-[26px] sm:text-[44px] text-center text-neutral-text dark:text-foreground mb-10 sm:mb-8">
+        <h2 className="font-ogg-trial text-[26px] sm:text-[44px] text-center text-neutral-text dark:text-foreground mb-5 sm:mb-8">
           People actually really like us..
         </h2>
 
@@ -42,7 +42,7 @@ const Reviews = () => {
           </div>
         ) : (
           <Carousel opts={{ align: "start" }}>
-            <CarouselContent className="flex items-center">
+            <CarouselContent className="flex items-start">
               {data.map((review, index) => (
                 <CarouselItem key={index}>
                   <div className="flex flex-col sm:flex-row items-center sm:items-start gap-10 sm:gap-14 p-6 sm:p-9 max-w-[1145px] mx-auto">
