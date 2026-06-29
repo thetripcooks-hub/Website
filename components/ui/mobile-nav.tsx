@@ -1,7 +1,5 @@
 "use client";
 import React, { useEffect } from "react";
-import Menu from "~/img/harmburger-menu.svg";
-import MenuDark from "~/img/harmburger-menu-dark.svg";
 import Image from "next/image";
 import Link from "next/link";
 import Cart from "./cart";
@@ -10,7 +8,7 @@ import Logo from "~/logo.svg";
 import { ModeToggle } from "./mode-toggle";
 import CurrencyToggle from "./currency-toggle";
 import useCartStore from "@/stores/cartStore";
-import { ChevronDown, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import type { NavItem } from "./navbar";
 
 const MobileNav = ({
@@ -57,20 +55,9 @@ const MobileNav = ({
       <button
         onClick={() => setOpen(true)}
         aria-label="Open navigation menu"
-        className="flex gap-2 cursor-pointer"
+        className="bg-[hsl(var(--bg-tertiary))] rounded-full size-[32px] flex items-center justify-center cursor-pointer"
       >
-        <Image
-          src={isHome ? MenuDark : Menu}
-          alt="Open navigation menu"
-          className={cn(isHome ? "block" : "block dark:hidden")}
-        />
-        {!isHome && (
-          <Image
-            src={MenuDark}
-            alt="Open navigation menu"
-            className="hidden dark:block"
-          />
-        )}
+        <Menu size={16} className={isHome ? "text-white" : "text-[hsl(var(--text-primary))]"} />
       </button>
 
       {/* Overlay panel */}
