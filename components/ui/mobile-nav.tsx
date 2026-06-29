@@ -44,15 +44,15 @@ const MobileNav = ({
       <div className="bg-[hsl(var(--bg-tertiary))] rounded-full">
         <CurrencyToggle mobileNavOpen={open} />
       </div>
-      <div className="bg-[hsl(var(--bg-tertiary))] rounded-full size-[34px] flex items-center justify-center">
+      <div className="bg-[hsl(var(--bg-tertiary))] rounded-full size-[46px] flex items-center justify-center">
         <ModeToggle />
       </div>
       <Link
         href="/cart"
-        className="bg-[hsl(var(--bg-tertiary))] rounded-full size-[34px] flex items-center justify-center relative"
+        className="bg-[hsl(var(--bg-tertiary))] rounded-full size-[46px] flex items-center justify-center relative"
         aria-label="Cart"
       >
-        <Image src={CartIcon} alt="cart" className="h-[22px] invert dark:invert-0" />
+        <Image src={CartIcon} alt="cart" className="h-[26px] invert dark:invert-0" />
         {itemCount > 0 && (
           <span className="absolute top-0 right-0 min-w-[13px] h-[13px] rounded-full bg-[#09AF0D] text-white text-[8px] font-normal flex items-center justify-center p-[2px]">
             {itemCount}
