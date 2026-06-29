@@ -44,9 +44,6 @@ const MobileNav = ({
       <div className="bg-[hsl(var(--bg-tertiary))] rounded-full">
         <CurrencyToggle mobileNavOpen={open} />
       </div>
-      <div className="bg-[hsl(var(--bg-tertiary))] rounded-full size-[32px] flex items-center justify-center">
-        <ModeToggle />
-      </div>
       <Link href="/cart" aria-label="Cart" className="relative bg-[hsl(var(--bg-tertiary))] rounded-full size-[32px] flex items-center justify-center">
         <Cart iconOnly hideBadge />
         {itemCount > 0 && (
@@ -93,7 +90,7 @@ const MobileNav = ({
           </div>
 
           {/* Nav items in order */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 flex-1">
             {navConfig.map((item) => {
               if (item.children?.length) {
                 const isExpanded = openItem === item.name;
@@ -192,6 +189,12 @@ const MobileNav = ({
             })}
           </div>
 
+          {/* Bottom-right mode toggle */}
+          <div className="flex justify-end pt-4">
+            <div className="bg-[hsl(var(--bg-tertiary))] rounded-full size-[47px] flex items-center justify-center">
+              <ModeToggle />
+            </div>
+          </div>
         </div>
       )}
     </div>
