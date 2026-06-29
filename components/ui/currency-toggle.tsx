@@ -32,7 +32,7 @@ const CurrencyToggle = ({
             transparent
               ? "text-white"
               : "text-[hsl(var(--text-primary))] dark:text-foreground",
-            !hasHydrated && "blur-sm"
+            !hasHydrated && "blur-sm",
           )}
         >
           <span>{selectedCurrency}</span>
@@ -48,7 +48,10 @@ const CurrencyToggle = ({
           {CURRENCIES.map((currency) => (
             <button
               key={currency.code}
-              onClick={() => { setSelectedCurrency(currency.code); setOpen(false); }}
+              onClick={() => {
+                setSelectedCurrency(currency.code);
+                setOpen(false);
+              }}
               className="flex items-center gap-2 w-full"
             >
               <span className="font-medium text-[14px] leading-[21px] text-[hsl(var(--text-primary))]">
@@ -56,7 +59,10 @@ const CurrencyToggle = ({
               </span>
               {currency.flag}
               {selectedCurrency === currency.code && (
-                <Check size={14} className="ml-auto text-[hsl(var(--text-secondary))]" />
+                <Check
+                  size={14}
+                  className="ml-auto text-[hsl(var(--text-secondary))]"
+                />
               )}
             </button>
           ))}
