@@ -27,9 +27,6 @@ const MobileNav = ({
   const { items } = useCartStore();
   const itemCount = items.reduce((sum, t) => sum + t.quantity, 0);
 
-  const plainLinks: NavItem[] = navConfig.filter((item) => !item.children?.length);
-  const accordionItems = navConfig.filter((item) => item.children?.length);
-
   const handleClose = () => {
     setOpen(false);
     setOpenItem(null);
@@ -99,80 +96,83 @@ const MobileNav = ({
             </button>
           </div>
 
-          {/* Accordion nav items */}
+          {/* Nav items in order */}
           <div className="flex flex-col gap-4">
-            {accordionItems.map((item) => {
-              const isExpanded = openItem === item.name;
+            {navConfig.map((item) => {
+              if (item.children?.length) {
+                const isExpanded = openItem === item.name;
+                return (
+                  <div
+                    key={item.name}
+                    className={cn(
+                      "bg-[hsl(var(--bg-tertiary))] rounded-xl w-full transition-all",
+                      isExpanded ? "p-6" : "p-4"
+                    )}
+                  >
+                    <button
+                      className="flex items-center justify-between w-full"
+                      onClick={() =>
+                        setOpenItem((prev) =>
+                          prev === item.name ? null : item.name
+                        )
+                      }
+                    >
+                      <span className="font-medium text-base leading-6 text-[hsl(var(--text-secondary))]">
+                        {item.name}
+                      </span>
+                      <ChevronDown
+                        size={20}
+                        className={cn(
+                          "transition-transform duration-200 text-[hsl(var(--text-secondary))]",
+                          isExpanded && "rotate-180"
+                        )}
+                      />
+                    </button>
+                    {isExpanded && (
+                      <div className="flex flex-col gap-3 mt-4">
+                        {item.children!.map((child) => {
+                          const isExternal = child.url.startsWith("http");
+                          return (
+                            <Link
+                              key={child.name}
+                              href={child.url}
+                              onClick={handleClose}
+                              className="flex flex-col gap-[6px]"
+                              {...(isExternal && { target: "_blank", rel: "noopener noreferrer" })}
+                            >
+                              <span className="font-medium text-[14px] leading-[21px] text-[hsl(var(--text-primary))]">
+                                {child.name}
+                              </span>
+                              {child.description && (
+                                <span className="text-xs font-normal leading-[18px] text-[hsl(var(--text-tertiary))]">
+                                  {child.description}
+                                </span>
+                              )}
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+
               return (
-                <div
+                <Link
                   key={item.name}
+                  href={item.url!}
+                  onClick={handleClose}
                   className={cn(
-                    "bg-[hsl(var(--bg-tertiary))] rounded-xl w-full transition-all",
-                    isExpanded ? "p-6" : "p-4"
+                    "bg-[hsl(var(--bg-tertiary))] rounded-xl w-full p-4 font-medium text-base leading-6",
+                    item.url && pathname.includes(item.url)
+                      ? "text-secondary-irish-green"
+                      : "text-[hsl(var(--text-secondary))]"
                   )}
                 >
-                  <button
-                    className="flex items-center justify-between w-full"
-                    onClick={() =>
-                      setOpenItem((prev) =>
-                        prev === item.name ? null : item.name
-                      )
-                    }
-                  >
-                    <span className="font-medium text-base leading-6 text-[hsl(var(--text-secondary))]">
-                      {item.name}
-                    </span>
-                    <ChevronDown
-                      size={20}
-                      className={cn(
-                        "transition-transform duration-200 text-[hsl(var(--text-secondary))]",
-                        isExpanded && "rotate-180"
-                      )}
-                    />
-                  </button>
-                  {isExpanded && (
-                    <div className="flex flex-col gap-3 mt-4">
-                      {item.children!.map((child) => {
-                        const isExternal = child.url.startsWith("http");
-                        return (
-                        <Link
-                          key={child.name}
-                          href={child.url}
-                          onClick={handleClose}
-                          className="flex flex-col gap-[6px]"
-                          {...(isExternal && { target: "_blank", rel: "noopener noreferrer" })}
-                        >
-                          <span className="font-medium text-[14px] leading-[21px] text-[hsl(var(--text-primary))]">
-                            {child.name}
-                          </span>
-                          {child.description && (
-                            <span className="text-xs font-normal leading-[18px] text-[hsl(var(--text-tertiary))]">
-                              {child.description}
-                            </span>
-                          )}
-                        </Link>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
+                  {item.name}
+                </Link>
               );
             })}
-
-            {/* Plain links */}
-            {plainLinks.map((item) => (
-              <Link
-                key={item.name}
-                href={item.url!}
-                onClick={handleClose}
-                className={cn(
-                  "font-medium text-base text-[hsl(var(--text-primary))] dark:text-foreground",
-                  item.url && pathname.includes(item.url) && "text-secondary-irish-green"
-                )}
-              >
-                {item.name}
-              </Link>
-            ))}
           </div>
 
         </div>
