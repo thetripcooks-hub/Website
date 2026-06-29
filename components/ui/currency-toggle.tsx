@@ -42,14 +42,14 @@ const CurrencyToggle = ({
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="p-4 min-w-[160px] rounded-xl z-[99] bg-[hsl(var(--bg-primary))]"
+        className="p-6 min-w-[132px] rounded-xl z-[99] bg-[hsl(var(--bg-primary))]"
       >
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-3">
           {CURRENCIES.map((currency) => (
             <button
               key={currency.code}
               onClick={() => { setSelectedCurrency(currency.code); setOpen(false); }}
-              className="flex items-center gap-3 w-full px-3 py-3 rounded-lg hover:bg-[hsl(var(--bg-tertiary))] transition-colors"
+              className="flex items-center gap-2 w-full"
             >
               <span className="font-medium text-[14px] leading-[21px] text-[hsl(var(--text-primary))]">
                 {currency.code}
