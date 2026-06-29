@@ -77,17 +77,28 @@ const FeatureTrip = () => {
           {/* Right — details card */}
           <div className="flex-1 bg-[#fafafa] dark:bg-[#1E2826] border border-[#eee] dark:border-[#585E6A] rounded-[14px] p-6 flex flex-col gap-8">
             {/* Name + price */}
-            <div className="flex flex-col gap-2  sm:flex-row items-start justify-between">
+            <div className="flex flex-col gap-2 sm:flex-row items-start sm:justify-between">
               <h3 className="font-ogg-trial text-[22px] sm:text-[40px] leading-tight text-neutral-text dark:text-white">
                 {trip.location}
               </h3>
-              <div className="sm:text-right shrink-0">
-                <p className="text-[24px] sm:text-[32px] font-bold text-neutral-text leading-tight dark:text-white">
-                  {formatAmount(trip.fullAmount, selectedCurrency)}
-                </p>
-                <p className="text-sm text-neutral-subtext text-[#6C707A] dark:text-[#A0A0A0]">
-                  Per person
-                </p>
+              <div className="flex flex-row items-start justify-between sm:flex-col sm:text-right sm:shrink-0">
+                <div>
+                  <p className="text-[24px] sm:text-[32px] font-bold text-neutral-text leading-tight dark:text-white">
+                    {formatAmount(trip.fullAmount, selectedCurrency)}
+                  </p>
+                  <p className="text-sm text-neutral-subtext text-[#6C707A] dark:text-[#A0A0A0]">
+                    Per person
+                  </p>
+                </div>
+                {/* Group Size — mobile only here; desktop keeps it in meta row */}
+                <div className="text-right sm:hidden">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.55px] text-neutral-subtext dark:text-[#BFC0C2]">
+                    Group Size
+                  </p>
+                  <p className="text-[11px] font-medium text-neutral-text dark:text-white">
+                    {trip.groupSize ?? "12–18 people"}
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -119,14 +130,14 @@ const FeatureTrip = () => {
                     <p className="text-[11px] font-semibold uppercase tracking-[0.55px] text-neutral-subtext dark:text-[#BFC0C2]">
                       Duration
                     </p>
-                    <p className="text-[18px] font-medium text-neutral-text dark:text-white">
+                    <p className="text-[11px] sm:text-[18px] font-medium text-neutral-text dark:text-white">
                       {trip.startDate && trip.endDate
                         ? `${Math.round((new Date(trip.endDate).getTime() - new Date(trip.startDate).getTime()) / 86400000)} Days`
                         : "7 Days"}
                     </p>
                   </div>
                 </div>
-                <div className="flex items-start gap-2">
+                <div className="hidden sm:flex items-start gap-2">
                   <Image
                     src="/img/featured-trip/people.svg"
                     width={18}
@@ -137,7 +148,7 @@ const FeatureTrip = () => {
                     <p className="text-[11px] font-semibold uppercase tracking-[0.55px] text-neutral-subtext dark:text-[#BFC0C2]">
                       Group Size
                     </p>
-                    <p className="text-[18px] font-medium text-neutral-text dark:text-white">
+                    <p className="text-[11px] sm:text-[18px] font-medium text-neutral-text dark:text-white">
                       {trip.groupSize ?? "12–18 people"}
                     </p>
                   </div>
@@ -153,7 +164,7 @@ const FeatureTrip = () => {
                     <p className="text-[11px] font-semibold uppercase tracking-[0.55px] text-neutral-subtext dark:text-[#BFC0C2]">
                       Dates
                     </p>
-                    <p className="text-[18px] font-medium text-neutral-text dark:text-white">
+                    <p className="text-[11px] sm:text-[18px] font-medium text-neutral-text dark:text-white">
                       {trip.startDate
                         ? new Date(trip.startDate).toLocaleDateString("en-GB", {
                             month: "short",
@@ -187,8 +198,8 @@ const FeatureTrip = () => {
 
             {/* Checklist */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 sm:gap-x-4">
-              {CHECKLIST.map((item) => (
-                <div key={item} className="flex items-center gap-2">
+              {CHECKLIST.map((item, index) => (
+                <div key={item} className={`flex items-center gap-2${index >= 3 ? " hidden sm:flex" : ""}`}>
                   <Image
                     src="/img/check.svg"
                     width={18}

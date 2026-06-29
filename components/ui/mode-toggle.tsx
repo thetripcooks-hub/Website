@@ -26,18 +26,18 @@ export function ModeToggle({ transparent }: { transparent?: boolean }) {
       <DropdownMenuTrigger asChild>
         <Button
           size="icon"
-          className="bg-transparent outline-none bg-none hover:bg-transparent  focus-visible:bg-transparent focus-visible:ring-0 shadow-none h-[40px] sm:h-[46px]"
+          className="bg-transparent outline-none bg-none hover:bg-transparent  focus-visible:bg-transparent focus-visible:ring-0 shadow-none h-[32px] sm:h-[46px]"
         >
           {/* <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" /> */}
           <Image
             src={Moon}
             alt="light-mode"
-            className={cn("dark:hidden invert h-[40px] sm:h-[46px]", transparent ? "md:invert-0" : "md:invert")}
+            className={cn("dark:hidden invert h-[22px] sm:h-[46px]", transparent ? "md:invert-0" : "md:invert")}
           />
           <Image
             src={Sun}
             alt="dark-mode"
-            className="hidden dark:block h-[40px] sm:h-[46px]"
+            className="hidden dark:block h-[22px] sm:h-[46px]"
           />
           {/* <MoonIcon className="absolute h-[36px] w-[36px] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 bg-white rounded-[8px]" />
           <span className="sr-only">Toggle theme</span> */}
