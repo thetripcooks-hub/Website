@@ -139,6 +139,7 @@ const MobileNav = ({
                       <div className="flex flex-col gap-3 mt-4">
                         {item.children!.map((child) => {
                           const isExternal = child.url.startsWith("http");
+                          const isChildActive = pathname === child.url || pathname.startsWith(child.url + "/");
                           return (
                             <Link
                               key={child.name}
@@ -147,7 +148,10 @@ const MobileNav = ({
                               className="flex flex-col gap-[6px]"
                               {...(isExternal && { target: "_blank", rel: "noopener noreferrer" })}
                             >
-                              <span className="font-medium text-[14px] leading-[21px] text-[hsl(var(--text-primary))]">
+                              <span className={cn(
+                                "font-medium text-[14px] leading-[21px]",
+                                isChildActive ? "text-secondary-irish-green" : "text-[hsl(var(--text-primary))]"
+                              )}>
                                 {child.name}
                               </span>
                               {child.description && (
