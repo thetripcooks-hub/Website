@@ -38,8 +38,12 @@ const MobileNav = ({
     <div className="sm:hidden flex gap-1 items-center">
       {/* Always-visible controls */}
       <CurrencyToggle mobileNavOpen={open} />
-      <ModeToggle />
-      <Cart isActive={pathname.startsWith("/cart")} />
+      <div className="bg-[hsl(var(--bg-tertiary))] rounded-full size-[40px] flex items-center justify-center">
+        <ModeToggle />
+      </div>
+      <div className="bg-[hsl(var(--bg-tertiary))] rounded-full size-[40px] flex items-center justify-center">
+        <Cart />
+      </div>
 
       {/* Hamburger trigger */}
       <button
