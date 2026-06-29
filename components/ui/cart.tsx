@@ -31,7 +31,7 @@ import EmptyCart from "@/app/cart/_components/empty-cart";
 import useTripStore from "@/stores/trip-store";
 import { Loader } from "lucide-react";
 
-const Cart = ({ transparent, isActive, hideBadge }: { transparent?: boolean; isActive?: boolean; hideBadge?: boolean }) => {
+const Cart = ({ transparent, isActive, hideBadge, iconOnly }: { transparent?: boolean; isActive?: boolean; hideBadge?: boolean; iconOnly?: boolean }) => {
   const { selectedCurrency } = useGeneralStore();
   const { theme = "system" } = useTheme()
 
@@ -54,26 +54,32 @@ const Cart = ({ transparent, isActive, hideBadge }: { transparent?: boolean; isA
   const hasTrips = trips.length > 0;
   const itemCount = trips.reduce((sum, t) => sum + t.quantity, 0);
 
+  const iconEl = (
+    <div className="flex flex-col items-center gap-0.5 cursor-pointer">
+      <div className="relative">
+        <Image
+          src={CartIcon}
+          alt="cart-icon"
+          className={`h-[32px] sm:h-[46px] ${!transparent ? "invert dark:invert-0" : ""}`}
+        />
+        {itemCount > 0 && !hideBadge && (
+          <span className="absolute top-1 right-1 min-w-[20px] h-[20px] rounded-full bg-[#09AF0D] text-white text-[9px] font-normal leading-none flex items-center justify-center p-[4px]">
+            {itemCount}
+          </span>
+        )}
+      </div>
+      {isActive && (
+        <span className="block w-full h-[2px] rounded-full bg-[#09AF0D]" />
+      )}
+    </div>
+  );
+
+  if (iconOnly) return iconEl;
+
   return (
     <DropdownMenu modal={false} open={showCart} onOpenChange={setShowCart}>
       <DropdownMenuTrigger asChild>
-        <div className="flex flex-col items-center gap-0.5 cursor-pointer">
-          <div className="relative">
-            <Image
-              src={CartIcon}
-              alt="cart-icon"
-              className={`h-[32px] sm:h-[46px] ${!transparent ? "invert dark:invert-0" : ""}`}
-            />
-            {itemCount > 0 && !hideBadge && (
-              <span className="absolute top-1 right-1 min-w-[20px] h-[20px] rounded-full bg-[#09AF0D] text-white text-[9px] font-normal leading-none flex items-center justify-center p-[4px]">
-                {itemCount}
-              </span>
-            )}
-          </div>
-          {isActive && (
-            <span className="block w-full h-[2px] rounded-full bg-[#09AF0D]" />
-          )}
-        </div>
+        {iconEl}
       </DropdownMenuTrigger>
       <DropdownMenuContent
         className="sm:max-w-[414px] shadow-none px-0 mr-2 z-[99] dark:border-[#585E6A]"

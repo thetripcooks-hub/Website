@@ -47,14 +47,14 @@ const MobileNav = ({
       <div className="bg-[hsl(var(--bg-tertiary))] rounded-full size-[40px] flex items-center justify-center">
         <ModeToggle />
       </div>
-      <div className="relative bg-[hsl(var(--bg-tertiary))] rounded-full size-[40px] flex items-center justify-center">
-        <Cart hideBadge />
+      <Link href="/cart" aria-label="Cart" className="relative bg-[hsl(var(--bg-tertiary))] rounded-full size-[40px] flex items-center justify-center">
+        <Cart iconOnly hideBadge />
         {itemCount > 0 && (
           <span className="absolute -top-0.5 -right-0.5 min-w-[14px] h-[14px] rounded-full bg-[#09AF0D] text-white text-[8px] font-normal flex items-center justify-center p-[2px]">
             {itemCount}
           </span>
         )}
-      </div>
+      </Link>
 
       {/* Hamburger trigger */}
       <button
