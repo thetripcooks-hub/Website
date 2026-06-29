@@ -1,5 +1,4 @@
 "use client";
-import { useInView } from "react-intersection-observer";
 import Reviews from "@/app/home/_components/reviews";
 import { SubcribeToNewsLetter, Footer, CustomLoader } from "@/components/ui";
 import { cn, locationToSlug } from "@/lib/utils";
@@ -7,7 +6,6 @@ import React, { useEffect } from "react";
 import ViewOfLocation from "./_components/view-of-location";
 import Itinerary from "./_components/Itinerary";
 import TripDetailOverview from "./_components/trip-detail-overview";
-import PaymentCardMobile from "./_components/trip-detail-overview/payment-card-mobile";
 import { queryGetAllTrips, queryTripById } from "@/queries/trips-query";
 import { AllTripsResponse, TripByIdResponse } from "@/types/trip";
 import { useQuery } from "@apollo/client";
@@ -17,7 +15,6 @@ import useTripStore from "@/stores/trip-store";
 const Page = () => {
   const { slug } = useParams<{ slug: string }>();
   const router = useRouter();
-  const { ref, inView } = useInView();
   const { setSelectedTrip, selectedTrip } = useTripStore();
 
   const { data: allTripsData, loading: allTripsLoading } =
@@ -66,10 +63,7 @@ const Page = () => {
   return (
     <main className={cn("bg-white dark:bg-background w-full")}>
       <TripDetailOverview />
-      <div ref={ref}>
-        <Itinerary />
-      </div>
-      {inView ? <PaymentCardMobile /> : null}
+      <Itinerary />
       <ViewOfLocation
         title={`Our view of ${selectedTrip.location.split(",")[0]}`}
         items={selectedTrip.viewsOfLocationCollection.items ?? []}

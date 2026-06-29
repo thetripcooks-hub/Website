@@ -73,13 +73,13 @@ const ViewOfLocation = ({
 
       <div className="mt-5 sm:mt-10 flex flex-col gap-5">
         <CarouselWrapper>
-          <CarouselContent className="-ml-12">
+          <CarouselContent>
             {_row1.map((item) => (
               <CarouselItem
                 className="text-foreground cursor-pointer basis-3/4 sm:basis-1/3"
                 key={item + Math.random()}
               >
-                <div className="relative sm:w-full rounded-[18px] h-[279px] w-[394px] overflow-hidden">
+                <div className="relative w-full rounded-[18px] h-[279px] overflow-hidden">
                   <Image
                     src={item}
                     fill
@@ -93,27 +93,25 @@ const ViewOfLocation = ({
         </CarouselWrapper>
 
         {items.length > 4 && _row2.length ? (
-          <div className="-ml-28">
-            <CarouselWrapper>
-              <CarouselContent>
-                {_row2.map((item) => (
-                  <CarouselItem
-                    className="text-foreground cursor-pointer basis-3/4 sm:basis-1/3"
-                    key={item + Math.random()}
-                  >
-                    <div className="relative sm:w-full rounded-[18px] h-[279px] w-[394px] overflow-hidden">
-                      <Image
-                        src={item}
-                        fill
-                        alt="group-trip"
-                        className="object-cover rounded-[18px]"
-                      />
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </CarouselWrapper>{" "}
-          </div>
+          <CarouselWrapper>
+            <CarouselContent>
+              {_row2.map((item) => (
+                <CarouselItem
+                  className="text-foreground cursor-pointer basis-3/4 sm:basis-1/3"
+                  key={item + Math.random()}
+                >
+                  <div className="relative w-full rounded-[18px] h-[279px] overflow-hidden">
+                    <Image
+                      src={item}
+                      fill
+                      alt="group-trip"
+                      className="object-cover rounded-[18px]"
+                    />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </CarouselWrapper>
         ) : null}
       </div>
     </section>
