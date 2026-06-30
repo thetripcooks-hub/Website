@@ -216,7 +216,9 @@ const Navbar = () => {
         <section className="hidden sm:flex">
           <CurrencyToggle transparent={whiteText} />
           <ModeToggle transparent={whiteText} />
-          <Cart transparent={whiteText} isActive={pathname.startsWith("/cart")} />
+          <Link href="/cart" aria-label="Cart">
+            <Cart transparent={whiteText} isActive={pathname.startsWith("/cart")} iconOnly />
+          </Link>
         </section>
 
         <MobileNav navConfig={navConfig} pathname={pathname} isHome={whiteText} />
