@@ -77,9 +77,9 @@ const Footer = () => {
       <div className="max-w-[1440px] mx-auto">
         <div className="flex flex-col sm:flex-row sm:justify-between gap-10">
           {/* Logo + socials */}
-          <div className="flex flex-col gap-[25px] shrink-0">
-            <Image src={LogoBig} alt="TripCooks logo" />
-            <div className="flex gap-4">
+          <div className="flex flex-col items-center sm:items-start gap-[25px] shrink-0">
+            <Image src={LogoBig} alt="TripCooks logo" className="hidden sm:block" />
+            <div className="flex gap-4 justify-center sm:justify-start">
               {socials.map((social) => (
                 <a
                   key={social.name}

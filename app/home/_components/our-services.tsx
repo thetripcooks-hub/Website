@@ -10,6 +10,7 @@ import {
 import type { CarouselApi } from "@/components/ui/carousel";
 import { ArrowRight } from "lucide-react";
 import useGeneralStore from "@/stores/generalStore";
+import { useIsMobile } from "@/hooks";
 import Link from "next/link";
 
 const SERVICES = [
@@ -47,6 +48,7 @@ const OurServices = () => {
   const { services: data } = useGeneralStore();
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
+  const isMobile = useIsMobile(640);
 
   useEffect(() => {
     if (!api) return;
@@ -89,7 +91,7 @@ const OurServices = () => {
           align: "center",
           loop: false,
           dragFree: true,
-          duration: 500,
+          duration: isMobile ? 20 : 500,
           inViewThreshold: 0.5,
           skipSnaps: true,
         }}
