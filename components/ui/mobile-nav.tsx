@@ -88,7 +88,7 @@ const MobileNav = ({
                   <div
                     key={item.name}
                     className={cn(
-                      "bg-[hsl(var(--bg-tertiary))] rounded-xl w-full transition-all",
+                      "bg-[hsl(var(--bg-tertiary))] rounded-xl w-full transition-all duration-300",
                       isExpanded ? "p-6" : "p-4"
                     )}
                   >
@@ -115,42 +115,49 @@ const MobileNav = ({
                         )}
                       />
                     </button>
-                    {isExpanded && (
-                      <div className="flex flex-col gap-3 mt-4">
-                        {item.children!.map((child) => {
-                          const isExternal = child.url.startsWith("http");
-                          const isChildActive =
-                            pathname === child.url ||
-                            (pathname.startsWith(child.url + "/") &&
-                              !item.children!.some(
-                                (sibling) =>
-                                  sibling.url !== child.url &&
-                                  (pathname === sibling.url || pathname.startsWith(sibling.url + "/"))
-                              ));
-                          return (
-                            <Link
-                              key={child.name}
-                              href={child.url}
-                              onClick={handleClose}
-                              className="flex flex-col gap-[6px]"
-                              {...(isExternal && { target: "_blank", rel: "noopener noreferrer" })}
-                            >
-                              <span className={cn(
-                                "font-medium text-[14px] leading-[21px]",
-                                isChildActive ? "text-secondary-irish-green" : "text-[hsl(var(--text-primary))]"
-                              )}>
-                                {child.name}
-                              </span>
-                              {child.description && (
-                                <span className="text-xs font-normal leading-[18px] text-[hsl(var(--text-tertiary))]">
-                                  {child.description}
+                    <div
+                      className={cn(
+                        "grid transition-[grid-template-rows] duration-300 ease-out",
+                        isExpanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                      )}
+                    >
+                      <div className="overflow-hidden">
+                        <div className="flex flex-col gap-3 mt-4">
+                          {item.children!.map((child) => {
+                            const isExternal = child.url.startsWith("http");
+                            const isChildActive =
+                              pathname === child.url ||
+                              (pathname.startsWith(child.url + "/") &&
+                                !item.children!.some(
+                                  (sibling) =>
+                                    sibling.url !== child.url &&
+                                    (pathname === sibling.url || pathname.startsWith(sibling.url + "/"))
+                                ));
+                            return (
+                              <Link
+                                key={child.name}
+                                href={child.url}
+                                onClick={handleClose}
+                                className="flex flex-col gap-[6px]"
+                                {...(isExternal && { target: "_blank", rel: "noopener noreferrer" })}
+                              >
+                                <span className={cn(
+                                  "font-medium text-[14px] leading-[21px]",
+                                  isChildActive ? "text-secondary-irish-green" : "text-[hsl(var(--text-primary))]"
+                                )}>
+                                  {child.name}
                                 </span>
-                              )}
-                            </Link>
-                          );
-                        })}
+                                {child.description && (
+                                  <span className="text-xs font-normal leading-[18px] text-[hsl(var(--text-tertiary))]">
+                                    {child.description}
+                                  </span>
+                                )}
+                              </Link>
+                            );
+                          })}
+                        </div>
                       </div>
-                    )}
+                    </div>
                   </div>
                 );
               }

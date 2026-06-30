@@ -134,9 +134,6 @@ const NavDropdownItem = ({
         sideOffset={16}
         className="p-6 max-w-[352px] rounded-xl z-[99] bg-[hsl(var(--bg-primary))]"
       >
-        <p className="font-medium text-base leading-6 mb-2 text-[hsl(var(--text-secondary))]">
-          {item.name}
-        </p>
         <div className="flex flex-col gap-3">
           {item.children.map((child) => {
             const isExternal = child.url.startsWith("http");

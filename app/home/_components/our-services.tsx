@@ -85,7 +85,14 @@ const OurServices = () => {
       {/* Cards carousel */}
       <Carousel
         setApi={setApi}
-        opts={{ align: "center", loop: false }}
+        opts={{
+          align: "center",
+          loop: false,
+          dragFree: true,
+          duration: 500,
+          inViewThreshold: 0.5,
+          skipSnaps: true,
+        }}
         className="w-full"
       >
         <CarouselContent className="-ml-4 sm:-ml-6 px-5 sm:px-[109px]">
@@ -96,14 +103,14 @@ const OurServices = () => {
               <CarouselItem
                 key={service.key}
                 className={cn(
-                  "pl-4 sm:pl-6 transition-all duration-300 basis-[85%]",
-                  isActive ? "sm:basis-[57%]" : "sm:basis-[44%]"
+                  "pl-4 sm:pl-6 transition-all duration-500 basis-[85%]",
+                  isActive ? "sm:basis-[57%]" : "sm:basis-[44%]",
                 )}
               >
                 <div
                   className={cn(
-                    "relative h-[350px] sm:h-[485px] rounded-[16px] overflow-hidden transition-opacity duration-300",
-                    !isActive && "opacity-50"
+                    "relative h-[350px] sm:h-[485px] rounded-[16px] overflow-hidden transition-opacity duration-500",
+                    !isActive && "opacity-50",
                   )}
                   style={{
                     backgroundImage: imgSrc ? `url(${imgSrc})` : undefined,
@@ -114,8 +121,8 @@ const OurServices = () => {
                   {/* Overlay */}
                   <div
                     className={cn(
-                      "absolute inset-0 rounded-[16px] transition-all duration-300",
-                      isActive ? "bg-black/50" : "bg-black/35"
+                      "absolute inset-0 rounded-[16px] transition-all duration-500",
+                      isActive ? "bg-black/50" : "bg-black/35",
                     )}
                   />
 
@@ -152,7 +159,7 @@ const OurServices = () => {
             key={i}
             onClick={() => api?.scrollTo(i)}
             className={cn(
-              "h-4 rounded-full transition-all duration-300",
+              "h-4 rounded-full transition-all duration-500",
               i === current
                 ? "w-[63px] bg-white"
                 : "w-4 bg-secondary-forest-green-100",

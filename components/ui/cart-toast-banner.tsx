@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { CheckCircle2, Minus, Plus } from "lucide-react";
@@ -9,7 +9,8 @@ import useStripe from "@/hooks/payment/useStripe";
 import { formatTripDate } from "@/lib/utils";
 import { TripType } from "@/types/trip";
 
-const DISMISS_DELAY = 5000;
+const DISMISS_DELAY = 2500;
+const FADE_DURATION = 300;
 
 const CartToastBanner = () => {
   const { lastAddedItem, setLastAddedItem, items, incrementQuantity, decrementQuantity } =
@@ -22,7 +23,22 @@ const CartToastBanner = () => {
   const currentItem = lastAddedItem
     ? items.find((i) => i.sys.id === lastAddedItem.sys.id)
     : null;
+  const lastItemRef = useRef<NonNullable<typeof currentItem> | null>(null);
   const visible = !!lastAddedItem && !!currentItem;
+
+  const [mounted, setMounted] = useState(false);
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    if (visible) {
+      setMounted(true);
+      const id = requestAnimationFrame(() => setShow(true));
+      return () => cancelAnimationFrame(id);
+    }
+    setShow(false);
+    const t = setTimeout(() => setMounted(false), FADE_DURATION);
+    return () => clearTimeout(t);
+  }, [visible]);
 
   const startTimer = () => {
     if (timerRef.current) clearTimeout(timerRef.current);
@@ -56,15 +72,18 @@ const CartToastBanner = () => {
     handlePay(selectedCurrency);
   };
 
-  if (!visible || !currentItem) return null;
+  if (currentItem) lastItemRef.current = currentItem;
+  const displayItem = currentItem ?? lastItemRef.current;
 
-  const imageUrl = currentItem.bannerImagesCollection.items[0]?.url;
-  const dateRange = formatTripDate(currentItem as unknown as TripType);
+  if (!mounted || !displayItem) return null;
+
+  const imageUrl = displayItem.bannerImagesCollection.items[0]?.url;
+  const dateRange = formatTripDate(displayItem as unknown as TripType);
 
   return (
     <div
-      className={`fixed top-0 left-0 right-0 z-[100] bg-[#dcfae6] transition-transform duration-300 ${
-        visible ? "translate-y-0" : "-translate-y-full"
+      className={`fixed top-0 left-0 right-0 z-[100] bg-[#dcfae6] transition-opacity duration-300 ${
+        show ? "opacity-100" : "opacity-0"
       }`}
       onPointerEnter={pauseTimer}
       onPointerLeave={startTimer}
@@ -81,12 +100,12 @@ const CartToastBanner = () => {
         <div className="flex items-center gap-4 flex-1 min-w-0">
           {imageUrl && (
             <div className="relative rounded-[7.984px] size-[55px] shrink-0 overflow-hidden">
-              <Image src={imageUrl} alt={currentItem.location} fill className="object-cover" />
+              <Image src={imageUrl} alt={displayItem.location} fill className="object-cover" />
             </div>
           )}
           <div className="flex flex-col gap-1 min-w-0">
             <span className="font-medium text-[20px] leading-[30px] text-[#053321] whitespace-nowrap font-plus-jakarta-sans">
-              {currentItem.location}
+              {displayItem.location}
             </span>
             <span className="text-[14px] leading-[21px] text-[#9e9e9e] font-plus-jakarta-sans">
               {dateRange}
@@ -98,17 +117,17 @@ const CartToastBanner = () => {
             </span>
             <div className="flex items-center gap-[15px]">
               <button
-                onClick={() => decrementQuantity(currentItem)}
+                onClick={() => decrementQuantity(displayItem)}
                 className="size-6 flex items-center justify-center text-white"
                 aria-label="Decrease spots"
               >
                 <Minus size={15} strokeWidth={2} />
               </button>
               <span className="font-medium text-[16px] leading-[24px] text-white font-plus-jakarta-sans">
-                {currentItem.quantity}
+                {displayItem.quantity}
               </span>
               <button
-                onClick={() => incrementQuantity(currentItem)}
+                onClick={() => incrementQuantity(displayItem)}
                 className="size-6 flex items-center justify-center text-white"
                 aria-label="Increase spots"
               >
@@ -148,13 +167,13 @@ const CartToastBanner = () => {
           <div className="flex gap-4 items-start">
             {imageUrl && (
               <div className="relative rounded-[7.984px] size-[55px] shrink-0 overflow-hidden">
-                <Image src={imageUrl} alt={currentItem.location} fill className="object-cover" />
+                <Image src={imageUrl} alt={displayItem.location} fill className="object-cover" />
               </div>
             )}
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-1">
                 <span className="font-medium text-[20px] leading-[30px] text-[#053321] font-plus-jakarta-sans">
-                  {currentItem.location}
+                  {displayItem.location}
                 </span>
                 <span className="text-[14px] leading-[21px] text-[#9e9e9e] font-plus-jakarta-sans">
                   {dateRange}
@@ -163,17 +182,17 @@ const CartToastBanner = () => {
               <div className="flex items-center gap-[18px] bg-[#02231a] rounded-full px-2 py-2 w-fit">
                 <div className="flex items-center gap-[15px]">
                   <button
-                    onClick={() => decrementQuantity(currentItem)}
+                    onClick={() => decrementQuantity(displayItem)}
                     className="size-[18px] flex items-center justify-center text-white"
                     aria-label="Decrease spots"
                   >
                     <Minus size={11} strokeWidth={2} />
                   </button>
                   <span className="font-medium text-[14px] leading-[21px] text-white font-plus-jakarta-sans">
-                    {currentItem.quantity}
+                    {displayItem.quantity}
                   </span>
                   <button
-                    onClick={() => incrementQuantity(currentItem)}
+                    onClick={() => incrementQuantity(displayItem)}
                     className="size-[18px] flex items-center justify-center text-white"
                     aria-label="Increase spots"
                   >
