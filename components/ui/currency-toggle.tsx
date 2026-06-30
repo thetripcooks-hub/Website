@@ -36,7 +36,9 @@ const CurrencyToggle = ({
           )}
         >
           <span>{selectedCurrency}</span>
-          <span>{selected?.flag}</span>
+          <span className="[&>img]:w-3.5 [&>img]:h-3.5 sm:[&>img]:w-6 sm:[&>img]:h-6">
+            {selected?.flag}
+          </span>
           <ChevronDown size={20} />
         </button>
       </DropdownMenuTrigger>

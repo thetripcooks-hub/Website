@@ -70,6 +70,7 @@ const FeatureTrip = () => {
                 alt="add to cart"
                 width={46}
                 height={46}
+                className="w-8 h-8 sm:w-[46px] sm:h-[46px]"
               />
             </button>
           </div>
@@ -89,23 +90,6 @@ const FeatureTrip = () => {
                   <p className="text-sm text-neutral-subtext text-[#6C707A] dark:text-[#A0A0A0]">
                     Per person
                   </p>
-                </div>
-                {/* Group Size — mobile only here; desktop keeps it in meta row */}
-                <div className="flex items-start gap-1 sm:hidden">
-                  <Image
-                    src="/img/featured-trip/people.svg"
-                    width={18}
-                    height={18}
-                    alt="Group Size"
-                  />
-                  <div className="text-right">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.55px] text-neutral-subtext dark:text-[#BFC0C2]">
-                      Group Size
-                    </p>
-                    <p className="text-[11px] font-medium text-neutral-text dark:text-white">
-                      {trip.groupSize ?? "12–18 people"}
-                    </p>
-                  </div>
                 </div>
               </div>
             </div>
@@ -127,7 +111,7 @@ const FeatureTrip = () => {
                 }}
               />
               <div className="flex flex-wrap gap-8 sm:gap-[45px] sm:max-w-[483px] justify-between">
-                <div className="flex items-start gap-2">
+                <div className="hidden sm:flex items-start gap-2">
                   <Image
                     src="/img/featured-trip/clock.svg"
                     width={18}
@@ -145,7 +129,7 @@ const FeatureTrip = () => {
                     </p>
                   </div>
                 </div>
-                <div className="hidden sm:flex items-start gap-2">
+                <div className="flex items-start gap-2 order-2 sm:order-none">
                   <Image
                     src="/img/featured-trip/people.svg"
                     width={18}
@@ -161,7 +145,7 @@ const FeatureTrip = () => {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-start gap-2">
+                <div className="flex items-start gap-2 order-1 sm:order-none">
                   <Image
                     src="/img/featured-trip/calendar.svg"
                     width={18}
