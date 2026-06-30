@@ -57,7 +57,7 @@ const FeatureTrip = () => {
             </div>
             {/* Cart icon */}
             <button
-              className="absolute top-[18px] right-[26px]"
+              className="absolute top-5 right-[26px] sm:top-[18px]"
               onClick={() => {
                 const item = { ...trip, quantity: 1 };
                 addToCart(item);
