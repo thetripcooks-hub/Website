@@ -57,7 +57,7 @@ const MobileNav = ({
         aria-label="Open navigation menu"
         className="bg-[hsl(var(--bg-tertiary))] rounded-full size-[32px] flex items-center justify-center cursor-pointer"
       >
-        <Menu size={16} className={isHome ? "text-white" : "text-[hsl(var(--text-primary))]"} />
+        <Menu size={16} className={isHome ? "text-white" : "text-neutral-text dark:text-foreground"} />
       </button>
 
       {/* Overlay panel */}
