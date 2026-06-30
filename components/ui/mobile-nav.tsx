@@ -55,12 +55,9 @@ const MobileNav = ({
       <button
         onClick={() => setOpen(true)}
         aria-label="Open navigation menu"
-        className={cn(
-          "rounded-full size-[32px] flex items-center justify-center cursor-pointer",
-          isHome ? "bg-[#121716]" : "bg-[hsl(var(--bg-tertiary))]"
-        )}
+        className="bg-[hsl(var(--bg-tertiary))] rounded-full size-[32px] flex items-center justify-center cursor-pointer"
       >
-        <Menu size={16} className={isHome ? "text-white" : "text-neutral-text dark:text-foreground"} />
+        <Menu size={16} className="text-neutral-text dark:text-foreground" />
       </button>
 
       {/* Overlay panel */}
