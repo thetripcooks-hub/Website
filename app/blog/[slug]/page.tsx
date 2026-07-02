@@ -11,7 +11,13 @@ import BlogArticleToc from "../_components/blog-article-toc";
 import MobileBackToTop from "../_components/mobile-back-to-top";
 import { CATEGORY_LABEL } from "../_components/blog-data";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { BLOCKS } from "@contentful/rich-text-types";
 import { calcReadTime } from "@/lib/read-time";
+import {
+  extractHeadings,
+  slugify,
+  splitAtMidpointHeading,
+} from "@/lib/extract-headings";
 import type { CmsBlogPost } from "@/types/blog";
 
 const SPACE_ID = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID;
@@ -24,9 +30,17 @@ async function fetchPostBySlug(slug: string): Promise<CmsBlogPost | null> {
       blogPostCollection(where: { slug: "${slug}" }, limit: 1) {
         items {
           sys { id }
-          title slug category author date excerpt
+          title slug category author date excerpt featured
           coverImage { url title }
           body { json }
+          authorProfile {
+            sys { id }
+            name
+            instagramHandle
+            tiktokHandle
+            whatsappNumber
+            linkedinHandle
+          }
         }
       }
     }
@@ -46,6 +60,25 @@ async function fetchPostBySlug(slug: string): Promise<CmsBlogPost | null> {
   const json = await res.json();
   return json?.data?.blogPostCollection?.items?.[0] ?? null;
 }
+
+const renderOptions = {
+  renderNode: {
+    [BLOCKS.HEADING_2]: (node: any, children: any) => {
+      const text = (node.content as any[])
+        .filter((n: any) => n.nodeType === "text")
+        .map((n: any) => n.value as string)
+        .join("");
+      return <h2 id={slugify(text)}>{children}</h2>;
+    },
+    [BLOCKS.HEADING_3]: (node: any, children: any) => {
+      const text = (node.content as any[])
+        .filter((n: any) => n.nodeType === "text")
+        .map((n: any) => n.value as string)
+        .join("");
+      return <h3 id={slugify(text)}>{children}</h3>;
+    },
+  },
+};
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -91,6 +124,43 @@ export default async function ArticlePage({ params }: Props) {
   const imageUrl = post.coverImage?.url ?? FALLBACK_IMAGE;
   const categoryLabel = CATEGORY_LABEL[post.category];
   const readTime = post.body?.json ? calcReadTime(post.body.json) : null;
+  const sections = post.body?.json ? extractHeadings(post.body.json) : [];
+  const [firstHalf, secondHalf] = post.body?.json
+    ? splitAtMidpointHeading(post.body.json)
+    : [null, null];
+
+  const ap = post.authorProfile;
+  const socials = [
+    {
+      label: "Instagram",
+      icon: Instagram,
+      href: ap?.instagramHandle
+        ? `https://www.instagram.com/${ap.instagramHandle}/`
+        : null,
+    },
+    {
+      label: "TikTok",
+      icon: Tiktok,
+      href: ap?.tiktokHandle
+        ? `https://www.tiktok.com/@${ap.tiktokHandle}`
+        : null,
+    },
+    {
+      label: "WhatsApp",
+      icon: WhatsApp,
+      href: ap?.whatsappNumber ? `https://wa.me/${ap.whatsappNumber}` : null,
+    },
+    {
+      label: "LinkedIn",
+      icon: LinkedIn,
+      href: ap?.linkedinHandle
+        ? `https://www.linkedin.com/${ap.linkedinHandle}/`
+        : null,
+    },
+  ].filter(
+    (s): s is { label: string; icon: string; href: string } =>
+      s.href !== null
+  );
 
   return (
     <main className="flex flex-col min-h-screen bg-[color:var(--bg-primary)]">
@@ -116,7 +186,7 @@ export default async function ArticlePage({ params }: Props) {
         </nav>
 
         {/* Title */}
-        <h1 className="font-ogg-trial text-[48px] max-sm:text-[32px] leading-[72px] max-sm:leading-[48px] text-[color:var(--text-primary)]">
+        <h1 className="font-ogg-trial text-[48px] max-sm:text-[32px] leading-[72px] max-sm:leading-[48px] text-[color:var(--text-primary)] line-clamp-2">
           {post.title}
         </h1>
 
@@ -143,31 +213,34 @@ export default async function ArticlePage({ params }: Props) {
           )}
         </div>
 
-        {/* Share icons */}
-        <div className="flex items-center gap-4">
-          {[
-            { label: "Instagram", href: "https://instagram.com/tripcooks", icon: Instagram },
-            { label: "TikTok", href: "https://tiktok.com/@tripcooks", icon: Tiktok },
-            { label: "WhatsApp", href: "https://wa.me/447310016389", icon: WhatsApp },
-            { label: "LinkedIn", href: "https://linkedin.com/company/tripcooks", icon: LinkedIn },
-          ].map(({ label, href, icon }) => (
-            <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`Share on ${label}`}
-              className="w-[46px] h-[46px] rounded-[23px] bg-[#F4F4F4] dark:bg-[#1E2826] flex items-center justify-center hover:opacity-80 transition-opacity shrink-0"
-            >
-              <Image src={icon} alt={label} width={20} height={20} className="dark:brightness-0 dark:invert" />
-            </a>
-          ))}
-        </div>
+        {/* Author social icons — only shown when author profile has handles */}
+        {socials.length > 0 && (
+          <div className="flex items-center gap-4">
+            {socials.map(({ label, href, icon }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="w-[46px] h-[46px] rounded-[23px] bg-[#F4F4F4] dark:bg-[#1E2826] flex items-center justify-center hover:opacity-80 transition-opacity shrink-0"
+              >
+                <Image
+                  src={icon}
+                  alt={label}
+                  width={20}
+                  height={20}
+                  className="dark:brightness-0 dark:invert"
+                />
+              </a>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Body: sidebar + article content */}
       <div className="flex items-start px-[100px] max-sm:px-4 pt-6 pb-12 gap-0 bg-[color:var(--bg-primary)] relative">
-        <BlogArticleToc sections={[]} />
+        <BlogArticleToc sections={sections} />
 
         <article className="flex-1 max-w-[768px] flex flex-col gap-10">
           {/* Hero image */}
@@ -181,10 +254,10 @@ export default async function ArticlePage({ params }: Props) {
             />
           </div>
 
-          {/* Rich text body */}
-          {post.body?.json ? (
+          {/* Rich text body — first half */}
+          {firstHalf ? (
             <div className="prose prose-lg max-w-none text-[color:var(--text-secondary)] font-plus-jakarta-sans [&>p]:text-[18px] [&>p]:max-sm:text-[16px] [&>p]:leading-[28px] [&>h2]:font-medium [&>h2]:text-[color:var(--text-primary)]">
-              {documentToReactComponents(post.body.json)}
+              {documentToReactComponents(firstHalf, renderOptions)}
             </div>
           ) : (
             <p className="text-[18px] font-normal leading-[28px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
@@ -192,7 +265,7 @@ export default async function ArticlePage({ params }: Props) {
             </p>
           )}
 
-          {/* Mid-article CTA */}
+          {/* Inline CTA */}
           <div className="h-[242px] max-sm:h-auto max-sm:py-10 rounded-[12px] overflow-hidden relative bg-[#09AF0D]">
             <div
               className="absolute inset-0 bg-cover bg-center opacity-20"
@@ -216,6 +289,13 @@ export default async function ArticlePage({ params }: Props) {
               </Link>
             </div>
           </div>
+
+          {/* Rich text body — second half */}
+          {secondHalf && secondHalf.content.length > 0 && (
+            <div className="prose prose-lg max-w-none text-[color:var(--text-secondary)] font-plus-jakarta-sans [&>p]:text-[18px] [&>p]:max-sm:text-[16px] [&>p]:leading-[28px] [&>h2]:font-medium [&>h2]:text-[color:var(--text-primary)]">
+              {documentToReactComponents(secondHalf, renderOptions)}
+            </div>
+          )}
         </article>
 
         <MobileBackToTop />

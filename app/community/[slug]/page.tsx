@@ -8,6 +8,14 @@ import LinkedIn from "@/components/icons/svg/linkedin.svg";
 import { Footer, SubcribeToNewsLetter } from "@/components/ui";
 import BlogArticleToc from "@/app/blog/_components/blog-article-toc";
 import MobileBackToTop from "@/app/blog/_components/mobile-back-to-top";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { BLOCKS } from "@contentful/rich-text-types";
+import { calcReadTime } from "@/lib/read-time";
+import {
+  extractHeadings,
+  slugify,
+  splitAtMidpointHeading,
+} from "@/lib/extract-headings";
 import type { CommunityStory } from "@/types/community";
 
 const SPACE_ID = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID;
@@ -20,9 +28,18 @@ async function fetchStoryBySlug(slug: string): Promise<CommunityStory | null> {
       communityStoryCollection(where: { slug: "${slug}" }, limit: 1) {
         items {
           sys { id }
-          title slug author date readTime excerpt
+          title slug author date excerpt
           image { url title }
           category
+          body { json }
+          authorProfile {
+            sys { id }
+            name
+            instagramHandle
+            tiktokHandle
+            whatsappNumber
+            linkedinHandle
+          }
         }
       }
     }
@@ -42,6 +59,25 @@ async function fetchStoryBySlug(slug: string): Promise<CommunityStory | null> {
   const json = await res.json();
   return json?.data?.communityStoryCollection?.items?.[0] ?? null;
 }
+
+const renderOptions = {
+  renderNode: {
+    [BLOCKS.HEADING_2]: (node: any, children: any) => {
+      const text = (node.content as any[])
+        .filter((n: any) => n.nodeType === "text")
+        .map((n: any) => n.value as string)
+        .join("");
+      return <h2 id={slugify(text)}>{children}</h2>;
+    },
+    [BLOCKS.HEADING_3]: (node: any, children: any) => {
+      const text = (node.content as any[])
+        .filter((n: any) => n.nodeType === "text")
+        .map((n: any) => n.value as string)
+        .join("");
+      return <h3 id={slugify(text)}>{children}</h3>;
+    },
+  },
+};
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -85,6 +121,44 @@ export default async function CommunityArticlePage({ params }: Props) {
   }
 
   const imageUrl = post.image?.url ?? FALLBACK_IMAGE;
+  const readTime = post.body?.json ? calcReadTime(post.body.json) : null;
+  const sections = post.body?.json ? extractHeadings(post.body.json) : [];
+  const [firstHalf, secondHalf] = post.body?.json
+    ? splitAtMidpointHeading(post.body.json)
+    : [null, null];
+
+  const ap = post.authorProfile;
+  const socials = [
+    {
+      label: "Instagram",
+      icon: Instagram,
+      href: ap?.instagramHandle
+        ? `https://www.instagram.com/${ap.instagramHandle}/`
+        : null,
+    },
+    {
+      label: "TikTok",
+      icon: Tiktok,
+      href: ap?.tiktokHandle
+        ? `https://www.tiktok.com/@${ap.tiktokHandle}`
+        : null,
+    },
+    {
+      label: "WhatsApp",
+      icon: WhatsApp,
+      href: ap?.whatsappNumber ? `https://wa.me/${ap.whatsappNumber}` : null,
+    },
+    {
+      label: "LinkedIn",
+      icon: LinkedIn,
+      href: ap?.linkedinHandle
+        ? `https://www.linkedin.com/${ap.linkedinHandle}/`
+        : null,
+    },
+  ].filter(
+    (s): s is { label: string; icon: string; href: string } =>
+      s.href !== null
+  );
 
   return (
     <main className="flex flex-col min-h-screen bg-[color:var(--bg-primary)]">
@@ -107,7 +181,7 @@ export default async function CommunityArticlePage({ params }: Props) {
         </nav>
 
         {/* Title */}
-        <h1 className="font-ogg-trial text-[48px] max-sm:text-[32px] leading-[72px] max-sm:leading-[48px] text-[color:var(--text-primary)]">
+        <h1 className="font-ogg-trial text-[48px] max-sm:text-[32px] leading-[72px] max-sm:leading-[48px] text-[color:var(--text-primary)] line-clamp-2">
           {post.title}
         </h1>
 
@@ -124,41 +198,44 @@ export default async function CommunityArticlePage({ params }: Props) {
               year: "numeric",
             })}
           </span>
-          {post.readTime && (
+          {readTime && (
             <>
               <span className="w-1.5 h-1.5 rounded-full bg-[color:var(--text-secondary)] inline-block shrink-0" />
               <span className="text-[16px] font-normal leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
-                {post.readTime}
+                {readTime}
               </span>
             </>
           )}
         </div>
 
-        {/* Share icons */}
-        <div className="flex items-center gap-4">
-          {[
-            { label: "Instagram", href: "https://instagram.com/tripcooks", icon: Instagram },
-            { label: "TikTok", href: "https://tiktok.com/@tripcooks", icon: Tiktok },
-            { label: "WhatsApp", href: "https://wa.me/447310016389", icon: WhatsApp },
-            { label: "LinkedIn", href: "https://linkedin.com/company/tripcooks", icon: LinkedIn },
-          ].map(({ label, href, icon }) => (
-            <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`Share on ${label}`}
-              className="w-[46px] h-[46px] rounded-[23px] bg-[color:var(--bg-secondary)] flex items-center justify-center hover:bg-[color:var(--bg-tertiary)] transition-colors shrink-0"
-            >
-              <Image src={icon} alt={label} width={20} height={20} className="dark:brightness-0 dark:invert" />
-            </a>
-          ))}
-        </div>
+        {/* Author social icons — only shown when author profile has handles */}
+        {socials.length > 0 && (
+          <div className="flex items-center gap-4">
+            {socials.map(({ label, href, icon }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="w-[46px] h-[46px] rounded-[23px] bg-[#F4F4F4] dark:bg-[#1E2826] flex items-center justify-center hover:opacity-80 transition-opacity shrink-0"
+              >
+                <Image
+                  src={icon}
+                  alt={label}
+                  width={20}
+                  height={20}
+                  className="dark:brightness-0 dark:invert"
+                />
+              </a>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Body: sidebar + article content */}
       <div className="flex items-start px-[100px] max-sm:px-4 pt-6 pb-12 gap-0 bg-[color:var(--bg-primary)] relative">
-        <BlogArticleToc sections={[]} />
+        <BlogArticleToc sections={sections} />
 
         <article className="flex-1 max-w-[768px] flex flex-col gap-10">
           {/* Hero image */}
@@ -172,36 +249,48 @@ export default async function CommunityArticlePage({ params }: Props) {
             />
           </div>
 
-          {/* Story content */}
-          <section className="flex flex-col gap-4">
-            <p className="text-[18px] max-sm:text-[16px] font-normal leading-[28px] max-sm:leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
+          {/* Rich text body — first half */}
+          {firstHalf ? (
+            <div className="prose prose-lg max-w-none text-[color:var(--text-secondary)] font-plus-jakarta-sans [&>p]:text-[18px] [&>p]:max-sm:text-[16px] [&>p]:leading-[28px] [&>h2]:font-medium [&>h2]:text-[color:var(--text-primary)]">
+              {documentToReactComponents(firstHalf, renderOptions)}
+            </div>
+          ) : (
+            <p className="text-[18px] font-normal leading-[28px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
               {post.excerpt}
             </p>
-          </section>
+          )}
 
-          {/* Mid-article CTA */}
-          <div className="h-[242px] max-sm:h-auto max-sm:py-10 rounded-[12px] overflow-hidden relative">
+          {/* Inline CTA */}
+          <div className="h-[242px] max-sm:h-auto max-sm:py-10 rounded-[12px] overflow-hidden relative bg-[#09AF0D]">
             <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: "url(/img/Tripcooks_Pattern.svg)" }}
+              className="absolute inset-0 bg-cover bg-center opacity-20"
+              style={{ backgroundImage: "url(/img/group-trips-hero-bg.svg)" }}
             />
             <div className="relative z-10 flex flex-col items-center justify-center h-full gap-5 text-center px-8">
               <div className="flex flex-col gap-1 items-center">
-                <h3 className="font-ogg-trial text-[32px] max-sm:text-[24px] leading-[48px] text-[color:var(--text-inverse)]">
+                <h3 className="font-ogg-trial text-[32px] max-sm:text-[24px] leading-[48px] text-white">
                   Ready to Start Your Next Adventure?
                 </h3>
-                <p className="text-[14px] max-sm:text-[12px] font-normal leading-[22px] text-[color:var(--text-inverse)] font-plus-jakarta-sans max-w-[514px]">
-                  Join a group trip or let us create a personalized journey just for you. Your unforgettable experience awaits
+                <p className="text-[14px] max-sm:text-[12px] font-normal leading-[22px] text-white/90 font-plus-jakarta-sans max-w-[514px]">
+                  Join a group trip or let us create a personalized journey just
+                  for you. Your unforgettable experience awaits
                 </p>
               </div>
               <Link
                 href="/trips"
-                className="bg-[color:var(--bg-primary)] text-[color:var(--text-primary)] text-[16px] font-medium font-plus-jakarta-sans px-6 py-3 rounded-full hover:opacity-90 transition-opacity"
+                className="bg-[hsl(var(--bg-primary))] text-[hsl(var(--text-primary))] text-[16px] font-medium font-plus-jakarta-sans px-6 py-3 rounded-full hover:opacity-90 transition-opacity"
               >
                 View current trips
               </Link>
             </div>
           </div>
+
+          {/* Rich text body — second half */}
+          {secondHalf && secondHalf.content.length > 0 && (
+            <div className="prose prose-lg max-w-none text-[color:var(--text-secondary)] font-plus-jakarta-sans [&>p]:text-[18px] [&>p]:max-sm:text-[16px] [&>p]:leading-[28px] [&>h2]:font-medium [&>h2]:text-[color:var(--text-primary)]">
+              {documentToReactComponents(secondHalf, renderOptions)}
+            </div>
+          )}
         </article>
 
         <MobileBackToTop />

@@ -1,5 +1,16 @@
 import { gql } from "@apollo/client";
 
+const authorProfileFields = `
+  authorProfile {
+    sys { id }
+    name
+    instagramHandle
+    tiktokHandle
+    whatsappNumber
+    linkedinHandle
+  }
+`;
+
 export const queryGetCommunityStories = gql`
   query CommunityStories($skip: Int!, $limit: Int!) {
     communityStoryCollection(skip: $skip, limit: $limit, order: date_DESC) {
@@ -10,10 +21,10 @@ export const queryGetCommunityStories = gql`
         slug
         author
         date
-        readTime
         excerpt
         image { url title }
         category
+        ${authorProfileFields}
       }
     }
   }
@@ -41,10 +52,11 @@ export const queryGetCommunityStoryBySlug = gql`
         slug
         author
         date
-        readTime
         excerpt
         image { url title }
         category
+        body { json }
+        ${authorProfileFields}
       }
     }
   }

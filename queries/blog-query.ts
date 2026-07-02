@@ -1,5 +1,16 @@
 import { gql } from "@apollo/client";
 
+const authorProfileFields = `
+  authorProfile {
+    sys { id }
+    name
+    instagramHandle
+    tiktokHandle
+    whatsappNumber
+    linkedinHandle
+  }
+`;
+
 const blogPostFields = `
   sys { id }
   title
@@ -8,7 +19,9 @@ const blogPostFields = `
   author
   date
   excerpt
+  featured
   coverImage { url title }
+  ${authorProfileFields}
 `;
 
 export const queryGetAllBlogPosts = gql`
