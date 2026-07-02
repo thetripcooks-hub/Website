@@ -8,7 +8,7 @@ const FALLBACK_IMAGE = "/img/hero-desktop.png";
 
 type FeaturedMember = {
   sys: { id: string };
-  author: string;
+  authorProfile: { name: string } | null;
   country: string | null;
   image: { url: string; title: string } | null;
 };
@@ -22,7 +22,7 @@ function MemberCard({ member }: { member: FeaturedMember }) {
     <div className="relative shrink-0 w-[140px] sm:w-[208px] h-[200px] sm:h-[278px] rounded-[11px] overflow-hidden">
       <Image
         src={member.image?.url ?? FALLBACK_IMAGE}
-        alt={member.author}
+        alt={member.authorProfile?.name ?? ""}
         fill
         className="object-cover"
       />
@@ -30,7 +30,7 @@ function MemberCard({ member }: { member: FeaturedMember }) {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60" />
       <div className="absolute bottom-3 left-3 text-white font-plus-jakarta-sans">
         <p className="text-[14px] sm:text-[16px] font-medium leading-[1.4]">
-          {member.author}
+          {member.authorProfile?.name}
         </p>
         {member.country && (
           <p className="text-[10px] sm:text-[12px] font-medium leading-[1.4]">

@@ -31,7 +31,7 @@ export default function BlogCardSmall({ post, className }: Props) {
       <div className="flex flex-col gap-1 flex-1 min-w-0">
         <div className="flex items-center gap-1.5">
           <span className="text-[14px] font-medium leading-[21px] text-[color:var(--text-secondary)] font-plus-jakarta-sans whitespace-nowrap">
-            {post.author}
+            {post.authorProfile?.name}
           </span>
           <span className="w-[5px] h-[5px] rounded-full bg-[color:var(--text-secondary)] inline-block shrink-0" />
           <span className="text-[14px] font-medium leading-[21px] text-[color:var(--text-secondary)] font-plus-jakarta-sans whitespace-nowrap">

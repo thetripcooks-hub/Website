@@ -11,6 +11,40 @@ const authorProfileFields = `
   }
 `;
 
+const bodyLinks = `
+  links {
+    assets {
+      block {
+        sys { id }
+        url
+        contentType
+        title
+        description
+        width
+        height
+      }
+    }
+    entries {
+      block {
+        sys { id }
+        __typename
+        ... on Trip             { location }
+        ... on BlogPost         { title slug }
+        ... on CommunityStory   { title slug }
+        ... on OurWallOfLove    { reviewerName location }
+      }
+      inline {
+        sys { id }
+        __typename
+        ... on Trip             { location }
+        ... on BlogPost         { title slug }
+        ... on CommunityStory   { title slug }
+        ... on OurWallOfLove    { reviewerName location }
+      }
+    }
+  }
+`;
+
 export const queryGetCommunityStories = gql`
   query CommunityStories($skip: Int!, $limit: Int!) {
     communityStoryCollection(skip: $skip, limit: $limit, order: date_DESC) {
@@ -19,7 +53,6 @@ export const queryGetCommunityStories = gql`
         sys { id }
         title
         slug
-        author
         date
         excerpt
         image { url title }
@@ -35,9 +68,9 @@ export const queryGetFeaturedCommunityStories = gql`
     communityStoryCollection(where: { featured: true }, limit: 5, order: date_DESC) {
       items {
         sys { id }
-        author
         country
         image { url title }
+        authorProfile { name }
       }
     }
   }
@@ -50,12 +83,14 @@ export const queryGetCommunityStoryBySlug = gql`
         sys { id }
         title
         slug
-        author
         date
         excerpt
         image { url title }
         category
-        body { json }
+        body {
+          json
+          ${bodyLinks}
+        }
         ${authorProfileFields}
       }
     }

@@ -11,13 +11,12 @@ import BlogArticleToc from "../_components/blog-article-toc";
 import MobileBackToTop from "../_components/mobile-back-to-top";
 import { CATEGORY_LABEL } from "../_components/blog-data";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { BLOCKS } from "@contentful/rich-text-types";
 import { calcReadTime } from "@/lib/read-time";
 import {
   extractHeadings,
-  slugify,
   splitAtMidpointHeading,
 } from "@/lib/extract-headings";
+import { createRichTextRenderOptions } from "@/lib/rich-text-render-options";
 import type { CmsBlogPost } from "@/types/blog";
 
 const SPACE_ID = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID;
@@ -30,9 +29,20 @@ async function fetchPostBySlug(slug: string): Promise<CmsBlogPost | null> {
       blogPostCollection(where: { slug: "${slug}" }, limit: 1) {
         items {
           sys { id }
-          title slug category author date excerpt featured
+          title slug category date excerpt featured
           coverImage { url title }
-          body { json }
+          body {
+            json
+            links {
+              assets {
+                block { sys { id } url contentType title description width height }
+              }
+              entries {
+                block  { sys { id } __typename ... on Trip { location } ... on BlogPost { title slug } ... on CommunityStory { title slug } ... on OurWallOfLove { reviewerName location } }
+                inline { sys { id } __typename ... on Trip { location } ... on BlogPost { title slug } ... on CommunityStory { title slug } ... on OurWallOfLove { reviewerName location } }
+              }
+            }
+          }
           authorProfile {
             sys { id }
             name
@@ -58,27 +68,11 @@ async function fetchPostBySlug(slug: string): Promise<CmsBlogPost | null> {
     }
   );
   const json = await res.json();
+  if (json.errors) {
+    console.error("[fetchPostBySlug] Contentful error:", JSON.stringify(json.errors));
+  }
   return json?.data?.blogPostCollection?.items?.[0] ?? null;
 }
-
-const renderOptions = {
-  renderNode: {
-    [BLOCKS.HEADING_2]: (node: any, children: any) => {
-      const text = (node.content as any[])
-        .filter((n: any) => n.nodeType === "text")
-        .map((n: any) => n.value as string)
-        .join("");
-      return <h2 id={slugify(text)}>{children}</h2>;
-    },
-    [BLOCKS.HEADING_3]: (node: any, children: any) => {
-      const text = (node.content as any[])
-        .filter((n: any) => n.nodeType === "text")
-        .map((n: any) => n.value as string)
-        .join("");
-      return <h3 id={slugify(text)}>{children}</h3>;
-    },
-  },
-};
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -128,6 +122,7 @@ export default async function ArticlePage({ params }: Props) {
   const [firstHalf, secondHalf] = post.body?.json
     ? splitAtMidpointHeading(post.body.json)
     : [null, null];
+  const renderOptions = createRichTextRenderOptions(post.body?.links);
 
   const ap = post.authorProfile;
   const socials = [
@@ -193,7 +188,7 @@ export default async function ArticlePage({ params }: Props) {
         {/* Author + date + read time */}
         <div className="flex items-center gap-1.5">
           <span className="text-[16px] font-normal leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
-            {post.author}
+            {ap?.name}
           </span>
           <span className="w-1.5 h-1.5 rounded-full bg-[color:var(--text-secondary)] inline-block shrink-0" />
           <span className="text-[16px] font-normal leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
@@ -256,7 +251,7 @@ export default async function ArticlePage({ params }: Props) {
 
           {/* Rich text body — first half */}
           {firstHalf ? (
-            <div className="prose prose-lg max-w-none text-[color:var(--text-secondary)] font-plus-jakarta-sans [&>p]:text-[18px] [&>p]:max-sm:text-[16px] [&>p]:leading-[28px] [&>h2]:font-medium [&>h2]:text-[color:var(--text-primary)]">
+            <div className="prose max-w-none text-[color:var(--text-secondary)] font-plus-jakarta-sans [&_p]:text-[18px] [&_p]:max-sm:text-[16px] [&_p]:leading-[28px] [&_h2]:font-ogg-trial [&_h2]:text-[28px] [&_h2]:max-sm:text-[22px] [&_h2]:font-semibold [&_h2]:leading-[38px] [&_h2]:text-[color:var(--text-primary)] [&_h2]:mt-8 [&_h2]:mb-2 [&_h3]:font-plus-jakarta-sans [&_h3]:text-[22px] [&_h3]:max-sm:text-[18px] [&_h3]:font-semibold [&_h3]:leading-[32px] [&_h3]:text-[color:var(--text-primary)] [&_h3]:mt-6 [&_h3]:mb-1">
               {documentToReactComponents(firstHalf, renderOptions)}
             </div>
           ) : (
@@ -292,7 +287,7 @@ export default async function ArticlePage({ params }: Props) {
 
           {/* Rich text body — second half */}
           {secondHalf && secondHalf.content.length > 0 && (
-            <div className="prose prose-lg max-w-none text-[color:var(--text-secondary)] font-plus-jakarta-sans [&>p]:text-[18px] [&>p]:max-sm:text-[16px] [&>p]:leading-[28px] [&>h2]:font-medium [&>h2]:text-[color:var(--text-primary)]">
+            <div className="prose max-w-none text-[color:var(--text-secondary)] font-plus-jakarta-sans [&_p]:text-[18px] [&_p]:max-sm:text-[16px] [&_p]:leading-[28px] [&_h2]:font-ogg-trial [&_h2]:text-[28px] [&_h2]:max-sm:text-[22px] [&_h2]:font-semibold [&_h2]:leading-[38px] [&_h2]:text-[color:var(--text-primary)] [&_h2]:mt-8 [&_h2]:mb-2 [&_h3]:font-plus-jakarta-sans [&_h3]:text-[22px] [&_h3]:max-sm:text-[18px] [&_h3]:font-semibold [&_h3]:leading-[32px] [&_h3]:text-[color:var(--text-primary)] [&_h3]:mt-6 [&_h3]:mb-1">
               {documentToReactComponents(secondHalf, renderOptions)}
             </div>
           )}

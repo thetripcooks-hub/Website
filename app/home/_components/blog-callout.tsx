@@ -15,6 +15,7 @@ import Link from "next/link";
 import { useQuery } from "@apollo/client";
 import { queryGetLatestBlogPosts } from "@/queries/blog-query";
 import { BlogPostsResponse } from "@/types/blog";
+import { calcReadTime } from "@/lib/read-time";
 import dayjs from "@/lib/dayjs";
 
 const FALLBACK_IMAGE = "/img/public-trip.svg";
@@ -54,9 +55,9 @@ const BlogCallout = () => {
               {posts.map((post) => (
                 <CarouselItem
                   key={post.sys.id}
-                  className="pl-3 basis-full sm:basis-[399px] shrink-0"
+                  className="pl-3 basis-full sm:basis-[399px] shrink-0 h-auto"
                 >
-                  <div className="flex flex-col gap-3 p-4">
+                  <div className="flex flex-col gap-3 p-4 h-full">
                     <div className="h-[220px] rounded-[12px] overflow-hidden relative">
                       <Image
                         src={post.coverImage?.url ?? FALLBACK_IMAGE}
@@ -68,10 +69,16 @@ const BlogCallout = () => {
 
                     <div className="flex items-center gap-2 text-sm font-medium text-neutral-subtext dark:text-[#BFC0C2]">
                       <span>{dayjs.utc(post.date).format("MMM D, YYYY")}</span>
+                      {post.body?.json && (
+                        <>
+                          <span>·</span>
+                          <span>{calcReadTime(post.body.json)}</span>
+                        </>
+                      )}
                     </div>
 
-                    <div className="flex flex-col gap-1.5">
-                      <h3 className="text-[24px] font-semibold text-neutral-text dark:text-white leading-[36px]">
+                    <div className="flex flex-col gap-1.5 flex-1">
+                      <h3 className="text-[24px] font-semibold text-neutral-text dark:text-white leading-[36px] line-clamp-2 min-h-[72px]">
                         {post.title}
                       </h3>
                       <p className="text-sm text-neutral-subtext dark:text-[#BFC0C2] leading-[22px] line-clamp-3">
@@ -79,7 +86,7 @@ const BlogCallout = () => {
                       </p>
                     </div>
 
-                    <Link href={`/blog/${post.slug}`}>
+                    <Link href={`/blog/${post.slug}`} className="mt-auto">
                       <Button variant="green-outline" className="w-full mt-1">
                         Read more
                       </Button>
