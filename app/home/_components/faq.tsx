@@ -98,10 +98,10 @@ const Faq = () => {
     <section className="px-5 py-10 sm:py-[64px] sm:px-[109px]">
       <SectionWrapper className="flex flex-col sm:flex-row gap-5 xl:gap-[109px] w-full justify-between">
         <div className="sm:w-[445px] shrink-0">
-          <h2 className="font-ogg-trial text-[32px] sm:text-[48px] text-neutral-text dark:text-foreground">
+          <h2 className="font-ogg-trial text-[24px] sm:text-[48px] leading-tight text-neutral-text dark:text-foreground">
             FAQs
           </h2>
-          <p className="w-full sm:max-w-[451px] text-neutral-subtext mt-5 dark:text-[#BFC0C2] text-base sm:text-[20px] leading-[30px]">
+          <p className="w-full sm:max-w-[451px] text-neutral-subtext mt-5 dark:text-[#BFC0C2] text-[13px] leading-[20px] sm:text-[20px] sm:leading-[30px]">
             Everything you need to know about TripCooks and pricing. Can&apos;t
             find what you&apos;re looking for? Please contact{" "}
             <a
@@ -126,10 +126,10 @@ const Faq = () => {
                 key={item.question}
                 className="border-0 rounded-[10px] p-4 data-[state=closed]:bg-[hsl(var(--bg-primary))] data-[state=open]:bg-[hsl(var(--bg-secondary))]"
               >
-                <AccordionTrigger className="text-left text-[hsl(var(--text-primary))] text-[18px] sm:text-[22px] font-semibold py-0">
+                <AccordionTrigger className="text-left text-[hsl(var(--text-primary))] text-[15px] sm:text-[22px] leading-snug font-semibold py-0">
                   {item.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-[hsl(var(--text-secondary))] text-[18px] leading-[28px] pt-[10px] pb-0">
+                <AccordionContent className="text-[hsl(var(--text-secondary))] text-[13px] leading-[20px] sm:text-[18px] sm:leading-[28px] pt-[10px] pb-0">
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>

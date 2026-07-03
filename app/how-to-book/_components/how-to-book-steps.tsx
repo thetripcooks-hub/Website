@@ -159,7 +159,7 @@ export default function HowToBookSteps() {
                 </h2>
               </div>
               {/* Body text */}
-              <div className="text-[16px] leading-[24px] font-normal text-[#6C707A] dark:text-[#8C909B]">
+              <div className="text-[14px] sm:text-[16px] leading-[22px] sm:leading-[24px] font-normal text-[#6C707A] dark:text-[#8C909B]">
                 {step.body}
               </div>
             </div>

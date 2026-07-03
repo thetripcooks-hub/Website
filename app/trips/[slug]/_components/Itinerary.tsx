@@ -25,7 +25,7 @@ const Itinerary = () => {
     <div className="bg-[hsl(var(--bg-secondary))] px-4 py-14 sm:px-[109px]">
       {/* Heading row — desktop shows arrows here, mobile hides them */}
       <div className="flex items-center justify-between mb-[43px]">
-        <h3 className="font-ogg-trial text-[32px] sm:text-[42px] leading-[1.4] text-[hsl(var(--text-primary))]">
+        <h3 className="font-ogg-trial text-[24px] sm:text-[42px] leading-tight text-[hsl(var(--text-primary))]">
           Daily Itinerary
         </h3>
 
@@ -78,7 +78,7 @@ const Itinerary = () => {
                     Day {item.day}
                   </p>
                   <div className="flex flex-col gap-1.5">
-                    <h4 className="text-[24px] font-semibold leading-[36px] text-[hsl(var(--text-primary))]">
+                    <h4 className="text-[18px] sm:text-[24px] font-semibold leading-[26px] sm:leading-[36px] text-[hsl(var(--text-primary))]">
                       {item.activity}
                     </h4>
                     {item.description && (

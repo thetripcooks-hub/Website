@@ -81,22 +81,22 @@ const TripCard = ({
         )}
       >
         <div className="flex flex-col gap-1 min-w-0">
-          <h5 className="text-[24px] font-medium text-neutral-text dark:text-white leading-[36px] truncate">
+          <h5 className="text-[18px] sm:text-[24px] font-medium text-neutral-text dark:text-white leading-[24px] sm:leading-[36px] truncate">
             {item.location}
           </h5>
-          <p className="text-base text-neutral-subtext dark:text-[#BFC0C2]">{formatTripDate(item)}</p>
+          <p className="text-[13px] sm:text-base text-neutral-subtext dark:text-[#BFC0C2]">{formatTripDate(item)}</p>
         </div>
         {!isPast && (
           <div className="shrink-0">
             <div className="flex items-baseline gap-2">
-              <p className="font-ogg-trial text-[28px] text-neutral-text leading-tight dark:text-white">
+              <p className="font-ogg-trial text-[20px] sm:text-[28px] text-neutral-text leading-tight dark:text-white">
                 {price}
               </p>
               {originalPrice && (
-                <p className="text-base text-neutral-subtext line-through dark:text-[#BFC0C2]">{originalPrice}</p>
+                <p className="text-[13px] sm:text-base text-neutral-subtext line-through dark:text-[#BFC0C2]">{originalPrice}</p>
               )}
             </div>
-            <p className="text-sm text-neutral-subtext dark:text-[#BFC0C2]">Per person</p>
+            <p className="text-xs sm:text-sm text-neutral-subtext dark:text-[#BFC0C2]">Per person</p>
           </div>
         )}
       </div>

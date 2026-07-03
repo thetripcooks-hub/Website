@@ -47,7 +47,7 @@ const CommunityHero = () => {
   const members = data?.communityStoryCollection.items ?? [];
 
   return (
-    <div className="relative w-full h-[calc(430px+75px)] sm:h-[calc(640px+95px)] -mt-[75px] sm:-mt-[95px] mb-10 sm:mb-16 bg-[#daf3db] dark:bg-[#133114] overflow-hidden flex flex-col items-center pt-[75px] sm:pt-[95px]">
+    <div className="relative w-full h-[calc(475px+75px)] sm:h-[calc(730px+95px)] -mt-[75px] sm:-mt-[95px] mb-10 sm:mb-16 bg-[#daf3db] dark:bg-[#133114] overflow-hidden flex flex-col items-center pt-[75px] sm:pt-[95px]">
       {/* Decorative SVG background */}
       <svg
         className="absolute inset-0 w-full h-full"
@@ -77,7 +77,7 @@ const CommunityHero = () => {
       </div>
 
       {/* Featured community member cards */}
-      <div className="relative z-10 flex gap-[20px] sm:gap-[27px] items-end mt-auto px-5 sm:px-0 pb-0 overflow-x-auto scrollbar-none w-full sm:w-auto sm:justify-center">
+      <div className="relative z-10 flex gap-[20px] sm:gap-[27px] items-end mt-auto px-5 sm:px-0 pb-[45px] sm:pb-[90px] overflow-x-auto scrollbar-none w-full sm:w-auto sm:justify-center">
         {members.map((member) => (
           <MemberCard key={member.sys.id} member={member} />
         ))}

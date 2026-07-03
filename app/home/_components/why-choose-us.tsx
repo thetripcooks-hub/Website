@@ -57,14 +57,14 @@ const WhyChooseUs = () => {
   return (
     <section className="px-5 py-10 sm:py-20 sm:pb-28 sm:px-[8%] bg-background dark:bg-[#1D2120]">
       <SectionWrapper>
-        <h2 className="font-ogg-trial text-[36px] sm:text-[42px] text-center max-w-[446px] mx-auto mb-10 sm:mb-20 leading-normal sm:leading-[60px]">
+        <h2 className="font-ogg-trial text-[26px] sm:text-[42px] text-center max-w-[446px] mx-auto mb-8 sm:mb-20 leading-tight sm:leading-[60px]">
           Why choose us to curate your travel?
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-16 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-16 w-full">
           {items.map((item) => (
             <div
               key={item.title}
-              className="flex flex-col items-center gap-[42px] text-center"
+              className="flex flex-col items-center gap-6 sm:gap-[42px] text-center"
             >
               {/* Icon — fixed 78px height so all items align on the same baseline */}
               <div className="h-[78px] flex items-center justify-center">
@@ -88,10 +88,10 @@ const WhyChooseUs = () => {
 
               {/* Text */}
               <div className="flex flex-col gap-[13px] items-center">
-                <h5 className="text-[24px] font-semibold text-neutral-text dark:text-foreground leading-[36px]">
+                <h5 className="text-[18px] sm:text-[24px] font-semibold text-neutral-text dark:text-foreground leading-[24px] sm:leading-[36px]">
                   {item.title}
                 </h5>
-                <p className="text-base text-neutral-subtext dark:text-[#BFC0C2] leading-[24px] max-w-[323px]">
+                <p className="text-[13px] sm:text-base text-neutral-subtext dark:text-[#BFC0C2] leading-[18px] sm:leading-[24px] max-w-[323px]">
                   {item.description}
                 </p>
               </div>

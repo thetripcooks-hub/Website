@@ -102,18 +102,18 @@ const Footer = () => {
           </div>
 
           {/* Nav columns */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-[36px]">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-[18px] sm:gap-[36px]">
             {footerConfig.map((section) => (
-              <div key={section.title} className="flex flex-col gap-[23px]">
-                <h3 className="font-medium text-[18px] leading-[27px] text-[hsl(var(--text-primary))]">
+              <div key={section.title} className="flex flex-col gap-[11px] sm:gap-[23px]">
+                <h3 className="font-medium text-[15px] sm:text-[18px] leading-[22px] sm:leading-[27px] text-[hsl(var(--text-primary))]">
                   {section.title}
                 </h3>
-                <ul className="flex flex-col gap-[11px]">
+                <ul className="flex flex-col gap-[6px] sm:gap-[11px]">
                   {section.routes.map((route) => (
                     <li key={route.name}>
                       <Link
                         href={route.url}
-                        className="text-[16px] leading-[24px] text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] transition-colors"
+                        className="text-[14px] sm:text-[16px] leading-[20px] sm:leading-[24px] text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] transition-colors"
                       >
                         {route.name}
                       </Link>
