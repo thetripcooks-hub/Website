@@ -159,35 +159,29 @@ export default async function CommunityArticlePage({ params }: Props) {
   return (
     <main className="flex flex-col min-h-screen bg-[color:var(--bg-primary)]">
       {/* Article header */}
-      <div className="bg-[color:var(--bg-primary)] flex flex-col gap-6 px-[336px] max-lg:px-[100px] max-sm:px-4 py-6">
+      <div className="bg-[color:var(--bg-primary)] flex flex-col gap-3 sm:gap-6 px-[336px] max-lg:px-[100px] max-sm:px-4 py-6">
         {/* Breadcrumbs */}
         <nav className="flex items-center gap-1.5 flex-wrap">
           <Link
             href="/community"
-            className="text-[16px] font-medium leading-[24px] text-[#09af0d] font-plus-jakarta-sans hover:underline"
+            className="text-[14px] sm:text-[16px] font-medium leading-[24px] text-[#09af0d] font-plus-jakarta-sans hover:underline"
           >
             Community
           </Link>
-          <span className="text-[16px] text-[color:var(--text-primary)] font-plus-jakarta-sans">
-            /
-          </span>
-          <span className="text-[16px] font-medium leading-[24px] text-[color:var(--text-primary)] font-plus-jakarta-sans line-clamp-1">
-            {post.title}
-          </span>
         </nav>
 
         {/* Title */}
-        <h1 className="font-ogg-trial text-[48px] max-sm:text-[32px] leading-[72px] max-sm:leading-[48px] text-[color:var(--text-primary)] line-clamp-2">
+        <h1 className="font-ogg-trial text-[36px] sm:text-[48px] max-sm:text-[32px] leading-[64px] sm:leading-[72px] max-sm:leading-[48px] text-[color:var(--text-primary)] line-clamp-2">
           {post.title}
         </h1>
 
         {/* Author + date + read time */}
         <div className="flex items-center gap-1.5">
-          <span className="text-[16px] font-normal leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
+          <span className="text-[14px] sm:text-[16px] font-normal leading-[18px] sm:leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
             {ap?.name}
           </span>
           <span className="w-1.5 h-1.5 rounded-full bg-[color:var(--text-secondary)] inline-block shrink-0" />
-          <span className="text-[16px] font-normal leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
+          <span className="text-[14px] sm:text-[16px] font-normal leading-[18px] sm:leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
             {new Date(post.date).toLocaleDateString("en-GB", {
               day: "numeric",
               month: "long",
@@ -197,7 +191,7 @@ export default async function CommunityArticlePage({ params }: Props) {
           {readTime && (
             <>
               <span className="w-1.5 h-1.5 rounded-full bg-[color:var(--text-secondary)] inline-block shrink-0" />
-              <span className="text-[16px] font-normal leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
+              <span className="text-[14px] sm:text-[16px] font-normal leading-[18px] sm:leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
                 {readTime}
               </span>
             </>
@@ -214,14 +208,14 @@ export default async function CommunityArticlePage({ params }: Props) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="w-[46px] h-[46px] rounded-[23px] bg-[#F4F4F4] dark:bg-[#1E2826] flex items-center justify-center hover:opacity-80 transition-opacity shrink-0"
+                className="w-9 h-9 sm:w-[46px] sm:h-[46px] rounded-full bg-[#F4F4F4] dark:bg-[#1E2826] flex items-center justify-center hover:opacity-80 transition-opacity shrink-0"
               >
                 <Image
                   src={icon}
                   alt={label}
                   width={20}
                   height={20}
-                  className="dark:brightness-0 dark:invert"
+                  className="w-4 h-4 sm:w-5 sm:h-5 dark:brightness-0 dark:invert"
                 />
               </a>
             ))}
@@ -230,10 +224,10 @@ export default async function CommunityArticlePage({ params }: Props) {
       </div>
 
       {/* Body: sidebar + article content */}
-      <div className="flex items-start px-[100px] max-sm:px-4 pt-6 pb-12 gap-0 bg-[color:var(--bg-primary)] relative">
+      <div className="flex items-start px-[100px] max-sm:px-4 pt-6 sm:pb-12 gap-0 bg-[color:var(--bg-primary)] relative">
         <BlogArticleToc sections={sections} />
 
-        <article className="flex-1 max-w-[768px] flex flex-col gap-10">
+        <article className="flex-1 max-w-[768px] flex flex-col  gap-8 sm:gap-10">
           {/* Hero image */}
           <div className="h-[442px] max-sm:h-[260px] rounded-[10px] overflow-hidden relative w-full">
             <Image

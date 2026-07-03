@@ -18,14 +18,14 @@ const SERVICES = [
     key: "groupTrips",
     title: "Group Trips",
     description:
-      "Get those travel plans out of the group chat. Join like-minded travellers and explore new destinations together.",
+      "Get those travel plans out of the group chat and explore new territories",
     href: "/trips",
   },
   {
     key: "privateTrips",
     title: "Private Trips",
     description:
-      "Need to explore a new location on your own terms? We curate an exclusive private experience just for you.",
+      "Need to explore a new location on your own? We're here for you!",
     href: "/private-trips",
   },
   {
@@ -39,7 +39,7 @@ const SERVICES = [
     key: "travelPlanning",
     title: "Travel Planning",
     description:
-      "Curate your own experience. Tell us your dream trip and we'll build a tailor-made itinerary from scratch.",
+      "Tell us your dream trip and we'll build a tailor-made itinerary from scratch.",
     href: "/contact",
   },
 ];
@@ -78,7 +78,7 @@ const OurServices = () => {
         <h2 className="font-ogg-trial text-[26px] sm:text-[42px] text-white leading-tight">
           Our Services
         </h2>
-        <p className="text-[#5d9f8b] text-base sm:text-[18px] max-w-[554px] leading-[22px] sm:leading-[28px]">
+        <p className="text-[#5d9f8b] text-base text-[14px] sm:text-[18px] max-w-[554px] leading-[22px] sm:leading-[28px]">
           From organizing unforgettable group trips to crafting tailor-made
           adventures, our services cover every aspect of your journey.
         </p>
@@ -109,9 +109,10 @@ const OurServices = () => {
                   isActive ? "sm:basis-[57%]" : "sm:basis-[44%]",
                 )}
               >
-                <div
+                <Link
+                  href={service.href}
                   className={cn(
-                    "relative h-[350px] sm:h-[485px] rounded-[16px] overflow-hidden transition-opacity duration-500",
+                    "relative block h-[350px] sm:h-[485px] rounded-[16px] overflow-hidden transition-opacity duration-500",
                     !isActive && "opacity-50",
                   )}
                   style={{
@@ -138,16 +139,14 @@ const OurServices = () => {
                         {service.description}
                       </p>
                     </div>
-                    <Link href={service.href} className="shrink-0">
-                      <Button
-                        variant="ghost-arrow"
-                        className="items-center gap-2 whitespace-nowrap font-plus-jakarta-sans font-medium hidden sm:flex"
-                      >
-                        Learn more <ArrowRight className="w-5 h-5" />
-                      </Button>
-                    </Link>
+                    <Button
+                      variant="ghost-arrow"
+                      className="items-center gap-2 whitespace-nowrap font-plus-jakarta-sans font-medium hidden sm:flex shrink-0 pointer-events-none"
+                    >
+                      Learn more <ArrowRight className="w-5 h-5" />
+                    </Button>
                   </div>
-                </div>
+                </Link>
               </CarouselItem>
             );
           })}
