@@ -63,7 +63,7 @@ export default function BlogArticleToc({ sections }: Props) {
 
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className="bg-gradient-to-r from-[#fa93f4] from-[28.5%] to-[#ee7fe7] text-[color:var(--text-primary)] text-[16px] font-medium leading-[24px] font-plus-jakarta-sans px-4 py-3 rounded-full whitespace-nowrap"
+        className="bg-gradient-to-r from-[#fa93f4] from-[28.5%] to-[#ee7fe7] text-black text-[16px] font-medium leading-[24px] font-plus-jakarta-sans px-4 py-3 rounded-full whitespace-nowrap"
       >
         Back to top
       </button>
