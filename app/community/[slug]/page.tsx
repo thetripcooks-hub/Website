@@ -200,7 +200,7 @@ export default async function CommunityArticlePage({ params }: Props) {
 
         {/* Author social icons — only shown when author profile has handles */}
         {socials.length > 0 && (
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             {socials.map(({ label, href, icon }) => (
               <a
                 key={label}

@@ -30,7 +30,7 @@ const BlogCallout = () => {
     <section className="px-5 py-10 sm:py-[60px] sm:px-[109px]">
       <SectionWrapper>
         <Carousel opts={{ align: "start" }}>
-          <div className="flex items-start justify-between mb-8 sm:mb-12">
+          <div className="flex items-start justify-between sm:mb-6 sm:mb-12">
             <h2 className="font-ogg-trial text-[24px] sm:text-[42px] text-neutral-text dark:text-white leading-tight">
               Travel Insights from our blog
             </h2>
@@ -78,7 +78,7 @@ const BlogCallout = () => {
                     </div>
 
                     <div className="flex flex-col gap-1.5 flex-1">
-                      <h3 className="text-[18px] sm:text-[24px] font-semibold text-neutral-text dark:text-white leading-[24px] sm:leading-[36px] line-clamp-2 min-h-[72px]">
+                      <h3 className="text-[16px] sm:text-[24px] font-semibold text-neutral-text dark:text-white leading-[24px] sm:leading-[36px] line-clamp-2 min-h-[56px]">
                         {post.title}
                       </h3>
                       <p className="text-[14px] sm:text-sm text-neutral-subtext dark:text-[#BFC0C2] leading-[18px] sm:leading-[22px] line-clamp-3">

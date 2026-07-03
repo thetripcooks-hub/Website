@@ -160,12 +160,12 @@ export default async function ArticlePage({ params }: Props) {
   return (
     <main className="flex flex-col min-h-screen bg-[color:var(--bg-primary)]">
       {/* Article header */}
-      <div className="bg-[color:var(--bg-primary)] flex flex-col gap-6 px-[336px] max-lg:px-[100px] max-sm:px-4 py-6">
+      <div className="bg-[color:var(--bg-primary)] flex flex-col gap-3 sm:gap-6 px-[336px] max-lg:px-[100px] max-sm:px-4 py-6">
         {/* Breadcrumbs */}
         <nav className="flex items-center gap-1.5 flex-wrap">
           <Link
             href="/blog"
-            className="text-[16px] font-medium leading-[24px] text-[#09af0d] font-plus-jakarta-sans hover:underline"
+            className="text-[14px] sm:text-[16px] font-medium leading-[24px] text-[#09af0d] font-plus-jakarta-sans hover:underline"
           >
             Blog
           </Link>
@@ -181,17 +181,17 @@ export default async function ArticlePage({ params }: Props) {
         </nav>
 
         {/* Title */}
-        <h1 className="font-ogg-trial text-[48px] max-sm:text-[32px] leading-[72px] max-sm:leading-[48px] text-[color:var(--text-primary)] line-clamp-2">
+        <h1 className="font-ogg-trial text-[36px] sm:text-[48px] max-sm:text-[32px] leading-[64px] sm:leading-[72px] max-sm:leading-[48px] text-[color:var(--text-primary)] line-clamp-2">
           {post.title}
         </h1>
 
         {/* Author + date + read time */}
         <div className="flex items-center gap-1.5">
-          <span className="text-[16px] font-normal leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
+          <span className="text-[14px] sm:text-[16px] font-normal leading-[18px] sm:leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
             {ap?.name}
           </span>
           <span className="w-1.5 h-1.5 rounded-full bg-[color:var(--text-secondary)] inline-block shrink-0" />
-          <span className="text-[16px] font-normal leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
+          <span className="text-[14px] sm:text-[16px] font-normal leading-[18px] sm:leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
             {new Date(post.date).toLocaleDateString("en-GB", {
               day: "numeric",
               month: "long",
@@ -201,7 +201,7 @@ export default async function ArticlePage({ params }: Props) {
           {readTime && (
             <>
               <span className="w-1.5 h-1.5 rounded-full bg-[color:var(--text-secondary)] inline-block shrink-0" />
-              <span className="text-[16px] font-normal leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
+              <span className="text-[14px] sm:text-[16px] font-normal leading-[18px] sm:leading-[24px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
                 {readTime}
               </span>
             </>
@@ -210,7 +210,7 @@ export default async function ArticlePage({ params }: Props) {
 
         {/* Author social icons — only shown when author profile has handles */}
         {socials.length > 0 && (
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             {socials.map(({ label, href, icon }) => (
               <a
                 key={label}
@@ -234,10 +234,10 @@ export default async function ArticlePage({ params }: Props) {
       </div>
 
       {/* Body: sidebar + article content */}
-      <div className="flex items-start px-[100px] max-sm:px-4 pt-6 pb-12 gap-0 bg-[color:var(--bg-primary)] relative">
+      <div className="flex items-start px-[100px] max-sm:px-4 pt-6 sm:pb-12 gap-0 bg-[color:var(--bg-primary)] relative">
         <BlogArticleToc sections={sections} />
 
-        <article className="flex-1 max-w-[768px] flex flex-col gap-10">
+        <article className="flex-1 max-w-[768px] flex flex-col  gap-8 sm:gap-10">
           {/* Hero image */}
           <div className="h-[442px] max-sm:h-[260px] rounded-[10px] overflow-hidden relative w-full">
             <Image

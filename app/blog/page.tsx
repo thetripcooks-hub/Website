@@ -146,7 +146,7 @@ function AllView({
       {/* Featured articles */}
       {featuredPost && (
         <div className="flex flex-col gap-5">
-          <h2 className="font-ogg-trial text-[42px] max-sm:text-[28px] leading-[60px] max-sm:leading-[40px] text-[color:var(--text-primary)]">
+          <h2 className="font-ogg-trial text-[36px] sm:text-[42px] max-sm:text-[28px] leading-[60px] max-sm:leading-[40px] text-[color:var(--text-primary)]">
             Featured Articles
           </h2>
           <div className="flex gap-5 max-sm:flex-col">
@@ -167,7 +167,7 @@ function AllView({
         return (
           <div key={cat} className="flex flex-col gap-5">
             <hr className="border-0 border-t border-dashed border-[#EEEEEE] dark:border-white/10" />
-            <h2 className="font-ogg-trial text-[42px] max-sm:text-[28px] leading-[60px] max-sm:leading-[40px] text-[color:var(--text-primary)]">
+            <h2 className="font-ogg-trial text-[36px] sm:text-[42px] max-sm:text-[28px] leading-[60px] max-sm:leading-[40px] text-[color:var(--text-primary)]">
               {CATEGORY_LABEL[cat]}
             </h2>
             <div className="grid grid-cols-3 max-sm:grid-cols-1 gap-5">
@@ -186,7 +186,7 @@ function AllView({
         return (
           <div key={cat} className="flex flex-col gap-5">
             <hr className="border-0 border-t border-dashed border-[#EEEEEE] dark:border-white/10" />
-            <h2 className="font-ogg-trial text-[42px] max-sm:text-[28px] leading-[60px] max-sm:leading-[40px] text-[color:var(--text-primary)]">
+            <h2 className="font-ogg-trial text-[36px] sm:text-[42px] max-sm:text-[28px] leading-[60px] max-sm:leading-[40px] text-[color:var(--text-primary)]">
               {CATEGORY_LABEL[cat]}
             </h2>
             <div className="grid grid-cols-2 max-sm:grid-cols-1 gap-5">
@@ -228,7 +228,7 @@ function CategoryView({
     <div className="flex flex-col gap-[42px]">
       {/* Filtered section */}
       <div className="flex flex-col gap-5">
-        <h2 className="font-ogg-trial text-[42px] max-sm:text-[28px] leading-[60px] max-sm:leading-[40px] text-[color:var(--text-primary)]">
+        <h2 className="font-ogg-trial text-[36px] sm:text-[42px] max-sm:text-[28px] leading-[60px] max-sm:leading-[40px] text-[color:var(--text-primary)]">
           {activeCategory}
         </h2>
         {filteredPosts.length === 0 ? (
@@ -269,7 +269,7 @@ function CategoryView({
       <div className="flex flex-col gap-[24px]">
         <hr className="border-0 border-t border-dashed border-[#EEEEEE] dark:border-white/10" />
         <div className="flex flex-col gap-4">
-          <h2 className="font-ogg-trial text-[42px] max-sm:text-[28px] leading-[60px] max-sm:leading-[40px] text-[color:var(--text-primary)]">
+          <h2 className="font-ogg-trial text-[36px] sm:text-[42px] max-sm:text-[28px] leading-[60px] max-sm:leading-[40px] text-[color:var(--text-primary)]">
             Read more from Trip Cooks
           </h2>
           <p className="text-[20px] max-sm:text-[16px] font-normal leading-[30px] text-[color:var(--text-secondary)] font-plus-jakarta-sans">
