@@ -71,7 +71,7 @@ const Adventurers = () => {
 
       {/* ── Body text — centered ── */}
       <div className="flex flex-col items-center text-center">
-        <h2 className="font-ogg-trial text-[40px] sm:text-[48px] leading-[1.2] sm:leading-[72px] text-neutral-text dark:text-foreground">
+        <h2 className="font-ogg-trial text-[32px] sm:text-[48px] leading-[1.2] sm:leading-[72px] text-neutral-text dark:text-foreground">
           Two adventurers,
           <br />
           One shared goal

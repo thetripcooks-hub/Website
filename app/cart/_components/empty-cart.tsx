@@ -36,7 +36,7 @@ const EmptyCart = ({
         <Image src="/img/empty-cart.svg" alt="empty cart" fill className="object-contain dark:hidden" />
         <Image src="/img/empty-cart-dark.svg" alt="empty cart" fill className="object-contain hidden dark:block" />
       </div>
-      <p className="font-medium text-[32px] leading-[48px] text-[var(--text-primary,#212121)] dark:text-foreground max-w-[342px]">
+      <p className="font-medium text-[28px] sm:text-[32px] leading-[48px] text-[var(--text-primary,#212121)] dark:text-foreground max-w-[342px]">
         {"There's nothing in your cart, yet"}
       </p>
       <button
