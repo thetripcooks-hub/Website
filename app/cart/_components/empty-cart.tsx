@@ -25,7 +25,7 @@ const EmptyCart = ({
   }
 
   return (
-    <div className="flex flex-col justify-center items-center text-center gap-[37px] py-[106px] px-5 sm:px-[100px]">
+    <div className="flex flex-col justify-center items-center text-center gap-5 sm:gap-[37px] py-16 sm:py-[106px] px-5 sm:px-[100px]">
       {/* Desktop illustration */}
       <div className="hidden sm:block relative" style={{ width: "184.855px", height: "166.036px" }}>
         <Image src="/img/empty-cart.svg" alt="empty cart" fill className="object-contain dark:hidden" />
@@ -36,7 +36,7 @@ const EmptyCart = ({
         <Image src="/img/empty-cart.svg" alt="empty cart" fill className="object-contain dark:hidden" />
         <Image src="/img/empty-cart-dark.svg" alt="empty cart" fill className="object-contain hidden dark:block" />
       </div>
-      <p className="font-medium text-[28px] sm:text-[32px] leading-[48px] text-[var(--text-primary,#212121)] dark:text-foreground max-w-[342px]">
+      <p className="font-medium text-[20px] sm:text-[32px] leading-[28px] sm:leading-[48px] text-[var(--text-primary,#212121)] dark:text-foreground max-w-[342px]">
         {"There's nothing in your cart, yet"}
       </p>
       <button
