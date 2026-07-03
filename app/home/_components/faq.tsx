@@ -101,7 +101,7 @@ const Faq = () => {
           <h2 className="font-ogg-trial text-[24px] sm:text-[48px] leading-tight text-neutral-text dark:text-foreground">
             FAQs
           </h2>
-          <p className="w-full sm:max-w-[451px] text-neutral-subtext mt-5 dark:text-[#BFC0C2] text-[13px] leading-[20px] sm:text-[20px] sm:leading-[30px]">
+          <p className="w-full sm:max-w-[451px] text-neutral-subtext mt-5 dark:text-[#BFC0C2] text-[13px] leading-[20px] sm:text-[16px] sm:leading-[24px]">
             Everything you need to know about TripCooks and pricing. Can&apos;t
             find what you&apos;re looking for? Please contact{" "}
             <a
@@ -126,10 +126,10 @@ const Faq = () => {
                 key={item.question}
                 className="border-0 rounded-[10px] p-4 data-[state=closed]:bg-[hsl(var(--bg-primary))] data-[state=open]:bg-[hsl(var(--bg-secondary))]"
               >
-                <AccordionTrigger className="text-left text-[hsl(var(--text-primary))] text-[15px] sm:text-[22px] leading-snug font-semibold py-0">
+                <AccordionTrigger className="text-left text-[hsl(var(--text-primary))] text-[15px] sm:text-[16px] leading-[20px] sm:leading-[22px] font-semibold py-0">
                   {item.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-[hsl(var(--text-secondary))] text-[13px] leading-[20px] sm:text-[18px] sm:leading-[28px] pt-[10px] pb-0">
+                <AccordionContent className="text-[hsl(var(--text-secondary))] text-[13px] leading-[20px] sm:text-[14px] sm:leading-[20px] pt-[10px] pb-0">
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>

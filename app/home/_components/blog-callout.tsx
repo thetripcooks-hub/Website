@@ -78,7 +78,7 @@ const BlogCallout = () => {
                     </div>
 
                     <div className="flex flex-col gap-1.5 flex-1">
-                      <h3 className="text-[16px] sm:text-[24px] font-semibold text-neutral-text dark:text-white leading-[24px] sm:leading-[36px] line-clamp-2 min-h-[56px]">
+                      <h3 className="text-[16px] sm:text-[20px] font-semibold text-neutral-text dark:text-white leading-[24px] sm:leading-[32px] line-clamp-2 min-h-[60px]">
                         {post.title}
                       </h3>
                       <p className="text-[14px] sm:text-sm text-neutral-subtext dark:text-[#BFC0C2] leading-[18px] sm:leading-[22px] line-clamp-3">

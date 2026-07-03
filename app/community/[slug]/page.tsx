@@ -171,7 +171,7 @@ export default async function CommunityArticlePage({ params }: Props) {
         </nav>
 
         {/* Title */}
-        <h1 className="font-ogg-trial text-[36px] sm:text-[48px] max-sm:text-[32px] leading-[64px] sm:leading-[72px] max-sm:leading-[48px] text-[color:var(--text-primary)] line-clamp-2">
+        <h1 className="text-[28px] sm:text-[48px] max-sm:text-[32px] sm:leading-[64px] sm:leading-[72px] leading-[40px] text-[color:var(--text-primary)] line-clamp-2">
           {post.title}
         </h1>
 

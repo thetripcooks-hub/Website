@@ -160,7 +160,7 @@ const OurServices = () => {
             key={i}
             onClick={() => api?.scrollTo(i)}
             className={cn(
-              "h-4 rounded-full transition-all duration-500",
+              "h-4 rounded-full transition-all duration-700",
               i === current
                 ? "w-[63px] bg-white"
                 : "w-4 bg-secondary-forest-green-100",

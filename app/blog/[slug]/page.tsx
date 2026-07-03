@@ -65,11 +65,14 @@ async function fetchPostBySlug(slug: string): Promise<CmsBlogPost | null> {
       },
       body: JSON.stringify({ query }),
       next: { revalidate: 60 },
-    }
+    },
   );
   const json = await res.json();
   if (json.errors) {
-    console.error("[fetchPostBySlug] Contentful error:", JSON.stringify(json.errors));
+    console.error(
+      "[fetchPostBySlug] Contentful error:",
+      JSON.stringify(json.errors),
+    );
   }
   return json?.data?.blogPostCollection?.items?.[0] ?? null;
 }
@@ -153,8 +156,7 @@ export default async function ArticlePage({ params }: Props) {
         : null,
     },
   ].filter(
-    (s): s is { label: string; icon: string; href: string } =>
-      s.href !== null
+    (s): s is { label: string; icon: string; href: string } => s.href !== null,
   );
 
   return (
@@ -174,14 +176,14 @@ export default async function ArticlePage({ params }: Props) {
           </span>
           <Link
             href={`/blog?category=${post.category}`}
-            className="text-[16px] font-medium leading-[24px] text-[color:var(--text-primary)] font-plus-jakarta-sans hover:text-[#09af0d] transition-colors"
+            className="text-[14px] sm:text-[16px] font-medium leading-[24px] text-[color:var(--text-primary)] font-plus-jakarta-sans hover:text-[#09af0d] transition-colors"
           >
             {categoryLabel}
           </Link>
         </nav>
 
         {/* Title */}
-        <h1 className="font-ogg-trial text-[36px] sm:text-[48px] max-sm:text-[32px] leading-[64px] sm:leading-[72px] max-sm:leading-[48px] text-[color:var(--text-primary)] line-clamp-2">
+        <h1 className="text-[28px] sm:text-[48px] max-sm:text-[32px] sm:leading-[64px] leading-[40px] text-[color:var(--text-primary)] line-clamp-2 font-bold">
           {post.title}
         </h1>
 

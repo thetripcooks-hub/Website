@@ -38,7 +38,7 @@ export default function BlogCardSmall({ post, className }: Props) {
             {dateLabel}
           </span>
         </div>
-        <p className="text-[16px] font-medium leading-[24px] text-[color:var(--text-primary)] font-plus-jakarta-sans line-clamp-2 max-sm:line-clamp-3">
+        <p className="text-[16px] font-medium leading-[24px] text-[color:var(--text-primary)] font-plus-jakarta-sans line-clamp-2">
           {post.title}
         </p>
       </div>
