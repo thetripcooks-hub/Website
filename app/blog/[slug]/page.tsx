@@ -220,14 +220,14 @@ export default async function ArticlePage({ params }: Props) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="w-[46px] h-[46px] rounded-[23px] bg-[#F4F4F4] dark:bg-[#1E2826] flex items-center justify-center hover:opacity-80 transition-opacity shrink-0"
+                className="w-9 h-9 sm:w-[46px] sm:h-[46px] rounded-full bg-[#F4F4F4] dark:bg-[#1E2826] flex items-center justify-center hover:opacity-80 transition-opacity shrink-0"
               >
                 <Image
                   src={icon}
                   alt={label}
                   width={20}
                   height={20}
-                  className="dark:brightness-0 dark:invert"
+                  className="w-4 h-4 sm:w-5 sm:h-5 dark:brightness-0 dark:invert"
                 />
               </a>
             ))}
@@ -298,7 +298,7 @@ export default async function ArticlePage({ params }: Props) {
         <MobileBackToTop />
       </div>
 
-      <hr className="border-0 border-t border-dashed border-[#EEEEEE] dark:border-white/10 mx-4 sm:mx-[100px]" />
+      <hr className="sm:hidden border-0 border-t border-dashed border-[#EEEEEE] dark:border-white/10 mx-4 my-6" />
 
       <BlogCallout />
       <Footer />
