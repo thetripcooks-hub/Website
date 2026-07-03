@@ -286,6 +286,8 @@ export default async function CommunityArticlePage({ params }: Props) {
         <MobileBackToTop />
       </div>
 
+      <hr className="sm:hidden border-0 border-t border-dashed border-[#EEEEEE] dark:border-white/10 mx-4 my-6" />
+
       <SubcribeToNewsLetter />
       <Footer />
     </main>

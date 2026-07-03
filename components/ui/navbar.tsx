@@ -65,7 +65,7 @@ const navConfig: NavItem[] = [
     children: [
       { name: "Blog", url: "/blog" },
       { name: "Community", url: "/community" },
-      { name: "Travel guides", url: "https://tripcooks.gumroad.com/" },
+      { name: "Travel Guides", url: "https://tripcooks.gumroad.com/" },
     ],
   },
   { name: "Contact", url: "/contact" },
