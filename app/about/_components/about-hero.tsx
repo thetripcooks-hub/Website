@@ -13,10 +13,10 @@ const AboutHero = () => {
     <div className="px-5 py-10 sm:py-20 sm:px-[8%]">
       <SectionWrapper>
         <header className="w-full text-center flex flex-col justify-center items-center gap-5">
-          <p className="text-[16px] font-medium text-secondary-irish-green text-center leading-[24px]">
+          <p className="text-[14px] sm:text-[16px] font-medium text-secondary-irish-green text-center leading-[18px] sm:leading-[24px]">
             About TripCooks
           </p>
-          <h3 className="font-ogg-trial text-[40px] leading-[60px] text-neutral-text sm:max-w-[668px] sm:text-[48px] sm:leading-[72px] dark:text-foreground">
+          <h3 className="font-ogg-trial text-[26px] leading-[34px] text-neutral-text sm:max-w-[668px] sm:text-[48px] sm:leading-[72px] dark:text-foreground">
             Our mission is to see the world one country{" "}
             <span className="text-secondary-irish-green">at a time</span>
           </h3>

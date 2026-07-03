@@ -48,14 +48,14 @@ const SubcribeToNewsLetter = () => {
   };
 
   return (
-    <section className="px-5 py-10 sm:py-[64px] sm:px-[100px]">
+    <section className="px-5 pt-0 pb-10 sm:py-[64px] sm:px-[100px]">
       <div className="max-w-[1440px] mx-auto">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-8 sm:gap-[109px]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 sm:gap-[109px]">
           <div className="sm:w-[337px] shrink-0">
-            <h3 className="font-medium text-[20px] leading-[30px] text-[hsl(var(--text-primary))]">
+            <h3 className="font-medium text-[16px] sm:text-[20px] leading-[24px] sm:leading-[30px] text-[hsl(var(--text-primary))]">
               Subscribe to our Newsletter
             </h3>
-            <p className="text-[16px] leading-[24px] text-[hsl(var(--text-secondary))] mt-[5px]">
+            <p className="text-[14px] sm:text-[16px] leading-[18px] sm:leading-[24px] text-[hsl(var(--text-secondary))] mt-[5px]">
               Receive promo packages, be the first to know where we are going next!
             </p>
           </div>
@@ -64,7 +64,7 @@ const SubcribeToNewsLetter = () => {
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="flex flex-col sm:flex-row gap-[22px] sm:items-start"
+                className="flex flex-col sm:flex-row gap-3 sm:gap-[22px] sm:items-start"
               >
                 <FormField
                   control={form.control}

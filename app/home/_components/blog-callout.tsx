@@ -31,7 +31,7 @@ const BlogCallout = () => {
       <SectionWrapper>
         <Carousel opts={{ align: "start" }}>
           <div className="flex items-start justify-between mb-8 sm:mb-12">
-            <h2 className="font-ogg-trial text-[28px] sm:text-[42px] text-neutral-text dark:text-white leading-tight">
+            <h2 className="font-ogg-trial text-[24px] sm:text-[42px] text-neutral-text dark:text-white leading-tight">
               Travel Insights from our blog
             </h2>
             <div className="hidden sm:flex gap-2 items-center">
@@ -67,7 +67,7 @@ const BlogCallout = () => {
                       />
                     </div>
 
-                    <div className="flex items-center gap-2 text-sm font-medium text-neutral-subtext dark:text-[#BFC0C2]">
+                    <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-neutral-subtext dark:text-[#BFC0C2]">
                       <span>{dayjs.utc(post.date).format("MMM D, YYYY")}</span>
                       {post.body?.json && (
                         <>
@@ -78,10 +78,10 @@ const BlogCallout = () => {
                     </div>
 
                     <div className="flex flex-col gap-1.5 flex-1">
-                      <h3 className="text-[24px] font-semibold text-neutral-text dark:text-white leading-[36px] line-clamp-2 min-h-[72px]">
+                      <h3 className="text-[18px] sm:text-[24px] font-semibold text-neutral-text dark:text-white leading-[24px] sm:leading-[36px] line-clamp-2 min-h-[72px]">
                         {post.title}
                       </h3>
-                      <p className="text-sm text-neutral-subtext dark:text-[#BFC0C2] leading-[22px] line-clamp-3">
+                      <p className="text-[14px] sm:text-sm text-neutral-subtext dark:text-[#BFC0C2] leading-[18px] sm:leading-[22px] line-clamp-3">
                         {post.excerpt}
                       </p>
                     </div>
