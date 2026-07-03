@@ -7,12 +7,12 @@ export default function HowToBookHero() {
       {/* Title + description */}
       <div className="flex flex-col items-center gap-3 sm:gap-[24px] text-center w-full">
         <h1 className="font-ogg-trial font-bold text-[26px] sm:text-[48px] leading-[34px] sm:leading-[72px] text-[var(--text-primary,#212121)] dark:text-foreground w-full sm:max-w-[556px]">
-          How To Book a Trip on Trip Cooks
+          How To Book a Trip
         </h1>
 
         <div className="font-normal text-[14px] sm:text-[18px] leading-[22px] sm:leading-[28px] text-[#6C707A] dark:text-[#8C909B] w-full sm:max-w-[900px] text-center space-y-0 flex gap-4 flex-col font-plus-jakarta-sans">
           <p>
-            Booking a trip with Trip Cooks is easy and exciting. We want to
+            Booking with TripCooks is easy and exciting. We want to
             make the process as seamless as possible because we exist to make
             travel more flavorful and fulfilling.
           </p>

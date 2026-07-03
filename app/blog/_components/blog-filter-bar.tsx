@@ -48,23 +48,23 @@ export default function BlogFilterBar({
         </div>
       </div>
 
-      {/* Mobile: search + select dropdown */}
-      <div className="flex sm:hidden flex-col gap-3">
-        <div className="flex items-center gap-2.5 h-[54px] px-4 bg-[color:var(--bg-secondary)] rounded-full w-full">
+      {/* Mobile: search + select dropdown, one line */}
+      <div className="flex sm:hidden items-center gap-3">
+        <div className="flex items-center gap-2.5 h-[54px] px-4 bg-[color:var(--bg-secondary)] rounded-full flex-1 min-w-0">
           <Search className="w-5 h-5 text-[color:var(--text-secondary)] shrink-0" />
           <input
             type="text"
             placeholder="Search..."
             value={searchValue}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="flex-1 bg-transparent text-[16px] font-medium font-plus-jakarta-sans text-[color:var(--text-primary)] placeholder:text-[color:var(--text-secondary)] outline-none"
+            className="flex-1 min-w-0 bg-transparent text-[16px] font-medium font-plus-jakarta-sans text-[color:var(--text-primary)] placeholder:text-[color:var(--text-secondary)] outline-none"
           />
         </div>
 
         <select
           value={activeCategory}
           onChange={(e) => onCategoryChange(e.target.value)}
-          className="bg-[color:var(--text-primary)] text-[color:var(--text-inverse)] text-[14px] font-medium font-plus-jakarta-sans px-4 py-2 rounded-full border-none outline-none cursor-pointer self-start"
+          className="bg-[color:var(--text-primary)] text-[color:var(--text-inverse)] text-[14px] font-medium font-plus-jakarta-sans px-4 py-2 rounded-full border-none outline-none cursor-pointer shrink-0"
         >
           {CATEGORIES.map((cat) => (
             <option

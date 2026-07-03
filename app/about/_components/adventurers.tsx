@@ -77,7 +77,7 @@ const Adventurers = () => {
           One shared goal
         </h2>
 
-        <div className="flex flex-col gap-3 mt-6 max-w-[559px] text-neutral-grey-500 dark:text-[#BFC0C2] text-base sm:text-[18px] leading-[28px]">
+        <div className="flex flex-col gap-3 mt-6 max-w-[559px] text-neutral-grey-500 dark:text-[#BFC0C2] text-base text-[14px] sm:text-[18px] leading-[28px]">
           <p>
             In August 2022, Ovie and Lanre planned a group trip to Stonehaven
             in Scotland. This was a trip with friends and one key point that
@@ -93,13 +93,13 @@ const Adventurers = () => {
             We&apos;re always in the kitchen &ldquo;cooking&rdquo; the next
             destination to explore. Hence our name TRIP COOKS. We truly believe
             travel should not be a luxury, anyone can and should be able to
-            travel. Let&apos;s show you how!
+            travel.
           </p>
         </div>
 
         <Button
           className="mt-8 w-[222px]"
-          onClick={() => router.push("/trips")}
+          onClick={() => router.push("/how-to-book")}
         >
           Let&apos;s show you how!
         </Button>

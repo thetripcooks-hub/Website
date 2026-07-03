@@ -298,6 +298,8 @@ export default async function ArticlePage({ params }: Props) {
         <MobileBackToTop />
       </div>
 
+      <hr className="border-0 border-t border-dashed border-[#EEEEEE] dark:border-white/10 mx-4 sm:mx-[100px]" />
+
       <BlogCallout />
       <Footer />
     </main>
