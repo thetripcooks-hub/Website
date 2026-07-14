@@ -3,18 +3,15 @@ import { clsx, type ClassValue } from "clsx";
 import dayjs from "@/lib/dayjs";
 
 import { twMerge } from "tailwind-merge";
-import { CurrencyType } from "@/types/currency";
+import { CurrencyType, ExchangeRates } from "@/types/currency";
+import { DEFAULT_EXCHANGE_RATES } from "@/constants/currency";
 import useGeneralStore from "@/stores/generalStore";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export interface ExchangeRates {
-  USD: number;
-  CAD: number;
-  GBP: number;
-}
+export type { ExchangeRates };
 
 // Fetch live exchange rates from an API
 export async function fetchExchangeRates(): Promise<ExchangeRates> {
@@ -30,12 +27,7 @@ export async function fetchExchangeRates(): Promise<ExchangeRates> {
     };
   } catch (error) {
     console.error("Failed to fetch exchange rates:", error);
-    // Fallback rates (update these periodically)
-    return {
-      GBP: 1,
-      USD: 1.27,
-      CAD: 1.76,
-    };
+    return DEFAULT_EXCHANGE_RATES;
   }
 }
 

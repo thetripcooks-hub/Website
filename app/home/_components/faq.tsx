@@ -32,7 +32,7 @@ const Faq = () => {
       },
       {
         question: "How much does a trip cost?",
-        answer: `Trips typically range from ${formatAmount(500, selectedCurrency)} to ${formatAmount(1000, selectedCurrency)}, depending on the destination. For the exact price and a detailed cost breakdown, visit the specific trip page.`,
+        answer: `Trips typically range from ${formatAmount(670, selectedCurrency, "USD")} to ${formatAmount(1340, selectedCurrency, "USD")}, depending on the destination. For the exact price and a detailed cost breakdown, visit the specific trip page.`,
       },
       {
         question: "Can I pay in installments?",

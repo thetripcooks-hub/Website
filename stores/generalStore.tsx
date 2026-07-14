@@ -1,5 +1,6 @@
 import { AboutUsPageType } from "@/types/about";
-import { CurrencyType } from "@/types/currency";
+import { CurrencyType, ExchangeRates } from "@/types/currency";
+import { DEFAULT_EXCHANGE_RATES } from "@/constants/currency";
 import { PrivateTripType } from "@/types/private-trip";
 import { ReviewType } from "@/types/review";
 import { OurServicesType } from "@/types/services";
@@ -36,12 +37,8 @@ interface GeneralStore {
   setHasHydrated: (hasHydrated: boolean) => void;
   loadingRates: boolean;
   setLoadingRates: (loadingRates: boolean) => void;
-  rates: {
-    USD: number;
-    CAD: number;
-    GBP: number;
-  };
-  setRates: (rate: { USD: number; CAD: number; GBP: number }) => void;
+  rates: ExchangeRates;
+  setRates: (rate: ExchangeRates) => void;
 }
 
 const initialCurrency = (typeof window !== "undefined" && localStorage.getItem("userCurrency")) ? JSON.parse(localStorage.getItem("userCurrency") || '"USD"') : 'USD';
@@ -80,11 +77,8 @@ const useGeneralStore = create<GeneralStore>()(
       setHasHydrated: (hasHydrated) => set({ hasHydrated }),
       loadingRates: false,
       setLoadingRates: (loadingRates) => set({ loadingRates }),
-      rates: {
-        GBP: 1,
-        USD: 1.27,
-        CAD: 1.76,
-      },
+      // Overwritten by live fetchExchangeRates() on app mount (see components/app-layout.tsx)
+      rates: DEFAULT_EXCHANGE_RATES,
       setRates: (rates) => set({ rates }),
     }),
     {
