@@ -1,7 +1,7 @@
 "use client";
 import Reviews from "@/app/home/_components/reviews";
 import { SubcribeToNewsLetter, Footer, CustomLoader } from "@/components/ui";
-import { cn, locationToSlug } from "@/lib/utils";
+import { cn, locationToSlug, normalizeTripCurrency } from "@/lib/utils";
 import React, { useEffect } from "react";
 import ViewOfLocation from "./_components/view-of-location";
 import Itinerary from "./_components/Itinerary";
@@ -39,7 +39,7 @@ const Page = () => {
 
   useEffect(() => {
     const trip = tripBySlug ?? tripByIdData?.trip;
-    if (trip) setSelectedTrip(trip);
+    if (trip) setSelectedTrip(normalizeTripCurrency(trip));
     return () => setSelectedTrip(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tripBySlug, tripByIdData]);

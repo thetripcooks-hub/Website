@@ -1,6 +1,6 @@
 "use client";
 import MobilePageHeader from "@/components/ui/mobile-page-header";
-import { cn, formatTripDate, formatAmount } from "@/lib/utils";
+import { cn, formatTripDate, formatAmount, formatConvertedAmount } from "@/lib/utils";
 import useGeneralStore from "@/stores/generalStore";
 import SampleCartIcon from "~/sample-cart-image.svg";
 import Calendar from "../../components/icons/svg/calendar.svg";
@@ -30,7 +30,7 @@ const Page = () => {
   const router = useRouter();
   const { items: trips, getTotalPrice } = useCartStore();
   const { ref, inView } = useInView();
-  const { selectedCurrency } = useGeneralStore();
+  const { selectedCurrency, rates } = useGeneralStore();
   useHideNavOnMobile();
 
   return (
@@ -63,7 +63,7 @@ const Page = () => {
                         {formatTripDate(trip as TripType)}
                       </p>
                       <p className="text-[20px] leading-[24.38px] font-medium">
-                        {formatAmount(trip.downPayment * trip.quantity, selectedCurrency)}
+                        {formatAmount(trip.downPayment * trip.quantity, selectedCurrency, trip.currency)}
                       </p>
                     </div>
                   </div>
@@ -145,7 +145,7 @@ const Page = () => {
                       {formatTripDate(trip as TripType)}
                     </p>
                     <p className="text-[20px] leading-[24.38px] font-medium">
-                      {formatAmount(trip.downPayment * trip.quantity, selectedCurrency)}
+                      {formatAmount(trip.downPayment * trip.quantity, selectedCurrency, trip.currency)}
                     </p>
                   </div>
                   <div className="relative shrink-0 rounded-[3.32px] overflow-hidden" style={{ width: "99px", height: "99px" }}>
@@ -164,7 +164,7 @@ const Page = () => {
                   Total Price
                 </h6>
                 <h3 className="text-[#000000] font-semibold text-4xl leading-[43.88px]">
-                  {formatAmount(getTotalPrice(trips), selectedCurrency)}
+                  {formatConvertedAmount(getTotalPrice(trips, selectedCurrency, rates), selectedCurrency)}
                 </h3>
               </div>
               <div className="flex flex-col gap-2">
@@ -192,7 +192,7 @@ const Page = () => {
                 Total Price{" "}
               </h6>
               <h3 className="text-[#000000] font-semibold text-2xl leading-[29.26px]">
-                {formatAmount(getTotalPrice(trips), selectedCurrency)}
+                {formatConvertedAmount(getTotalPrice(trips, selectedCurrency, rates), selectedCurrency)}
               </h3>
             </div>
             <div className="flex gap-2">

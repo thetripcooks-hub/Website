@@ -34,11 +34,11 @@ const PaymentCardMobile = () => {
         </div>
         <div className="flex items-center gap-[11px]">
           <span className="text-[24px] leading-[36px] font-medium text-[hsl(var(--text-primary))]">
-            {formatAmount(displayPrice, selectedCurrency)}
+            {formatAmount(displayPrice, selectedCurrency, selectedTrip.currency)}
           </span>
           {selectedTrip.discount && (
             <span className="line-through text-[20px] leading-[30px] font-medium text-[hsl(var(--text-secondary))]">
-              {formatAmount(selectedTrip.fullAmount, selectedCurrency)}
+              {formatAmount(selectedTrip.fullAmount, selectedCurrency, selectedTrip.currency)}
             </span>
           )}
           <span className="text-[16px] font-medium text-[hsl(var(--text-primary))]">

@@ -36,7 +36,7 @@ const CartCard = ({ trip }: { trip: CartItem }) => {
                 {dateRange}
               </p>
               <p className="text-[16px] leading-[24px] text-[#6c707a] dark:text-[#8C909B]">
-                Reserve your spot with {formatAmount(trip.downPayment, selectedCurrency)}
+                Reserve your spot with {formatAmount(trip.downPayment, selectedCurrency, trip.currency)}
               </p>
             </div>
             <div className="flex items-center gap-4">
@@ -74,7 +74,7 @@ const CartCard = ({ trip }: { trip: CartItem }) => {
           </div>
           <div className="flex items-center shrink-0 ml-4">
             <p className="font-medium text-[32px] leading-[48px] text-[var(--text-primary,#212121)] dark:text-foreground whitespace-nowrap">
-              {formatAmount(trip.downPayment * trip.quantity, selectedCurrency)}
+              {formatAmount(trip.downPayment * trip.quantity, selectedCurrency, trip.currency)}
             </p>
           </div>
         </div>
@@ -99,7 +99,7 @@ const CartCard = ({ trip }: { trip: CartItem }) => {
             </div>
             <div className="flex items-center justify-between">
               <p className="font-medium text-[32px] leading-[48px] text-[var(--text-primary,#212121)] dark:text-foreground">
-                {formatAmount(trip.downPayment * trip.quantity, selectedCurrency)}
+                {formatAmount(trip.downPayment * trip.quantity, selectedCurrency, trip.currency)}
               </p>
               <button
                 onClick={() => removeFromCart(trip)}

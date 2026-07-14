@@ -36,11 +36,11 @@ const PaymentCard = () => {
         </div>
         <div className="flex items-center gap-[11px] flex-wrap">
           <span className="text-[32px] leading-[48px] font-medium text-[hsl(var(--text-primary))]">
-            {formatAmount(displayPrice, selectedCurrency)}
+            {formatAmount(displayPrice, selectedCurrency, selectedTrip.currency)}
           </span>
           {selectedTrip.discount && (
             <span className="line-through text-[24px] leading-[36px] font-medium text-[hsl(var(--text-secondary))]">
-              {formatAmount(selectedTrip.fullAmount, selectedCurrency)}
+              {formatAmount(selectedTrip.fullAmount, selectedCurrency, selectedTrip.currency)}
             </span>
           )}
           <span className="text-[16px] font-medium text-[hsl(var(--text-primary))]">
@@ -87,7 +87,7 @@ const PaymentCard = () => {
         <p className="text-[18px] font-medium leading-[27px] text-[hsl(var(--text-primary))]">
           Reserve your spot with{" "}
           <span className="text-secondary-irish-green">
-            {formatAmount(selectedTrip.downPayment, selectedCurrency)}
+            {formatAmount(selectedTrip.downPayment, selectedCurrency, selectedTrip.currency)}
           </span>
         </p>
         <p className="text-[16px] leading-[24px] text-[hsl(var(--text-secondary))]">

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { getClient } from "@/lib/apollo-client";
 import { queryGetAllTrips } from "@/queries/trips-query";
 import { AllTripsResponse } from "@/types/trip";
-import { locationToSlug } from "@/lib/utils";
+import { locationToSlug, normalizeTripCurrency } from "@/lib/utils";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -72,9 +72,10 @@ export default async function TripDetailLayout({ children, params }: Props) {
     const { data } = await getClient().query<AllTripsResponse>({
       query: queryGetAllTrips,
     });
-    const trip = data?.tripCollection.items.find(
+    const rawTrip = data?.tripCollection.items.find(
       (t) => locationToSlug(t.location) === slug
     );
+    const trip = rawTrip ? normalizeTripCurrency(rawTrip) : undefined;
 
     if (trip) {
       const image = trip.bannerImagesCollection?.items?.[0]?.url;
@@ -96,7 +97,7 @@ export default async function TripDetailLayout({ children, params }: Props) {
         offers: {
           "@type": "Offer",
           price: trip.downPayment,
-          priceCurrency: "GBP",
+          priceCurrency: trip.currency,
           description: "Deposit to secure your slot",
           url,
         },

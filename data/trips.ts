@@ -1,4 +1,5 @@
 import { Trip } from "@/types/trip";
+import { CurrencyType } from "@/types/currency";
 
 export const sampleTrip = {
   __typename: "Trip",
@@ -7,6 +8,7 @@ export const sampleTrip = {
     id: "4reaUUm6ksYRCHbhjpuI61",
   },
   location: "Paris, France",
+  currency: "GBP" as CurrencyType,
   soldOut: false,
   travelWithOwners: false,
   isFeaturedTrip: true,

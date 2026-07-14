@@ -85,7 +85,7 @@ const FeatureTrip = () => {
               <div className="flex flex-row items-end justify-between sm:flex-col sm:items-end sm:text-right sm:shrink-0 w-full sm:w-auto">
                 <div>
                   <p className="text-[24px] sm:text-[32px] font-bold text-neutral-text leading-tight dark:text-white">
-                    {formatAmount(trip.fullAmount, selectedCurrency)}
+                    {formatAmount(trip.fullAmount, selectedCurrency, trip.currency)}
                   </p>
                   <p className="text-sm text-neutral-subtext text-[#6C707A] dark:text-[#A0A0A0]">
                     Per person

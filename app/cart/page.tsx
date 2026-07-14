@@ -9,14 +9,14 @@ import EmptyCart from "./_components/empty-cart";
 import UpcomingTrips from "@/app/home/_components/upcoming-trip";
 import Faq from "@/app/home/_components/faq";
 import { SubcribeToNewsLetter, Footer } from "@/components/ui";
-import { formatAmount } from "@/lib/utils";
+import { formatConvertedAmount } from "@/lib/utils";
 
 const Page = () => {
   const { items, getTotalTripDeposit, hasHydrated } = useCartStore();
-  const { selectedCurrency } = useGeneralStore();
+  const { selectedCurrency, rates } = useGeneralStore();
   const { handlePay, isPaying } = useStripe({ items });
 
-  const total = getTotalTripDeposit(items);
+  const total = getTotalTripDeposit(items, selectedCurrency, rates);
   const itemCount = items.length;
 
   return (
@@ -51,7 +51,7 @@ const Page = () => {
                     Total ({itemCount} {itemCount === 1 ? "item" : "items"})
                   </p>
                   <p className="font-medium text-[24px] leading-[36px] text-[var(--text-primary,#212121)] dark:text-foreground whitespace-nowrap">
-                    {formatAmount(total, selectedCurrency)}
+                    {formatConvertedAmount(total, selectedCurrency)}
                   </p>
                 </div>
 
@@ -90,7 +90,7 @@ const Page = () => {
                 Total ({itemCount} {itemCount === 1 ? "item" : "items"})
               </p>
               <p className="font-medium text-[24px] leading-[36px] text-[var(--text-primary,#212121)] dark:text-foreground whitespace-nowrap">
-                {formatAmount(total, selectedCurrency)}
+                {formatConvertedAmount(total, selectedCurrency)}
               </p>
             </div>
 

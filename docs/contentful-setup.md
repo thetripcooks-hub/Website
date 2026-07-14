@@ -176,6 +176,7 @@ query CommunityStories($skip: Int!, $limit: Int!) {
 | `startDate` / `endDate` | Date | ISO 8601 format |
 | `fullAmount` | Number | Full trip price |
 | `downPayment` | Number | Deposit amount |
+| `currency` | Symbol | Currency `fullAmount`/`downPayment`/`installments` are priced in: `"GBP"`, `"USD"`, or `"CAD"`. Optional — missing/blank defaults to `"GBP"` for backward compatibility with existing entries |
 | `discount` | Number or null | Optional discount |
 | `slots` | Number or null | Available seats |
 | `installments` | JSON Array | Each: `{ "date", "type", "amount", "installment_number" }` |

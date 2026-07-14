@@ -36,7 +36,7 @@ const PaymentTermsDrawer = () => {
           <div className="px-6 pb-10 flex flex-col gap-4 text-[16px] leading-[24px]">
             <p className="text-[hsl(var(--text-primary))]">
               <span className="font-semibold text-secondary-irish-green">
-                {formatAmount(selectedTrip.downPayment, selectedCurrency)}
+                {formatAmount(selectedTrip.downPayment, selectedCurrency, selectedTrip.currency)}
               </span>{" "}
               required to reserve a spot
             </p>
@@ -55,7 +55,7 @@ const PaymentTermsDrawer = () => {
                       {dayjs.utc(installment.date, "MM-DD-YYYY").format("Do MMMM, YYYY")}
                     </span>
                     <span className="font-semibold text-[hsl(var(--text-primary))]">
-                      {formatAmount(Number(installment.amount), selectedCurrency)}
+                      {formatAmount(Number(installment.amount), selectedCurrency, selectedTrip.currency)}
                     </span>
                   </div>
                 ))}

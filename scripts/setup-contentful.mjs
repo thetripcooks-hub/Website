@@ -56,6 +56,7 @@ const CHANGES = [
     fields: [
       { id: "whatsNotIncluded", name: "What's Not Included", type: "Object",  required: false },
       { id: "groupSize",        name: "Group Size",          type: "Symbol",  required: false },
+      { id: "currency",         name: "Currency",            type: "Symbol",  required: false },
     ],
   },
   {

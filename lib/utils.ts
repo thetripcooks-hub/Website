@@ -39,13 +39,18 @@ export async function fetchExchangeRates(): Promise<ExchangeRates> {
   }
 }
 
-// Convert GBP price to target currency
+// Convert an amount from its source currency to a target currency.
+// `rates` is anchored to GBP (rates[X] = units of X per 1 GBP), so cross-currency
+// conversion routes through GBP: source -> GBP -> target.
 export function convertPrice(
-  priceInGBP: number,
+  amount: number,
+  sourceCurrency: CurrencyType,
   targetCurrency: CurrencyType,
   rates: ExchangeRates,
 ): number {
-  return Math.round(priceInGBP * rates[targetCurrency] * 100) / 100;
+  if (sourceCurrency === targetCurrency) return Math.round(amount * 100) / 100;
+  const amountInGBP = amount / rates[sourceCurrency];
+  return Math.round(amountInGBP * rates[targetCurrency] * 100) / 100;
 }
 
 export const pounds = Intl.NumberFormat("en-GB", {
@@ -63,20 +68,57 @@ export const canadianDollars = Intl.NumberFormat("en-CA", {
   currency: "CAD",
 });
 
-export const formatAmount = (amount: number, currency: string) => {
-  const currentRates = useGeneralStore.getState().rates;
-
+// Renders an amount that is already denominated in `currency` — no conversion.
+function renderAmount(amount: number, currency: string) {
   switch (currency) {
     case "GBP":
       return pounds.format(amount);
     case "USD":
-      return dollars.format(convertPrice(amount, "USD", currentRates));
+      return dollars.format(amount);
     case "CAD":
-      return "CA$" + convertPrice(amount, "CAD", currentRates).toFixed(2);
+      return "CA$" + amount.toFixed(2);
     default:
-      return dollars.format(convertPrice(amount, "USD", currentRates));
+      return dollars.format(amount);
   }
+}
+
+// Converts `amount` from `sourceCurrency` (defaults to GBP, matching legacy
+// Contentful trips that predate the per-trip currency field) to `displayCurrency`,
+// then renders it.
+export const formatAmount = (
+  amount: number,
+  displayCurrency: string,
+  sourceCurrency: CurrencyType = "GBP",
+) => {
+  const currentRates = useGeneralStore.getState().rates;
+  const converted = convertPrice(
+    amount,
+    sourceCurrency,
+    displayCurrency as CurrencyType,
+    currentRates,
+  );
+  return renderAmount(converted, displayCurrency);
 };
+
+// Renders an amount that has already been converted to `currency` (e.g. a cart
+// total computed via convertPrice) — formats only, does not convert again.
+export const formatConvertedAmount = (amount: number, currency: CurrencyType) =>
+  renderAmount(amount, currency);
+
+const VALID_TRIP_CURRENCIES: CurrencyType[] = ["USD", "CAD", "GBP"];
+
+// Coerces a trip's Contentful `currency` field to a known-valid value at runtime.
+// Contentful can return null/undefined/unexpected strings regardless of the TS
+// type, so this must be a real runtime check, not just a type assumption — applied
+// once where trip data enters app state, so downstream code can trust trip.currency.
+export function normalizeTripCurrency<T extends { currency?: CurrencyType | null }>(
+  trip: T,
+): T & { currency: CurrencyType } {
+  const currency = VALID_TRIP_CURRENCIES.includes(trip.currency as CurrencyType)
+    ? (trip.currency as CurrencyType)
+    : "GBP";
+  return { ...trip, currency };
+}
 
 export const formatTripDate = (item: TripType) => {
   const startDate = dayjs.utc(item.startDate);

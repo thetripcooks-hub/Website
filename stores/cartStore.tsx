@@ -1,4 +1,6 @@
 import { CartItem } from "@/types/cart";
+import { CurrencyType } from "@/types/currency";
+import { ExchangeRates, convertPrice } from "@/lib/utils";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -10,9 +12,23 @@ interface CartState {
   setTrips: (trips: CartItem[]) => void;
   incrementQuantity: (item: CartItem) => void;
   decrementQuantity: (item: CartItem) => void;
-  getTotalPrice: (trips: CartItem[]) => number;
-  getTripDeposit: (item: CartItem) => number;
-  getTotalTripDeposit: (trips: CartItem[]) => number;
+  // amounts are converted to targetCurrency (using rates) before summing, since
+  // cart items may be priced in different source currencies
+  getTotalPrice: (
+    trips: CartItem[],
+    targetCurrency: CurrencyType,
+    rates: ExchangeRates
+  ) => number;
+  getTripDeposit: (
+    item: CartItem,
+    targetCurrency: CurrencyType,
+    rates: ExchangeRates
+  ) => number;
+  getTotalTripDeposit: (
+    trips: CartItem[],
+    targetCurrency: CurrencyType,
+    rates: ExchangeRates
+  ) => number;
   showCart: boolean;
   setShowCart: (showCart: boolean) => void;
   hasHydrated: boolean;
@@ -63,11 +79,25 @@ const useCartStore = create<CartState>()(
               : t
           ),
         })),
-      getTotalPrice: (trips) =>
-        trips.reduce((acc, item) => acc + item.downPayment * item.quantity, 0),
-      getTripDeposit: (item) => item.quantity * item.downPayment,
-      getTotalTripDeposit: (trips) =>
-        trips.reduce((acc, item) => acc + item.downPayment * item.quantity, 0),
+      getTotalPrice: (trips, targetCurrency, rates) =>
+        trips.reduce(
+          (acc, item) =>
+            acc +
+            convertPrice(item.downPayment, item.currency, targetCurrency, rates) *
+              item.quantity,
+          0
+        ),
+      getTripDeposit: (item, targetCurrency, rates) =>
+        item.quantity *
+        convertPrice(item.downPayment, item.currency, targetCurrency, rates),
+      getTotalTripDeposit: (trips, targetCurrency, rates) =>
+        trips.reduce(
+          (acc, item) =>
+            acc +
+            convertPrice(item.downPayment, item.currency, targetCurrency, rates) *
+              item.quantity,
+          0
+        ),
       showCart: false,
       setShowCart: (showCart) => set({ showCart }),
       hasHydrated: false,

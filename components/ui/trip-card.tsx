@@ -24,12 +24,13 @@ const TripCard = ({
   const price = item.discount
     ? formatAmount(
         item.fullAmount - percentage(item.discount, item.fullAmount),
-        selectedCurrency
+        selectedCurrency,
+        item.currency
       )
-    : formatAmount(item.fullAmount, selectedCurrency);
+    : formatAmount(item.fullAmount, selectedCurrency, item.currency);
 
   const originalPrice = item.discount
-    ? formatAmount(item.fullAmount, selectedCurrency)
+    ? formatAmount(item.fullAmount, selectedCurrency, item.currency)
     : null;
 
   return (

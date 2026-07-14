@@ -24,6 +24,7 @@ const tripQuery = `{
         endDate
         description
         fullAmount
+        currency
         discount
         whatsIncluded
         whatsNotIncluded
