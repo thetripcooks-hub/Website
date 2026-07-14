@@ -12,16 +12,16 @@ import useGeneralStore from "@/stores/generalStore";
 import { formatAmount } from "@/lib/utils";
 
 const Faq = () => {
-  const selectedCurrency = useGeneralStore.getState().selectedCurrency;
+  const { selectedCurrency, rates } = useGeneralStore();
   const faq = useMemo(
     () => [
       {
         question: "What is included in the package details?",
         answer: (
           <>
-            <p>A typical package includes flights, transportation, accommodation, activities, and occasionally breakfast or other meals.</p>
+            <p>A typical package includes a planned itinerary, accommodation, ground transportation, activities, and sometimes breakfast or other meals.</p>
             <br />
-            <p>It varies depending on the destination country. We recommend you review the details for each package on our website to know what is covered and what might incur additional costs.</p>
+            <p>Check your trip page for the full list of inclusions.</p>
           </>
         ),
       },
@@ -32,20 +32,22 @@ const Faq = () => {
       },
       {
         question: "How much does a trip cost?",
-        answer: `The cost of a trip with us generally ranges from ${formatAmount(500, selectedCurrency)} to ${formatAmount(1000, selectedCurrency)}, depending on the destination and the activities included. To get a more detailed breakdown, please visit our trips page, where you will find the specific prices for each destination.`,
+        answer: `Trips typically range from ${formatAmount(500, selectedCurrency)} to ${formatAmount(1000, selectedCurrency)}, depending on the destination. For the exact price and a detailed cost breakdown, visit the specific trip page.`,
       },
       {
-        question: "Can I pay in instalments?",
-        answer: `Absolutely! We offer flexible payment plans for our trips. However, to reserve your spot, a deposit of ${formatAmount(300, selectedCurrency)} is required.`,
+        question: "Can I pay in installments?",
+        answer:
+          "Absolutely! We offer flexible payment plans to make travel more accessible for all. Simply pay the required deposit to secure your spot, then pay the remaining balance in installments.",
       },
       {
         question: "What is your refund policy?",
         answer: (
           <>
-            Kindly refer to the Terms and Conditions page under our{" "}
+            Please refer to our{" "}
             <Link href="/legal" className="text-secondary-irish-green">
-              Travel Policy
-            </Link>
+              Travel Policy & Terms and Conditions
+            </Link>{" "}
+            for full refund details.
           </>
         ),
       },
@@ -53,28 +55,19 @@ const Faq = () => {
         question: "What happens if I can't make the trip after payment?",
         answer: (
           <>
-            Kindly refer to the Terms and Conditions page under our{" "}
+            Please refer to our{" "}
             <Link href="/legal" className="text-secondary-irish-green">
-              Travel Policy
-            </Link>
+              Travel Policy & Terms and Conditions
+            </Link>{" "}
+            for cancellation and payment terms.
           </>
         ),
       },
-      // {
-      //   question: "When will I receive my flight information?",
-      //   answer:
-      //     "You will receive your flight information when you book your slot, and it will be included as part of your travel itinerary. If you need it earlier, you can request the information before booking your slot.",
-      // },
-      // {
-      //   question: "What are the luggage restrictions?",
-      //   answer:
-      //     "Our trips are generally designed with backpack-style travel in mind, but you can add extra luggage bags for an additional fee paid to the airline.",
-      // },
       {
         question:
           "Is there a group chat or webinar for participants to connect?",
         answer:
-          "Yes! All trippers are added to the Trip Cooks WhatsApp group after the deadline for securing a slot. We also host an e-Meet & Greet before the trip for every one to get familiar with each other.",
+          "Yes! You'll be added to a WhatsApp group before the trip, and we'll host a virtual Meet & Greet so everyone can connect.",
       },
       {
         question: "Can I choose to have a room to myself?",
@@ -82,17 +75,26 @@ const Faq = () => {
           "Yes, you can choose your sleeping arrangements. However, this comes with an additional cost.",
       },
       {
-        question: "Group trip doesn’t align with my schedule.",
+        question: "What if the group trip doesn't align with my schedule?",
         answer:
-          "If a group trip doesn’t fit your schedule, Trip Cooks can arrange private trips for groups of four or more, customized to your preferred destinations and dates.",
+          "If a group trip doesn't fit your schedule, Trip Cooks can arrange private trips for groups of four or more, customized to your preferred destinations and dates.",
       },
       {
-        question: "What activities are included in the package?",
+        question: "What should I pack?",
         answer:
-          "Our travel packages embrace a mix of travel and vacation experiences. Included activities often feature cruises, landmark sightseeing, adrenaline-pumping adventures, and dining experiences. Rest assured, there is something for everyone to enjoy.",
+          "We'll send you a detailed itinerary before your trip, including activities and any outfit recommendations where needed. This will help you plan your packing.",
+      },
+      {
+        question: "Will I fit in if I don't know anyone on the trip?",
+        answer:
+          "Absolutely! Many of our trippers join solo and our group trips make it easy to connect and make new friends.",
       },
     ],
-    [selectedCurrency],
+    // rates isn't referenced directly, but formatAmount reads it from the store
+    // internally — without it here, prices stay stuck at default rates until
+    // selectedCurrency also changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selectedCurrency, rates],
   );
   return (
     <section className="px-5 py-10 sm:py-[64px] sm:px-[109px]">

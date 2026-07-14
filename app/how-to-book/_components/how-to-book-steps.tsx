@@ -87,13 +87,13 @@ const steps = [
         <br />
         <p>
           Simply click{" "}
-          <Link href="/contact" className="text-[#09af0d]">
-            Contact
+          <Link href="/private-trips" className="text-[#09af0d]">
+            Private trips
           </Link>{" "}
-          in the top menu and fill out the short form in detail about what
-          you&apos;re looking for. Whether it&apos;s a solo getaway, a romantic
-          escape, a birthday trip, or something fun with your crew, we&apos;ll
-          cook up a custom experience just for you.
+          under the Trips menu and fill out the short form in detail about
+          what you&apos;re looking for. Whether it&apos;s a solo getaway, a
+          romantic escape, a birthday trip, or something fun with your crew,
+          we&apos;ll cook up a custom experience just for you.
         </p>
       </>
     ),

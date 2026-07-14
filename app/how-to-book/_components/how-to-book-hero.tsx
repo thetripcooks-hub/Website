@@ -12,10 +12,11 @@ export default function HowToBookHero() {
 
         <div className="font-normal text-[14px] sm:text-[18px] leading-[22px] sm:leading-[28px] text-[#6C707A] dark:text-[#8C909B] w-full sm:max-w-[900px] text-center space-y-0 flex gap-4 flex-col font-plus-jakarta-sans">
           <p>
-            Booking with TripCooks is easy and exciting. We want to
-            make the process as seamless as possible because we exist to make
-            travel more flavorful and fulfilling.
+            Booking with TripCooks is easy and exciting. We want to make the
+            process as seamless as possible.
           </p>
+          {/* because we exist to make
+            travel more flavorful and fulfilling */}
           <p className="mt-[28px]">
             Check out our group trip booking process below. If you have any
             questions, please reach out to us at{" "}
