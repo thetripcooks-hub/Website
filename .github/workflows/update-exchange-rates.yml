@@ -1,0 +1,34 @@
+name: Update Exchange Rates
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-exchange-rates-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: node scripts/update-exchange-rates.mjs
+
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add constants/exchange-rates.json
+          git diff --cached --quiet || git commit -m "chore: update exchange rates ($(date -u +%F))"
+          git push origin HEAD:${{ github.ref_name }}
