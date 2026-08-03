@@ -51,23 +51,23 @@ const TripDetailOverview = () => {
 
   return (
     <div className="px-4 py-6 sm:px-[109px] sm:py-10 bg-[hsl(var(--bg-primary))]">
+      {/* Location title — desktop only, full width above the two-column layout */}
+      <div className="hidden sm:flex items-center gap-3 mb-6">
+        <button
+          onClick={() => router.back()}
+          aria-label="Go back"
+          className="w-10 h-10 rounded-full bg-[hsl(var(--bg-secondary))] flex items-center justify-center shrink-0 hover:opacity-80 transition-opacity"
+        >
+          <ChevronLeft size={20} className="text-[hsl(var(--text-primary))]" />
+        </button>
+        <h1 className="font-ogg-trial text-[40px] leading-[60px] text-[hsl(var(--text-primary))]">
+          {selectedTrip.location}
+        </h1>
+      </div>
+
       <div className="flex flex-col sm:flex-row sm:items-start sm:gap-5">
         {/* Left column */}
         <div className="flex-1 min-w-0 flex flex-col gap-6">
-          {/* Location title — desktop only */}
-          <div className="hidden sm:flex items-center gap-3">
-            <button
-              onClick={() => router.back()}
-              aria-label="Go back"
-              className="w-10 h-10 rounded-full bg-[hsl(var(--bg-secondary))] flex items-center justify-center shrink-0 hover:opacity-80 transition-opacity"
-            >
-              <ChevronLeft size={20} className="text-[hsl(var(--text-primary))]" />
-            </button>
-            <h1 className="font-ogg-trial text-[40px] leading-[60px] text-[hsl(var(--text-primary))]">
-              {selectedTrip.location}
-            </h1>
-          </div>
-
           {/* Desktop image grid */}
           <div className="hidden sm:flex gap-2 h-[520px] relative overflow-hidden">
             {/* Large image */}
