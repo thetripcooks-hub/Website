@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui";
+import TripTags from "@/components/ui/trip-tags";
 import Image from "next/image";
 import React from "react";
 import FeatureTripImage from "~/img/sample-featured-trip.svg";
@@ -51,9 +52,12 @@ const FeatureTrip = () => {
               priority
               className="object-cover rounded-[22px]"
             />
-            {/* Bestseller badge */}
-            <div className="absolute top-5 left-6 bg-white dark:bg-[#121716] rounded-full px-4 py-1 text-sm font-medium text-neutral-text dark:text-primary flex items-center gap-1 border-2 border-[#d0d0d0] dark:border-[#585E6A]">
-              Bestseller <span className="text-[20.68px]">💸</span>
+            {/* Tags */}
+            <div className="absolute top-5 left-6">
+              <TripTags
+                tags={trip.tags?.length ? trip.tags : ["Bestseller 💸"]}
+                className="border-2 border-[#d0d0d0] dark:border-[#585E6A] px-4 py-1 text-sm"
+              />
             </div>
             {/* Cart icon */}
             <button

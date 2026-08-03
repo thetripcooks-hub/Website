@@ -183,6 +183,7 @@ query CommunityStories($skip: Int!, $limit: Int!) {
 | `soldOut` | Boolean | Toggles sold-out state on the trip card |
 | `isFeaturedTrip` | Boolean | Surfaces trip in featured sections |
 | `travelWithOwners` | Boolean | Shows "Travel with Ovie and Lanre" badge |
+| `tags` | Array of Short text (Symbol) | Optional. Free-text pills shown on the trip card (e.g. `Bestseller 💸`, `Travel with Ovie and Lanre`). Leave empty to keep the card's default label |
 | `bannerImagesCollection` | Asset Collection | Hero/banner images for the trip detail page |
 | `viewsOfLocationCollection` | Asset Collection | Gallery images shown in the "Our view of…" section |
 | `description` | Text | Short trip description shown in the overview |

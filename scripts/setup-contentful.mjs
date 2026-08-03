@@ -57,6 +57,7 @@ const CHANGES = [
       { id: "whatsNotIncluded", name: "What's Not Included", type: "Object",  required: false },
       { id: "groupSize",        name: "Group Size",          type: "Symbol",  required: false },
       { id: "currency",         name: "Currency",            type: "Symbol",  required: false },
+      { id: "tags",             name: "Tags",                type: "Array",   items: { type: "Symbol" }, required: false },
     ],
   },
   {
@@ -128,6 +129,7 @@ function buildFieldDef(f) {
     localized: false,
   };
   if (f.linkType) def.linkType = f.linkType;
+  if (f.items) def.items = f.items;
 
   const validations = [];
   if (f.unique) validations.push({ unique: true });

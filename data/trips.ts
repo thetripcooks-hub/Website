@@ -12,6 +12,7 @@ export const sampleTrip = {
   soldOut: false,
   travelWithOwners: false,
   isFeaturedTrip: true,
+  tags: null as string[] | null,
   bannerImagesCollection: {
     __typename: "AssetCollection",
     items: [

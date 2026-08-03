@@ -1,5 +1,6 @@
 "use client";
 import ComingSoonBadge from "@/app/home/_components/coming-soon-badge";
+import TripTags from "@/components/ui/trip-tags";
 import { cn, formatAmount, formatTripDate, percentage } from "@/lib/utils";
 import useGeneralStore from "@/stores/generalStore";
 import { CartItem } from "@/types/cart";
@@ -65,11 +66,17 @@ const TripCard = ({
           fill
           className="object-cover rounded-[12px]"
         />
-        {/* Host / status badge */}
-        <div className="absolute top-3 left-3 bg-white rounded-full px-3 py-1 z-10 flex items-center border border-[#eee]">
-          <span className="text-xs font-medium text-neutral-text">
-            {isPast ? "Sold out" : "Trip Cooks"}
-          </span>
+        {/* Host / status / tags badge */}
+        <div className="absolute top-3 left-3 z-10">
+          {!isPast && item.tags?.length ? (
+            <TripTags tags={item.tags} />
+          ) : (
+            <div className="bg-white rounded-full px-3 py-1 flex items-center border border-[#eee]">
+              <span className="text-xs font-medium text-neutral-text">
+                {isPast ? "Sold out" : "Trip Cooks"}
+              </span>
+            </div>
+          )}
         </div>
       </div>
 
