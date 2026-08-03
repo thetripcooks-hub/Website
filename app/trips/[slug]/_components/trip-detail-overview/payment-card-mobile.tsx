@@ -59,7 +59,7 @@ const PaymentCardMobile = () => {
         <div className="flex gap-4">
           <button
             onClick={() => handleAddToCart()}
-            className="flex-1 py-4 rounded-full text-[16px] font-medium border border-secondary-irish-green text-secondary-irish-green"
+            className="flex-1 py-4 rounded-full text-[16px] font-medium border border-secondary-irish-green text-secondary-irish-green hover:bg-secondary-irish-green hover:text-white transition-colors"
           >
             Add to cart
           </button>
@@ -67,7 +67,7 @@ const PaymentCardMobile = () => {
             onClick={() => handlePay(selectedCurrency)}
             disabled={isPaying}
             className={cn(
-              "flex-1 py-4 rounded-full text-[16px] font-medium text-neutral-text bg-gradient-to-r from-[#fa93f4] from-[28.5%] to-[#ee7fe7]",
+              "flex-1 py-4 rounded-full text-[16px] font-medium text-neutral-text bg-gradient-to-r from-[#fa93f4] from-[28.5%] to-[#ee7fe7] hover:from-[#FA84F3] hover:to-[#FA93F4] transition-colors",
               isPaying && "opacity-70 cursor-not-allowed"
             )}
           >

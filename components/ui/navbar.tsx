@@ -92,8 +92,10 @@ const NavDropdownItem = ({
       <Link
         href={item.url!}
         className={cn(
+          "hover:underline underline-offset-4 transition-colors",
           isActive && "underline underline-offset-4",
-          !transparent && isActive && "text-secondary-irish-green"
+          !transparent && isActive && "text-secondary-irish-green",
+          !transparent && "hover:text-secondary-irish-green"
         )}
       >
         {item.name}
@@ -114,8 +116,9 @@ const NavDropdownItem = ({
       <DropdownMenuTrigger asChild>
         <button
           className={cn(
-            "flex items-center gap-2 outline-none cursor-pointer",
-            isParentActive && "text-secondary-irish-green underline underline-offset-4"
+            "flex items-center gap-2 outline-none cursor-pointer hover:underline underline-offset-4 transition-colors",
+            isParentActive && "text-secondary-irish-green underline underline-offset-4",
+            !transparent && "hover:text-secondary-irish-green"
           )}
         >
           {item.name}
@@ -142,7 +145,7 @@ const NavDropdownItem = ({
                 key={child.name}
                 href={child.url}
                 onClick={() => setOpen(false)}
-                className="flex flex-col gap-[6px]"
+                className="flex flex-col gap-[6px] rounded-lg p-2 -m-2 hover:bg-[hsl(var(--bg-secondary))] transition-colors"
                 {...(isExternal && { target: "_blank", rel: "noopener noreferrer" })}
               >
                 <p className="text-base font-medium leading-6 text-[hsl(var(--text-primary))]">

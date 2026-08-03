@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { Loader } from "lucide-react";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:opacity-85",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
@@ -20,7 +20,7 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         "green-outline":
-          "border border-secondary-irish-green text-secondary-irish-green bg-transparent hover:bg-secondary-irish-green/5",
+          "border border-secondary-irish-green text-secondary-irish-green bg-transparent hover:bg-secondary-irish-green hover:text-white",
         "ghost-arrow": "text-white bg-transparent hover:bg-none",
       },
       size: {

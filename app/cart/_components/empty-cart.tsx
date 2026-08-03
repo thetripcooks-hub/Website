@@ -41,7 +41,7 @@ const EmptyCart = ({
       </p>
       <button
         onClick={() => router.push("/trips")}
-        className="bg-gradient-to-r from-[#fa93f4] from-[28.5%] to-[#ee7fe7] text-[#212121] font-medium text-[16px] leading-[24px] rounded-full px-4 h-[56px] w-[185px]"
+        className="bg-gradient-to-r from-[#fa93f4] from-[28.5%] to-[#ee7fe7] hover:from-[#FA84F3] hover:to-[#FA93F4] transition-colors text-[#212121] font-medium text-[16px] leading-[24px] rounded-full px-4 h-[56px] w-[185px]"
       >
         See all trips
       </button>

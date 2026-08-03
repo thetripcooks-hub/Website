@@ -126,7 +126,7 @@ const Faq = () => {
               <AccordionItem
                 value={item.question}
                 key={item.question}
-                className="border-0 rounded-[10px] p-4 data-[state=closed]:bg-[hsl(var(--bg-primary))] data-[state=open]:bg-[hsl(var(--bg-secondary))]"
+                className="border-0 rounded-[10px] p-4 transition-colors data-[state=closed]:bg-[hsl(var(--bg-primary))] data-[state=open]:bg-[hsl(var(--bg-secondary))] data-[state=closed]:hover:bg-[hsl(var(--bg-secondary))]"
               >
                 <AccordionTrigger className="text-left text-[hsl(var(--text-primary))] text-[15px] sm:text-[16px] leading-[20px] sm:leading-[22px] font-semibold py-0">
                   {item.question}

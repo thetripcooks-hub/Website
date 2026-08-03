@@ -140,14 +140,14 @@ const CartToastBanner = () => {
         <div className="flex items-center gap-4 shrink-0">
           <button
             onClick={handleGoToCart}
-            className="border border-[#09af0d] text-[#09af0d] font-medium text-[16px] leading-[24px] rounded-full px-4 py-4 w-[182px] text-center font-plus-jakarta-sans hover:bg-[#09af0d]/5 transition-colors"
+            className="border border-[#09af0d] text-[#09af0d] font-medium text-[16px] leading-[24px] rounded-full px-4 py-4 w-[182px] text-center font-plus-jakarta-sans hover:bg-[#09af0d] hover:text-white transition-colors"
           >
             Go to Cart
           </button>
           <button
             onClick={handleCheckout}
             disabled={isPaying}
-            className="bg-gradient-to-r from-[#fa93f4] from-[28.5%] to-[#ee7fe7] text-[#212121] font-medium text-[16px] leading-[24px] rounded-full px-4 py-4 w-[182px] text-center font-plus-jakarta-sans disabled:opacity-70"
+            className="bg-gradient-to-r from-[#fa93f4] from-[28.5%] to-[#ee7fe7] hover:from-[#FA84F3] hover:to-[#FA93F4] transition-colors text-[#212121] font-medium text-[16px] leading-[24px] rounded-full px-4 py-4 w-[182px] text-center font-plus-jakarta-sans disabled:opacity-70"
           >
             {isPaying ? "Loading..." : "Checkout"}
           </button>
@@ -206,14 +206,14 @@ const CartToastBanner = () => {
           <div className="flex flex-col gap-4">
             <button
               onClick={handleGoToCart}
-              className="border border-[#09af0d] text-[#09af0d] font-medium text-[16px] leading-[24px] rounded-full px-4 py-4 w-full text-center font-plus-jakarta-sans"
+              className="border border-[#09af0d] text-[#09af0d] font-medium text-[16px] leading-[24px] rounded-full px-4 py-4 w-full text-center font-plus-jakarta-sans hover:bg-[#09af0d] hover:text-white transition-colors"
             >
               Go to Cart
             </button>
             <button
               onClick={handleCheckout}
               disabled={isPaying}
-              className="bg-gradient-to-r from-[#fa93f4] from-[28.5%] to-[#ee7fe7] text-[#212121] font-medium text-[16px] leading-[24px] rounded-full px-4 py-4 w-full text-center font-plus-jakarta-sans disabled:opacity-70"
+              className="bg-gradient-to-r from-[#fa93f4] from-[28.5%] to-[#ee7fe7] hover:from-[#FA84F3] hover:to-[#FA93F4] transition-colors text-[#212121] font-medium text-[16px] leading-[24px] rounded-full px-4 py-4 w-full text-center font-plus-jakarta-sans disabled:opacity-70"
             >
               {isPaying ? "Loading..." : "Checkout"}
             </button>

@@ -58,7 +58,7 @@ const Page = () => {
                 <button
                   onClick={() => handlePay(selectedCurrency)}
                   disabled={isPaying}
-                  className="w-full h-[56px] bg-gradient-to-r from-[#fa93f4] from-[28.5%] to-[#ee7fe7] text-[#212121] font-medium text-[16px] leading-[24px] rounded-full disabled:opacity-70"
+                  className="w-full h-[56px] bg-gradient-to-r from-[#fa93f4] from-[28.5%] to-[#ee7fe7] hover:from-[#FA84F3] hover:to-[#FA93F4] transition-colors text-[#212121] font-medium text-[16px] leading-[24px] rounded-full disabled:opacity-70"
                 >
                   {isPaying ? "Loading..." : "Checkout"}
                 </button>
@@ -97,7 +97,7 @@ const Page = () => {
             <button
               onClick={() => handlePay(selectedCurrency)}
               disabled={isPaying}
-              className="w-full h-[56px] bg-gradient-to-r from-[#fa93f4] from-[28.5%] to-[#ee7fe7] text-[#212121] font-medium text-[16px] leading-[24px] rounded-full disabled:opacity-70"
+              className="w-full h-[56px] bg-gradient-to-r from-[#fa93f4] from-[28.5%] to-[#ee7fe7] hover:from-[#FA84F3] hover:to-[#FA93F4] transition-colors text-[#212121] font-medium text-[16px] leading-[24px] rounded-full disabled:opacity-70"
             >
               {isPaying ? "Loading..." : "Checkout"}
             </button>

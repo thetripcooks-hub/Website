@@ -36,11 +36,11 @@ const BlogCallout = () => {
             </h2>
             <div className="hidden sm:flex gap-2 items-center">
               <CarouselPrevious
-                className="relative left-0 top-0 translate-y-0 w-[48px] h-[48px] bg-[#EEE] border-none rounded-full hover:bg-[#eee]/80"
+                className="relative left-0 top-0 translate-y-0 w-[48px] h-[48px] bg-[#EEE] border-none rounded-full hover:bg-[#DADADA] transition-colors"
                 customIcon
               />
               <CarouselNext
-                className="relative right-0 top-0 translate-y-0 w-[48px] h-[48px] bg-gradient-to-r from-[#FA93F4] from-[28.5%] to-[#EE7FE7] border-none rounded-full hover:opacity-90"
+                className="relative right-0 top-0 translate-y-0 w-[48px] h-[48px] bg-gradient-to-r from-[#FA93F4] from-[28.5%] to-[#EE7FE7] border-none rounded-full hover:from-[#FA84F3] hover:to-[#FA93F4] transition-colors"
                 customIcon
               />
             </div>
