@@ -178,6 +178,19 @@ export default function contentfulLoader({
 export const locationToSlug = (location: string) =>
   location.replace(/,/g, "").replace(/ /g, "-").toLowerCase();
 
+export const getTripYear = (trip: TripType) =>
+  trip.startDate ? dayjs.utc(trip.startDate).format("YYYY") : null;
+
+// Trip URLs are keyed on destination + year so a repeat destination in a
+// future year gets its own unique, stable URL instead of colliding with
+// the earlier trip's.
+export const generateTripSlug = (trip: TripType) => {
+  const year = getTripYear(trip);
+  return year
+    ? `${locationToSlug(trip.location)}-${year}`
+    : locationToSlug(trip.location);
+};
+
 export const generateTripLink = (trip: TripType) => {
-  return `/trips/${locationToSlug(trip.location)}`;
+  return `/trips/${generateTripSlug(trip)}`;
 };

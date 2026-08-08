@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { getClient } from "@/lib/apollo-client";
 import { queryGetAllTrips } from "@/queries/trips-query";
 import { AllTripsResponse } from "@/types/trip";
-import { locationToSlug, normalizeTripCurrency } from "@/lib/utils";
+import { generateTripSlug, normalizeTripCurrency } from "@/lib/utils";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -16,7 +16,7 @@ export async function generateStaticParams() {
       query: queryGetAllTrips,
     });
     return (data?.tripCollection?.items ?? []).map((trip) => ({
-      slug: locationToSlug(trip.location),
+      slug: generateTripSlug(trip),
     }));
   } catch {
     return [];
@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       query: queryGetAllTrips,
     });
     const trip = data?.tripCollection.items.find(
-      (t) => locationToSlug(t.location) === slug
+      (t) => generateTripSlug(t) === slug
     );
     if (!trip) return {};
 
@@ -73,7 +73,7 @@ export default async function TripDetailLayout({ children, params }: Props) {
       query: queryGetAllTrips,
     });
     const rawTrip = data?.tripCollection.items.find(
-      (t) => locationToSlug(t.location) === slug
+      (t) => generateTripSlug(t) === slug
     );
     const trip = rawTrip ? normalizeTripCurrency(rawTrip) : undefined;
 
