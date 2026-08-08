@@ -15,6 +15,8 @@ interface TripState {
       value: string;
     } | null
   ) => void;
+  filterTags: string[];
+  setFilterTags: (filterTags: string[]) => void;
   setTrips: (trips: TripType[]) => void;
   totalTrips: number;
   setTotalTrips: (totalTrips: number) => void;
@@ -31,6 +33,8 @@ const useTripStore = create<TripState>()(
       totalTrips: 9,
       orderKey: null,
       setOrderKey: (orderKey) => set({ orderKey }),
+      filterTags: [],
+      setFilterTags: (filterTags) => set({ filterTags }),
       setLoading: (loading) => set({ loading }),
       setTrips: (trips) => set({ trips }),
       selectedTrip: null,

@@ -44,17 +44,27 @@ function sortTrips(
 }
 
 const usePaginatedTrips = () => {
-  const { trips, loading, orderKey } = useTripStore();
+  const { trips, loading, orderKey, filterTags } = useTripStore();
   const [page, setPage] = useState(1);
 
-  // Reset to page 1 whenever sort changes
+  // Reset to page 1 whenever sort or filter changes
   useEffect(() => {
     setPage(1);
-  }, [orderKey]);
+  }, [orderKey, filterTags]);
 
   const sorted = useMemo(
-    () => sortTrips(trips.filter((t) => !t.soldOut), orderKey),
-    [trips, orderKey]
+    () =>
+      sortTrips(
+        trips
+          .filter((t) => !t.soldOut)
+          .filter(
+            (t) =>
+              filterTags.length === 0 ||
+              t.tags?.some((tag) => filterTags.includes(tag))
+          ),
+        orderKey
+      ),
+    [trips, orderKey, filterTags]
   );
 
   const totalPages = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE));

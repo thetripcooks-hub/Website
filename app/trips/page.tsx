@@ -11,10 +11,11 @@ import { useEffect } from "react";
 
 const Page = () => {
   useTrips();
-  const { setOrderKey } = useTripStore();
+  const { setOrderKey, setFilterTags } = useTripStore();
 
   useEffect(() => {
     setOrderKey(null);
+    setFilterTags([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
