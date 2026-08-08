@@ -56,6 +56,9 @@ const OurServices = () => {
   }, [api]);
 
   const getImage = (key: string) => {
+    if (key === "travelPlanning") {
+      return "https://res.cloudinary.com/dqpyorulu/image/upload/v1786197627/IMG_2338_elaayl.jpg";
+    }
     if (!data?.[0]) return "";
     switch (key) {
       case "groupTrips":
@@ -63,8 +66,6 @@ const OurServices = () => {
       case "privateTrips":
         return data[0].privateTrips?.url ?? "/img/private-trip.svg";
       case "travelGuide":
-        return data[0].travelPlanning?.url ?? "/img/travel-planning.svg";
-      case "travelPlanning":
         return data[0].travelPlanning?.url ?? "/img/travel-planning.svg";
       default:
         return "/img/public-trip.svg";

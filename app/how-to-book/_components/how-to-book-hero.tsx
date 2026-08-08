@@ -34,7 +34,7 @@ export default function HowToBookHero() {
       {/* Hero image */}
       <div className="relative w-full sm:w-[804px] h-[536px] border-8 border-white dark:border-white rounded-[12px] shadow-[0px_4px_29.4px_2px_rgba(146,146,146,0.25)] overflow-hidden shrink-0">
         <Image
-          src="/img/how-to-book-photo.jpg"
+          src="https://res.cloudinary.com/dqpyorulu/image/upload/v1786197302/IMG_6175_azfmxh.jpg"
           alt="Trip Cooks group adventure"
           fill
           className="object-cover"

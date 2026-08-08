@@ -12,13 +12,13 @@ import useGeneralStore from "@/stores/generalStore";
 import useCartStore from "@/stores/cartStore";
 import SectionWrapper from "./section-wrapper";
 
-const CHECKLIST = [
-  "Flights included",
-  "Daily breakfast",
-  "24/7 Trip coordinator",
-  "Hotel accommodation",
-  "City tours & activities",
-  "Airport transfers",
+const DEFAULT_CHECKLIST = [
+  { title: "Flights included" },
+  { title: "Daily breakfast" },
+  { title: "24/7 Trip coordinator" },
+  { title: "Hotel accommodation" },
+  { title: "City tours & activities" },
+  { title: "Airport transfers" },
 ];
 
 const FeatureTrip = () => {
@@ -33,6 +33,9 @@ const FeatureTrip = () => {
   const trip = featuredTripArray[0];
   const imageUrl =
     trip.bannerImagesCollection.items[0]?.url ?? FeatureTripImage;
+  const checklist = (
+    trip.whatsIncluded?.length ? trip.whatsIncluded : DEFAULT_CHECKLIST
+  ).slice(0, 6);
 
   return (
     <section className="px-5 py-10 sm:py-[62px] sm:px-[109px]">
@@ -44,7 +47,7 @@ const FeatureTrip = () => {
         {/* Desktop: side by side | Mobile: stacked */}
         <div className="flex flex-col sm:flex-row gap-6 items-stretch">
           {/* Left — image */}
-          <div className="relative w-full sm:w-[586px] shrink-0 h-[300px] sm:h-[479px] border-[#eee] border rounded-[14px] overflow-hidden dark:border-none">
+          <div className="relative w-full sm:w-[586px] shrink-0 h-[300px] sm:h-auto border-[#eee] border rounded-[14px] overflow-hidden dark:border-none">
             <Image
               src={imageUrl}
               alt={trip.location}
@@ -194,8 +197,8 @@ const FeatureTrip = () => {
 
             {/* Checklist */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 sm:gap-x-4">
-              {CHECKLIST.map((item, index) => (
-                <div key={item} className={`flex items-center gap-2${index >= 3 ? " hidden sm:flex" : ""}`}>
+              {checklist.map((item, index) => (
+                <div key={item.title} className={`flex items-center gap-2${index >= 3 ? " hidden sm:flex" : ""}`}>
                   <Image
                     src="/img/check.svg"
                     width={18}
@@ -203,7 +206,7 @@ const FeatureTrip = () => {
                     alt="Check"
                   />
                   <span className="text-sm font-medium text-neutral-text dark:text-white">
-                    {item}
+                    {item.title}
                   </span>
                 </div>
               ))}
