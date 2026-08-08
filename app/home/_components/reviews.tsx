@@ -12,6 +12,8 @@ import React from "react";
 import SectionWrapper from "./section-wrapper";
 import useGeneralStore from "@/stores/generalStore";
 import dayjs from "@/lib/dayjs";
+import { m } from "motion/react";
+import { fadeUp, inViewport } from "@/lib/motion";
 
 const Reviews = () => {
   const { reviews, loadingReviews } = useGeneralStore();
@@ -32,9 +34,15 @@ const Reviews = () => {
   return (
     <section className="bg-[#f8f9fc] dark:bg-[#121716] px-5 py-12 sm:py-24 sm:px-[8%] w-full">
       <SectionWrapper>
-        <h2 className="font-ogg-trial text-[24px] sm:text-[44px] leading-tight text-center text-neutral-text dark:text-foreground mb-5 sm:mb-8">
+        <m.h2
+          className="font-ogg-trial text-[24px] sm:text-[44px] leading-tight text-center text-neutral-text dark:text-foreground mb-5 sm:mb-8"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={inViewport}
+        >
           People actually really like us..
-        </h2>
+        </m.h2>
 
         {loadingReviews ? (
           <div className="h-[400px] w-full flex items-center justify-center">

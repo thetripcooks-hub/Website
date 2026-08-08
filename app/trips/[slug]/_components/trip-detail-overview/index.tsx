@@ -11,6 +11,8 @@ import { Carousel, CarouselContent, CarouselItem } from "@/components/ui";
 import type { CarouselApi } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import { m, AnimatePresence } from "motion/react";
+import { fadeIn } from "@/lib/motion";
 
 const AUTOPLAY_INTERVAL = 4000;
 
@@ -279,14 +281,24 @@ function LightBox({
         className="relative w-full max-w-4xl h-[70vh] mx-4"
         onClick={(e) => e.stopPropagation()}
       >
-        <Image
-          key={index}
-          src={images[index].url}
-          alt={images[index].title ?? ""}
-          fill
-          className="object-contain"
-          priority
-        />
+        <AnimatePresence mode="wait">
+          <m.div
+            key={index}
+            variants={fadeIn}
+            initial="hidden"
+            animate="show"
+            exit="hidden"
+            className="absolute inset-0"
+          >
+            <Image
+              src={images[index].url}
+              alt={images[index].title ?? ""}
+              fill
+              className="object-contain"
+              priority
+            />
+          </m.div>
+        </AnimatePresence>
       </div>
 
       {/* Prev / Next */}

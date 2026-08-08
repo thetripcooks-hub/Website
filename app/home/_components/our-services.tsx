@@ -12,6 +12,8 @@ import { ArrowRight } from "lucide-react";
 import useGeneralStore from "@/stores/generalStore";
 import { useIsMobile } from "@/hooks";
 import Link from "next/link";
+import { m } from "motion/react";
+import { fadeUp, inViewport } from "@/lib/motion";
 
 const SERVICES = [
   {
@@ -75,7 +77,13 @@ const OurServices = () => {
   return (
     <section className="bg-[#02231A] py-10 sm:py-[62px] rounded-[28px] my-4 overflow-hidden">
       {/* Header */}
-      <div className="flex flex-col items-center gap-4 text-center mb-10 sm:mb-[75px] px-5">
+      <m.div
+        className="flex flex-col items-center gap-4 text-center mb-10 sm:mb-[75px] px-5"
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="show"
+        viewport={inViewport}
+      >
         <h2 className="font-ogg-trial text-[26px] sm:text-[42px] text-white leading-tight">
           Our Services
         </h2>
@@ -83,7 +91,7 @@ const OurServices = () => {
           From organizing unforgettable group trips to crafting tailor-made
           adventures, our services cover every aspect of your journey.
         </p>
-      </div>
+      </m.div>
 
       {/* Cards carousel */}
       <Carousel
@@ -110,44 +118,47 @@ const OurServices = () => {
                   isActive ? "sm:basis-[57%]" : "sm:basis-[44%]",
                 )}
               >
-                <Link
-                  href={service.href}
-                  className={cn(
-                    "relative block h-[350px] sm:h-[485px] rounded-[16px] overflow-hidden transition-opacity duration-500",
-                    !isActive && "opacity-50",
-                  )}
-                  style={{
-                    backgroundImage: imgSrc ? `url(${imgSrc})` : undefined,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                  }}
+                <m.div
+                  animate={{ opacity: isActive ? 1 : 0.5 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  className="h-[350px] sm:h-[485px] rounded-[16px] overflow-hidden"
                 >
-                  {/* Overlay */}
-                  <div
-                    className={cn(
-                      "absolute inset-0 rounded-[16px] transition-all duration-500",
-                      isActive ? "bg-black/50" : "bg-black/35",
-                    )}
-                  />
+                  <Link
+                    href={service.href}
+                    className="relative block h-full w-full"
+                    style={{
+                      backgroundImage: imgSrc ? `url(${imgSrc})` : undefined,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                    }}
+                  >
+                    {/* Overlay */}
+                    <div
+                      className={cn(
+                        "absolute inset-0 rounded-[16px] transition-all duration-500",
+                        isActive ? "bg-black/50" : "bg-black/35",
+                      )}
+                    />
 
-                  {/* Bottom content */}
-                  <div className="absolute bottom-4 sm:bottom-8 left-5 right-5 sm:left-6 sm:right-6 flex items-end gap-4 sm:gap-9">
-                    <div className="flex-1 flex flex-col gap-2 sm:gap-[11px] text-white min-w-0">
-                      <h3 className="font-ogg-trial text-[22px] sm:text-[44px] leading-tight sm:leading-[66px]">
-                        {service.title}
-                      </h3>
-                      <p className="text-sm sm:text-[20px] leading-6 sm:leading-[30px] font-plus-jakarta-sans font-normal">
-                        {service.description}
-                      </p>
+                    {/* Bottom content */}
+                    <div className="absolute bottom-4 sm:bottom-8 left-5 right-5 sm:left-6 sm:right-6 flex items-end gap-4 sm:gap-9">
+                      <div className="flex-1 flex flex-col gap-2 sm:gap-[11px] text-white min-w-0">
+                        <h3 className="font-ogg-trial text-[22px] sm:text-[44px] leading-tight sm:leading-[66px]">
+                          {service.title}
+                        </h3>
+                        <p className="text-sm sm:text-[20px] leading-6 sm:leading-[30px] font-plus-jakarta-sans font-normal">
+                          {service.description}
+                        </p>
+                      </div>
+                      <Button
+                        variant="ghost-arrow"
+                        className="items-center gap-2 whitespace-nowrap font-plus-jakarta-sans font-medium hidden sm:flex shrink-0 pointer-events-none"
+                      >
+                        Learn more <ArrowRight className="w-5 h-5" />
+                      </Button>
                     </div>
-                    <Button
-                      variant="ghost-arrow"
-                      className="items-center gap-2 whitespace-nowrap font-plus-jakarta-sans font-medium hidden sm:flex shrink-0 pointer-events-none"
-                    >
-                      Learn more <ArrowRight className="w-5 h-5" />
-                    </Button>
-                  </div>
-                </Link>
+                  </Link>
+                </m.div>
               </CarouselItem>
             );
           })}

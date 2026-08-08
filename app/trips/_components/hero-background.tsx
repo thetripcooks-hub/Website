@@ -1,3 +1,7 @@
+"use client";
+import { m } from "motion/react";
+import { fadeUp } from "@/lib/motion";
+
 const TripsHeroBackground = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="relative w-full h-[calc(260px+75px)] sm:h-[calc(340px+95px)] -mt-[75px] sm:-mt-[95px] bg-[#daf3db] dark:bg-[#133114] overflow-hidden flex items-center justify-center pt-[75px] sm:pt-[95px]">
@@ -17,9 +21,14 @@ const TripsHeroBackground = ({ children }: { children: React.ReactNode }) => {
           className="fill-[#EDFFEE] dark:fill-[#214d22]"
         />
       </svg>
-      <div className="relative z-10 flex flex-col items-center gap-6 sm:gap-9 text-center px-5">
+      <m.div
+        className="relative z-10 flex flex-col items-center gap-6 sm:gap-9 text-center px-5"
+        variants={fadeUp}
+        initial="hidden"
+        animate="show"
+      >
         {children}
-      </div>
+      </m.div>
     </div>
   );
 };

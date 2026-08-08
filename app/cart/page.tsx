@@ -10,6 +10,7 @@ import UpcomingTrips from "@/app/home/_components/upcoming-trip";
 import Faq from "@/app/home/_components/faq";
 import { SubcribeToNewsLetter, Footer } from "@/components/ui";
 import { formatConvertedAmount } from "@/lib/utils";
+import { m, AnimatePresence } from "motion/react";
 
 const Page = () => {
   const { items, getTotalTripDeposit, hasHydrated } = useCartStore();
@@ -38,9 +39,21 @@ const Page = () => {
           <div className="hidden sm:flex gap-10 items-start">
             {/* Left: cart items */}
             <div className="flex flex-col gap-6 flex-1 min-w-0 max-w-[808px]">
-              {items.map((trip) => (
-                <CartCard key={trip.sys.id} trip={trip} />
-              ))}
+              <AnimatePresence initial={false}>
+                {items.map((trip) => (
+                  <m.div
+                    key={trip.sys.id}
+                    layout
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    className="overflow-hidden"
+                  >
+                    <CartCard trip={trip} />
+                  </m.div>
+                ))}
+              </AnimatePresence>
             </div>
 
             {/* Right: sticky checkout card */}
@@ -81,9 +94,21 @@ const Page = () => {
 
           {/* Mobile: stacked layout */}
           <div className="sm:hidden flex flex-col gap-4">
-            {items.map((trip) => (
-              <CartCard key={trip.sys.id} trip={trip} />
-            ))}
+            <AnimatePresence initial={false}>
+              {items.map((trip) => (
+                <m.div
+                  key={trip.sys.id}
+                  layout
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  className="overflow-hidden"
+                >
+                  <CartCard trip={trip} />
+                </m.div>
+              ))}
+            </AnimatePresence>
 
             <div className="flex items-center justify-between mt-2">
               <p className="font-medium text-[22px] leading-[33px] text-[#6c707a] dark:text-[#8C909B]">

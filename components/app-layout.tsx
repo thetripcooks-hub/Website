@@ -14,6 +14,7 @@ import emailjs from "@emailjs/browser";
 import { useGeolocation } from "@/hooks/useGeolocation";
 import Script from "next/script";
 import Head from "next/head";
+import { MotionProvider } from "@/lib/motion";
 
 const publicKey = process.env.NEXT_PUBLIC_EMAIL_JS_KEY_PUBLIC_KEY || "";
 
@@ -80,8 +81,10 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
         >
           <ApolloWrapper>
             <GeneralData>
-              <Navbar />
-              {children}
+              <MotionProvider>
+                <Navbar />
+                {children}
+              </MotionProvider>
             </GeneralData>
           </ApolloWrapper>
         </ThemeProvider>

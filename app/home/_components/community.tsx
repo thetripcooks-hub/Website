@@ -13,6 +13,8 @@ import SectionWrapper from "./section-wrapper";
 import useGeneralStore from "@/stores/generalStore";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { m } from "motion/react";
+import { fadeUp, inViewport } from "@/lib/motion";
 
 const Community = () => {
   const { reviews, loadingReviews } = useGeneralStore();
@@ -44,14 +46,20 @@ const Community = () => {
     <section className="bg-[#f8f9fc] dark:bg-[#1E2826] px-5 py-10 sm:py-[79px] overflow-hidden">
       <SectionWrapper>
         {/* Header */}
-        <div className="flex items-start justify-between mb-10 sm:mb-[179px]">
+        <m.div
+          className="flex items-start justify-between mb-10 sm:mb-[179px]"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={inViewport}
+        >
           <h2 className="font-ogg-trial text-[28px] sm:text-[48px] text-neutral-text dark:text-white max-w-[521px] leading-tight">
             Why Our Community Loves TripCooks
           </h2>
           <Link href="/reviews" className="shrink-0 hidden sm:block">
             <Button>Read more</Button>
           </Link>
-        </div>
+        </m.div>
 
         {loadingReviews ? (
           <div className="h-[300px] flex items-center justify-center">
