@@ -17,6 +17,8 @@ import { queryGetLatestBlogPosts } from "@/queries/blog-query";
 import { BlogPostsResponse } from "@/types/blog";
 import { calcReadTime } from "@/lib/read-time";
 import dayjs from "@/lib/dayjs";
+import { m } from "motion/react";
+import { fadeUp, inViewport } from "@/lib/motion";
 
 const FALLBACK_IMAGE = "/img/public-trip.svg";
 
@@ -31,9 +33,15 @@ const BlogCallout = () => {
       <SectionWrapper>
         <Carousel opts={{ align: "start" }}>
           <div className="flex items-start justify-between sm:mb-6 sm:mb-12">
-            <h2 className="font-ogg-trial text-[24px] sm:text-[42px] text-neutral-text dark:text-white leading-tight">
+            <m.h2
+              className="font-ogg-trial text-[24px] sm:text-[42px] text-neutral-text dark:text-white leading-tight"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={inViewport}
+            >
               Travel Insights from our blog
-            </h2>
+            </m.h2>
             <div className="hidden sm:flex gap-2 items-center">
               <CarouselPrevious
                 className="relative left-0 top-0 translate-y-0 w-[48px] h-[48px] bg-[#EEE] border-none rounded-full hover:bg-[#DADADA] transition-colors"

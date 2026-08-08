@@ -19,6 +19,7 @@ import {
 import Image from "next/image";
 import Reviews from "@/app/home/_components/reviews";
 import MobileFloatingCard from "@/components/ui/mobile-floating-card";
+import { AnimatePresence } from "motion/react";
 import Link from "next/link";
 import CheckoutPaymentType from "./_components/checkout-payment-type";
 import PoweredByStripe from "@/components/ui/powered-by-stripe";
@@ -185,28 +186,30 @@ const Page = () => {
             </Card>
           </SectionWrapper>
         </div>
-        {inView ? (
-          <MobileFloatingCard>
-            <div className="w-full flex flex-col justify-between gap-2">
-              <h6 className="text-neutral-subtext text-[14px] leading-[17px] font-alexandria font-normal">
-                Total Price{" "}
-              </h6>
-              <h3 className="text-[#000000] font-semibold text-2xl leading-[29.26px]">
-                {formatConvertedAmount(getTotalPrice(trips, selectedCurrency, rates), selectedCurrency)}
-              </h3>
-            </div>
-            <div className="flex gap-2">
-              <Button className="w-full h-[48px]">Checkout</Button>
-              <Button
-                className="w-full h-[48px]"
-                variant="outline"
-                onClick={() => router.push("/cart")}
-              >
-                Go to Cart
-              </Button>
-            </div>
-          </MobileFloatingCard>
-        ) : null}
+        <AnimatePresence>
+          {inView ? (
+            <MobileFloatingCard>
+              <div className="w-full flex flex-col justify-between gap-2">
+                <h6 className="text-neutral-subtext text-[14px] leading-[17px] font-alexandria font-normal">
+                  Total Price{" "}
+                </h6>
+                <h3 className="text-[#000000] font-semibold text-2xl leading-[29.26px]">
+                  {formatConvertedAmount(getTotalPrice(trips, selectedCurrency, rates), selectedCurrency)}
+                </h3>
+              </div>
+              <div className="flex gap-2">
+                <Button className="w-full h-[48px]">Checkout</Button>
+                <Button
+                  className="w-full h-[48px]"
+                  variant="outline"
+                  onClick={() => router.push("/cart")}
+                >
+                  Go to Cart
+                </Button>
+              </div>
+            </MobileFloatingCard>
+          ) : null}
+        </AnimatePresence>
       </div>
       <Reviews />
       <SubcribeToNewsLetter />

@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useQuery } from "@apollo/client";
 import { queryGetFeaturedCommunityStories } from "@/queries/community-query";
+import { m } from "motion/react";
+import { fadeUp, staggerContainer } from "@/lib/motion";
 
 const FALLBACK_IMAGE = "/img/hero-desktop.png";
 
@@ -67,21 +69,39 @@ const CommunityHero = () => {
       </svg>
 
       {/* Headline + subtext */}
-      <div className="relative z-10 flex flex-col items-center gap-4 text-center mt-10 sm:mt-16 px-5">
-        <h1 className="font-ogg-trial text-[40px] max-sm:text-[28px] sm:text-[64px] leading-[1.5] text-neutral-text dark:text-foreground">
+      <m.div
+        className="relative z-10 flex flex-col items-center gap-4 text-center mt-10 sm:mt-16 px-5"
+        variants={staggerContainer}
+        initial="hidden"
+        animate="show"
+      >
+        <m.h1
+          variants={fadeUp}
+          className="font-ogg-trial text-[40px] max-sm:text-[28px] sm:text-[64px] leading-[1.5] text-neutral-text dark:text-foreground"
+        >
           Stories from our Trippers
-        </h1>
-        <p className="text-[16px] sm:text-[20px] font-normal leading-[1.5] text-neutral-text dark:text-foreground max-w-[396px] font-plus-jakarta-sans">
+        </m.h1>
+        <m.p
+          variants={fadeUp}
+          className="text-[16px] sm:text-[20px] font-normal leading-[1.5] text-neutral-text dark:text-foreground max-w-[396px] font-plus-jakarta-sans"
+        >
           Hear from our 100+ community growing and exploring the world with us
-        </p>
-      </div>
+        </m.p>
+      </m.div>
 
       {/* Featured community member cards */}
-      <div className="relative z-10 flex gap-[20px] sm:gap-[27px] items-end mt-auto px-5 sm:px-0 pb-[45px] sm:pb-[90px] overflow-x-auto scrollbar-none w-full sm:w-auto sm:justify-center">
+      <m.div
+        className="relative z-10 flex gap-[20px] sm:gap-[27px] items-end mt-auto px-5 sm:px-0 pb-[45px] sm:pb-[90px] overflow-x-auto scrollbar-none w-full sm:w-auto sm:justify-center"
+        variants={staggerContainer}
+        initial="hidden"
+        animate="show"
+      >
         {members.map((member) => (
-          <MemberCard key={member.sys.id} member={member} />
+          <m.div key={member.sys.id} variants={fadeUp}>
+            <MemberCard member={member} />
+          </m.div>
         ))}
-      </div>
+      </m.div>
     </div>
   );
 };

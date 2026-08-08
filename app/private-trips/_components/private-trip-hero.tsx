@@ -1,8 +1,11 @@
+"use client";
 import SectionWrapper from "@/app/home/_components/section-wrapper";
 import React from "react";
 import PrivateTripForm from "./private-trip-form";
 import { arial } from "@/app/font";
 import { cn } from "@/lib/utils";
+import { m } from "motion/react";
+import { fadeUp, inViewport } from "@/lib/motion";
 
 const PrivateTripHero = () => {
   return (
@@ -28,7 +31,13 @@ const PrivateTripHero = () => {
       </div>
       <div className="px-5 py-10 sm:py-20 sm:px-[8%]">
         <SectionWrapper className="flex flex-col lg:flex-row justify-between gap-5">
-          <div className="lg:max-w-[550px] w-full text-neutral-subtext sm:text-secondary-forest-green">
+          <m.div
+            className="lg:max-w-[550px] w-full text-neutral-subtext sm:text-secondary-forest-green"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={inViewport}
+          >
             <h4 className="font-medium text-[24px] leading-[29.26px] text-neutral-text sm:text-[32px] sm:leading-[39.01px] dark:text-foreground">
               Needing a Private Getaway?
             </h4>
@@ -39,7 +48,7 @@ const PrivateTripHero = () => {
                 to you shortly.
               </p>
             </div>
-          </div>
+          </m.div>
           {/* private trip from */}
           <PrivateTripForm />
         </SectionWrapper>

@@ -10,6 +10,8 @@ import SectionWrapper from "./section-wrapper";
 import Link from "next/link";
 import useGeneralStore from "@/stores/generalStore";
 import { formatAmount } from "@/lib/utils";
+import { m } from "motion/react";
+import { fadeUp, inViewport } from "@/lib/motion";
 
 const Faq = () => {
   const { selectedCurrency, rates } = useGeneralStore();
@@ -99,7 +101,13 @@ const Faq = () => {
   return (
     <section className="px-5 py-10 sm:py-[64px] sm:px-[109px]">
       <SectionWrapper className="flex flex-col sm:flex-row gap-5 xl:gap-[109px] w-full justify-between">
-        <div className="sm:w-[445px] shrink-0">
+        <m.div
+          className="sm:w-[445px] shrink-0"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={inViewport}
+        >
           <h2 className="font-ogg-trial text-[24px] sm:text-[48px] leading-tight text-neutral-text dark:text-foreground">
             FAQs
           </h2>
@@ -113,7 +121,7 @@ const Faq = () => {
               hello@tripcooks.tours
             </a>
           </p>
-        </div>
+        </m.div>
 
         <div className="w-full">
           <Accordion

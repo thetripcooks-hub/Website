@@ -1,6 +1,9 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import SectionWrapper from "./section-wrapper";
+import { m } from "motion/react";
+import { fadeUp, staggerContainer, inViewport } from "@/lib/motion";
 
 const items = [
   {
@@ -57,13 +60,26 @@ const WhyChooseUs = () => {
   return (
     <section className="px-5 py-10 sm:py-20 sm:pb-28 sm:px-[8%] bg-background dark:bg-[#1D2120]">
       <SectionWrapper>
-        <h2 className="font-ogg-trial text-[26px] sm:text-[42px] text-center max-w-[446px] mx-auto mb-8 sm:mb-20 leading-tight sm:leading-[60px]">
+        <m.h2
+          className="font-ogg-trial text-[26px] sm:text-[42px] text-center max-w-[446px] mx-auto mb-8 sm:mb-20 leading-tight sm:leading-[60px]"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={inViewport}
+        >
           Why choose us to curate your travel?
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-16 w-full">
+        </m.h2>
+        <m.div
+          className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-16 w-full"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={inViewport}
+        >
           {items.map((item) => (
-            <div
+            <m.div
               key={item.title}
+              variants={fadeUp}
               className="flex flex-col items-center gap-6 sm:gap-[42px] text-center"
             >
               {/* Icon — fixed 78px height so all items align on the same baseline */}
@@ -95,9 +111,9 @@ const WhyChooseUs = () => {
                   {item.description}
                 </p>
               </div>
-            </div>
+            </m.div>
           ))}
-        </div>
+        </m.div>
       </SectionWrapper>
     </section>
   );

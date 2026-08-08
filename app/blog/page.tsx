@@ -9,6 +9,9 @@ import BlogCardSmall from "./_components/blog-card-small";
 import { CATEGORY_MAP, CATEGORY_LABEL, BlogCategory } from "./_components/blog-data";
 import { queryGetAllBlogPosts } from "@/queries/blog-query";
 import { BlogPostsResponse, CmsBlogPost } from "@/types/blog";
+import { RevealGrid } from "@/components/motion/reveal-grid";
+import { m } from "motion/react";
+import { fadeUp, inViewport } from "@/lib/motion";
 
 const BIG_CARD_CATEGORIES: BlogCategory[] = [
   "travel-updates",
@@ -133,11 +136,12 @@ function AllView({
 
   if (searchValue) {
     return (
-      <div className="grid grid-cols-3 max-sm:grid-cols-1 gap-5">
-        {filteredPosts.map((post) => (
-          <BlogCardBig key={post.sys.id} post={post} />
-        ))}
-      </div>
+      <RevealGrid
+        className="grid grid-cols-3 max-sm:grid-cols-1 gap-5"
+        items={filteredPosts}
+        keyFn={(post) => post.sys.id}
+        renderItem={(post) => <BlogCardBig post={post} />}
+      />
     );
   }
 
@@ -145,7 +149,13 @@ function AllView({
     <div className="flex flex-col gap-[42px]">
       {/* Featured articles */}
       {featuredPost && (
-        <div className="flex flex-col gap-5">
+        <m.div
+          className="flex flex-col gap-5"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={inViewport}
+        >
           <h2 className="font-ogg-trial text-[36px] sm:text-[42px] max-sm:text-[28px] leading-[60px] max-sm:leading-[40px] text-[color:var(--text-primary)]">
             Featured Articles
           </h2>
@@ -157,7 +167,7 @@ function AllView({
               ))}
             </div>
           </div>
-        </div>
+        </m.div>
       )}
 
       {/* Big-card categories */}
@@ -170,11 +180,12 @@ function AllView({
             <h2 className="font-ogg-trial text-[36px] sm:text-[42px] max-sm:text-[28px] leading-[60px] max-sm:leading-[40px] text-[color:var(--text-primary)]">
               {CATEGORY_LABEL[cat]}
             </h2>
-            <div className="grid grid-cols-3 max-sm:grid-cols-1 gap-5">
-              {catPosts.map((post) => (
-                <BlogCardBig key={post.sys.id} post={post} />
-              ))}
-            </div>
+            <RevealGrid
+              className="grid grid-cols-3 max-sm:grid-cols-1 gap-5"
+              items={catPosts}
+              keyFn={(post) => post.sys.id}
+              renderItem={(post) => <BlogCardBig post={post} />}
+            />
           </div>
         );
       })}
@@ -189,11 +200,12 @@ function AllView({
             <h2 className="font-ogg-trial text-[36px] sm:text-[42px] max-sm:text-[28px] leading-[60px] max-sm:leading-[40px] text-[color:var(--text-primary)]">
               {CATEGORY_LABEL[cat]}
             </h2>
-            <div className="grid grid-cols-2 max-sm:grid-cols-1 gap-5">
-              {catPosts.map((post) => (
-                <BlogCardSmall key={post.sys.id} post={post} />
-              ))}
-            </div>
+            <RevealGrid
+              className="grid grid-cols-2 max-sm:grid-cols-1 gap-5"
+              items={catPosts}
+              keyFn={(post) => post.sys.id}
+              renderItem={(post) => <BlogCardSmall post={post} />}
+            />
           </div>
         );
       })}
@@ -238,17 +250,19 @@ function CategoryView({
         ) : (
           <>
             {slug && SMALL_CARD_CATEGORIES.includes(slug) ? (
-              <div className="grid grid-cols-2 max-sm:grid-cols-1 gap-5">
-                {visible.map((post) => (
-                  <BlogCardSmall key={post.sys.id} post={post} />
-                ))}
-              </div>
+              <RevealGrid
+                className="grid grid-cols-2 max-sm:grid-cols-1 gap-5"
+                items={visible}
+                keyFn={(post) => post.sys.id}
+                renderItem={(post) => <BlogCardSmall post={post} />}
+              />
             ) : (
-              <div className="grid grid-cols-3 max-sm:grid-cols-1 gap-5">
-                {visible.map((post) => (
-                  <BlogCardBig key={post.sys.id} post={post} />
-                ))}
-              </div>
+              <RevealGrid
+                className="grid grid-cols-3 max-sm:grid-cols-1 gap-5"
+                items={visible}
+                keyFn={(post) => post.sys.id}
+                renderItem={(post) => <BlogCardBig post={post} />}
+              />
             )}
 
             {filteredPosts.length > PAGE_SIZE && !showMore && (
@@ -282,11 +296,12 @@ function CategoryView({
             <h3 className="font-ogg-trial text-[32px] max-sm:text-[22px] leading-[48px] text-[color:var(--text-primary)]">
               Travel updates
             </h3>
-            <div className="grid grid-cols-3 max-sm:grid-cols-1 gap-5">
-              {crossCategoryTravel.map((post) => (
-                <BlogCardBig key={post.sys.id} post={post} />
-              ))}
-            </div>
+            <RevealGrid
+              className="grid grid-cols-3 max-sm:grid-cols-1 gap-5"
+              items={crossCategoryTravel}
+              keyFn={(post) => post.sys.id}
+              renderItem={(post) => <BlogCardBig post={post} />}
+            />
           </div>
         )}
 
@@ -295,11 +310,12 @@ function CategoryView({
             <h3 className="font-ogg-trial text-[32px] max-sm:text-[22px] leading-[48px] text-[color:var(--text-primary)]">
               Company updates
             </h3>
-            <div className="grid grid-cols-3 max-sm:grid-cols-1 gap-5">
-              {crossCategoryCompany.map((post) => (
-                <BlogCardBig key={post.sys.id} post={post} />
-              ))}
-            </div>
+            <RevealGrid
+              className="grid grid-cols-3 max-sm:grid-cols-1 gap-5"
+              items={crossCategoryCompany}
+              keyFn={(post) => post.sys.id}
+              renderItem={(post) => <BlogCardBig post={post} />}
+            />
           </div>
         )}
       </div>

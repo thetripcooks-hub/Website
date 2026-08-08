@@ -11,6 +11,8 @@ import CartIconSvg from "~/img/cart-icon.svg";
 import useGeneralStore from "@/stores/generalStore";
 import useCartStore from "@/stores/cartStore";
 import SectionWrapper from "./section-wrapper";
+import { m } from "motion/react";
+import { fadeUp, inViewport } from "@/lib/motion";
 
 const DEFAULT_CHECKLIST = [
   { title: "Flights included" },
@@ -40,9 +42,15 @@ const FeatureTrip = () => {
   return (
     <section className="px-5 py-10 sm:py-[62px] sm:px-[109px]">
       <SectionWrapper>
-        <h2 className="font-ogg-trial text-[26px] sm:text-[48px] leading-tight mb-8 sm:mb-12">
+        <m.h2
+          className="font-ogg-trial text-[26px] sm:text-[48px] leading-tight mb-8 sm:mb-12"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={inViewport}
+        >
           Featured Trip
-        </h2>
+        </m.h2>
 
         {/* Desktop: side by side | Mobile: stacked */}
         <div className="flex flex-col sm:flex-row gap-6 items-stretch">

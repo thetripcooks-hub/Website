@@ -15,6 +15,8 @@ import Image from "next/image";
 import SectionWrapper from "./section-wrapper";
 import useGeneralStore from "@/stores/generalStore";
 import { TripExperienceType } from "@/types/trip-experience";
+import { m } from "motion/react";
+import { fadeUp, inViewport } from "@/lib/motion";
 const rows = [GroupTrip, PrivateTrip, TravelPlanning, TravelPlanning];
 
 const CarouselWrapper = ({ children }: { children: ReactNode }) => (
@@ -64,9 +66,15 @@ const TheTripCooksExperience = ({
 
   return rows.length > 0 ? (
     <section>
-      <h2 className="font-ogg-trial text-[28px] sm:text-[44px] px-5 pt-0 sm:pt-10 sm:px-[8%] leading-tight text-neutral-text dark:text-foreground">
+      <m.h2
+        className="font-ogg-trial text-[28px] sm:text-[44px] px-5 pt-0 sm:pt-10 sm:px-[8%] leading-tight text-neutral-text dark:text-foreground"
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="show"
+        viewport={inViewport}
+      >
         The TripCooks Experience
-      </h2>
+      </m.h2>
       <div className="mt-5 sm:mt-10 flex flex-col gap-5">
         <CarouselWrapper>
           <CarouselContent className="-ml-12">

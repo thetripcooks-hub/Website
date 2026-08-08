@@ -18,6 +18,7 @@ import EmptyCart from "@/app/cart/_components/empty-cart";
 import usePastTrips from "@/hooks/trips/usePastTrips";
 import { cn, generateTripLink } from "@/lib/utils";
 import { Loader } from "lucide-react";
+import { RevealGrid } from "@/components/motion/reveal-grid";
 
 const PastDestination = () => {
   const {
@@ -53,17 +54,19 @@ const PastDestination = () => {
       ) : formattedTrips.length > 0 ? (
         <SectionWrapper>
           <SortByButton />
-          <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 gap-y-8 sm:gap-y-12">
-            {formattedTrips.map((item) => (
+          <RevealGrid
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 gap-y-8 sm:gap-y-12"
+            items={formattedTrips}
+            keyFn={(item) => item.sys.id}
+            renderItem={(item) => (
               <TripCard
-                key={item.sys.id}
                 item={item}
                 isPast
                 handleClick={() => router.push(generateTripLink(item))}
                 handleAddToCart={() => {}}
               />
-            ))}
-          </section>
+            )}
+          />
           <Pagination className="text-neutral-text mt-10">
             <PaginationContent className="flex items-center gap-1 sm:gap-2.5">
               <PaginationItem onClick={handlePreviousPage}>
