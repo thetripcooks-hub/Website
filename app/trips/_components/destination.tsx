@@ -1,5 +1,4 @@
 "use client";
-import { toast } from "sonner";
 import SectionWrapper from "@/app/home/_components/section-wrapper";
 import {
   Pagination,
@@ -16,11 +15,11 @@ import { useRouter } from "next/navigation";
 import SortByButton from "./sort-by";
 import useCartStore from "@/stores/cartStore";
 import { CartItem } from "@/types/cart";
-import { useIsMobile } from "@/hooks";
 import EmptyCart from "@/app/cart/_components/empty-cart";
 import usePaginatedTrips from "@/hooks/trips/usePaginatedTrips";
 import { cn, generateTripLink } from "@/lib/utils";
 import { Loader } from "lucide-react";
+import { RevealGrid } from "@/components/motion/reveal-grid";
 
 const Destination = () => {
   const {
@@ -34,16 +33,12 @@ const Destination = () => {
     getPaginationNumbers,
   } = usePaginatedTrips();
 
-  const isMobile = useIsMobile(640);
   const router = useRouter();
-  const { addToCart, setShowCart, showCart } = useCartStore();
+  const { addToCart, setLastAddedItem } = useCartStore();
 
   const handleAddToCart = (item: CartItem) => {
-    if (!showCart && !isMobile) {
-      setShowCart(true);
-    }
-    toast.success("Added to cart");
     addToCart(item);
+    setLastAddedItem(item);
   };
 
   const [formatttedTrips, setFormattedValue] = useState<CartItem[]>([]);
@@ -58,7 +53,7 @@ const Destination = () => {
   }, [paginatedTrips]);
 
   return (
-    <div className="px-5 py-10 sm:py-20 text-white sm:px-[8%]">
+    <div className="px-4 py-9 sm:px-[109px]">
       {loading ? (
         <div className="w-full h-[20vh] flex text-foreground justify-center  items-center">
           <Loader className="w-5 h-5 text-secondary-irish-green animate-spin" />
@@ -66,16 +61,18 @@ const Destination = () => {
       ) : formatttedTrips.length > 0 ? (
         <SectionWrapper>
           <SortByButton />
-          <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 gap-y-8 sm:gap-y-12">
-            {formatttedTrips.map((item) => (
+          <RevealGrid
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 gap-y-8 sm:gap-y-12"
+            items={formatttedTrips}
+            keyFn={(item) => item.sys.id}
+            renderItem={(item) => (
               <TripCard
-                key={item.sys.id}
                 item={item}
                 handleClick={() => router.push(generateTripLink(item))}
                 handleAddToCart={() => handleAddToCart(item)}
               />
-            ))}
-          </section>
+            )}
+          />
           <Pagination className="text-neutral-text mt-10">
             <PaginationContent className="flex items-center gap-1 sm:gap-2.5">
               <PaginationItem onClick={handlePreviousPage}>

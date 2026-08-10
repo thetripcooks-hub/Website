@@ -10,17 +10,22 @@ import SectionWrapper from "./section-wrapper";
 import Link from "next/link";
 import useGeneralStore from "@/stores/generalStore";
 import { formatAmount } from "@/lib/utils";
-
-
+import { m } from "motion/react";
+import { fadeUp, inViewport } from "@/lib/motion";
 
 const Faq = () => {
-  const selectedCurrency = useGeneralStore.getState().selectedCurrency;
+  const { selectedCurrency, rates } = useGeneralStore();
   const faq = useMemo(
     () => [
       {
         question: "What is included in the package details?",
-        answer:
-          "A typical package includes a planned itinerary, accommodation, activities, and occasionally breakfast or other meals. It varies depending on the destination country. We recommend you review the details for each package on our website to know what is covered and what might incur additional costs.",
+        answer: (
+          <>
+            <p>A typical package includes a planned itinerary, accommodation, ground transportation, activities, and sometimes breakfast or other meals.</p>
+            <br />
+            <p>Check your trip page for the full list of inclusions.</p>
+          </>
+        ),
       },
       {
         question: "Can I customize the travel package to meet my preferences?",
@@ -29,22 +34,22 @@ const Faq = () => {
       },
       {
         question: "How much does a trip cost?",
-        answer:
-          `The cost of a trip with us generally ranges from ${formatAmount(500, selectedCurrency)} to ${formatAmount(1000, selectedCurrency)}, depending on the destination and the activities included. To get a more detailed breakdown, please visit our trips page, where you will find the specific prices for each destination.`,
+        answer: `Trips typically range from ${formatAmount(670, selectedCurrency, "USD")} to ${formatAmount(1340, selectedCurrency, "USD")}, depending on the destination. For the exact price and a detailed cost breakdown, visit the specific trip page.`,
       },
       {
-        question: "Can I pay in instalments?",
+        question: "Can I pay in installments?",
         answer:
-          `Absolutely! We offer flexible payment plans for our trips. However, to reserve your spot, a deposit of ${formatAmount(300, selectedCurrency)} is required.`,
+          "Absolutely! We offer flexible payment plans to make travel more accessible for all. Simply pay the required deposit to secure your spot, then pay the remaining balance in installments.",
       },
       {
         question: "What is your refund policy?",
         answer: (
           <>
-            Kindly refer to the Terms and Conditions page under our{" "}
+            Please refer to our{" "}
             <Link href="/legal" className="text-secondary-irish-green">
-              Travel Policy
-            </Link>
+              Travel Policy & Terms and Conditions
+            </Link>{" "}
+            for full refund details.
           </>
         ),
       },
@@ -52,27 +57,19 @@ const Faq = () => {
         question: "What happens if I can't make the trip after payment?",
         answer: (
           <>
-            Kindly refer to the Terms and Conditions page under our{" "}
+            Please refer to our{" "}
             <Link href="/legal" className="text-secondary-irish-green">
-              Travel Policy
-            </Link>
+              Travel Policy & Terms and Conditions
+            </Link>{" "}
+            for cancellation and payment terms.
           </>
         ),
       },
-      // {
-      //   question: "When will I receive my flight information?",
-      //   answer:
-      //     "You will receive your flight information when you book your slot, and it will be included as part of your travel itinerary. If you need it earlier, you can request the information before booking your slot.",
-      // },
-      // {
-      //   question: "What are the luggage restrictions?",
-      //   answer:
-      //     "Our trips are generally designed with backpack-style travel in mind, but you can add extra luggage bags for an additional fee paid to the airline.",
-      // },
       {
-        question: "Is there a group chat or webinar for participants to connect?",
+        question:
+          "Is there a group chat or webinar for participants to connect?",
         answer:
-          "Yes! All trippers are added to the Trip Cooks WhatsApp group after the deadline for securing a slot. We also host an e-Meet & Greet before the trip for every one to get familiar with each other.",
+          "Yes! You'll be added to a WhatsApp group before the trip, and we'll host a virtual Meet & Greet so everyone can connect.",
       },
       {
         question: "Can I choose to have a room to myself?",
@@ -80,43 +77,69 @@ const Faq = () => {
           "Yes, you can choose your sleeping arrangements. However, this comes with an additional cost.",
       },
       {
-        question: "Group trip doesn’t align with my schedule.",
+        question: "What if the group trip doesn't align with my schedule?",
         answer:
-          "If a group trip doesn’t fit your schedule, Trip Cooks can arrange private trips for groups of four or more, customized to your preferred destinations and dates.",
+          "If a group trip doesn't fit your schedule, Trip Cooks can arrange private trips for groups of four or more, customized to your preferred destinations and dates.",
       },
       {
-        question: "What activities are included in the package?",
+        question: "What should I pack?",
         answer:
-          "Our travel packages embrace a mix of travel and vacation experiences. Included activities often feature cruises, landmark sightseeing, adrenaline-pumping adventures, and dining experiences. Rest assured, there is something for everyone to enjoy.",
+          "We'll send you a detailed itinerary before your trip, including activities and any outfit recommendations where needed. This will help you plan your packing.",
       },
-    ], [selectedCurrency]);
+      {
+        question: "Will I fit in if I don't know anyone on the trip?",
+        answer:
+          "Absolutely! Many of our trippers join solo and our group trips make it easy to connect and make new friends.",
+      },
+    ],
+    // rates isn't referenced directly, but formatAmount reads it from the store
+    // internally — without it here, prices stay stuck at default rates until
+    // selectedCurrency also changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selectedCurrency, rates],
+  );
   return (
-    <section className="px-5 py-10 sm:py-20 sm:px-[8%]">
-      <SectionWrapper className="flex flex-col sm:flex-row gap-5 xl:gap-32 w-full justify-between">
-        <div>
-          <h3 className="text-[32px] font-medium sm:text-5xl">FAQs</h3>
-          <p className="w-full sm:max-w-[582px] text-neutral-subtext mt-5 dark:text-[#BFC0C2]">
-            Everything you need to know about traveling with Trip Cooks. Can’t
-            find what you’re looking for? Contact us using our{" "}
-            <Link href="/contact" className="text-secondary-irish-green">
-              form.
-            </Link>
+    <section className="px-5 py-10 sm:py-[64px] sm:px-[109px]">
+      <SectionWrapper className="flex flex-col sm:flex-row gap-5 xl:gap-[109px] w-full justify-between">
+        <m.div
+          className="sm:w-[445px] shrink-0"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={inViewport}
+        >
+          <h2 className="font-ogg-trial text-[24px] sm:text-[48px] leading-tight text-neutral-text dark:text-foreground">
+            FAQs
+          </h2>
+          <p className="w-full sm:max-w-[451px] text-neutral-subtext mt-5 dark:text-[#BFC0C2] text-[13px] leading-[20px] sm:text-[16px] sm:leading-[24px]">
+            Everything you need to know about TripCooks and pricing. Can&apos;t
+            find what you&apos;re looking for? Please contact{" "}
+            <a
+              href="mailto:hello@tripcooks.tours"
+              className="text-secondary-irish-green"
+            >
+              hello@tripcooks.tours
+            </a>
           </p>
-        </div>
+        </m.div>
 
         <div className="w-full">
           <Accordion
             type="single"
             defaultValue={faq[0].question}
             collapsible
-            className="w-full"
+            className="w-full flex flex-col gap-6"
           >
             {faq.map((item) => (
-              <AccordionItem value={item.question} key={item.question}>
-                <AccordionTrigger className="text-left text-neutral-text text-lg sm:text-lg dark:text-foreground">
+              <AccordionItem
+                value={item.question}
+                key={item.question}
+                className="border-0 rounded-[10px] p-4 transition-colors data-[state=closed]:bg-[hsl(var(--bg-primary))] data-[state=open]:bg-[hsl(var(--bg-secondary))] data-[state=closed]:hover:bg-[hsl(var(--bg-secondary))]"
+              >
+                <AccordionTrigger className="text-left text-[hsl(var(--text-primary))] text-[15px] sm:text-[16px] leading-[20px] sm:leading-[22px] font-semibold py-0">
                   {item.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-neutral-subtext text-base dark:text-[#BFC0C2] text-start sm:text-justify">
+                <AccordionContent className="text-[hsl(var(--text-secondary))] text-[13px] leading-[20px] sm:text-[14px] sm:leading-[20px] pt-[10px] pb-0">
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>

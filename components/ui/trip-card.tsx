@@ -1,106 +1,123 @@
 "use client";
 import ComingSoonBadge from "@/app/home/_components/coming-soon-badge";
-import { formatAmount, formatTripDate, percentage } from "@/lib/utils";
+import TripTags from "@/components/ui/trip-tags";
+import { cn, formatAmount, formatTripDate, percentage } from "@/lib/utils";
 import useGeneralStore from "@/stores/generalStore";
 import { CartItem } from "@/types/cart";
-import { TripType } from "@/types/trip";
 import Image from "next/image";
+import CartIconSvg from "~/img/cart-icon.svg";
 import React from "react";
-import img from "~/img/private-trip.svg";
-import CartIcon from "~/img/shopping-cart.svg";
+import { Button } from "@/components/ui/button";
 
-const TripCard = ({ handleClick, handleAddToCart, item }: { handleClick: () => void; handleAddToCart: () => void; item: CartItem }) => {
+const TripCard = ({
+  handleClick,
+  handleAddToCart,
+  item,
+  isPast,
+}: {
+  handleClick: () => void;
+  handleAddToCart?: () => void;
+  item: CartItem;
+  isPast?: boolean;
+}) => {
   const { selectedCurrency } = useGeneralStore();
+
+  const price = item.discount
+    ? formatAmount(
+        item.fullAmount - percentage(item.discount, item.fullAmount),
+        selectedCurrency,
+        item.currency
+      )
+    : formatAmount(item.fullAmount, selectedCurrency, item.currency);
+
+  const originalPrice = item.discount
+    ? formatAmount(item.fullAmount, selectedCurrency, item.currency)
+    : null;
+
   return (
-    <div>
-      <div className="text-foreground cursor-pointer hidden sm:flex sm:flex-col">
-        <div className="relative rounded-[18px] w-full sm:w-[291px] lg:w-full h-[301px] overflow-hidden" onClick={handleClick}>
-          {item.soldOut ? (
+    <div className="bg-background dark:bg-[#121716] border border-neutral-grey-200 dark:border-[#585E6A] rounded-[12px] p-4 flex flex-col gap-6 relative cursor-pointer">
+      {/* Image */}
+      <div
+        className="relative h-[301px] w-full rounded-[12px] overflow-hidden"
+        onClick={handleClick}
+      >
+        {!isPast && (
+          item.soldOut ? (
             <div className="absolute right-3 top-3 z-10">
               <ComingSoonBadge text="Sold Out" />
             </div>
           ) : (
-            <div
-              className="bg-[#020E0B4D] rounded-full w-8 h-8 flex items-center justify-center absolute right-3 top-3 z-10"
-              onClick={(e) => { e.stopPropagation(); if (!item.soldOut) handleAddToCart(); }}
+            <button
+              className="absolute right-3 top-3 z-10"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleAddToCart?.();
+              }}
+              aria-label="Add to cart"
             >
-              <Image src={CartIcon} width={18} height={18} alt="cart-icon" />
+              <Image src={CartIconSvg} alt="add to cart" width={32} height={32} />
+            </button>
+          )
+        )}
+        <Image
+          src={item.bannerImagesCollection.items[0].url}
+          alt={item.location}
+          priority
+          fill
+          className="object-cover rounded-[12px]"
+        />
+        {/* Host / status / tags badge */}
+        <div className="absolute top-3 left-3 z-10">
+          {!isPast && item.tags?.length ? (
+            <TripTags tags={item.tags} />
+          ) : (
+            <div className="bg-white rounded-full px-3 py-1 flex items-center border border-[#eee]">
+              <span className="text-xs font-medium text-neutral-text">
+                {isPast ? "Sold out" : "Trip Cooks"}
+              </span>
             </div>
           )}
-          <Image
-            src={item.bannerImagesCollection.items[0].url}
-            alt="img"
-            priority
-            fill
-            className="object-cover rounded-[18px]"
-          />
-        </div>
-        <div className="flex flex-col gap-1 mt-2.5">
-          <h5 className="text-lg">{item.location}</h5>
-          <p className="text-sm text-neutral-grey-500">
-            {formatTripDate(item)}
-          </p>
-          <div className="flex gap-1 items-center">
-            {item.discount && (
-              <h3 className="font-medium text-xl text-neutral-grey-500 line-through">
-                {formatAmount(item.fullAmount, selectedCurrency)}
-              </h3>
-            )}
-            <h3 className="font-medium text-xl">
-              {item.discount
-                ? formatAmount(
-                    item.fullAmount - percentage(item.discount, item.fullAmount),
-                    selectedCurrency
-                  )
-                : formatAmount(item.fullAmount, selectedCurrency)}
-            </h3>
-          </div>
         </div>
       </div>
 
-      <div className="text-foreground cursor-pointer sm:hidden">
-        <div className="relative rounded-[18px] w-full sm:w-[291px] lg:w-full h-[301px] overflow-hidden" onClick={handleClick}>
-          {item.soldOut ? (
-            <div className="absolute right-3 top-3 z-10">
-              <ComingSoonBadge text="Sold Out" />
-            </div>
-          ) : (
-            <div
-              className="bg-[#020E0B4D] rounded-full w-8 h-8 flex items-center justify-center absolute right-3 top-3 z-10"
-              onClick={(e) => { e.stopPropagation(); if (!item.soldOut) handleAddToCart(); }}
-            >
-              <Image src={CartIcon} width={18} height={18} alt="cart-icon" />
-            </div>
-          )}
-          <Image
-            src={item.bannerImagesCollection.items[0].url}
-            alt="img"
-            fill
-            className="object-cover rounded-[18px]"
-          />
+      {/* Details */}
+      <div
+        onClick={handleClick}
+        className={cn(
+          "flex flex-col items-start justify-between font-plus-jakarta-sans",
+          isPast ? "gap-8" : "gap-4"
+        )}
+      >
+        <div className="flex flex-col gap-1 min-w-0">
+          <h5 className="text-[18px] sm:text-[24px] font-medium text-neutral-text dark:text-white leading-[24px] sm:leading-[36px] truncate">
+            {item.location}
+          </h5>
+          <p className="text-[13px] sm:text-base text-neutral-subtext dark:text-[#BFC0C2]">{formatTripDate(item)}</p>
         </div>
-        <div className="flex flex-col gap-1 mt-2.5">
-          <h5 className="text-lg">{item.location}</h5>
-          <p className="text-sm text-neutral-grey-500">
-            {formatTripDate(item)}
-          </p>
-          <div className="flex gap-1 items-center">
-            {item.discount && (
-              <h3 className="font-medium text-xl text-neutral-grey-500 line-through">
-                {formatAmount(item.fullAmount, selectedCurrency)}
-              </h3>
-            )}
-            <h3 className="font-medium text-xl">
-              {item.discount
-                ? formatAmount(
-                    item.fullAmount - percentage(item.discount, item.fullAmount),
-                    selectedCurrency
-                  )
-                : formatAmount(item.fullAmount, selectedCurrency)}
-            </h3>
+        {!isPast && (
+          <div className="shrink-0">
+            <div className="flex items-baseline gap-2">
+              <p className="font-ogg-trial text-[20px] sm:text-[28px] text-neutral-text leading-tight dark:text-white">
+                {price}
+              </p>
+              {originalPrice && (
+                <p className="text-[13px] sm:text-base text-neutral-subtext line-through dark:text-[#BFC0C2]">{originalPrice}</p>
+              )}
+            </div>
+            <p className="text-xs sm:text-sm text-neutral-subtext dark:text-[#BFC0C2]">Per person</p>
           </div>
-        </div>
+        )}
       </div>
+
+      {/* CTA */}
+      <Button
+        variant="green-outline"
+        className="w-full"
+        onClick={handleClick}
+        disabled={!isPast && item.soldOut}
+      >
+        {!isPast && item.soldOut ? "Sold Out" : "View more"}
+      </Button>
     </div>
   );
 };

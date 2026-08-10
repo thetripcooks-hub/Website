@@ -1,11 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import { Toaster } from "@/components/ui";
-import { alexandria } from "@/app/font";
+import { alexandria, plusJakartaSans, oggTrial } from "@/app/font";
 import { cn, fetchExchangeRates } from "@/lib/utils";
 import React, { useEffect } from "react";
 import { ThemeProvider } from "./theme-provider";
 import Navbar from "./ui/navbar";
+import CartToastBanner from "./ui/cart-toast-banner";
 import useGeneralStore from "@/stores/generalStore";
 import { ApolloWrapper } from "./apollo-provider";
 import GeneralData from "./general-data";
@@ -13,17 +14,16 @@ import emailjs from "@emailjs/browser";
 import { useGeolocation } from "@/hooks/useGeolocation";
 import Script from "next/script";
 import Head from "next/head";
+import { MotionProvider } from "@/lib/motion";
 
 const publicKey = process.env.NEXT_PUBLIC_EMAIL_JS_KEY_PUBLIC_KEY || "";
 
-emailjs.init({
-  publicKey: publicKey,
-});
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const { getCurrentPosition } = useGeolocation();
   const { showNav, setRates, setLoadingRates } = useGeneralStore();
 
   useEffect(() => {
+    emailjs.init({ publicKey });
     getCurrentPosition();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -41,8 +41,10 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
       lang="en"
       suppressHydrationWarning
       className={cn(
-        "m-0 w-full overflow-x-hidden-hidden text-justify",
+        "m-0 w-full overflow-x-hidden",
+        plusJakartaSans.variable,
         alexandria.className,
+        oggTrial.variable,
         showNav && "mt-[75px] sm:mt-[95px]",
       )}
     >
@@ -73,17 +75,20 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
       <body>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
           <ApolloWrapper>
             <GeneralData>
-              <Navbar />
-              {children}
+              <MotionProvider>
+                <Navbar />
+                {children}
+              </MotionProvider>
             </GeneralData>
           </ApolloWrapper>
         </ThemeProvider>
+        <CartToastBanner />
         <Toaster richColors position="top-right" />
         <noscript>
           <img

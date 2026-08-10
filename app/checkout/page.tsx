@@ -1,6 +1,6 @@
 "use client";
 import MobilePageHeader from "@/components/ui/mobile-page-header";
-import { cn, formatTripDate, formatAmount } from "@/lib/utils";
+import { cn, formatTripDate, formatAmount, formatConvertedAmount } from "@/lib/utils";
 import useGeneralStore from "@/stores/generalStore";
 import SampleCartIcon from "~/sample-cart-image.svg";
 import Calendar from "../../components/icons/svg/calendar.svg";
@@ -19,6 +19,7 @@ import {
 import Image from "next/image";
 import Reviews from "@/app/home/_components/reviews";
 import MobileFloatingCard from "@/components/ui/mobile-floating-card";
+import { AnimatePresence } from "motion/react";
 import Link from "next/link";
 import CheckoutPaymentType from "./_components/checkout-payment-type";
 import PoweredByStripe from "@/components/ui/powered-by-stripe";
@@ -30,7 +31,7 @@ const Page = () => {
   const router = useRouter();
   const { items: trips, getTotalPrice } = useCartStore();
   const { ref, inView } = useInView();
-  const { selectedCurrency } = useGeneralStore();
+  const { selectedCurrency, rates } = useGeneralStore();
   useHideNavOnMobile();
 
   return (
@@ -63,7 +64,7 @@ const Page = () => {
                         {formatTripDate(trip as TripType)}
                       </p>
                       <p className="text-[20px] leading-[24.38px] font-medium">
-                        {formatAmount(trip.downPayment * trip.quantity, selectedCurrency)}
+                        {formatAmount(trip.downPayment * trip.quantity, selectedCurrency, trip.currency)}
                       </p>
                     </div>
                   </div>
@@ -136,7 +137,7 @@ const Page = () => {
                 Trip details
               </h4>
               {trips.map((trip) => (
-                <div className="w-full flex justify-between" key={trip.sys.id}>
+                <div className="w-full flex justify-between items-start" key={trip.sys.id}>
                   <div className="flex flex-col gap-1.5">
                     <h3 className="text-neutral-text text-[24px] leading-[29.26px] font-medium">
                       {trip.location}
@@ -145,16 +146,17 @@ const Page = () => {
                       {formatTripDate(trip as TripType)}
                     </p>
                     <p className="text-[20px] leading-[24.38px] font-medium">
-                      {formatAmount(trip.downPayment * trip.quantity, selectedCurrency)}
+                      {formatAmount(trip.downPayment * trip.quantity, selectedCurrency, trip.currency)}
                     </p>
                   </div>
-                  <Image
-                    src={SampleCartIcon}
-                    alt="selected-trip-image"
-                    width={99}
-                    height={99.07}
-                    className="object-cover rounded-[3.32px]"
-                  />
+                  <div className="relative shrink-0 rounded-[3.32px] overflow-hidden" style={{ width: "99px", height: "99px" }}>
+                    <Image
+                      src={trip.bannerImagesCollection?.items[0]?.url || SampleCartIcon}
+                      alt={trip.location}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
                 </div>
               ))}
               <Separator />
@@ -163,7 +165,7 @@ const Page = () => {
                   Total Price
                 </h6>
                 <h3 className="text-[#000000] font-semibold text-4xl leading-[43.88px]">
-                  {formatAmount(getTotalPrice(trips), selectedCurrency)}
+                  {formatConvertedAmount(getTotalPrice(trips, selectedCurrency, rates), selectedCurrency)}
                 </h3>
               </div>
               <div className="flex flex-col gap-2">
@@ -184,28 +186,30 @@ const Page = () => {
             </Card>
           </SectionWrapper>
         </div>
-        {inView ? (
-          <MobileFloatingCard>
-            <div className="w-full flex flex-col justify-between gap-2">
-              <h6 className="text-neutral-subtext text-[14px] leading-[17px] font-alexandria font-normal">
-                Total Price{" "}
-              </h6>
-              <h3 className="text-[#000000] font-semibold text-2xl leading-[29.26px]">
-                {formatAmount(getTotalPrice(trips), selectedCurrency)}
-              </h3>
-            </div>
-            <div className="flex gap-2">
-              <Button className="w-full h-[48px]">Checkout</Button>
-              <Button
-                className="w-full h-[48px]"
-                variant="outline"
-                onClick={() => router.push("/cart")}
-              >
-                Go to Cart
-              </Button>
-            </div>
-          </MobileFloatingCard>
-        ) : null}
+        <AnimatePresence>
+          {inView ? (
+            <MobileFloatingCard>
+              <div className="w-full flex flex-col justify-between gap-2">
+                <h6 className="text-neutral-subtext text-[14px] leading-[17px] font-alexandria font-normal">
+                  Total Price{" "}
+                </h6>
+                <h3 className="text-[#000000] font-semibold text-2xl leading-[29.26px]">
+                  {formatConvertedAmount(getTotalPrice(trips, selectedCurrency, rates), selectedCurrency)}
+                </h3>
+              </div>
+              <div className="flex gap-2">
+                <Button className="w-full h-[48px]">Checkout</Button>
+                <Button
+                  className="w-full h-[48px]"
+                  variant="outline"
+                  onClick={() => router.push("/cart")}
+                >
+                  Go to Cart
+                </Button>
+              </div>
+            </MobileFloatingCard>
+          ) : null}
+        </AnimatePresence>
       </div>
       <Reviews />
       <SubcribeToNewsLetter />

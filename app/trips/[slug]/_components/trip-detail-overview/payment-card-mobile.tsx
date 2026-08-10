@@ -1,75 +1,82 @@
 "use client";
-import { Button, Card } from "@/components/ui";
 import usePaymentCard from "@/hooks/payment/usePaymentCard";
-import { cn, formatAmount } from "@/lib/utils";
+import { cn, formatAmount, percentage } from "@/lib/utils";
 import useGeneralStore from "@/stores/generalStore";
-import dayjs from "@/lib/dayjs";
 import React from "react";
 
 const PaymentCardMobile = () => {
   const { selectedTrip, handleAddToCart, handlePay, isPaying } = usePaymentCard();
   const { selectedCurrency } = useGeneralStore();
+
+  if (!selectedTrip) return null;
+
+  const discountedPrice = selectedTrip.discount
+    ? selectedTrip.fullAmount - percentage(selectedTrip.discount, selectedTrip.fullAmount)
+    : null;
+
+  const displayPrice = discountedPrice ?? selectedTrip.fullAmount;
+
   return (
-    selectedTrip && (
-      <Card
-        className={cn(
-          "fixed bottom-0 sm:hidden border-t-neutral-grey-300 shadow-none w-full p-2.5 z-10 rounded-none flex flex-col gap-3 bg-background"
-        )}
-      >
-        <div className="flex flex-col gap-3">
-          <h6 className=" text-[24px] leading-[29.26px] text-foreground">
-            {formatAmount(selectedTrip.fullAmount, selectedCurrency)}
-          </h6>
-          <p className="items-center flex text-[12px] leading-[14.63px] gap-1 text-neutral-subtext">
-            <span>
-              {dayjs.utc(selectedTrip.endDate).diff(
-                dayjs.utc(selectedTrip.startDate),
-                "day"
-              )}{" "}
-              Days
+    <div className="fixed bottom-0 left-0 right-0 sm:hidden bg-[hsl(var(--bg-primary))] border-t border-border px-4 py-6 z-10 flex flex-col gap-6">
+      {/* Badges + Price */}
+      <div className="flex flex-col gap-1">
+        <div className="flex gap-2 flex-wrap">
+          {selectedTrip.slots && (
+            <span className="bg-[hsl(var(--text-primary))] text-[hsl(var(--bg-primary))] text-[12px] font-medium leading-[18px] px-2 py-2 rounded-[12px] whitespace-nowrap">
+              {selectedTrip.slots} Spots left
             </span>
-            {selectedTrip.slots ? (
-              <>
-                <svg
-                  width="8"
-                  height="8"
-                  viewBox="0 0 8 8"
-                  className="inline-flex"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle cx="4" cy="4" r="4" fill="#1D2433" />
-                </svg>
-                <span>{selectedTrip.slots} people</span>
-              </>
-            ) : null}
-          </p>
+          )}
+          {selectedTrip.discount && (
+            <span className="bg-[hsl(var(--text-primary))] text-[hsl(var(--bg-primary))] text-[12px] font-medium leading-[18px] px-2 py-2 rounded-[12px] whitespace-nowrap">
+              {selectedTrip.discount}% off
+            </span>
+          )}
         </div>
-        {selectedTrip.soldOut ? (
-          <Button className="w-full" variant="outline">
-            Sold Out
-          </Button>
-        ) : (
-          <div className="flex w-full gap-2">
-            <Button
-              className="w-full"
-              loading={isPaying}
-              disabled={isPaying}
-              onClick={() => handlePay(selectedCurrency)}
-            >
-              Book Now
-            </Button>
-            <Button
-              variant="outline"
-              className="w-full border-[#020E0B]"
-              onClick={() => handleAddToCart()}
-            >
-              Add to Cart
-            </Button>
-          </div>
-        )}
-      </Card>
-    )
+        <div className="flex items-center gap-[11px]">
+          <span className="text-[24px] leading-[36px] font-medium text-[hsl(var(--text-primary))]">
+            {formatAmount(displayPrice, selectedCurrency, selectedTrip.currency)}
+          </span>
+          {selectedTrip.discount && (
+            <span className="line-through text-[20px] leading-[30px] font-medium text-[hsl(var(--text-secondary))]">
+              {formatAmount(selectedTrip.fullAmount, selectedCurrency, selectedTrip.currency)}
+            </span>
+          )}
+          <span className="text-[16px] font-medium text-[hsl(var(--text-primary))]">
+            per person
+          </span>
+        </div>
+      </div>
+
+      {/* Buttons */}
+      {selectedTrip.soldOut ? (
+        <button
+          disabled
+          className="w-full py-4 rounded-full text-[16px] font-medium border border-border text-[hsl(var(--text-secondary))] cursor-not-allowed"
+        >
+          Sold Out
+        </button>
+      ) : (
+        <div className="flex gap-4">
+          <button
+            onClick={() => handleAddToCart()}
+            className="flex-1 py-4 rounded-full text-[16px] font-medium border border-secondary-irish-green text-secondary-irish-green hover:bg-secondary-irish-green hover:text-white transition-colors"
+          >
+            Add to cart
+          </button>
+          <button
+            onClick={() => handlePay(selectedCurrency)}
+            disabled={isPaying}
+            className={cn(
+              "flex-1 py-4 rounded-full text-[16px] font-medium text-neutral-text bg-gradient-to-r from-[#fa93f4] from-[28.5%] to-[#ee7fe7] hover:from-[#FA84F3] hover:to-[#FA93F4] transition-colors",
+              isPaying && "opacity-70 cursor-not-allowed"
+            )}
+          >
+            {isPaying ? "Loading..." : "Book Now"}
+          </button>
+        </div>
+      )}
+
+    </div>
   );
 };
 

@@ -8,41 +8,27 @@ import { useRouter } from "next/navigation";
 const TravelChef = () => {
   const router = useRouter();
   return (
-    <>
-      <div className="flex flex-col sm:flex-row px-5 py-10 text-neutral-text dark:text-foreground sm:pt-32 sm:pb-28 sm:justify-center sm:gap-20 sm:px-[12%]">
-        <section className="text-[32px] sm:text-[52px] font-medium sm:w-[418px]  text-left">
-          We’re like your <br className="sm:hidden" />
+    <section className="bg-[#fafafa] dark:bg-[#1E2826] py-16 sm:py-[78px] px-5 flex flex-col items-center text-center">
+      <div className="flex flex-col items-center gap-6 max-w-[567px] w-full">
+        <h2 className="font-ogg-trial text-[32px] sm:text-[52px] leading-tight text-neutral-text dark:text-foreground">
+          We&apos;re like your <br />
           personal{" "}
           <span
             className={cn(guthenBloots.className, "text-secondary-irish-green")}
           >
             travel planners
           </span>
-        </section>
-        <section className="sm:max-w-[618px]">
-          <p className="text-base sm:text-xl mt-5 sm:mt-0">
-            {/* Think of us as your travel chefs — whipping up adventures just the
-            way you like them. Whether you crave a group getaway or a
-            custom-made trip, we’ll handle all the ingredients to cook up a
-            journey that’s perfectly you. */}
-            Think of us as your travel planners — crafting unforgettable
-            adventures cooked just for you. Whether you’re dreaming of a group
-            getaway or a custom-designed journey, we’ll gather all the right
-            details to map out a trip that’s perfectly you. From planning to
-            execution, we handle it all, so you can sit back and savor the
-            experience.
-          </p>
-
-          <Button
-            className="mt-10 sm:mt-4 w-fit h-[54px]"
-            onClick={() => router.push("about")}
-          >
-            Learn more
-          </Button>
-        </section>
+        </h2>
+        <p className="text-base text-secondary leading-6">
+          From group getaways to custom-designed journeys, we&apos;ll craft
+          every detail to perfection. We handle the prep, so you can just savor
+          the experience.
+        </p>
+        <Button onClick={() => router.push("/about")} className="w-[185px]">
+          Learn more
+        </Button>
       </div>
-      <hr className="hidden sm:block w-3/4 mx-auto bg-neutral-grey-100" />
-    </>
+    </section>
   );
 };
 

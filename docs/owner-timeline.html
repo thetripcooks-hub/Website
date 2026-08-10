@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Trip Cooks — Website Redesign Progress</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: #1a1a1a;
+      background: #fff;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .doc {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 64px 48px 80px;
+    }
+
+    /* ── HEADER ── */
+    .doc-header {
+      border-bottom: 2px solid #1a1a1a;
+      padding-bottom: 20px;
+      margin-bottom: 36px;
+    }
+    .doc-header .label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 8px;
+    }
+    .doc-header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #1a1a1a;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .doc-header .meta {
+      font-size: 12.5px;
+      color: #666;
+    }
+    .doc-header .meta span { margin-right: 24px; }
+
+    /* ── INTRO ── */
+    .intro {
+      margin-bottom: 36px;
+    }
+    .intro p {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    /* ── SUMMARY TABLE ── */
+    .summary { margin-bottom: 44px; }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    thead tr {
+      border-bottom: 2px solid #1a1a1a;
+    }
+    thead th {
+      padding: 8px 12px 10px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #444;
+    }
+    thead th:first-child { padding-left: 0; }
+    tbody tr {
+      border-bottom: 1px solid #e8e8e8;
+    }
+    tbody tr:last-child { border-bottom: none; }
+    tbody td {
+      padding: 11px 12px;
+      font-size: 13px;
+      color: #333;
+      vertical-align: middle;
+    }
+    tbody td:first-child { padding-left: 0; font-weight: 600; color: #1a1a1a; }
+
+    .status {
+      display: inline-block;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .status-done     { background: #d1fae5; color: #065f46; }
+    .status-weekend  { background: #fef9c3; color: #713f12; }
+    .status-next     { background: #ede9fe; color: #4c1d95; }
+    .status-coming   { background: #f3f4f6; color: #374151; }
+    .status-launch   { background: #fce7f3; color: #831843; }
+
+    /* ── STAGES ── */
+    .stages { display: flex; flex-direction: column; gap: 32px; }
+
+    .stage {
+      padding-top: 28px;
+      border-top: 1px solid #e8e8e8;
+    }
+    .stage-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 4px;
+      gap: 16px;
+    }
+    .stage-title {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+    .stage-week {
+      font-size: 12px;
+      color: #888;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .stage-desc {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 14px;
+      line-height: 1.65;
+    }
+
+    ul.items {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    ul.items li {
+      font-size: 13px;
+      color: #333;
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.6;
+    }
+    ul.items li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: #bbb;
+      font-size: 11px;
+      top: 1px;
+    }
+    ul.items li strong { color: #1a1a1a; font-weight: 600; }
+
+    .stage-note {
+      font-size: 12.5px;
+      color: #555;
+      background: #f8f8f8;
+      border-left: 3px solid #d0d0d0;
+      padding: 10px 14px;
+      border-radius: 0 4px 4px 0;
+      line-height: 1.6;
+    }
+
+    .action-block {
+      margin-top: 12px;
+    }
+    .action-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 8px;
+    }
+    ol.actions {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    ol.actions li {
+      font-size: 13px;
+      color: #333;
+      line-height: 1.6;
+    }
+    ol.actions li strong { color: #1a1a1a; font-weight: 600; }
+
+    /* ── FOOTER ── */
+    .doc-footer {
+      margin-top: 56px;
+      padding-top: 14px;
+      border-top: 1px solid #e8e8e8;
+      font-size: 11.5px;
+      color: #aaa;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    @media print {
+      body { font-size: 12.5px; }
+      .doc { padding: 32px 32px 48px; }
+    }
+  </style>
+</head>
+<body>
+<div class="doc">
+
+  <!-- Header -->
+  <div class="doc-header">
+    <div class="label">Trip Cooks · Website Redesign</div>
+    <h1>What's Being Built, and When</h1>
+    <div class="meta">
+      <span>Prepared for: Trip Cooks</span>
+      <span>Date: 15 April 2025</span>
+      <span>Site: tripcooks.tours</span>
+    </div>
+  </div>
+
+  <!-- Intro -->
+  <div class="intro">
+    <p>Rather than taking the whole site offline and relaunching everything at once, we're building and delivering each part in stages. This means you can review real progress along the way, give feedback early, and the site keeps running throughout.</p>
+    <p>The first stage is already done. <strong>The second stage — your new homepage — is being delivered this weekend.</strong> Below is a clear picture of each stage: what it includes, when you'll see it, and what it means for the business.</p>
+  </div>
+
+  <!-- Summary table -->
+  <div class="summary">
+    <div class="section-title">Summary — 6 stages over 6 weeks</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Stage</th>
+          <th>What you get</th>
+          <th>When</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1 — Foundations</td>
+          <td>Design system, navigation, payments infrastructure</td>
+          <td style="white-space:nowrap">Week 1</td>
+          <td><span class="status status-done">Done</span></td>
+        </tr>
+        <tr>
+          <td>2 — Homepage</td>
+          <td>New homepage, content management setup begins</td>
+          <td style="white-space:nowrap">19–20 Apr</td>
+          <td><span class="status status-weekend">This Weekend</span></td>
+        </tr>
+        <tr>
+          <td>3 — Trip Pages</td>
+          <td>Trips browsing, individual trip pages, trip content imported</td>
+          <td style="white-space:nowrap">22–28 Apr</td>
+          <td><span class="status status-next">Up Next</span></td>
+        </tr>
+        <tr>
+          <td>4 — Booking &amp; Info Pages</td>
+          <td>Cart, checkout, about, how to book, contact, past trips, legal pages</td>
+          <td style="white-space:nowrap">29 Apr – 5 May</td>
+          <td><span class="status status-coming">Coming Soon</span></td>
+        </tr>
+        <tr>
+          <td>5 — Blog &amp; Community</td>
+          <td>New blog section, traveller stories, content management for both</td>
+          <td style="white-space:nowrap">6–12 May</td>
+          <td><span class="status status-coming">Coming Soon</span></td>
+        </tr>
+        <tr>
+          <td>6 — Launch</td>
+          <td>Final testing, your sign-off, go live on tripcooks.tours</td>
+          <td style="white-space:nowrap">13–19 May</td>
+          <td><span class="status status-launch">Launch</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Stages detail -->
+  <div class="section-title">Stage detail</div>
+  <div class="stages">
+
+    <!-- Stage 1 -->
+    <div class="stage">
+      <div class="stage-header">
+        <div class="stage-title">Stage 1 — Foundations</div>
+        <div class="stage-week">Week 1 · Complete</div>
+      </div>
+      <p class="stage-desc">Before any new pages could be designed or built, the underlying structure of the new site needed to be put in place — the invisible work that everything else depends on.</p>
+      <ul class="items">
+        <li><strong>Brand design system:</strong> Fonts, colours, button styles, and visual elements defined consistently across every page.</li>
+        <li><strong>Navigation and footer:</strong> The new top menu and footer are complete and working on mobile and desktop.</li>
+        <li><strong>Payment system connected:</strong> Booking and payment infrastructure wired up and ready to process reservations.</li>
+        <li><strong>Light and dark mode:</strong> The site supports both a light and dark look — visitors can switch between them.</li>
+        <li><strong>Deployment pipeline active:</strong> Every update is automatically tested and deployed safely.</li>
+      </ul>
+      <div class="stage-note">The engine is running. All the infrastructure that makes a fast, reliable website work is in place — every stage from here delivers something you can see and use.</div>
+    </div>
+
+    <!-- Stage 2 -->
+    <div class="stage">
+      <div class="stage-header">
+        <div class="stage-title">Stage 2 — Homepage</div>
+        <div class="stage-week">Week 2 · 19–20 April</div>
+      </div>
+      <p class="stage-desc">The homepage is the first thing every visitor sees. This week is dedicated entirely to getting it right.</p>
+      <ul class="items">
+        <li><strong>New homepage:</strong> Hero section, trip search, featured trip showcase, services overview, upcoming trips grid, FAQ section, gallery, and traveller reviews.</li>
+        <li><strong>Content system setup begins:</strong> Your new content management dashboard — for updating trips, prices, and content without needing a developer — is set up this week.</li>
+      </ul>
+      <div class="action-block">
+        <div class="action-label">Your actions this weekend</div>
+        <ol class="actions">
+          <li><strong>Open the preview link on your phone and desktop</strong> — most visitors browse on mobile, so pay particular attention to the phone experience.</li>
+          <li><strong>Review as a first-time visitor</strong> — does the page clearly explain what Trip Cooks is? Is the call to action obvious?</li>
+          <li><strong>Send feedback by end of Monday 21 April</strong> — any changes or questions, send them over and we'll factor them in before the next stage begins.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Stage 3 -->
+    <div class="stage">
+      <div class="stage-header">
+        <div class="stage-title">Stage 3 — Trip Pages</div>
+        <div class="stage-week">Week 3 · 22–28 April</div>
+      </div>
+      <p class="stage-desc">With the homepage signed off, the focus moves to the pages where browsers become bookers.</p>
+      <ul class="items">
+        <li><strong>Trips browsing page:</strong> All available trips, redesigned with clearer cards, sorting and filtering, and proper handling of sold-out and past trips — still findable on Google but clearly marked.</li>
+        <li><strong>Individual trip pages:</strong> Itinerary, what's included, group details, pricing, and the Reserve a Spot button — all refreshed with the new design.</li>
+        <li><strong>Trip content imported:</strong> Your existing trips are entered into the content system, ready to edit and update at any time.</li>
+      </ul>
+      <div class="stage-note">The pages that directly drive bookings are rebuilt. Sold-out and past trips are handled properly, preserving their Google rankings while keeping the browsing experience clean.</div>
+    </div>
+
+    <!-- Stage 4 -->
+    <div class="stage">
+      <div class="stage-header">
+        <div class="stage-title">Stage 4 — Booking Flow &amp; Information Pages</div>
+        <div class="stage-week">Week 4 · 29 Apr – 5 May</div>
+      </div>
+      <p class="stage-desc">The full booking journey and the supporting pages visitors rely on before they commit.</p>
+      <ul class="items">
+        <li><strong>Cart &amp; Checkout:</strong> The full experience from adding a trip to completing payment — simpler, cleaner, and more confidence-inspiring, especially on mobile. Includes the booking confirmation screen.</li>
+        <li><strong>About page:</strong> The Trip Cooks story, brand introduction, and trust-building for first-time visitors.</li>
+        <li><strong>How to Book a Trip:</strong> A step-by-step guide that reduces hesitation and pre-booking questions.</li>
+        <li><strong>Contact page:</strong> An adaptive form — general enquiries handled differently from private or bespoke trip requests.</li>
+        <li><strong>Past Trips archive:</strong> Trips that have already run, structured to support search rankings without confusing active browsers.</li>
+        <li><strong>Legal pages:</strong> Travel policy, terms, and privacy updated to the new design.</li>
+      </ul>
+      <div class="stage-note">Fewer drop-offs, fewer unanswered questions, and a booking experience that feels as professional as the trips themselves.</div>
+    </div>
+
+    <!-- Stage 5 -->
+    <div class="stage">
+      <div class="stage-header">
+        <div class="stage-title">Stage 5 — Blog &amp; Community</div>
+        <div class="stage-week">Week 5 · 6–12 May</div>
+      </div>
+      <p class="stage-desc">Two brand-new sections that don't currently exist on the site.</p>
+      <ul class="items">
+        <li><strong>Blog — Travel Guides:</strong> A dedicated blog where travel guides, destination tips, and trip stories can be published. Built for search engines — each article structured to attract visitors from Google discovering Trip Cooks for the first time.</li>
+        <li><strong>Community — Traveller Stories:</strong> Interviews, Q&amp;As, and testimonials from past travellers — social proof that converts curious visitors into bookers.</li>
+        <li><strong>Content management for both:</strong> Blog posts and community stories managed entirely from the dashboard — no developer needed to publish or update anything.</li>
+      </ul>
+      <div class="stage-note">Brings in new visitors from Google and converts them by letting real traveller stories do the selling — the long-term growth engine of the site.</div>
+    </div>
+
+    <!-- Stage 6 -->
+    <div class="stage">
+      <div class="stage-header">
+        <div class="stage-title">Stage 6 — Final Checks &amp; Go Live</div>
+        <div class="stage-week">Week 6 · 13–19 May</div>
+      </div>
+      <p class="stage-desc">Every page and every journey tested thoroughly before anything goes live. Nothing gets pushed to the public site until it's been signed off.</p>
+      <ul class="items">
+        <li><strong>Edge cases:</strong> 404 pages, empty search results, and booking confirmation screens all receive their final designs.</li>
+        <li><strong>Device and browser testing:</strong> Tested on iPhone (Safari), Android (Chrome), and desktop across all major browsers.</li>
+        <li><strong>Speed and performance:</strong> Page load speed optimised on mobile — tested and fixed before launch.</li>
+        <li><strong>Accessibility:</strong> Site checked to ensure it can be used by visitors with accessibility needs.</li>
+        <li><strong>Your sign-off:</strong> You review the full site on the staging link and give approval — nothing launches without your confirmation.</li>
+        <li><strong>Go live on tripcooks.tours:</strong> The new site replaces the existing one. All existing links, bookmarks, and search rankings preserved.</li>
+      </ul>
+      <div class="stage-note">By the third week of May, tripcooks.tours is running the fully redesigned site — faster, cleaner, with a professional booking experience and the tools to keep everything updated without outside help.</div>
+    </div>
+
+  </div><!-- /stages -->
+
+  <div class="doc-footer">
+    <span>Trip Cooks — Website Redesign 2025</span>
+    <span>Owner Progress Update · 15 April 2025</span>
+  </div>
+
+</div>
+</body>
+</html>

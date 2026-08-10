@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dev Timeline — Trip Cooks Website Redesign</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Ogg TRIAL';
+      src: url('../app/fonts/OggTrial/OggTrial-Bold.ttf') format('truetype');
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #1a1a1a;
+      background: #fff;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── COVER ─────────────────────────────────── */
+    .cover {
+      height: 100vh;
+      min-height: 600px;
+      background: linear-gradient(150deg, #0d2b1f 0%, #1a5c3a 55%, #3d8c6e 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 72px 80px;
+      color: #fff;
+      page-break-after: always;
+    }
+    .cover-logo {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #7fd9a4;
+      margin-bottom: 60px;
+    }
+    .cover h1 {
+      font-family: 'Ogg TRIAL', Georgia, serif;
+      font-size: 58px;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -0.015em;
+    }
+    .cover .tagline {
+      font-size: 18px;
+      color: #a7e8c2;
+      font-weight: 400;
+      max-width: 500px;
+      line-height: 1.6;
+    }
+    .cover-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .cover-meta { font-size: 12px; color: #7fd9a4; line-height: 2.1; }
+    .cover-accent {
+      width: 110px; height: 110px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      border: 2px solid rgba(127,217,164,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #7fd9a4;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    /* ── PAGE LAYOUT ────────────────────────────── */
+    .page {
+      padding: 60px 72px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .page-break { page-break-after: always; }
+
+    /* ── DOC HEADER ─────────────────────────────── */
+    .doc-header {
+      margin-bottom: 44px;
+      padding-bottom: 32px;
+      border-bottom: 2px solid #1a5c3a;
+    }
+    .doc-header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 28px;
+    }
+    .logo-area { display: flex; align-items: center; gap: 10px; }
+    .logo-mark {
+      width: 40px; height: 40px;
+      background: #1a5c3a;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: white;
+      font-family: 'Ogg TRIAL', Georgia, serif;
+      font-weight: 700; font-size: 15px;
+    }
+    .logo-name {
+      font-family: 'Ogg TRIAL', Georgia, serif;
+      font-size: 18px; font-weight: 700; color: #0d2b1f;
+    }
+    .doc-meta-block { text-align: right; font-size: 12px; color: #666; line-height: 1.9; }
+    .doc-meta-block strong { color: #0d2b1f; font-weight: 700; }
+    .doc-title {
+      font-family: 'Ogg TRIAL', Georgia, serif;
+      font-size: 44px; font-weight: 700; color: #0d2b1f;
+      line-height: 1.1; margin-bottom: 12px; letter-spacing: -0.015em;
+    }
+    .doc-description { font-size: 15px; color: #444; line-height: 1.7; max-width: 620px; }
+
+    /* ── STAT STRIP ─────────────────────────────── */
+    .stat-strip {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      background: #e5e7eb;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .stat-cell { background: #fff; padding: 18px 20px; }
+    .stat-cell .stat-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.09em;
+      text-transform: uppercase; color: #888; margin-bottom: 5px;
+    }
+    .stat-cell .stat-num {
+      font-size: 26px; font-weight: 800;
+      color: #1a5c3a; line-height: 1;
+      font-family: 'Ogg TRIAL', Georgia, serif;
+    }
+    .stat-cell .stat-num.dark { color: #0d2b1f; }
+    .stat-cell .stat-num.blue { color: #2478cc; }
+    .stat-cell .stat-num.sm  { font-size: 15px; padding-top: 6px; }
+
+    /* ── CALLOUT NOTES ──────────────────────────── */
+    .callout-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 36px; }
+    .callout {
+      font-size: 13px; color: #444; padding: 14px 18px;
+      background: #f9fafb; border: 1px solid #e5e7eb;
+      border-radius: 0 8px 8px 0; line-height: 1.65;
+    }
+    .callout.theme { border-left: 4px solid #df83e2; background: #fdf6ff; }
+    .callout.cms   { border-left: 4px solid #2478cc; background: #f0f6ff; }
+    .callout strong { color: #0d2b1f; font-weight: 700; }
+
+    /* ── STATUS BADGES ──────────────────────────── */
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 12px; border-radius: 100px;
+      font-size: 11.5px; font-weight: 700;
+    }
+    .status-badge::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+    }
+    .s-done     { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+    .s-done::before     { background: #059669; }
+    .s-progress { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+    .s-progress::before { background: #d97706; }
+    .s-todo     { background: #f3f4f6; color: #6b7280; border: 1px solid #e5e7eb; }
+    .s-todo::before     { background: #9ca3af; }
+
+    /* ── PHASE CARDS ────────────────────────────── */
+    .phases { display: flex; flex-direction: column; gap: 28px; }
+
+    .phase-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+    .phase-card.done     { border-left: 5px solid #059669; }
+    .phase-card.progress { border-left: 5px solid #d97706; }
+    .phase-card.todo     { border-left: 5px solid #d1d5db; }
+
+    .phase-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 28px; border-bottom: 1px solid #e5e7eb;
+    }
+    .phase-card.done     .phase-head { background: #f0fdf4; border-bottom-color: #bbf7d0; }
+    .phase-card.progress .phase-head { background: #fffbeb; border-bottom-color: #fde68a; }
+    .phase-card.todo     .phase-head { background: #fafafa; }
+
+    .phase-head-left { display: flex; align-items: center; gap: 14px; }
+
+    .phase-num {
+      width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Ogg TRIAL', Georgia, serif;
+      font-weight: 700; font-size: 19px; color: white; flex-shrink: 0;
+    }
+    .phase-card.done     .phase-num { background: #059669; }
+    .phase-card.progress .phase-num { background: #d97706; }
+    .phase-card.todo     .phase-num { background: #9ca3af; }
+
+    .phase-week {
+      font-size: 10.5px; text-transform: uppercase;
+      letter-spacing: 0.1em; font-weight: 700; margin-bottom: 2px;
+    }
+    .phase-card.done     .phase-week { color: #059669; }
+    .phase-card.progress .phase-week { color: #b45309; }
+    .phase-card.todo     .phase-week { color: #9ca3af; }
+
+    .phase-title {
+      font-family: 'Ogg TRIAL', Georgia, serif;
+      font-size: 22px; font-weight: 700; color: #0d2b1f; line-height: 1.2;
+    }
+
+    /* ── SCOPE BAR ──────────────────────────────── */
+    .scope-bar {
+      display: flex; align-items: center; flex-wrap: wrap; gap: 6px;
+      padding: 12px 28px; background: #fff; border-bottom: 1px solid #f0f0f0;
+    }
+    .scope-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #888; margin-right: 2px; flex-shrink: 0;
+    }
+    .tag {
+      display: inline-block; padding: 3px 10px;
+      border-radius: 100px; font-size: 12px; font-weight: 600;
+    }
+    .tag-green   { background: #d1fae5; border: 1px solid #a7f3d0; color: #065f46; }
+    .tag-amber   { background: #fef3c7; border: 1px solid #fde68a; color: #92400e; }
+    .tag-neutral { background: #f3f4f6; border: 1px solid #e5e7eb; color: #374151; }
+    .tag-blue    { background: #dbeafe; border: 1px solid #bfdbfe; color: #1e40af; }
+    .tag-grey    { background: #f9fafb; border: 1px solid #e5e7eb; color: #6b7280; }
+    .mode-chip {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 11.5px; color: #6b7280; background: #f3f4f6;
+      border: 1px solid #e5e7eb; border-radius: 100px; padding: 3px 10px; font-weight: 500;
+    }
+
+    /* ── PHASE BODY ─────────────────────────────── */
+    .phase-body { padding: 30px 32px; background: #fff; }
+
+    /* Section within phase body */
+    .sec { margin-bottom: 32px; }
+    .sec:last-child { margin-bottom: 0; }
+
+    .sec-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: #1a5c3a;
+      margin-bottom: 16px; padding-bottom: 8px;
+      border-bottom: 1.5px solid #e5e7eb;
+    }
+    .sec-head::before {
+      content: '';
+      display: inline-block;
+      width: 3px; height: 12px;
+      background: currentColor;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .sec-head.cms  { color: #2478cc; }
+    .sec-head.qa   { color: #7c3aed; }
+
+    /* ── PDF-STYLE BULLET LIST ──────────────────── */
+    ul.doc-list {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 2px;
+      padding-left: 0;
+    }
+    ul.doc-list > li {
+      font-size: 13.5px; color: #1a1a1a; line-height: 1.7;
+      padding: 8px 0 8px 22px;
+      position: relative;
+      /* no border between items — cleaner */
+    }
+    ul.doc-list > li::before {
+      content: '●';
+      position: absolute;
+      left: 0; top: 14px;
+      font-size: 6px; color: #9ca3af; line-height: 1;
+    }
+    ul.doc-list.done   > li::before { color: #059669; }
+    ul.doc-list.cms    > li::before { color: #2478cc; }
+    ul.doc-list.qa     > li::before { color: #7c3aed; }
+    ul.doc-list.amber  > li::before { color: #d97706; }
+
+    /* Sub-bullets: ○ */
+    ul.sub-list {
+      list-style: none;
+      margin-top: 6px; margin-bottom: 2px;
+      display: flex; flex-direction: column; gap: 0;
+      padding-left: 4px;
+      border-left: 2px solid #e5e7eb;
+      margin-left: 2px;
+    }
+    ul.sub-list > li {
+      font-size: 13px; color: #555; line-height: 1.65;
+      padding: 3px 0 3px 16px;
+      position: relative;
+    }
+    ul.sub-list > li::before {
+      content: '○';
+      position: absolute;
+      left: 2px; top: 6px;
+      font-size: 7px; color: #bbb; line-height: 1;
+    }
+
+    /* Bold label */
+    ul.doc-list li strong,
+    ul.sub-list li strong { color: #0d2b1f; font-weight: 700; }
+
+    /* ── PROGRESS BLOCK — always stacked (column) ── */
+    .progress-stack {
+      display: flex;
+      flex-direction: column; /* COLUMN: Completed above, Remaining below */
+      gap: 16px;
+    }
+
+    .progress-pane {
+      border-radius: 8px;
+      padding: 20px 22px;
+    }
+    .pane-done      { background: #f0fdf4; border: 1px solid #bbf7d0; }
+    .pane-remaining { background: #fffbeb; border: 1px solid #fde68a; }
+
+    .pane-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; margin-bottom: 14px;
+      padding-bottom: 8px;
+    }
+    .pane-done .pane-label {
+      color: #065f46;
+      border-bottom: 1.5px solid #bbf7d0;
+    }
+    .pane-remaining .pane-label {
+      color: #92400e;
+      border-bottom: 1.5px solid #fde68a;
+    }
+
+    /* ── HIGHLIGHT BOX ──────────────────────────── */
+    .highlight {
+      background: #f0fdf4; border-left: 4px solid #1a5c3a;
+      padding: 14px 18px; margin-bottom: 22px;
+      border-radius: 0 8px 8px 0;
+    }
+    .highlight p { margin: 0; color: #1a3d2b; font-size: 13.5px; line-height: 1.6; }
+    .highlight strong { color: #0d2b1f; }
+
+    /* ── SECTION DIVIDER ────────────────────────── */
+    .sec-divider { border: none; border-top: 1px solid #ebebeb; margin: 28px 0; }
+
+    /* ── DELIVERABLES BAR ───────────────────────── */
+    .phase-deliverables {
+      padding: 12px 28px; background: #f9fafb;
+      border-top: 1px solid #e5e7eb;
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .del-label {
+      font-size: 9.5px; text-transform: uppercase;
+      letter-spacing: 0.12em; font-weight: 700;
+      flex-shrink: 0; padding-top: 2px; color: #888;
+    }
+    .phase-card.done     .del-label { color: #059669; }
+    .phase-card.progress .del-label { color: #b45309; }
+    .del-text { font-size: 13px; color: #555; line-height: 1.55; }
+    .del-text strong { color: #0d2b1f; font-weight: 700; }
+
+    /* ── REPORT FOOTER ──────────────────────────── */
+    .report-footer {
+      margin-top: 56px; padding-top: 16px;
+      border-top: 1px solid #eee;
+      font-size: 11px; color: #999;
+      display: flex; justify-content: space-between;
+    }
+
+    /* ── PRINT ──────────────────────────────────── */
+    @media print {
+      body { background: white; font-size: 12.5px; }
+      .cover { page-break-after: always; height: 100vh; }
+      .page { padding: 28px 36px; }
+      .phase-card { break-inside: avoid; margin-bottom: 16px; }
+      .stat-strip, .callout-row { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ COVER ══════════════ -->
+<div class="cover">
+  <div>
+    <div class="cover-logo">Trip Cooks &nbsp;·&nbsp; Development Document</div>
+    <h1>Dev Timeline &amp;<br>QA Checklist.</h1>
+    <p class="tagline">A phase-by-phase plan for implementing the website redesign, integrating Contentful CMS, and QA-ing all 11 pages across light and dark modes.</p>
+  </div>
+  <div class="cover-bottom">
+    <div class="cover-meta">
+      <div>Project: Website Redesign</div>
+      <div>Repo: thetripcooks-hub/Website</div>
+      <div>Date: April 2025</div>
+      <div>Version: v1.0</div>
+    </div>
+    <div class="cover-accent">Internal<br>Dev<br>Brief</div>
+  </div>
+</div>
+
+
+<!-- ══════════════ CONTENT ══════════════ -->
+<div class="page">
+
+  <!-- Doc header -->
+  <div class="doc-header">
+    <div class="doc-header-top">
+      <div class="logo-area">
+        <div class="logo-mark">TC</div>
+        <div class="logo-name">Trip Cooks</div>
+      </div>
+      <div class="doc-meta-block">
+        <div><strong>Type:</strong> Development &amp; QA Timeline</div>
+        <div><strong>Project:</strong> Website Redesign — thetripcooks-hub/Website</div>
+        <div><strong>Version:</strong> v1.0 &nbsp;·&nbsp; April 2025</div>
+      </div>
+    </div>
+    <h1 class="doc-title">Dev Timeline</h1>
+    <p class="doc-description">5-week delivery plan for the Trip Cooks website redesign. The codebase is an existing Next.js project — this document tracks the incremental rollout of new designs, Contentful CMS integration, and QA across all 11 pages.</p>
+  </div>
+
+  <!-- Stat strip -->
+  <div class="stat-strip">
+    <div class="stat-cell">
+      <div class="stat-label">Pages</div>
+      <div class="stat-num">11</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">Phases</div>
+      <div class="stat-num dark">5</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">Timeline</div>
+      <div class="stat-num dark">5 wks</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">Theme Modes</div>
+      <div class="stat-num sm dark">Light + Dark</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">CMS</div>
+      <div class="stat-num sm blue">Contentful</div>
+    </div>
+  </div>
+
+  <!-- Callout notes -->
+  <div class="callout-row">
+    <div class="callout theme">
+      <strong>Theme support:</strong> A light/dark mode toggle is already implemented via the design system. Each phase validates both modes on newly redesigned pages before sign-off.
+    </div>
+    <div class="callout cms">
+      <strong>Contentful CMS:</strong> Content type modelling begins in Phase 2. Content entry, SEO fields, and publish workflows are completed incrementally per phase.
+    </div>
+  </div>
+
+  <!-- ══ PHASES ══════════════════════════════════ -->
+  <div class="phases">
+
+    <!-- ─────────────────────────────────────────── -->
+    <!-- PHASE 1 — DONE                             -->
+    <!-- ─────────────────────────────────────────── -->
+    <div class="phase-card done">
+      <div class="phase-head">
+        <div class="phase-head-left">
+          <div class="phase-num">1</div>
+          <div>
+            <div class="phase-week">Week 1</div>
+            <div class="phase-title">Setup &amp; Design System</div>
+          </div>
+        </div>
+        <span class="status-badge s-done">Completed</span>
+      </div>
+
+      <div class="scope-bar">
+        <span class="scope-label">Established:</span>
+        <span class="tag tag-green">Design Tokens</span>
+        <span class="tag tag-green">Theme System</span>
+        <span class="tag tag-green">Typography</span>
+        <span class="tag tag-green">Navigation</span>
+        <span class="tag tag-green">Footer</span>
+        <span class="tag tag-green">UI Component Library</span>
+        <span class="tag tag-green">CI / CD Pipeline</span>
+        <span class="tag tag-green">Stripe Scaffolding</span>
+      </div>
+
+      <div class="phase-body">
+        <div class="sec">
+          <div class="sec-head">What was established</div>
+          <ul class="doc-list done">
+            <li>
+              <strong>UI Component Library:</strong> Complete set of reusable components — Button, Card, Carousel, Dialog, Drawer, Accordion, Input, Select, Textarea, Form, Pagination, Tooltip, Skeleton and more — built and in use under components/ui/.
+            </li>
+            <li>
+              <strong>Theme System:</strong> Light / Dark mode implemented via CSS custom properties, with a mode-toggle component wired into the root app layout and persisted across sessions.
+            </li>
+            <li>
+              <strong>Typography:</strong> Plus Jakarta Sans (body and labels) and Ogg TRIAL (display headings) integrated via app/font.ts and app/fonts/.
+            </li>
+            <li>
+              <strong>Navigation:</strong> Responsive navbar, mobile-nav, and mobile-page-header components complete and verified across all breakpoints.
+            </li>
+            <li>
+              <strong>Footer:</strong> Footer component built and wired into the root layout site-wide.
+            </li>
+            <li>
+              <strong>Stripe Scaffolding:</strong> Checkout session API route, Stripe-powered payment component, and currency toggle integrated into the app.
+            </li>
+            <li>
+              <strong>CI / CD Pipeline:</strong> Automated build pipeline active on thetripcooks-hub/Website with build triggers on merge to staging and main.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="phase-deliverables">
+        <span class="del-label">Outcome</span>
+        <span class="del-text">
+          <strong>Full component library live</strong> · <strong>Light/dark theme toggle functional</strong> · <strong>Design tokens applied site-wide</strong> · <strong>CI/CD pipeline operational</strong>
+        </span>
+      </div>
+    </div>
+
+
+    <!-- ─────────────────────────────────────────── -->
+    <!-- PHASE 2 — IN PROGRESS                      -->
+    <!-- ─────────────────────────────────────────── -->
+    <div class="phase-card progress">
+      <div class="phase-head">
+        <div class="phase-head-left">
+          <div class="phase-num">2</div>
+          <div>
+            <div class="phase-week">Week 2</div>
+            <div class="phase-title">Homepage &amp; Trip Discovery</div>
+          </div>
+        </div>
+        <span class="status-badge s-progress">In Progress</span>
+      </div>
+
+      <div class="scope-bar">
+        <span class="scope-label">Pages:</span>
+        <span class="tag tag-amber">Homepage</span>
+        <span class="tag tag-amber">Current Trips</span>
+        <span class="tag tag-amber">Trip Details</span>
+        <span class="mode-chip">🌙 Light + Dark — trips pages</span>
+        &nbsp;
+        <span class="scope-label">Contentful:</span>
+        <span class="tag tag-blue">Space Setup</span>
+        <span class="tag tag-blue">Trip Content Type</span>
+        <span class="tag tag-blue">Page Content Type</span>
+        <span class="tag tag-blue">API Integration</span>
+      </div>
+
+      <div class="phase-body">
+
+        <div class="sec">
+          <div class="sec-head">Implementation progress</div>
+          <div class="progress-stack">
+
+            <div class="progress-pane pane-done">
+              <div class="pane-label">Completed</div>
+              <ul class="doc-list done">
+                <li>
+                  <strong>Homepage:</strong> All sections implemented — Hero, Search UI, Featured Trip card, Services carousel, Upcoming Trips grid, Blog Callout, FAQ accordion, Gallery (The Tripcooks Experience), Reviews/Testimonials, Community preview, Why Choose Us, and Travel Chef.
+                </li>
+                <li>
+                  <strong>Current Trips:</strong> Trip card component (destination) and sort/filter controls (sort-by) built and functional.
+                </li>
+                <li>
+                  <strong>Trip Details:</strong> Full detail page at /trips/[slug] — Itinerary, What's Included, Payment Card, Payment Terms, Trip Info, Travel With Owners, Location Views, and See More Drawer all implemented.
+                </li>
+                <li>
+                  <strong>SEO:</strong> Improvements applied across all existing routes — meta tags, structured data, sitemap, and robots.txt.
+                </li>
+              </ul>
+            </div>
+
+            <div class="progress-pane pane-remaining">
+              <div class="pane-label">Remaining</div>
+              <ul class="doc-list amber">
+                <li>
+                  <strong>Homepage Redesign Polish:</strong> Featured Trip card and Upcoming Trips sections being refined to match new Figma designs. Active on the feature/homepage-redesign branch.
+                </li>
+                <li>
+                  <strong>Dark Mode Verification:</strong> Current Trips and Trip Details pages need to be verified against the new Figma dark mode specs.
+                </li>
+                <li>
+                  <strong>Trip Listing States:</strong> "Sold Out" and "Past Trip" UI state variants to be implemented on the listing page.
+                </li>
+                <li>
+                  <strong>Review Module:</strong> 3rd-party review module integration on the Trip Details page.
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+        <hr class="sec-divider">
+
+        <div class="sec">
+          <div class="sec-head cms">Contentful — to be completed this phase</div>
+          <ul class="doc-list cms">
+            <li>
+              <strong>Space Setup:</strong> Provision Contentful space and configure production and preview environments.
+            </li>
+            <li>
+              <strong>Trip Content Type:</strong> Define fields — title, slug, dates, price, hero image, itinerary (rich text), included/not-included items, status (active / sold-out / past), group size, and duration.
+            </li>
+            <li>
+              <strong>Page Content Type:</strong> Shared SEO fields (meta title, description, OG image) linkable from all routes.
+            </li>
+            <li>
+              <strong>API Integration:</strong> Connect Contentful SDK to the trip listing and detail pages; configure preview environment and build webhooks.
+            </li>
+            <li>
+              <strong>Initial Data:</strong> Populate at least 3 active trips, 1 sold out, and 1 past trip for testing.
+            </li>
+          </ul>
+        </div>
+
+        <hr class="sec-divider">
+
+        <div class="sec">
+          <div class="sec-head qa">QA criteria</div>
+          <ul class="doc-list qa">
+            <li>
+              <strong>Homepage:</strong> Visual output matches Figma design at 375, 768, and 1440px breakpoints.
+              <ul class="sub-list">
+                <li>Carousel/slider — swipe, keyboard navigation, and autoplay correct</li>
+                <li>FAQ accordion — open/close logic, keyboard accessible</li>
+                <li>Lighthouse baseline score recorded (Performance, SEO, Accessibility)</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Current Trips:</strong> Sort and filter return correct results; filter state persists in URL.
+              <ul class="sub-list">
+                <li>Sold Out state — booking CTA disabled, messaging correct</li>
+                <li>Past Trip state — no active CTA visible, SEO meta tags present</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Trip Details:</strong> Dynamic content from Contentful renders correctly in production and preview.
+            </li>
+            <li>
+              <strong>Dark Mode:</strong> Current Trips and Trip Details verified against new Figma specs in dark mode.
+            </li>
+            <li>
+              <strong>Contentful:</strong> Data flows correctly end-to-end; preview environment resolves unpublished changes.
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="phase-deliverables">
+        <span class="del-label">Deliverables</span>
+        <span class="del-text">
+          <strong>Homepage redesign live on staging</strong> · <strong>Current Trips + Trip Details updated to new designs</strong> · <strong>Contentful space live with trip data flowing</strong> · <strong>Dark mode verified</strong>
+        </span>
+      </div>
+    </div>
+
+
+    <!-- ─────────────────────────────────────────── -->
+    <!-- PHASE 3 — TODO                             -->
+    <!-- ─────────────────────────────────────────── -->
+    <div class="phase-card todo">
+      <div class="phase-head">
+        <div class="phase-head-left">
+          <div class="phase-num">3</div>
+          <div>
+            <div class="phase-week">Week 3</div>
+            <div class="phase-title">Booking Flow &amp; Supporting Pages</div>
+          </div>
+        </div>
+        <span class="status-badge s-todo">Not Started</span>
+      </div>
+
+      <div class="scope-bar">
+        <span class="scope-label">Pages:</span>
+        <span class="tag tag-neutral">Cart</span>
+        <span class="tag tag-neutral">Checkout</span>
+        <span class="tag tag-neutral">Confirmation Screen</span>
+        <span class="tag tag-neutral">About</span>
+        <span class="tag tag-neutral">How to Book</span>
+        <span class="tag tag-neutral">Contact</span>
+        <span class="tag tag-neutral">Past Trips</span>
+        <span class="tag tag-neutral">Sold Trip Detail</span>
+        <span class="tag tag-neutral">Legal / Travel Policy</span>
+        <span class="mode-chip">🌙 Light + Dark — all pages</span>
+      </div>
+
+      <div class="phase-body">
+
+        <div class="highlight">
+          <p><strong>Note:</strong> Page shells already exist in the codebase (/cart, /checkout, /about, /contact, /legal, /private-trips). This phase updates each to match the new Figma designs rather than building from scratch.</p>
+        </div>
+
+        <div class="sec">
+          <div class="sec-head">Implementation</div>
+          <ul class="doc-list">
+            <li>
+              <strong>Cart:</strong> Update UI to new design — trip summary card, seat count selector, price breakdown, remove and edit actions.
+            </li>
+            <li>
+              <strong>Checkout:</strong> Rework multi-step flow to new mobile-first design; Stripe payment form components updated to match new UI.
+              <ul class="sub-list">
+                <li>Streamlined mobile-first payment interface</li>
+                <li>Guest vs. logged-in checkout paths handled</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Confirmation Screen:</strong> New design applied to /payment-success — success message and next-steps guidance.
+            </li>
+            <li>
+              <strong>About:</strong> Update to new layout — brand mission section, adventurers/team section, and visual storytelling.
+            </li>
+            <li>
+              <strong>How to Book a Trip:</strong> Implement step-by-step guide page (currently under /private-trips); update to new layout with numbered steps.
+            </li>
+            <li>
+              <strong>Contact:</strong> Update Smart Form UI with conditional field logic — General Inquiry vs. Private / Bespoke Trip request paths.
+            </li>
+            <li>
+              <strong>Past Trips:</strong> New listing layout applied; SEO-safe archived trip cards with no active booking CTAs.
+              <ul class="sub-list">
+                <li>Sold Trip Detail — individual page variant for an archived trip</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Legal / Travel Policy:</strong> Long-form text page updated to new design, covering /legal, /terms, and /privacy.
+            </li>
+            <li>
+              <strong>Dark Mode:</strong> Light + Dark mode applied and verified across all 9 pages in scope.
+            </li>
+          </ul>
+        </div>
+
+        <hr class="sec-divider">
+
+        <div class="sec">
+          <div class="sec-head cms">Contentful</div>
+          <ul class="doc-list cms">
+            <li><strong>About:</strong> Body copy, team/adventurer bios, and image assets entered as structured content entries.</li>
+            <li><strong>How to Book:</strong> Step content modelled as ordered entries and populated.</li>
+            <li><strong>Past Trips:</strong> Archived status flag set; SEO meta fields populated per trip entry.</li>
+            <li><strong>Legal:</strong> Full rich text content for Travel Policy, Terms, and Privacy entered into Contentful.</li>
+            <li><strong>Contact Form:</strong> Recipient routing and field labels managed via CMS rather than hardcoded.</li>
+          </ul>
+        </div>
+
+        <hr class="sec-divider">
+
+        <div class="sec">
+          <div class="sec-head qa">QA criteria</div>
+          <ul class="doc-list qa">
+            <li>
+              <strong>Booking Flow:</strong> E2E test — add trip → cart → checkout → confirmation — passing in Stripe test mode.
+              <ul class="sub-list">
+                <li>Successful payment, declined card, and card validation error states all handled</li>
+                <li>Cart contents persist across page refresh and navigation</li>
+                <li>Mobile checkout — tap targets correct, virtual keyboard does not obscure inputs</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Smart Form:</strong> Conditional fields display and hide correctly based on inquiry type; submission routes to correct recipient.
+            </li>
+            <li>
+              <strong>Past Trips:</strong> Confirmed — no active booking CTAs present; correct SEO meta tags in document head.
+            </li>
+            <li>
+              <strong>Dark Mode:</strong> Verified across all 9 pages in this phase.
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="phase-deliverables">
+        <span class="del-label">Deliverables</span>
+        <span class="del-text">
+          <strong>Full booking E2E passing in Stripe sandbox</strong> · <strong>All 9 pages updated to new designs</strong> · <strong>Smart Form logic verified</strong> · <strong>Dark mode QA'd</strong>
+        </span>
+      </div>
+    </div>
+
+
+    <!-- ─────────────────────────────────────────── -->
+    <!-- PHASE 4 — TODO                             -->
+    <!-- ─────────────────────────────────────────── -->
+    <div class="phase-card todo">
+      <div class="phase-head">
+        <div class="phase-head-left">
+          <div class="phase-num">4</div>
+          <div>
+            <div class="phase-week">Week 4</div>
+            <div class="phase-title">Blog, Community &amp; Dark Mode Polish</div>
+          </div>
+        </div>
+        <span class="status-badge s-todo">Not Started</span>
+      </div>
+
+      <div class="scope-bar">
+        <span class="scope-label">New routes:</span>
+        <span class="tag tag-neutral">Blog Landing</span>
+        <span class="tag tag-neutral">Blog List View</span>
+        <span class="tag tag-neutral">Blog Article</span>
+        <span class="tag tag-neutral">Community Landing</span>
+        <span class="tag tag-neutral">Community Article</span>
+        <span class="mode-chip">🌙 Light + Dark — all templates</span>
+        &nbsp;
+        <span class="scope-label">Also:</span>
+        <span class="tag tag-grey">Dark Mode Audit — All 11 Pages</span>
+        <span class="tag tag-grey">Site-wide SEO Pass</span>
+      </div>
+
+      <div class="phase-body">
+
+        <div class="highlight">
+          <p><strong>Note:</strong> Blog and Community are new routes with no existing page shells — /blog and /community directories will be created from scratch in this phase.</p>
+        </div>
+
+        <div class="sec">
+          <div class="sec-head">Implementation</div>
+          <ul class="doc-list">
+            <li>
+              <strong>Blog Landing Page:</strong> Travel guides grid with category/tag filtering.
+            </li>
+            <li>
+              <strong>Blog List View:</strong> Filtered/selected view with tag and category-based filtering and correct URL state.
+            </li>
+            <li>
+              <strong>Blog Article Template:</strong> Readable long-form layout — author block, related articles, sharing — optimised for SEO and reading experience.
+            </li>
+            <li>
+              <strong>Community Landing Page:</strong> Interview and Q&amp;A card grid.
+            </li>
+            <li>
+              <strong>Community Article Template:</strong> Traveller testimonial layout with portrait, quote, trip reference, and social proof elements.
+            </li>
+            <li>
+              <strong>Dark Mode Audit:</strong> All 11 pages reviewed — inconsistencies resolved, colour contrast confirmed across both themes.
+            </li>
+            <li>
+              <strong>SEO Pass:</strong> Structured data (JSON-LD), Open Graph tags, and meta descriptions audited and completed across all routes.
+            </li>
+          </ul>
+        </div>
+
+        <hr class="sec-divider">
+
+        <div class="sec">
+          <div class="sec-head cms">Contentful</div>
+          <ul class="doc-list cms">
+            <li><strong>Blog Post Content Type:</strong> Title, slug, author, hero image, body (rich text), tags, category, published date, and SEO fields.</li>
+            <li><strong>Community Article Content Type:</strong> Interviewee name, Q&amp;A body (rich text), portrait image, linked trip reference, and publication date.</li>
+            <li><strong>Taxonomy:</strong> Categories and tags defined to support Blog filter view and URL-based filtering.</li>
+            <li><strong>Initial Content:</strong> At least 3 blog posts and 3 community articles populated with real content.</li>
+            <li><strong>Publish Workflow:</strong> Draft → Review → Published states configured with preview URL support for content editors.</li>
+            <li><strong>SEO Fields:</strong> Meta title, description, and OG image enforced as required fields on all content types.</li>
+          </ul>
+        </div>
+
+        <hr class="sec-divider">
+
+        <div class="sec">
+          <div class="sec-head qa">QA criteria</div>
+          <ul class="doc-list qa">
+            <li>
+              <strong>Blog Article:</strong> Rich text formatting, inline images, and typography correct at all breakpoints.
+              <ul class="sub-list">
+                <li>Blog list and filter view — tag filtering returns correct results; pagination loads correctly</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Community Article:</strong> Testimonial structure, images, and traveller profile display correctly.
+            </li>
+            <li>
+              <strong>Empty States:</strong> No posts / no community content — appropriate fallback UI shown in each case.
+            </li>
+            <li>
+              <strong>SEO Audit:</strong> Meta tags, JSON-LD structured data, and Open Graph tags verified on all 11 routes.
+            </li>
+            <li>
+              <strong>Dark Mode:</strong> Full pass across all 11 pages — no unthemed elements, no colour contrast failures.
+            </li>
+            <li>
+              <strong>Contentful Workflow:</strong> End-to-end verified from draft through to live content on staging.
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="phase-deliverables">
+        <span class="del-label">Deliverables</span>
+        <span class="del-text">
+          <strong>Blog + Community templates live</strong> · <strong>Dark mode audit complete across all 11 pages</strong> · <strong>SEO pass done</strong> · <strong>Contentful publish workflow verified</strong>
+        </span>
+      </div>
+    </div>
+
+
+    <!-- ─────────────────────────────────────────── -->
+    <!-- PHASE 5 — TODO                             -->
+    <!-- ─────────────────────────────────────────── -->
+    <div class="phase-card todo">
+      <div class="phase-head">
+        <div class="phase-head-left">
+          <div class="phase-num">5</div>
+          <div>
+            <div class="phase-week">Week 5</div>
+            <div class="phase-title">QA, Edge Cases &amp; Launch</div>
+          </div>
+        </div>
+        <span class="status-badge s-todo">Not Started</span>
+      </div>
+
+      <div class="scope-bar">
+        <span class="scope-label">Scope:</span>
+        <span class="tag tag-neutral">All 11 Pages</span>
+        <span class="tag tag-neutral">404 Page</span>
+        <span class="tag tag-neutral">No Results States</span>
+        <span class="tag tag-neutral">Success Screens</span>
+        <span class="tag tag-grey">Cross-Browser</span>
+        <span class="tag tag-grey">Mobile Devices</span>
+        <span class="tag tag-grey">Core Web Vitals</span>
+        <span class="tag tag-grey">WCAG 2.1 AA</span>
+        <span class="tag tag-grey">UAT</span>
+      </div>
+
+      <div class="phase-body">
+
+        <div class="sec">
+          <div class="sec-head">Implementation</div>
+          <ul class="doc-list">
+            <li>
+              <strong>404 Page:</strong> On-brand "Page Not Found" screen with links back to Homepage and Trips.
+            </li>
+            <li>
+              <strong>No Results States:</strong> Trips listing, Blog, and Community pages all handle zero-result scenarios with appropriate fallback UI.
+            </li>
+            <li>
+              <strong>Success Screens:</strong> Booking confirmation (/payment-success) and contact form submission success screen — final designs applied.
+            </li>
+            <li>
+              <strong>Copy Review:</strong> Final proofreading and tone-of-voice consistency pass across all 11 pages.
+            </li>
+            <li>
+              <strong>Staging Validation:</strong> All routes, redirects, and environment variables confirmed correct on staging.
+            </li>
+            <li>
+              <strong>Launch Checklist:</strong> DNS, CDN configuration, analytics integration, and error monitoring confirmed before go-live.
+            </li>
+          </ul>
+        </div>
+
+        <hr class="sec-divider">
+
+        <div class="sec">
+          <div class="sec-head cms">Contentful — handoff</div>
+          <ul class="doc-list cms">
+            <li><strong>Content Review:</strong> All entries proofread and approved for production by the content team.</li>
+            <li><strong>Images:</strong> All images optimised for web; alt text added and verified across all entries.</li>
+            <li><strong>Published State:</strong> All entries confirmed in published state — no content remaining in draft ahead of UAT.</li>
+            <li><strong>Permissions:</strong> Editor roles configured correctly for the client content team.</li>
+            <li><strong>Onboarding:</strong> Contentful walkthrough delivered to content editors ahead of launch.</li>
+          </ul>
+        </div>
+
+        <hr class="sec-divider">
+
+        <div class="sec">
+          <div class="sec-head qa">QA criteria</div>
+          <ul class="doc-list qa">
+            <li>
+              <strong>Cross-Browser:</strong> Chrome, Safari, Firefox, and Edge on desktop — key flows verified on each.
+            </li>
+            <li>
+              <strong>Mobile Devices:</strong> iOS Safari and Android Chrome tested at phone and tablet sizes across all key pages.
+            </li>
+            <li>
+              <strong>Core Web Vitals:</strong> LCP, CLS, and INP meet target thresholds on all high-traffic pages.
+              <ul class="sub-list">
+                <li>Homepage, Trips listing, Trip Detail, and Checkout prioritised</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Accessibility:</strong> WCAG 2.1 AA compliance verified — keyboard navigation, visible focus states, and ARIA labels correct throughout.
+            </li>
+            <li>
+              <strong>Link Integrity:</strong> Full site crawl completed; all internal and external links confirmed working.
+            </li>
+            <li>
+              <strong>UAT Sign-off:</strong> Stakeholder approval on staging obtained before any production deployment.
+            </li>
+            <li>
+              <strong>Security Review:</strong> No API keys or secrets exposed client-side; HTTPS enforced; Content Security Policy headers reviewed.
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="phase-deliverables">
+        <span class="del-label">Deliverables</span>
+        <span class="del-text">
+          <strong>All edge cases built and QA'd</strong> · <strong>Cross-browser and mobile testing passed</strong> · <strong>WCAG 2.1 AA confirmed</strong> · <strong>Contentful handed off</strong> · <strong>UAT signed off</strong> · <strong>Site ready for production</strong>
+        </span>
+      </div>
+    </div>
+
+  </div><!-- /phases -->
+
+  <!-- Footer -->
+  <div class="report-footer">
+    <span>Trip Cooks — Website Redesign 2025</span>
+    <span>Dev Timeline &nbsp;·&nbsp; v1.0 &nbsp;·&nbsp; April 2025</span>
+  </div>
+
+</div>
+</body>
+</html>
+</html>

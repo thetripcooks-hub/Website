@@ -1,84 +1,53 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import TripSearch from "./trip-search";
 import { cn } from "@/lib/utils";
 import useTripStore from "@/stores/trip-store";
-import { useQuery } from "@apollo/client";
-import { queryGetHomeBg } from "@/queries/home-query";
-import { HomeBgResponse } from "@/types/home";
-// import Navbar from "@/components/ui/navbar";
+import { m } from "motion/react";
+import { fadeUp, staggerContainer } from "@/lib/motion";
 
 const HomeHero = () => {
   const { trips } = useTripStore();
   const [value, setValue] = React.useState("");
   const [selectedValue, setSelectedValue] = React.useState("");
-  const { data } = useQuery<HomeBgResponse>(queryGetHomeBg);
-
-  // const frameworks = [
-  //   {
-  //     value: "next.js",
-  //     label: "Next.js",
-  //   },
-  //   {
-  //     value: "sveltekit",
-  //     label: "SvelteKit",
-  //   },
-  //   {
-  //     value: "nuxt.js",
-  //     label: "Nuxt.js",
-  //   },
-  //   {
-  //     value: "remix",
-  //     label: "Remix",
-  //   },
-  //   {
-  //     value: "astro",
-  //     label: "Astro",
-  //   },
-  // ];
-  const homeBg =
-    data?.homeHeroCollection?.items?.[0]?.heroBackground?.url ?? "";
 
   return (
-    // <div className="bg-neutral-grey-100 h-[65vh] sm:h-[calc(100vh-95px)] bg-hero-mobile sm:bg-hero-desktop bg-no-repeat bg-cover "> new-home
-    <div
-      className="bg-neutral-grey-100 h-[65vh] sm:h-[calc(100vh-95px)] bg-no-repeat bg-cover"
-      style={{
-        backgroundImage: homeBg.length
-          ? `url(${homeBg})`
-          : `url("./img/new-home.avif")`,
-      }}
-    >
-      {/* <BackgroundVideo
-      src={bgVideo}
-      className="bg-neutral-grey-100 h-[65vh] sm:h-[calc(100vh-95px)] 2xl:h-[55vh]"
-    > */}
-      <main className="pt-14 sm:pt-[75px]">
-        <div className="px-5 flex flex-col items-center justify-center">
-          <h3 className="text-center text-white text-4xl sm:text-5xl font-semibold sm:max-w-[383px] sm:px-5 max-w-[291px]">
-            Group Trips, The Easy Way.
-          </h3>
-          <p
+    <div className="bg-neutral-grey-100 -mt-[75px] sm:-mt-[95px] h-[calc(65vh+75px)] sm:h-screen bg-no-repeat bg-hero-mobile-png sm:bg-hero-desktop-png bg-cover">
+      <m.main
+        className="pt-[115px] sm:pt-[155px] flex flex-col items-center justify-between gap-10 sm:gap-[82px]"
+        variants={staggerContainer}
+        initial="hidden"
+        animate="show"
+      >
+        <div className="px-5 flex flex-col items-center justify-center text-white">
+          <m.h3
+            variants={fadeUp}
+            className="text-center text-4xl sm:text-[90px]  leading-[66px] font-ogg-trial sm:leading-[108px] sm:max-w-[634px] sm:px-5 max-w-[291px] text-white dark:text-white"
+          >
+            Group Trips, <br /> The Easy Way
+          </m.h3>
+          <m.p
+            variants={fadeUp}
             className={cn(
-              "mt-5 sm:mt-12 max-w-[288px] px-2.5 sm:max-w-[421px] text-center text-white text-xl sm:text-2xl font-normal"
-              // arial.className
+              "mt-2.5 sm:mt-[34px] max-w-[309px] sm:max-w-[357px] text-center text-xl sm:text-[22px] font-normal text-white dark:text-white",
             )}
           >
-            Join group trips or curate a trip of your own.
-          </p>
+            Join our group trips or let us curate one for you.
+          </m.p>
         </div>
-        <TripSearch
-          items={trips}
-          onSearchValueChange={(value) => {
-            setValue(value);
-          }}
-          onSelectedValueChange={(value) => setSelectedValue(value)}
-          searchValue={value}
-          selectedValue={selectedValue}
-          isLoading={false}
-        />
-      </main>
-      {/* </BackgroundVideo> */}
+        <m.div variants={fadeUp} className="w-full flex justify-center">
+          <TripSearch
+            items={trips}
+            onSearchValueChange={(value) => {
+              setValue(value);
+            }}
+            onSelectedValueChange={(value) => setSelectedValue(value)}
+            searchValue={value}
+            selectedValue={selectedValue}
+            isLoading={false}
+          />
+        </m.div>
+      </m.main>
     </div>
   );
 };

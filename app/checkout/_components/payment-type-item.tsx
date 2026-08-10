@@ -65,12 +65,12 @@ const InstallmentItem = () => {
               className="border border-solid border-neutral-grey-300 bg-white text-[#020E0B] p-2 text-xs leading-[20px]"
             >
               <TooltipArrow fill="white" stroke="#E1E6EF" strokeWidth={2} />
-              Pay {formatAmount(selectedTrip.downPayment, selectedCurrency)} today and save your
+              Pay {formatAmount(selectedTrip.downPayment, selectedCurrency, selectedTrip.currency)} today and save your
               spot on this trip.
               {selectedTrip.installments.map((installment, index) => (
                 <p key={index}>
                   <br />
-                  {formatAmount(Number(installment.amount), selectedCurrency)} due{" "}
+                  {formatAmount(Number(installment.amount), selectedCurrency, selectedTrip.currency)} due{" "}
                   {dayjs.utc(installment.date).format("Do MMMM, YYYY")}
                 </p>
               ))}

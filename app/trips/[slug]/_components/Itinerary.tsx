@@ -1,120 +1,118 @@
 "use client";
-import SectionWrapper from "@/app/home/_components/section-wrapper";
-import React from "react";
-import img1 from "./img/itinerary/1.svg";
-import img2 from "./img/itinerary/2.svg";
+import React, { useState } from "react";
 import Image from "next/image";
-// import TripCard from "@/components/ui/trip-card";
 import useTripStore from "@/stores/trip-store";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui";
+import type { CarouselApi } from "@/components/ui/carousel";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
-const itinerary: {
-  day: number;
+type ItineraryItem = {
+  day: string;
   activity: string;
+  coverImage?: string;
   description?: string;
-  coverImage: any;
-}[] = [
-  {
-    day: 1,
-    activity: "Depature from home country & arrival at madrid",
-    description:
-      "Departure from home country and arrival at Madrid. Check in at the hotel and rest for the day.",
-    coverImage: img1,
-  },
-  {
-    day: 2,
-    activity: "Rest day/ Optional activities",
-    coverImage: img2,
-  },
-  {
-    day: 3,
-    activity: "Visit to Chichen Itza, Valladolid and cenote",
-    coverImage: img1,
-  },
-  {
-    day: 4,
-    activity: "Rest day/ Optional Activities",
-    coverImage: img2,
-  },
-  {
-    day: 5,
-    activity: "Departures from Madrid",
-    coverImage: img1,
-  },
-  {
-    day: 6,
-    activity: "Visit to sfer ik tulum museion",
-    coverImage: img2,
-  },
-  {
-    day: 7,
-    activity: "Rest day/ Optional Activities",
-    coverImage: img1,
-  },
-  {
-    day: 8,
-    activity: "Departure from Cancun",
-    coverImage: img2,
-  },
-];
-
-const capitalizeFirstLetter = (string: string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 const Itinerary = () => {
   const { selectedTrip } = useTripStore();
-  return selectedTrip ? (
-    <div className="px-5 sm:py-10 py-12 sm:mb-16 text-neutral-text sm:px-[8%]">
-      <SectionWrapper>
-        <h3 className="text-[24px] leading-[29.26px] font-medium sm:text-[32px] sm:leading-[39.01px] mb-5 sm:mb-2.5 dark:text-foreground">
-          Itinerary
-        </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 gap-y-8 sm:gap-y-12">
-          {selectedTrip.itinerary.map((item, index) => {
-            return (
-              <div key={index}>
-                <div className="text-foreground hidden sm:flex sm:flex-col relative">
-                  <Image
-                    src={item.coverImage}
-                    alt="img"
-                    className="rounded-[18px] w-full sm:w-[291px]  object-cover lg:w-full h-[301px]"
-                    width={291}
-                    height={301}
-                  />
-                  <div className="flex flex-col gap-1 mt-2.5">
-                    <h6 className="text-[14px] leading-[17.07px]">
-                      DAY {item.day}
-                    </h6>{" "}
-                    <p className="text-[20px] leading-[24.38px] sm:text-[24px] sm:leading-[29.26px] dark:text-[#BFC0C2] text-left">
-                      {item.activity}
-                    </p>
-                  </div>
-                </div>
+  const [emblaApi, setEmblaApi] = useState<CarouselApi>();
 
-                <div className="text-foreground sm:hidden relative">
-                  <Image
-                    src={item.coverImage}
-                    alt="img"
-                    className="rounded-[18px] w-full sm:w-[291px]  object-cover lg:w-full h-[301px]"
-                    width={291}
-                    height={301}
-                  />
-                  <div className="flex flex-col gap-1 mt-2.5">
-                    <h6 className="text-[14px] leading-[17.07px]">
-                      DAY{item.day}
-                    </h6>{" "}
-                    <p className="text-[20px] leading-[24.38px] sm:text-[24px] sm:leading-[29.26px] dark:text-[#BFC0C2] text-left">
+  if (!selectedTrip || !selectedTrip.itinerary?.length) return null;
+
+  const itinerary = selectedTrip.itinerary as ItineraryItem[];
+
+  return (
+    <div className="bg-[hsl(var(--bg-secondary))] px-4 py-14 sm:px-[109px]">
+      {/* Heading row — desktop shows arrows here, mobile hides them */}
+      <div className="flex items-center justify-between mb-[43px]">
+        <h3 className="font-ogg-trial text-[24px] sm:text-[42px] leading-tight text-[hsl(var(--text-primary))]">
+          Daily Itinerary
+        </h3>
+
+        {/* Desktop-only nav arrows */}
+        <div className="hidden sm:flex gap-2">
+          <button
+            onClick={() => emblaApi?.scrollPrev()}
+            aria-label="Previous"
+            className="w-14 h-14 rounded-full bg-[hsl(var(--border))] flex items-center justify-center shrink-0"
+          >
+            <ArrowLeft className="w-5 h-5 text-[hsl(var(--text-primary))]" />
+          </button>
+          <button
+            onClick={() => emblaApi?.scrollNext()}
+            aria-label="Next"
+            className="w-14 h-14 rounded-full bg-gradient-to-r from-[#fa93f4] from-[28.5%] to-[#ee7fe7] flex items-center justify-center shrink-0"
+          >
+            <ArrowRight className="w-5 h-5 text-neutral-text" />
+          </button>
+        </div>
+      </div>
+
+      {/* Carousel */}
+      <Carousel
+        setApi={setEmblaApi}
+        opts={{ align: "start" }}
+        className="w-full"
+      >
+        <CarouselContent className="-ml-5">
+          {itinerary.map((item, index) => (
+            <CarouselItem
+              key={index}
+              className="pl-5 basis-[calc(100vw-12px)] sm:basis-[394px]"
+            >
+              <div className="bg-[hsl(var(--bg-primary))] dark:bg-[hsl(var(--bg-tertiary))] flex flex-col gap-3 p-4 h-full rounded-[12px] border border-[#eee] dark:border-[#585E6A]">
+                {item.coverImage ? (
+                  <div className="relative h-[220px] rounded-[12px] overflow-hidden shrink-0">
+                    <Image
+                      src={item.coverImage}
+                      fill
+                      alt={item.activity}
+                      className="object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div className="h-[220px] rounded-[12px] bg-[hsl(var(--bg-tertiary))] shrink-0" />
+                )}
+                <div className="flex flex-col gap-[13px]">
+                  <p className="text-[14px] font-medium leading-[21px] text-[hsl(var(--text-secondary))]">
+                    Day {item.day}
+                  </p>
+                  <div className="flex flex-col gap-1.5">
+                    <h4 className="text-[18px] sm:text-[24px] font-semibold leading-[26px] sm:leading-[36px] text-[hsl(var(--text-primary))]">
                       {item.activity}
-                    </p>
+                    </h4>
+                    {item.description && (
+                      <p className="text-[14px] leading-[22px] text-[hsl(var(--text-secondary))]">
+                        {item.description}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
-            );
-          })}
-        </div>
-      </SectionWrapper>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
+
+      {/* Mobile-only nav arrows at bottom */}
+      <div className="flex sm:hidden gap-4 items-center justify-center mt-8">
+        <button
+          onClick={() => emblaApi?.scrollPrev()}
+          aria-label="Previous"
+          className="w-14 h-14 rounded-full bg-[hsl(var(--border))] flex items-center justify-center shrink-0"
+        >
+          <ArrowLeft className="w-5 h-5 text-[hsl(var(--text-primary))]" />
+        </button>
+        <button
+          onClick={() => emblaApi?.scrollNext()}
+          aria-label="Next"
+          className="w-14 h-14 rounded-full bg-gradient-to-r from-[#fa93f4] from-[28.5%] to-[#ee7fe7] flex items-center justify-center shrink-0"
+        >
+          <ArrowRight className="w-5 h-5 text-neutral-text" />
+        </button>
+      </div>
     </div>
-  ) : null;
+  );
 };
 
 export default Itinerary;

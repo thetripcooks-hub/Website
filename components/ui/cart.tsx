@@ -21,7 +21,7 @@ import { Button } from "./button";
 import { CardDescription, CardHeader, CardTitle } from "./card";
 import { Separator } from "./separator";
 import useCartStore from "@/stores/cartStore";
-import { formatTripDate, formatAmount } from "@/lib/utils";
+import { formatTripDate, formatAmount, formatConvertedAmount } from "@/lib/utils";
 import useGeneralStore from "@/stores/generalStore";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -31,8 +31,8 @@ import EmptyCart from "@/app/cart/_components/empty-cart";
 import useTripStore from "@/stores/trip-store";
 import { Loader } from "lucide-react";
 
-const Cart = () => {
-  const { selectedCurrency } = useGeneralStore();
+const Cart = ({ transparent, isActive, hideBadge, iconOnly }: { transparent?: boolean; isActive?: boolean; hideBadge?: boolean; iconOnly?: boolean }) => {
+  const { selectedCurrency, rates } = useGeneralStore();
   const { theme = "system" } = useTheme()
 
   const {
@@ -52,22 +52,34 @@ const Cart = () => {
   });
 
   const hasTrips = trips.length > 0;
+  const itemCount = trips.reduce((sum, t) => sum + t.quantity, 0);
+
+  const iconEl = (
+    <div className="flex flex-col items-center gap-0.5 cursor-pointer">
+      <div className="relative">
+        <Image
+          src={CartIcon}
+          alt="cart-icon"
+          className={`h-[32px] sm:h-[46px] ${!transparent ? "invert dark:invert-0" : ""}`}
+        />
+        {itemCount > 0 && !hideBadge && (
+          <span className="absolute top-1 right-1 min-w-[20px] h-[20px] rounded-full bg-[#09AF0D] text-white text-[9px] font-normal leading-none flex items-center justify-center p-[4px]">
+            {itemCount}
+          </span>
+        )}
+      </div>
+      {isActive && (
+        <span className="block w-full h-[2px] rounded-full bg-[#09AF0D]" />
+      )}
+    </div>
+  );
+
+  if (iconOnly) return iconEl;
 
   return (
     <DropdownMenu modal={false} open={showCart} onOpenChange={setShowCart}>
       <DropdownMenuTrigger asChild>
-        <div>
-          <Image
-            src={CartIcon}
-            alt="cart-icon"
-            className="cursor-pointer h-[32px] sm:h-[46px] dark:hidden"
-          />
-          <Image
-            src={CartDarkIcon}
-            alt="cart-icon"
-            className="cursor-pointer h-[32px] sm:h-[46px] hidden dark:block"
-          />
-        </div>
+        {iconEl}
       </DropdownMenuTrigger>
       <DropdownMenuContent
         className="sm:max-w-[414px] shadow-none px-0 mr-2 z-[99] dark:border-[#585E6A]"
@@ -81,7 +93,7 @@ const Cart = () => {
               <CardTitle className="text-[16px] leading-[19.5px] font-medium">
                 Total Price:{" "}
                 <span className="font-bold">
-                  {formatAmount(getTotalPrice(trips), selectedCurrency)}
+                  {formatConvertedAmount(getTotalPrice(trips, selectedCurrency, rates), selectedCurrency)}
                 </span>
               </CardTitle>
               <CardDescription className="flex gap-4 py-2">
@@ -166,7 +178,7 @@ const Cart = () => {
                             </p>
                           </div>
                           <h1 className="text-[16px] leading-[19.5px] font-semibold">
-                            {formatAmount(trip.downPayment, selectedCurrency)}
+                            {formatAmount(trip.downPayment, selectedCurrency, trip.currency)}
                           </h1>
                           <div className="flex items-center gap-2.5 text-neutral-text leading-[17.07px] text-[14px] dark:text-foreground">
                             Slots

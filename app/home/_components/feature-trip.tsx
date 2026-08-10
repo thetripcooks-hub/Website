@@ -1,55 +1,236 @@
 "use client";
 import { Button } from "@/components/ui";
+import TripTags from "@/components/ui/trip-tags";
 import Image from "next/image";
 import React from "react";
 import FeatureTripImage from "~/img/sample-featured-trip.svg";
-import SectionWrapper from "./section-wrapper";
 import { useRouter } from "next/navigation";
 import useTripStore from "@/stores/trip-store";
-import { generateTripLink } from "@/lib/utils";
+import { generateTripLink, formatAmount } from "@/lib/utils";
+import CartIconSvg from "~/img/cart-icon.svg";
+import useGeneralStore from "@/stores/generalStore";
+import useCartStore from "@/stores/cartStore";
+import SectionWrapper from "./section-wrapper";
+import { m } from "motion/react";
+import { fadeUp, inViewport } from "@/lib/motion";
+
+const DEFAULT_CHECKLIST = [
+  { title: "Flights included" },
+  { title: "Daily breakfast" },
+  { title: "24/7 Trip coordinator" },
+  { title: "Hotel accommodation" },
+  { title: "City tours & activities" },
+  { title: "Airport transfers" },
+];
 
 const FeatureTrip = () => {
   const router = useRouter();
   const { trips } = useTripStore();
+  const { selectedCurrency } = useGeneralStore();
+  const { addToCart, setLastAddedItem } = useCartStore();
   const featuredTripArray = trips.filter((x) => x.isFeaturedTrip);
-  return featuredTripArray.length > 0 ? (
-    <div className="sm:pt-32 px-5 pt-10 text-neutral-text dark:text-foreground  pb-10 sm:pb-24 sm:px-[5%] ">
-      <SectionWrapper className="flex flex-col-reverse sm:flex-row sm:items-center sm:gap-20">
-        <section>
-          <Image
-            src={
-              featuredTripArray[0].bannerImagesCollection.items[0].url ??
-              FeatureTripImage
-            }
-            priority
-            width={390}
-            height={398.72}
-            alt="featured-trip-image"
-            className="my-5 sm:my-0 sm:max-w-[544px] rounded-[21px] w-full h-[392px] sm:h-[558px]"
-          />
-        </section>
-        <section className="flex flex-col gap-6 sm:gap-10">
-          <h3 className="text-[32px] sm:text-5xl font-medium">Featured Trip</h3>
-          <p className="max-w-[318px] text-base sm:text-xl sm:max-w-[415px] text-neutral-subtext dark:text-[#BFC0C2]">
-            Explore {featuredTripArray[0].location} with a friend or two this
-            summer. Enjoy full support from our team 24/7.
-          </p>
-          <Button
-            className="w-full sm:w-fit h-[54px] hidden sm:flex"
-            onClick={() => router.push(generateTripLink(featuredTripArray[0]))}
-          >
-            Book trip
-          </Button>
-        </section>
+
+  if (featuredTripArray.length === 0) return null;
+
+  const trip = featuredTripArray[0];
+  const imageUrl =
+    trip.bannerImagesCollection.items[0]?.url ?? FeatureTripImage;
+  const checklist = (
+    trip.whatsIncluded?.length ? trip.whatsIncluded : DEFAULT_CHECKLIST
+  ).slice(0, 6);
+
+  return (
+    <section className="px-5 py-10 sm:py-[62px] sm:px-[109px]">
+      <SectionWrapper>
+        <m.h2
+          className="font-ogg-trial text-[26px] sm:text-[48px] leading-tight mb-8 sm:mb-12"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={inViewport}
+        >
+          Featured Trip
+        </m.h2>
+
+        {/* Desktop: side by side | Mobile: stacked */}
+        <div className="flex flex-col sm:flex-row gap-6 items-stretch">
+          {/* Left — image */}
+          <div className="relative w-full sm:w-[586px] shrink-0 h-[300px] sm:h-auto border-[#eee] border rounded-[14px] overflow-hidden dark:border-none">
+            <Image
+              src={imageUrl}
+              alt={trip.location}
+              fill
+              priority
+              className="object-cover rounded-[22px]"
+            />
+            {/* Tags */}
+            <div className="absolute top-5 left-6">
+              <TripTags
+                tags={trip.tags?.length ? trip.tags : ["Bestseller 💸"]}
+                className="border-2 border-[#d0d0d0] dark:border-[#585E6A] px-4 py-1 text-sm"
+              />
+            </div>
+            {/* Cart icon */}
+            <button
+              className="absolute top-5 right-[26px] sm:top-[18px]"
+              onClick={() => {
+                const item = { ...trip, quantity: 1 };
+                addToCart(item);
+                setLastAddedItem(item);
+              }}
+              aria-label="Add to cart"
+            >
+              <Image
+                src={CartIconSvg}
+                alt="add to cart"
+                width={46}
+                height={46}
+                className="w-8 h-8 sm:w-[46px] sm:h-[46px]"
+              />
+            </button>
+          </div>
+
+          {/* Right — details card */}
+          <div className="flex-1 bg-[#fafafa] dark:bg-[#1E2826] border border-[#eee] dark:border-[#585E6A] rounded-[14px] p-6 flex flex-col gap-8">
+            {/* Name + price */}
+            <div className="flex flex-col gap-2 sm:flex-row items-start sm:justify-between">
+              <h3 className="font-ogg-trial text-[22px] sm:text-[40px] leading-tight text-neutral-text dark:text-white">
+                {trip.location}
+              </h3>
+              <div className="flex flex-row items-end justify-between sm:flex-col sm:items-end sm:text-right sm:shrink-0 w-full sm:w-auto">
+                <div>
+                  <p className="text-[24px] sm:text-[32px] font-bold text-neutral-text leading-tight dark:text-white">
+                    {formatAmount(trip.fullAmount, selectedCurrency, trip.currency)}
+                  </p>
+                  <p className="text-sm text-neutral-subtext text-[#6C707A] dark:text-[#A0A0A0]">
+                    Per person
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Meta row */}
+            <div className="flex flex-col gap-4 sm:gap-[30px]">
+              <div
+                className="h-px w-full dark:hidden"
+                style={{
+                  backgroundImage:
+                    "repeating-linear-gradient(to right, #c8c8c8 0, #c8c8c8 6px, transparent 6px, transparent 14px)",
+                }}
+              />
+              <div
+                className="h-px w-full hidden dark:block"
+                style={{
+                  backgroundImage:
+                    "repeating-linear-gradient(to right, #585E6A 0, #585E6A 6px, transparent 6px, transparent 14px)",
+                }}
+              />
+              <div className="flex flex-wrap gap-8 sm:gap-[45px] sm:max-w-[483px] justify-between">
+                <div className="hidden sm:flex items-start gap-2">
+                  <Image
+                    src="/img/featured-trip/clock.svg"
+                    width={18}
+                    height={18}
+                    alt="Duration"
+                  />
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.55px] text-neutral-subtext dark:text-[#BFC0C2]">
+                      Duration
+                    </p>
+                    <p className="text-[11px] sm:text-[18px] font-medium text-neutral-text dark:text-white">
+                      {trip.startDate && trip.endDate
+                        ? `${Math.round((new Date(trip.endDate).getTime() - new Date(trip.startDate).getTime()) / 86400000)} Days`
+                        : "7 Days"}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2 order-2 sm:order-none">
+                  <Image
+                    src="/img/featured-trip/people.svg"
+                    width={18}
+                    height={18}
+                    alt="Group Size"
+                  />
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.55px] text-neutral-subtext dark:text-[#BFC0C2]">
+                      Group Size
+                    </p>
+                    <p className="text-[11px] sm:text-[18px] font-medium text-neutral-text dark:text-white">
+                      {trip.groupSize ?? "12–18 people"}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2 order-1 sm:order-none">
+                  <Image
+                    src="/img/featured-trip/calendar.svg"
+                    width={18}
+                    height={18}
+                    alt="Dates"
+                  />
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.55px] text-neutral-subtext dark:text-[#BFC0C2]">
+                      Dates
+                    </p>
+                    <p className="text-[11px] sm:text-[18px] font-medium text-neutral-text dark:text-white">
+                      {trip.startDate
+                        ? new Date(trip.startDate).toLocaleDateString("en-GB", {
+                            month: "short",
+                            day: "numeric",
+                          }) +
+                          " – " +
+                          new Date(trip.endDate).toLocaleDateString("en-GB", {
+                            month: "short",
+                            day: "numeric",
+                          })
+                        : "TBA"}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="h-px w-full dark:hidden"
+                style={{
+                  backgroundImage:
+                    "repeating-linear-gradient(to right, #c8c8c8 0, #c8c8c8 6px, transparent 6px, transparent 14px)",
+                }}
+              />
+              <div
+                className="h-px w-full hidden dark:block"
+                style={{
+                  backgroundImage:
+                    "repeating-linear-gradient(to right, #585E6A 0, #585E6A 6px, transparent 6px, transparent 14px)",
+                }}
+              />
+            </div>
+
+            {/* Checklist */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 sm:gap-x-4">
+              {checklist.map((item, index) => (
+                <div key={item.title} className={`flex items-center gap-2${index >= 3 ? " hidden sm:flex" : ""}`}>
+                  <Image
+                    src="/img/check.svg"
+                    width={18}
+                    height={18}
+                    alt="Check"
+                  />
+                  <span className="text-sm font-medium text-neutral-text dark:text-white">
+                    {item.title}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <Button
+              className="w-full sm:w-[185px] sm:mt-2.5 mx-auto"
+              onClick={() => router.push(generateTripLink(trip))}
+            >
+              View more
+            </Button>
+          </div>
+        </div>
       </SectionWrapper>
-      <Button
-        className="w-fit h-[54px] sm:hidden"
-        onClick={() => router.push(generateTripLink(featuredTripArray[0]))}
-      >
-        Book trip
-      </Button>
-    </div>
-  ) : null;
+    </section>
+  );
 };
 
 export default FeatureTrip;

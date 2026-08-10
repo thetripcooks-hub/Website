@@ -24,7 +24,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col pb-10 sm:pb-20">
+    <main className="flex min-h-screen flex-col">
       <HomeHero />
       <TravelChef />
       <FeatureTrip />

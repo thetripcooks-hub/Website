@@ -8,6 +8,7 @@ const tripQuery = `{
         soldOut
         travelWithOwners
         isFeaturedTrip
+        tags
         bannerImagesCollection {
           items {
             title
@@ -24,8 +25,11 @@ const tripQuery = `{
         endDate
         description
         fullAmount
+        currency
         discount
         whatsIncluded
+        whatsNotIncluded
+        groupSize
         slots
         downPayment
         installments

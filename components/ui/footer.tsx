@@ -3,121 +3,128 @@ import Image from "next/image";
 import React from "react";
 import LogoBig from "~/logo-big.svg";
 import Instagram from "@/components/icons/svg/instagram.svg";
-import InstagramDark from "@/components/icons/svg/instagram-dark.svg";
 import Tiktok from "@/components/icons/svg/tiktok.svg";
-import TiktokDark from "@/components/icons/svg/tiktok-dark.svg";
-// import Facebook from "@/components/icons/svg/facebook.svg";
-// import X from "@/components/icons/svg/x.svg";
+import WhatsApp from "@/components/icons/svg/whatsapp.svg";
+import LinkedIn from "@/components/icons/svg/linkedin.svg";
+import Mail from "@/components/icons/svg/mail.svg";
 import Link from "next/link";
-import SectionWrapper from "@/app/home/_components/section-wrapper";
-import { useRouter } from "next/navigation";
 
-const config = [
+const footerConfig = [
   {
-    title: "Company",
+    title: "Resources",
     routes: [
-      {
-        name: "About Us",
-        url: "/about",
-      },
-      {
-        name: "Contact Us",
-        url: "/contact",
-      },
+      { name: "Blog", url: "/blog" },
+      { name: "Community", url: "/community" },
+      { name: "Travel Guides", url: "/travel-guides" },
     ],
   },
   {
     title: "Trips",
     routes: [
-      {
-        name: "Destinations",
-        url: "/trips",
-      },
-      {
-        name: "Private Trips",
-        url: "/private-trips",
-      },
+      { name: "Past Trips", url: "/trips/past" },
+      { name: "Private Trips", url: "/private-trips" },
+      { name: "Current Trips", url: "/trips" },
     ],
   },
   {
-    title: "Travel Policy",
+    title: "Company",
     routes: [
-      {
-        name: "Privacy Policy",
-        url: "/legal",
-      },
-      {
-        name: "Terms and Conditions",
-        url: "/legal",
-      },
+      { name: "Our Story", url: "/about" },
+      { name: "How To Book", url: "/how-to-book" },
+      { name: "Contact Us", url: "/contact" },
+    ],
+  },
+  {
+    title: "Legal",
+    routes: [
+      { name: "Privacy Policy", url: "/legal" },
+      { name: "Terms and Conditions", url: "/legal" },
     ],
   },
 ];
 
-const Footer = () => {
-  const router = useRouter();
-  const socials = [{
+const socials = [
+  {
     name: "Instagram",
     url: "https://www.instagram.com/tripcooks/",
     icon: Instagram,
-    darkIcon: InstagramDark,
-  }, {
-    name: "Tiktok",
+  },
+  {
+    name: "TikTok",
     url: "https://www.tiktok.com/@tripcooks?_t=ZM-8smTfjMee4k&_r=1",
     icon: Tiktok,
-    darkIcon: TiktokDark,
-  }]
+  },
+  {
+    name: "WhatsApp",
+    url: "https://wa.me/447310016389",
+    icon: WhatsApp,
+  },
+  {
+    name: "LinkedIn",
+    url: "https://www.linkedin.com/company/tripcooks/",
+    icon: LinkedIn,
+  },
+  {
+    name: "Email",
+    url: "mailto:hello@tripcooks.tours",
+    icon: Mail,
+  },
+];
+
+const Footer = () => {
   return (
-    <section className="px-5 py-5 sm:px-[8%]">
-      <SectionWrapper className="flex flex-col sm:flex-row sm:justify-between gap-5">
-        <div className="flex flex-col gap-5 sm:w-2/5">
-          <Image src={LogoBig} alt="logo" />
-          <div className="flex gap-4">
-            {socials.map((social, index) => (
-              <div
-                className="border border-neutral-grey-300 rounded-full h-[46px] w-[46px] flex items-center justify-center cursor-pointer bg-background dark:border-[#383E47]"
-                key={index}
-                onClick={() =>
-                  router.push(social.url)
-                }
-              >
-                <Image
-                  src={social.icon}
-                  className="w-5 h-5 sm:w-[25px] sm:h-[25px] dark:hidden"
-                  alt="social-media-icon"
-                />
-                <Image
-                  src={social.darkIcon}
-                  className="w-5 h-5 sm:w-[25px] sm:h-[25px] hidden dark:block"
-                  alt="social-media-icon"
-                />
+    <section className="px-5 pb-10 sm:pb-[64px] sm:px-[100px]">
+      <div className="max-w-[1440px] mx-auto">
+        <div className="flex flex-col sm:flex-row sm:justify-between gap-10">
+          {/* Logo + socials */}
+          <div className="flex flex-col items-center sm:items-start gap-[25px] shrink-0">
+            <Image src={LogoBig} alt="TripCooks logo" className="hidden sm:block" />
+            <div className="flex gap-4 justify-center sm:justify-start">
+              {socials.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.name}
+                  className="size-[46px] rounded-[23px] bg-[hsl(var(--bg-tertiary))] flex items-center justify-center shrink-0"
+                >
+                  <Image
+                    src={social.icon}
+                    alt={social.name}
+                    width={20}
+                    height={20}
+                    className="dark:brightness-0 dark:invert"
+                  />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Nav columns */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-[18px] sm:gap-[36px]">
+            {footerConfig.map((section) => (
+              <div key={section.title} className="flex flex-col gap-[11px] sm:gap-[23px]">
+                <h3 className="font-medium text-[15px] sm:text-[18px] leading-[22px] sm:leading-[27px] text-[hsl(var(--text-primary))]">
+                  {section.title}
+                </h3>
+                <ul className="flex flex-col gap-[6px] sm:gap-[11px]">
+                  {section.routes.map((route) => (
+                    <li key={route.name}>
+                      <Link
+                        href={route.url}
+                        className="text-[14px] sm:text-[16px] leading-[20px] sm:leading-[24px] text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] transition-colors"
+                      >
+                        {route.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
         </div>
-
-        <div className="flex flex-col sm:flex-row sm:w-3/5 sm:justify-between sm:max-w-[600px] gap-10 sm:gap-5 mb-12">
-          {config.map((item, index) => (
-            <div key={index}>
-              <h3 className="text-[20px] leading-[24px] text-neutral-text dark:text-foreground">
-                {item.title}
-              </h3>
-              <ul className="mt-4 flex flex-col gap-2">
-                {item.routes.map((route, index) => (
-                  <li key={index}>
-                    <Link
-                      className="text-[18px] leading-[24px] text-neutral-subtext dark:text-[#BFC0C2]"
-                      href={route.url}
-                    >
-                      {route.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </SectionWrapper>
+      </div>
     </section>
   );
 };

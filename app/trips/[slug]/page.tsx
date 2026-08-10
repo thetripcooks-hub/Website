@@ -1,14 +1,17 @@
 "use client";
-import { useInView } from "react-intersection-observer";
 import Reviews from "@/app/home/_components/reviews";
 import { SubcribeToNewsLetter, Footer, CustomLoader } from "@/components/ui";
-import { cn, locationToSlug } from "@/lib/utils";
+import {
+  cn,
+  generateTripLink,
+  generateTripSlug,
+  locationToSlug,
+  normalizeTripCurrency,
+} from "@/lib/utils";
 import React, { useEffect } from "react";
 import ViewOfLocation from "./_components/view-of-location";
 import Itinerary from "./_components/Itinerary";
 import TripDetailOverview from "./_components/trip-detail-overview";
-import PaymentCardMobile from "./_components/trip-detail-overview/payment-card-mobile";
-import MobilePageHeader from "@/components/ui/mobile-page-header";
 import { queryGetAllTrips, queryTripById } from "@/queries/trips-query";
 import { AllTripsResponse, TripByIdResponse } from "@/types/trip";
 import { useQuery } from "@apollo/client";
@@ -18,35 +21,44 @@ import useTripStore from "@/stores/trip-store";
 const Page = () => {
   const { slug } = useParams<{ slug: string }>();
   const router = useRouter();
-  const { ref, inView } = useInView();
   const { setSelectedTrip, selectedTrip } = useTripStore();
 
   const { data: allTripsData, loading: allTripsLoading } =
     useQuery<AllTripsResponse>(queryGetAllTrips);
 
   const tripBySlug = allTripsData?.tripCollection.items.find(
-    (t) => locationToSlug(t.location) === slug
+    (t) => generateTripSlug(t) === slug,
   );
 
-  // Fallback: slug might be an old Contentful ID — try fetching by ID
+  // Fallback: slug might be an old link without the year — try matching by
+  // destination alone
+  const tripByLegacySlug = !tripBySlug
+    ? allTripsData?.tripCollection.items.find(
+        (t) => locationToSlug(t.location) === slug,
+      )
+    : undefined;
+
+  // Fallback: slug might be an even older Contentful ID — try fetching by ID
   const { data: tripByIdData, loading: tripByIdLoading } =
     useQuery<TripByIdResponse>(queryTripById(slug), {
-      skip: allTripsLoading || !!tripBySlug,
+      skip: allTripsLoading || !!tripBySlug || !!tripByLegacySlug,
     });
 
-  // If found by ID (old link), redirect to the clean slug URL
+  // If found via a legacy link (no year, or old ID), redirect to the
+  // canonical year'd slug URL
   useEffect(() => {
-    if (!allTripsLoading && !tripBySlug && tripByIdData?.trip) {
-      router.replace(`/trips/${locationToSlug(tripByIdData.trip.location)}`);
+    const legacyTrip = tripByLegacySlug ?? tripByIdData?.trip;
+    if (!allTripsLoading && !tripBySlug && legacyTrip) {
+      router.replace(generateTripLink(legacyTrip));
     }
-  }, [allTripsLoading, tripBySlug, tripByIdData, router]);
+  }, [allTripsLoading, tripBySlug, tripByLegacySlug, tripByIdData, router]);
 
   useEffect(() => {
-    const trip = tripBySlug ?? tripByIdData?.trip;
-    if (trip) setSelectedTrip(trip);
+    const trip = tripBySlug ?? tripByLegacySlug ?? tripByIdData?.trip;
+    if (trip) setSelectedTrip(normalizeTripCurrency(trip));
     return () => setSelectedTrip(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tripBySlug, tripByIdData]);
+  }, [tripBySlug, tripByLegacySlug, tripByIdData]);
 
   const loading = allTripsLoading || (!tripBySlug && tripByIdLoading);
 
@@ -66,12 +78,8 @@ const Page = () => {
 
   return (
     <main className={cn("bg-white dark:bg-background w-full")}>
-      <div ref={ref}>
-        <MobilePageHeader title={selectedTrip?.location || ""} />
-        <TripDetailOverview />
-        <Itinerary />
-        {inView ? <PaymentCardMobile /> : null}
-      </div>
+      <TripDetailOverview />
+      <Itinerary />
       <ViewOfLocation
         title={`Our view of ${selectedTrip.location.split(",")[0]}`}
         items={selectedTrip.viewsOfLocationCollection.items ?? []}

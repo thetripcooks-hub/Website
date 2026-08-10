@@ -49,7 +49,7 @@ const useStripe = ({
                   ) ?? [],
               },
               unit_amount:
-                Math.round(Number(convertPrice(trip.downPayment, currency, rates)) * 100),
+                Math.round(Number(convertPrice(trip.downPayment, trip.currency, currency, rates)) * 100),
             },
             quantity: trip.quantity,
             adjustable_quantity: {

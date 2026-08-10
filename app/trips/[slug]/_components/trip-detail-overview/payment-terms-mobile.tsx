@@ -20,7 +20,7 @@ const PaymentTermsMobile = () => {
           <p>
             {" "}
             <span className="font-normal">
-              {formatAmount(selectedTrip?.downPayment, selectedCurrency)}
+              {formatAmount(selectedTrip?.downPayment, selectedCurrency, selectedTrip.currency)}
             </span>{" "}
             required to reserve a spot
           </p>
@@ -29,7 +29,7 @@ const PaymentTermsMobile = () => {
             {selectedTrip.installments.map((installment, index) => (
               <p key={index}>
                 <span className="font-normal">
-                  {formatAmount(Number(installment.amount), selectedCurrency)}
+                  {formatAmount(Number(installment.amount), selectedCurrency, selectedTrip.currency)}
                 </span>{" "}
                 due{" "}
                 {dayjs.utc(installment.date, "MM-DD-YYYY").format("Do MMMM, YYYY")}

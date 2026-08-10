@@ -59,7 +59,7 @@ const PaginationLink = ({
       }),
       className,
       "rounded-full",
-      isActive && "bg-[#020E0B] text-[#FFFFFF]"
+      isActive && "bg-gradient-to-r from-[#fa93f4] to-[#ee7fe7] text-white border-transparent"
     )}
     {...props}
   />

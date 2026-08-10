@@ -38,6 +38,10 @@ next-env.d.ts
 # environment files
 .env
 
+# mailchimp scripts
+scripts/backfill-mailchimp.mjs
+scripts/check-mailchimp-contact.mjs
+
 # next-video
 videos/*
 !videos/*.json

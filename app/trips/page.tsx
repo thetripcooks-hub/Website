@@ -1,42 +1,30 @@
 "use client";
 import { cn } from "@/lib/utils";
-import TripSearch from "@/app/home/_components/trip-search";
 import { SubcribeToNewsLetter, Footer } from "@/components/ui";
-// import ReadyToStart from "@/app/home/_components/ready-to-start";
 import Destination from "./_components/destination";
-import { useEffect, useState } from "react";
+import TripsHero from "./_components/trips-hero";
+import Faq from "@/app/home/_components/faq";
+import Reviews from "@/app/home/_components/reviews";
 import useTrips from "@/hooks/trips/useTrips";
 import useTripStore from "@/stores/trip-store";
+import { useEffect } from "react";
 
 const Page = () => {
-  const { trips } = useTrips();
-  const { setOrderKey } = useTripStore();
-
-  const [value, setValue] = useState("");
-  const [selectedValue, setSelectedValue] = useState("");
+  useTrips();
+  const { setOrderKey, setFilterTags } = useTripStore();
 
   useEffect(() => {
     setOrderKey(null);
+    setFilterTags([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <main className={cn("bg-white dark:bg-background w-full")}>
-      <header>
-        <h1 className="text-4xl sm:text-5xl text-center font-semibold my-5 sm:mt-20 text-neutral-text dark:text-foreground">
-          Where to?..
-        </h1>
-        <TripSearch
-          items={trips}
-          onSearchValueChange={(value) => setValue(value)}
-          onSelectedValueChange={(value) => setSelectedValue(value)}
-          searchValue={value}
-          selectedValue={selectedValue}
-          isLoading={false}
-        />
-      </header>
+      <TripsHero />
       <Destination />
-      {/* <ReadyToStart /> */}
+      <Faq />
+      <Reviews />
       <SubcribeToNewsLetter />
       <Footer />
     </main>

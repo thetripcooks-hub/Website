@@ -6,3 +6,9 @@ export type CurrencyListItem = {
   name: string;
   flag: React.ReactNode;
 };
+
+export interface ExchangeRates {
+  USD: number;
+  CAD: number;
+  GBP: number;
+}

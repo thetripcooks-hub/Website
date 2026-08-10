@@ -1,7 +1,5 @@
 "use client";
 import {
-  Card,
-  CardContent,
   Carousel,
   CarouselContent,
   CarouselItem,
@@ -11,10 +9,11 @@ import {
 } from "@/components/ui";
 import Image from "next/image";
 import React from "react";
-import StarIcon from "@/components/icons/svg/star.svg";
 import SectionWrapper from "./section-wrapper";
 import useGeneralStore from "@/stores/generalStore";
 import dayjs from "@/lib/dayjs";
+import { m } from "motion/react";
+import { fadeUp, inViewport } from "@/lib/motion";
 
 const Reviews = () => {
   const { reviews, loadingReviews } = useGeneralStore();
@@ -26,90 +25,94 @@ const Reviews = () => {
       ? review?.subText?.json?.content[0]?.content[0]?.value
       : "",
     name: review.location,
+    reviewerName: review.reviewerName ?? null,
     year: dayjs.utc(review.date).format("YYYY"),
-    flag: "",
     starCount: review.starCount,
     imageUrl: review.reviewImage ? review.reviewImage.url : "",
   }));
 
   return (
-    <section className="px-5 py-12 sm:py-24 sm:px-[8%] bg-cover bg-no-repeat bg-center  w-full">
+    <section className="bg-[#f8f9fc] dark:bg-[#121716] px-5 py-12 sm:py-24 sm:px-[8%] w-full">
       <SectionWrapper>
-        <div className="w-full text-center mb-10 sm:mb-20">
-          <h3 className="text-[#1D2433] leading-[39.01px] text-[32px] font-medium sm:leading-[58.51px] sm:text-[48px] mb-5 dark:text-foreground">
-            {/* Our wall of love */} Reviews
-          </h3>
-          <p className="text-neutral-subtext text-[16px] leading-[19.5px] sm:text-[20px] sm:leading-[24.38px] dark:text-[#BFC0C2]">
-            The early adopters have spoken
-          </p>
-        </div>
+        <m.h2
+          className="font-ogg-trial text-[24px] sm:text-[44px] leading-tight text-center text-neutral-text dark:text-foreground mb-5 sm:mb-8"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={inViewport}
+        >
+          People actually really like us..
+        </m.h2>
+
         {loadingReviews ? (
-          <div className="h-[485px] w-full">
+          <div className="h-[400px] w-full flex items-center justify-center">
             <CustomLoader />
           </div>
         ) : (
-          <Carousel
-            opts={{
-              align: "start",
-            }}
-            // className="w-[90%] sm:w-[90%] mx-auto py-10 sm:py-20"
-          >
-            <CarouselContent className="flex items-center">
-              {data.map((_, index) => (
+          <Carousel opts={{ align: "start" }}>
+            <CarouselContent className="flex items-start">
+              {data.map((review, index) => (
                 <CarouselItem key={index}>
-                  {/* className="md:basis-1/2 lg:basis-1/3"*/}
-                  <Card className="border border-neutral-grey-200 dark:border-none shadow-[#0000000D] rounded-[14px] bg-secondary-forest-green !dark:bg-[#083025] relative sm:pl-5 sm:pr-2.5 sm:py-2.5 pb-16">
-                    <CardContent className="flex flex-col sm:flex-row justify-between sm:pl-5 sm:py-2.5 sm:pr-2.5 gap-5">
-                      <div className="sm:max-w-[487.92px] flex flex-col gap-5 h-[340px] sm:h-fit">
-                        <h3 className="text-white text-2xl leading-[29.26px] font-alexandria sm:leading-[39.01px] sm:text-[32px] mt-5">
-                          {_.name} {_.year}
-                        </h3>
-                        <div className="text-[#93B4AB] text-base leading-[32.26px] flex flex-col sm:gap-5 sm:text-lg font-alexandria">
-                          <div>
-                            &quot;{_.text}
-                            {!_.subText && `"`}
-                          </div>
-                          {_.subText && <div>{_.subText}&quot;</div>}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Image src={StarIcon} alt="star_icon" />
-                          <p className="text-xl text-white"> {_.starCount}</p>
-                        </div>
-                        <div className="flex w-[85%] sm:w-fit gap-5 absolute sm:left-10 sm:bottom-0 -bottom-3 justify-center sm:justify-normal">
-                          <CarouselPrevious
-                            className="relative -left-0 top-0 w-[53px] h-[53px] !bg-[#14382E] border-none"
-                            customIcon
-                          />
-                          <CarouselNext
-                            className="relative -right-0 top-0 w-[53px] h-[53px] !bg-[#14382E] border-none"
-                            customIcon
+                  <div className="flex flex-col sm:flex-row items-center sm:items-start gap-10 sm:gap-14 p-6 sm:p-9 max-w-[1145px] mx-auto">
+                    {/* Polaroid image */}
+                    {review.imageUrl && (
+                      <div className="shrink-0 flex items-center justify-center w-[189px] h-[189px]">
+                        <div className="rotate-[-10deg] border-4 border-white shadow-[0px_4px_15.5px_2px_rgba(117,117,117,0.25)] rounded-[12px] w-[163px] h-[163px] overflow-hidden">
+                          <Image
+                            src={review.imageUrl}
+                            alt={review.name}
+                            width={163}
+                            height={163}
+                            className="object-cover w-full h-full rounded-[12px]"
                           />
                         </div>
                       </div>
-                      <div className="h-full mt-12 sm:mt-0">
-                        <Image
-                          src={_.imageUrl}
-                          alt="review image"
-                          width={516}
-                          height={449}
-                          className="rounded-[14px] object-cover sm:object-fill w-full sm:h-[449px] sm:max-w-[516px]"
-                        />
-                      </div>
-                      {/* <div className="flex w-full gap-5 justify-center items-center mt-5 h-[53px]">
-                      <CarouselPrevious
-                        className="relative -left-0 top-0 w-[53px] h-[53px] bg-[#14382E] border-none"
-                        customIcon
-                      />
-                      <CarouselNext
-                        className="relative -right-0 top-0 w-[53px] h-[53px] bg-[#14382E] border-none"
-                        customIcon
-                      />
-                    </div> */}
-                    </CardContent>
-                  </Card>
+                    )}
+
+                    {/* Content */}
+                    <div className="flex flex-col gap-4 max-w-[697px]">
+                      <h3 className="text-[18px] sm:text-[32px] font-semibold text-neutral-text dark:text-foreground leading-tight">
+                        {review.name} {review.year}
+                      </h3>
+                      <p className="text-[14px] sm:text-[18px] text-neutral-subtext dark:text-[#BFC0C2] leading-[20px] sm:leading-[28px]">
+                        &quot;{review.text}
+                        {review.subText && (
+                          <>
+                            <br />
+                            <br />
+                            {review.subText}
+                          </>
+                        )}
+                        &quot;
+                      </p>
+                      {review.reviewerName && (
+                        <p className="text-[14px] sm:text-lg font-plus-jakarta-sans font-medium">
+                          – {review.reviewerName}
+                        </p>
+                      )}
+                      {/* <div className="flex items-center gap-2">
+                        <Star className="w-5 h-5 fill-secondary-irish-green text-secondary-irish-green" />
+                        <span className="text-[20px] font-medium text-neutral-text">
+                          {review.starCount}
+                        </span>
+                      </div> */}
+                    </div>
+                  </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
+
+            {/* Nav buttons centered below */}
+            <div className="flex justify-center gap-4 mt-8">
+              <CarouselPrevious
+                className="relative left-0 top-0 w-[48px] h-[48px] bg-[#EEE] border-none rounded-full hover:bg-[#eee]/80"
+                customIcon
+              />
+              <CarouselNext
+                className="relative right-0 top-0 w-[48px] h-[48px] bg-gradient-to-r from-[#FA93F4] from-[28.5%] to-[#EE7FE7] border-none rounded-full hover:opacity-90"
+                customIcon
+              />
+            </div>
           </Carousel>
         )}
       </SectionWrapper>
