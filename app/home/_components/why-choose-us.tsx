@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 import SectionWrapper from "./section-wrapper";
 import { m } from "motion/react";
-import { fadeUp, staggerContainer, inViewport } from "@/lib/motion";
+import { fadeUp, staggerContainer } from "@/lib/motion";
 
 const items = [
   {
@@ -64,8 +64,7 @@ const WhyChooseUs = () => {
           className="font-ogg-trial text-[26px] sm:text-[42px] text-center max-w-[446px] mx-auto mb-8 sm:mb-20 leading-tight sm:leading-[60px]"
           variants={fadeUp}
           initial="hidden"
-          whileInView="show"
-          viewport={inViewport}
+          animate="show"
         >
           Why choose us to curate your travel?
         </m.h2>
@@ -73,8 +72,7 @@ const WhyChooseUs = () => {
           className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-16 w-full"
           variants={staggerContainer}
           initial="hidden"
-          whileInView="show"
-          viewport={inViewport}
+          animate="show"
         >
           {items.map((item) => (
             <m.div

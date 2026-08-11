@@ -13,7 +13,7 @@ import SectionWrapper from "./section-wrapper";
 import useGeneralStore from "@/stores/generalStore";
 import dayjs from "@/lib/dayjs";
 import { m } from "motion/react";
-import { fadeUp, inViewport } from "@/lib/motion";
+import { fadeUp } from "@/lib/motion";
 
 const Reviews = () => {
   const { reviews, loadingReviews } = useGeneralStore();
@@ -38,8 +38,7 @@ const Reviews = () => {
           className="font-ogg-trial text-[24px] sm:text-[44px] leading-tight text-center text-neutral-text dark:text-foreground mb-5 sm:mb-8"
           variants={fadeUp}
           initial="hidden"
-          whileInView="show"
-          viewport={inViewport}
+          animate="show"
         >
           People actually really like us..
         </m.h2>

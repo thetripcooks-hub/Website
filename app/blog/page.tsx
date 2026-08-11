@@ -11,7 +11,7 @@ import { queryGetAllBlogPosts } from "@/queries/blog-query";
 import { BlogPostsResponse, CmsBlogPost } from "@/types/blog";
 import { RevealGrid } from "@/components/motion/reveal-grid";
 import { m } from "motion/react";
-import { fadeUp, inViewport } from "@/lib/motion";
+import { fadeUp } from "@/lib/motion";
 
 const BIG_CARD_CATEGORIES: BlogCategory[] = [
   "travel-updates",
@@ -137,6 +137,7 @@ function AllView({
   if (searchValue) {
     return (
       <RevealGrid
+        eager
         className="grid grid-cols-3 max-sm:grid-cols-1 gap-5"
         items={filteredPosts}
         keyFn={(post) => post.sys.id}
@@ -153,8 +154,7 @@ function AllView({
           className="flex flex-col gap-5"
           variants={fadeUp}
           initial="hidden"
-          whileInView="show"
-          viewport={inViewport}
+          animate="show"
         >
           <h2 className="font-ogg-trial text-[36px] sm:text-[42px] max-sm:text-[28px] leading-[60px] max-sm:leading-[40px] text-[color:var(--text-primary)]">
             Featured Articles
@@ -181,6 +181,7 @@ function AllView({
               {CATEGORY_LABEL[cat]}
             </h2>
             <RevealGrid
+              eager
               className="grid grid-cols-3 max-sm:grid-cols-1 gap-5"
               items={catPosts}
               keyFn={(post) => post.sys.id}
@@ -201,6 +202,7 @@ function AllView({
               {CATEGORY_LABEL[cat]}
             </h2>
             <RevealGrid
+              eager
               className="grid grid-cols-2 max-sm:grid-cols-1 gap-5"
               items={catPosts}
               keyFn={(post) => post.sys.id}
@@ -251,6 +253,7 @@ function CategoryView({
           <>
             {slug && SMALL_CARD_CATEGORIES.includes(slug) ? (
               <RevealGrid
+                eager
                 className="grid grid-cols-2 max-sm:grid-cols-1 gap-5"
                 items={visible}
                 keyFn={(post) => post.sys.id}
@@ -258,6 +261,7 @@ function CategoryView({
               />
             ) : (
               <RevealGrid
+                eager
                 className="grid grid-cols-3 max-sm:grid-cols-1 gap-5"
                 items={visible}
                 keyFn={(post) => post.sys.id}

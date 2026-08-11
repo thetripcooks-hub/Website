@@ -11,7 +11,7 @@ import Link from "next/link";
 import useGeneralStore from "@/stores/generalStore";
 import { formatAmount } from "@/lib/utils";
 import { m } from "motion/react";
-import { fadeUp, inViewport } from "@/lib/motion";
+import { fadeUp } from "@/lib/motion";
 
 const Faq = () => {
   const { selectedCurrency, rates } = useGeneralStore();
@@ -105,8 +105,7 @@ const Faq = () => {
           className="sm:w-[445px] shrink-0"
           variants={fadeUp}
           initial="hidden"
-          whileInView="show"
-          viewport={inViewport}
+          animate="show"
         >
           <h2 className="font-ogg-trial text-[24px] sm:text-[48px] leading-tight text-neutral-text dark:text-foreground">
             FAQs

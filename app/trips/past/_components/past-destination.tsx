@@ -55,6 +55,7 @@ const PastDestination = () => {
         <SectionWrapper>
           <SortByButton />
           <RevealGrid
+            eager
             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 gap-y-8 sm:gap-y-12"
             items={formattedTrips}
             keyFn={(item) => item.sys.id}

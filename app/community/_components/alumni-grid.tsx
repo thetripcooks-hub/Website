@@ -90,6 +90,7 @@ export default function AlumniGrid() {
         </div>
       ) : (
         <RevealGrid
+          eager
           className="grid grid-cols-1 sm:grid-cols-3 gap-5"
           items={posts}
           keyFn={(post) => post.sys.id}
