@@ -217,10 +217,13 @@ const CarouselPrevious = React.forwardRef<
         variant={variant}
         size={size}
         className={cn(
-          "absolute  h-8 w-8 rounded-full hover:bg-[#14382E] dark:bg-[#eee]",
+          "absolute h-8 w-8 rounded-full border-none transition-colors",
           orientation === "horizontal"
             ? "-left-12 top-1/2 -translate-y-1/2"
             : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
+          canScrollPrev
+            ? "bg-gradient-to-r from-[#FA93F4] from-[28.5%] to-[#EE7FE7] hover:from-[#FA84F3] hover:to-[#FA93F4]"
+            : "bg-[#EEEEEE] hover:bg-[#EEEEEE]/80 dark:bg-[hsl(var(--bg-tertiary))] dark:hover:bg-[hsl(var(--bg-tertiary))]/80",
           className,
         )}
         disabled={!canScrollPrev}
@@ -241,7 +244,6 @@ const CarouselPrevious = React.forwardRef<
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="dark:stroke-[#BDBDBD]"
             />
           </svg>
         ) : (
@@ -279,10 +281,13 @@ const CarouselNext = React.forwardRef<
         variant={variant}
         size={size}
         className={cn(
-          "absolute h-8 w-8 rounded-full hover:bg-[#14382E]",
+          "absolute h-8 w-8 rounded-full border-none transition-colors",
           orientation === "horizontal"
             ? "-right-12 top-1/2 -translate-y-1/2"
             : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
+          canScrollNext
+            ? "bg-gradient-to-r from-[#FA93F4] from-[28.5%] to-[#EE7FE7] hover:from-[#FA84F3] hover:to-[#FA93F4]"
+            : "bg-[#EEEEEE] hover:bg-[#EEEEEE]/80 dark:bg-[hsl(var(--bg-tertiary))] dark:hover:bg-[hsl(var(--bg-tertiary))]/80",
           className,
         )}
         disabled={!canScrollNext}
@@ -299,7 +304,7 @@ const CarouselNext = React.forwardRef<
           >
             <path
               d="M1 8H15M15 8L8 1M15 8L8 15"
-              stroke="#212121"
+              stroke={canScrollNext ? "#212121" : "#BDBDBD"}
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
