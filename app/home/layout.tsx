@@ -12,12 +12,21 @@ export const metadata: Metadata = {
       "We're your personal travel planners — crafting unforgettable group adventures cooked just for you.",
     url: "https://tripcooks.tours/",
     type: "website",
+    images: [
+      {
+        url: "/img/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Trip Cooks | Group Trips & Travel Planning Services",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Trip Cooks | Group Trips & Travel Planning Services",
     description:
       "We're your personal travel planners — crafting unforgettable group adventures cooked just for you.",
+    images: ["/img/og-image.png"],
   },
 };
 

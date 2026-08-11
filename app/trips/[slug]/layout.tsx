@@ -50,13 +50,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         description: desc,
         url,
         type: "website",
-        images: [{ url: image ?? "https://tripcooks.tours/logo.png", width: 1200, height: 630, alt: `${location} group trip` }],
+        images: [{ url: image ?? "/img/og-image.png", width: 1200, height: 630, alt: `${location} group trip` }],
       },
       twitter: {
         card: "summary_large_image",
         title: `${location} Group Trip | Trip Cooks`,
         description: desc,
-        images: [image ?? "https://tripcooks.tours/logo.png"],
+        images: [image ?? "/img/og-image.png"],
       },
     };
   } catch {
