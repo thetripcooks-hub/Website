@@ -5,7 +5,7 @@ import PrivateTripForm from "./private-trip-form";
 import { arial } from "@/app/font";
 import { cn } from "@/lib/utils";
 import { m } from "motion/react";
-import { fadeUp, inViewport } from "@/lib/motion";
+import { fadeUp } from "@/lib/motion";
 
 const PrivateTripHero = () => {
   return (
@@ -35,8 +35,7 @@ const PrivateTripHero = () => {
             className="lg:max-w-[550px] w-full text-neutral-subtext sm:text-secondary-forest-green"
             variants={fadeUp}
             initial="hidden"
-            whileInView="show"
-            viewport={inViewport}
+            animate="show"
           >
             <h4 className="font-medium text-[24px] leading-[29.26px] text-neutral-text sm:text-[32px] sm:leading-[39.01px] dark:text-foreground">
               Needing a Private Getaway?

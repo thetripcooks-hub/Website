@@ -13,7 +13,7 @@ import useGeneralStore from "@/stores/generalStore";
 import { useIsMobile } from "@/hooks";
 import Link from "next/link";
 import { m } from "motion/react";
-import { fadeUp, inViewport } from "@/lib/motion";
+import { fadeUp } from "@/lib/motion";
 
 const SERVICES = [
   {
@@ -81,8 +81,7 @@ const OurServices = () => {
         className="flex flex-col items-center gap-4 text-center mb-10 sm:mb-[75px] px-5"
         variants={fadeUp}
         initial="hidden"
-        whileInView="show"
-        viewport={inViewport}
+        animate="show"
       >
         <h2 className="font-ogg-trial text-[26px] sm:text-[42px] text-white leading-tight">
           Our Services

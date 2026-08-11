@@ -18,7 +18,7 @@ import { BlogPostsResponse } from "@/types/blog";
 import { calcReadTime } from "@/lib/read-time";
 import dayjs from "@/lib/dayjs";
 import { m } from "motion/react";
-import { fadeUp, inViewport } from "@/lib/motion";
+import { fadeUp } from "@/lib/motion";
 
 const FALLBACK_IMAGE = "/img/public-trip.svg";
 
@@ -37,8 +37,7 @@ const BlogCallout = () => {
               className="font-ogg-trial text-[24px] sm:text-[42px] text-neutral-text dark:text-white leading-tight"
               variants={fadeUp}
               initial="hidden"
-              whileInView="show"
-              viewport={inViewport}
+              animate="show"
             >
               Travel Insights from our blog
             </m.h2>

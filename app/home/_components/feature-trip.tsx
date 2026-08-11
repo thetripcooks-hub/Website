@@ -12,7 +12,7 @@ import useGeneralStore from "@/stores/generalStore";
 import useCartStore from "@/stores/cartStore";
 import SectionWrapper from "./section-wrapper";
 import { m } from "motion/react";
-import { fadeUp, inViewport } from "@/lib/motion";
+import { fadeUp } from "@/lib/motion";
 
 const DEFAULT_CHECKLIST = [
   { title: "Flights included" },
@@ -46,8 +46,7 @@ const FeatureTrip = () => {
           className="font-ogg-trial text-[26px] sm:text-[48px] leading-tight mb-8 sm:mb-12"
           variants={fadeUp}
           initial="hidden"
-          whileInView="show"
-          viewport={inViewport}
+          animate="show"
         >
           Featured Trip
         </m.h2>
