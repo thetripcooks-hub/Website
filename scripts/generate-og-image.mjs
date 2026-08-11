@@ -123,21 +123,6 @@ const tree = {
         type: "div",
         props: {
           style: {
-            display: "flex",
-            marginTop: "26px",
-            fontFamily: "Ogg",
-            fontWeight: 700,
-            fontSize: "22px",
-            letterSpacing: "2px",
-            color: IRISH_GREEN,
-          },
-          children: "TRIPCOOKS.TOURS",
-        },
-      },
-      {
-        type: "div",
-        props: {
-          style: {
             position: "absolute",
             bottom: 0,
             left: 0,
