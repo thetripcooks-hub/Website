@@ -4,6 +4,7 @@ import { getClient } from "@/lib/apollo-client";
 import { queryGetAllTrips } from "@/queries/trips-query";
 import { AllTripsResponse } from "@/types/trip";
 import { generateTripSlug, normalizeTripCurrency } from "@/lib/utils";
+import { contentfulUrl } from "@/lib/image-url";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -36,6 +37,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     const location = trip.location;
     const image = trip.bannerImagesCollection?.items?.[0]?.url;
+    // Banner images come through as unprocessed Contentful originals — some
+    // are several MB, which social crawlers (WhatsApp in particular) will
+    // silently fail to fetch in time and drop the image entirely. Request a
+    // resized, compressed JPEG from Contentful's Images API instead.
+    const ogImage = image
+      ? contentfulUrl(image, { width: 1200, quality: 75 })
+      : "/img/og-image.png";
     const desc = trip.description
       ? trip.description.slice(0, 155)
       : `Join the Trip Cooks group trip to ${location}. Book your slot and secure your adventure today.`;
@@ -50,13 +58,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         description: desc,
         url,
         type: "website",
-        images: [{ url: image ?? "/img/og-image.png", width: 1200, height: 630, alt: `${location} group trip` }],
+        images: [{ url: ogImage, width: 1200, height: 630, alt: `${location} group trip` }],
       },
       twitter: {
         card: "summary_large_image",
         title: `${location} Group Trip | Trip Cooks`,
         description: desc,
-        images: [image ?? "/img/og-image.png"],
+        images: [ogImage],
       },
     };
   } catch {

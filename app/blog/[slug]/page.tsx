@@ -17,6 +17,7 @@ import {
   splitAtMidpointHeading,
 } from "@/lib/extract-headings";
 import { createRichTextRenderOptions } from "@/lib/rich-text-render-options";
+import { contentfulUrl } from "@/lib/image-url";
 import type { CmsBlogPost } from "@/types/blog";
 
 const SPACE_ID = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID;
@@ -87,7 +88,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = await fetchPostBySlug(slug);
   if (!post) return {};
-  const ogImage = post.coverImage?.url ?? OG_FALLBACK_IMAGE;
+  // Contentful cover images come through as unprocessed originals — some
+  // are several MB, which social crawlers (WhatsApp in particular) will
+  // silently fail to fetch in time and drop the image entirely. Request a
+  // resized, compressed JPEG from Contentful's Images API instead.
+  const ogImage = post.coverImage?.url
+    ? contentfulUrl(post.coverImage.url, { width: 1200, quality: 75 })
+    : OG_FALLBACK_IMAGE;
   return {
     title: `${post.title} | Trip Cooks Blog`,
     description: post.excerpt,
