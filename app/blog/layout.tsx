@@ -11,12 +11,21 @@ export const metadata: Metadata = {
       "The latest travel updates, company news, and community stories from Trip Cooks.",
     url: "https://tripcooks.tours/blog",
     type: "website",
+    images: [
+      {
+        url: "/img/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Blog | Trip Cooks",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Blog | Trip Cooks",
     description:
       "The latest travel updates, company news, and community stories from Trip Cooks.",
+    images: ["/img/og-image.png"],
   },
 };
 

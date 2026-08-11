@@ -11,12 +11,21 @@ export const metadata: Metadata = {
       "Meet the team behind Trip Cooks. We organise unforgettable group trips and tailor-made travel experiences for adventurers.",
     url: "https://tripcooks.tours/about",
     type: "website",
+    images: [
+      {
+        url: "/img/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "About Us | Trip Cooks",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "About Us | Trip Cooks",
     description:
       "Meet the team behind Trip Cooks. We organise unforgettable group trips and tailor-made travel experiences for adventurers.",
+    images: ["/img/og-image.png"],
   },
 };
 

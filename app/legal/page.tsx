@@ -13,12 +13,21 @@ export const metadata: Metadata = {
       "Read Trip Cooks' privacy policy, terms and conditions, cancellation, refund policy, and travel guidelines.",
     url: "https://tripcooks.tours/legal",
     type: "website",
+    images: [
+      {
+        url: "/img/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Travel Policy | Trip Cooks",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Travel Policy | Trip Cooks",
     description:
       "Read Trip Cooks' privacy policy, terms and conditions, cancellation, refund policy, and travel guidelines.",
+    images: ["/img/og-image.png"],
   },
 };
 import ReadyToStart from "../home/_components/ready-to-start";
