@@ -50,11 +50,11 @@ const UpcomingTrips = ({ isCart = false }: { isCart?: boolean }) => {
             </h2>
             <div className="flex gap-2 items-center">
               <CarouselPrevious
-                className="relative left-0 top-0 translate-y-0 w-10 h-10 sm:w-[56px] sm:h-[56px] bg-[#EEEEEE] border-none rounded-full hover:bg-[#EEEEEE]/80 dark:bg-[hsl(var(--bg-tertiary))] dark:hover:bg-[hsl(var(--bg-tertiary))]/80"
+                className="relative left-0 top-0 translate-y-0 w-10 h-10 sm:w-[56px] sm:h-[56px]"
                 customIcon
               />
               <CarouselNext
-                className="relative right-0 top-0 translate-y-0 w-10 h-10 sm:w-[56px] sm:h-[56px] bg-gradient-to-r from-[#FA93F4] from-[28.5%] to-[#EE7FE7] border-none rounded-full hover:opacity-90"
+                className="relative right-0 top-0 translate-y-0 w-10 h-10 sm:w-[56px] sm:h-[56px]"
                 customIcon
               />
             </div>
