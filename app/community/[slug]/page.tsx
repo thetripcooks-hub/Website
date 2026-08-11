@@ -80,6 +80,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = await fetchStoryBySlug(slug);
   if (!post) return {};
+  const ogImage = post.image?.url ?? FALLBACK_IMAGE;
   return {
     title: `${post.title} | Trip Cooks Community`,
     description: post.excerpt,
@@ -89,11 +90,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.excerpt,
       url: `https://tripcooks.tours/community/${post.slug}`,
       type: "article",
+      images: [{ url: ogImage, width: 1200, height: 630, alt: post.title }],
     },
     twitter: {
       card: "summary_large_image",
       title: `${post.title} | Trip Cooks Community`,
       description: post.excerpt,
+      images: [ogImage],
     },
   };
 }

@@ -1,10 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import useTripStore from "@/stores/trip-store";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui";
 import type { CarouselApi } from "@/components/ui/carousel";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 type ItineraryItem = {
   day: string;
@@ -13,9 +14,84 @@ type ItineraryItem = {
   description?: string;
 };
 
+function PrevArrowButton({
+  canScrollPrev,
+  onClick,
+}: {
+  canScrollPrev: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={!canScrollPrev}
+      aria-label="Previous"
+      className={cn(
+        "w-14 h-14 rounded-full flex items-center justify-center shrink-0 transition-colors disabled:cursor-not-allowed",
+        canScrollPrev
+          ? "bg-gradient-to-r from-[#fa93f4] from-[28.5%] to-[#ee7fe7]"
+          : "bg-[hsl(var(--border))]",
+      )}
+    >
+      <ArrowLeft
+        className={cn(
+          "w-5 h-5",
+          canScrollPrev ? "text-neutral-text" : "text-[hsl(var(--text-primary))]",
+        )}
+      />
+    </button>
+  );
+}
+
+function NextArrowButton({
+  canScrollNext,
+  onClick,
+}: {
+  canScrollNext: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={!canScrollNext}
+      aria-label="Next"
+      className={cn(
+        "w-14 h-14 rounded-full flex items-center justify-center shrink-0 transition-colors disabled:cursor-not-allowed",
+        canScrollNext
+          ? "bg-gradient-to-r from-[#fa93f4] from-[28.5%] to-[#ee7fe7]"
+          : "bg-[hsl(var(--border))]",
+      )}
+    >
+      <ArrowRight
+        className={cn(
+          "w-5 h-5",
+          canScrollNext ? "text-neutral-text" : "text-[hsl(var(--text-primary))]",
+        )}
+      />
+    </button>
+  );
+}
+
 const Itinerary = () => {
   const { selectedTrip } = useTripStore();
   const [emblaApi, setEmblaApi] = useState<CarouselApi>();
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(false);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    const onSelect = () => {
+      setCanScrollPrev(emblaApi.canScrollPrev());
+      setCanScrollNext(emblaApi.canScrollNext());
+    };
+    onSelect();
+    emblaApi.on("select", onSelect);
+    emblaApi.on("reInit", onSelect);
+    return () => {
+      emblaApi.off("select", onSelect);
+      emblaApi.off("reInit", onSelect);
+    };
+  }, [emblaApi]);
 
   if (!selectedTrip || !selectedTrip.itinerary?.length) return null;
 
@@ -31,20 +107,14 @@ const Itinerary = () => {
 
         {/* Desktop-only nav arrows */}
         <div className="hidden sm:flex gap-2">
-          <button
+          <PrevArrowButton
+            canScrollPrev={canScrollPrev}
             onClick={() => emblaApi?.scrollPrev()}
-            aria-label="Previous"
-            className="w-14 h-14 rounded-full bg-[hsl(var(--border))] flex items-center justify-center shrink-0"
-          >
-            <ArrowLeft className="w-5 h-5 text-[hsl(var(--text-primary))]" />
-          </button>
-          <button
+          />
+          <NextArrowButton
+            canScrollNext={canScrollNext}
             onClick={() => emblaApi?.scrollNext()}
-            aria-label="Next"
-            className="w-14 h-14 rounded-full bg-gradient-to-r from-[#fa93f4] from-[28.5%] to-[#ee7fe7] flex items-center justify-center shrink-0"
-          >
-            <ArrowRight className="w-5 h-5 text-neutral-text" />
-          </button>
+          />
         </div>
       </div>
 
@@ -96,20 +166,14 @@ const Itinerary = () => {
 
       {/* Mobile-only nav arrows at bottom */}
       <div className="flex sm:hidden gap-4 items-center justify-center mt-8">
-        <button
+        <PrevArrowButton
+          canScrollPrev={canScrollPrev}
           onClick={() => emblaApi?.scrollPrev()}
-          aria-label="Previous"
-          className="w-14 h-14 rounded-full bg-[hsl(var(--border))] flex items-center justify-center shrink-0"
-        >
-          <ArrowLeft className="w-5 h-5 text-[hsl(var(--text-primary))]" />
-        </button>
-        <button
+        />
+        <NextArrowButton
+          canScrollNext={canScrollNext}
           onClick={() => emblaApi?.scrollNext()}
-          aria-label="Next"
-          className="w-14 h-14 rounded-full bg-gradient-to-r from-[#fa93f4] from-[28.5%] to-[#ee7fe7] flex items-center justify-center shrink-0"
-        >
-          <ArrowRight className="w-5 h-5 text-neutral-text" />
-        </button>
+        />
       </div>
     </div>
   );
