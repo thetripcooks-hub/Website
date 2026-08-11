@@ -20,6 +20,9 @@ import type { CommunityStory } from "@/types/community";
 const SPACE_ID = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID;
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN;
 const FALLBACK_IMAGE = "/img/hero-desktop.png";
+// Dedicated fallback for share previews only — keeps the in-page hero's
+// original placeholder unchanged while giving OG/Twitter the branded card.
+const OG_FALLBACK_IMAGE = "/img/og-image.png";
 
 async function fetchStoryBySlug(slug: string): Promise<CommunityStory | null> {
   const query = `
@@ -80,7 +83,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = await fetchStoryBySlug(slug);
   if (!post) return {};
-  const ogImage = post.image?.url ?? FALLBACK_IMAGE;
+  const ogImage = post.image?.url ?? OG_FALLBACK_IMAGE;
   return {
     title: `${post.title} | Trip Cooks Community`,
     description: post.excerpt,

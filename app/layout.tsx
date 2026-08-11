@@ -17,10 +17,19 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://tripcooks.tours/",
+    images: [
+      {
+        url: "/img/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Trip Cooks | Group Trips & Travel Planning Services",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     site: "@tripcooks",
+    images: ["/img/og-image.png"],
   },
   verification: {
     google: "t7cMRitp47Z7BEvSui_RcDUKS8otTBk7njDu7tNpE5c",

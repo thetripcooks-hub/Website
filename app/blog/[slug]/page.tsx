@@ -22,6 +22,10 @@ import type { CmsBlogPost } from "@/types/blog";
 const SPACE_ID = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID;
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN;
 const FALLBACK_IMAGE = "/img/public-trip.svg";
+// Dedicated fallback for share previews only — keeps the in-page hero's
+// generic placeholder unchanged while giving OG/Twitter a real raster image
+// (crawlers don't render SVG) instead of falling through to nothing.
+const OG_FALLBACK_IMAGE = "/img/og-image.png";
 
 async function fetchPostBySlug(slug: string): Promise<CmsBlogPost | null> {
   const query = `
@@ -83,7 +87,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = await fetchPostBySlug(slug);
   if (!post) return {};
-  const ogImage = post.coverImage?.url ?? FALLBACK_IMAGE;
+  const ogImage = post.coverImage?.url ?? OG_FALLBACK_IMAGE;
   return {
     title: `${post.title} | Trip Cooks Blog`,
     description: post.excerpt,
