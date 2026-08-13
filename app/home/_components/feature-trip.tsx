@@ -60,7 +60,7 @@ const FeatureTrip = () => {
               alt={trip.location}
               fill
               priority
-              className="object-cover rounded-[22px]"
+              className="object-cover rounded-[14px]"
             />
             {/* Tags */}
             <div className="absolute top-5 left-6">
