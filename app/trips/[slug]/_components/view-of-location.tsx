@@ -1,7 +1,8 @@
 "use client";
 import SectionWrapper from "@/app/home/_components/section-wrapper";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui";
+import type { CarouselApi } from "@/components/ui/carousel";
 import AutoScroll from "embla-carousel-auto-scroll";
 import Image from "next/image";
 
@@ -22,25 +23,38 @@ import { cn } from "@/lib/utils";
 const row1 = [view1, view1, view2, view3];
 const row2 = [view4, view5, view6, view7];
 
-const CarouselWrapper = ({ children }: { children: ReactNode }) => (
-  <Carousel
-    className="w-full"
-    opts={{
-      loop: true,
-    }}
-    plugins={[
-      AutoScroll({
-        playOnInit: true,
-        stopOnInteraction: false,
-        stopOnFocusIn: false,
-        stopOnMouseEnter: false,
-        speed: 0.75,
-      }),
-    ]}
-  >
-    {children}
-  </Carousel>
-);
+const CarouselWrapper = ({ children }: { children: ReactNode }) => {
+  const [api, setApi] = useState<CarouselApi>();
+
+  useEffect(() => {
+    // AutoScroll's playOnInit no-ops if it measures <=1 scroll snap point
+    // at mount (unsettled layout during the async route transition into
+    // this page). Kick it explicitly once the API is ready and settled.
+    if (!api) return;
+    api.plugins()?.autoScroll?.play();
+  }, [api]);
+
+  return (
+    <Carousel
+      setApi={setApi}
+      className="w-full"
+      opts={{
+        loop: true,
+      }}
+      plugins={[
+        AutoScroll({
+          playOnInit: true,
+          stopOnInteraction: false,
+          stopOnFocusIn: false,
+          stopOnMouseEnter: false,
+          speed: 0.75,
+        }),
+      ]}
+    >
+      {children}
+    </Carousel>
+  );
+};
 
 const ViewOfLocation = ({
   title,

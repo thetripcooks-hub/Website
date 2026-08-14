@@ -6,7 +6,7 @@ import React from "react";
 import FeatureTripImage from "~/img/sample-featured-trip.svg";
 import { useRouter } from "next/navigation";
 import useTripStore from "@/stores/trip-store";
-import { generateTripLink, formatAmount } from "@/lib/utils";
+import { generateTripLink, formatAmount, formatTripDate } from "@/lib/utils";
 import CartIconSvg from "~/img/cart-icon.svg";
 import useGeneralStore from "@/stores/generalStore";
 import useCartStore from "@/stores/cartStore";
@@ -60,7 +60,7 @@ const FeatureTrip = () => {
               alt={trip.location}
               fill
               priority
-              className="object-cover rounded-[22px]"
+              className="object-cover rounded-[14px]"
             />
             {/* Tags */}
             <div className="absolute top-5 left-6">
@@ -171,17 +171,7 @@ const FeatureTrip = () => {
                       Dates
                     </p>
                     <p className="text-[11px] sm:text-[18px] font-medium text-neutral-text dark:text-white">
-                      {trip.startDate
-                        ? new Date(trip.startDate).toLocaleDateString("en-GB", {
-                            month: "short",
-                            day: "numeric",
-                          }) +
-                          " – " +
-                          new Date(trip.endDate).toLocaleDateString("en-GB", {
-                            month: "short",
-                            day: "numeric",
-                          })
-                        : "TBA"}
+                      {trip.startDate ? formatTripDate(trip) : "TBA"}
                     </p>
                   </div>
                 </div>
