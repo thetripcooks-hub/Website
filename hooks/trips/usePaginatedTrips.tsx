@@ -56,7 +56,7 @@ const usePaginatedTrips = () => {
     () =>
       sortTrips(
         trips
-          .filter((t) => !t.soldOut)
+          .filter((t) => !t.soldOut || new Date(t.startDate) >= new Date())
           .filter(
             (t) =>
               filterTags.length === 0 ||

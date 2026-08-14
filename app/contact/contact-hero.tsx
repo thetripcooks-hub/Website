@@ -61,7 +61,7 @@ const ContactHero = () => {
       },
       (error) => {
         setLoading(false);
-        toast.error(error);
+        toast.error(error?.text || "Something went wrong. Please try again.");
       },
     );
   };

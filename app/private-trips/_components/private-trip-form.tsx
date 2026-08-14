@@ -93,7 +93,7 @@ const PrivateTripForm = () => {
         },
         (error) => {
           setLoading(false);
-          toast.success(error);
+          toast.error(error?.text || "Something went wrong. Please try again.");
         }
       );
   };
