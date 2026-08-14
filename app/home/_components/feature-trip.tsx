@@ -6,7 +6,8 @@ import React from "react";
 import FeatureTripImage from "~/img/sample-featured-trip.svg";
 import { useRouter } from "next/navigation";
 import useTripStore from "@/stores/trip-store";
-import { generateTripLink, formatAmount, formatTripDate } from "@/lib/utils";
+import { generateTripLink, formatAmount } from "@/lib/utils";
+import dayjs from "@/lib/dayjs";
 import CartIconSvg from "~/img/cart-icon.svg";
 import useGeneralStore from "@/stores/generalStore";
 import useCartStore from "@/stores/cartStore";
@@ -170,8 +171,10 @@ const FeatureTrip = () => {
                     <p className="text-[11px] font-semibold uppercase tracking-[0.55px] text-neutral-subtext dark:text-[#BFC0C2]">
                       Dates
                     </p>
-                    <p className="text-[11px] sm:text-[18px] font-medium text-neutral-text dark:text-white">
-                      {trip.startDate ? formatTripDate(trip) : "TBA"}
+                    <p className="text-[11px] sm:text-[18px] font-medium text-neutral-text dark:text-white whitespace-nowrap">
+                      {trip.startDate
+                        ? `${dayjs.utc(trip.startDate).format("MMM D")} – ${dayjs.utc(trip.endDate).format("MMM D")}`
+                        : "TBA"}
                     </p>
                   </div>
                 </div>
