@@ -53,10 +53,11 @@ const CHANGES = [
   },
   {
     contentTypeId: "trip",
+    dropdownFields: ["currency"],
     fields: [
       { id: "whatsNotIncluded", name: "What's Not Included", type: "Object",  required: false },
       { id: "groupSize",        name: "Group Size",          type: "Symbol",  required: false },
-      { id: "currency",         name: "Currency",            type: "Symbol",  required: false },
+      { id: "currency",         name: "Currency",            type: "Symbol",  required: false, in: ["CAD", "GBP", "USD"] },
       { id: "tags",             name: "Tags",                type: "Array",   items: { type: "Symbol" }, required: false },
     ],
   },
@@ -134,6 +135,7 @@ function buildFieldDef(f) {
   const validations = [];
   if (f.unique) validations.push({ unique: true });
   if (f.linkContentType) validations.push({ linkContentType: f.linkContentType });
+  if (f.in) validations.push({ in: f.in });
   if (validations.length > 0) def.validations = validations;
 
   return def;
@@ -161,7 +163,24 @@ async function applySlugAppearance(client, params, slugFieldId) {
   }
 }
 
-async function applyChanges(client, { contentTypeId, displayName, fields, slugField, removeFields = [] }) {
+async function applyDropdownAppearance(client, params, fieldId) {
+  try {
+    const ei = await client.editorInterface.get(params);
+    if (ei.controls?.some((c) => c.fieldId === fieldId && c.widgetId === "dropdown")) {
+      console.log(`  ${fieldId} appearance already set to dropdown — skipping`);
+      return;
+    }
+    ei.controls = (ei.controls ?? []).map((c) =>
+      c.fieldId === fieldId ? { ...c, widgetId: "dropdown", widgetNamespace: "builtin" } : c,
+    );
+    await client.editorInterface.update(params, ei);
+    console.log(`  ${fieldId} appearance set to dropdown ✓`);
+  } catch (err) {
+    console.warn(`  could not update editor interface for ${fieldId}: ${err.message}`);
+  }
+}
+
+async function applyChanges(client, { contentTypeId, displayName, fields, slugField, dropdownFields = [], removeFields = [] }) {
   console.log(`\n→ Content type: ${contentTypeId}`);
   const params = { spaceId: SPACE_ID, environmentId: ENVIRONMENT_ID, contentTypeId };
 
@@ -179,6 +198,7 @@ async function applyChanges(client, { contentTypeId, displayName, fields, slugFi
       ct = await client.contentType.publish({ ...params, version: ct.sys.version }, ct);
       console.log(`  created and published ✓`);
       if (slugField) await applySlugAppearance(client, params, slugField);
+      for (const fieldId of dropdownFields) await applyDropdownAppearance(client, params, fieldId);
       return;
     }
     throw err;
@@ -194,22 +214,37 @@ async function applyChanges(client, { contentTypeId, displayName, fields, slugFi
     return !existing?.validations?.some((v) => v.unique === true);
   });
 
+  // Fields that already exist but have a different/missing `in` (allowed
+  // values) validation
+  const toUpdateIn = fields.filter((f) => {
+    if (!existingIds.has(f.id) || !f.in) return false;
+    const existing = ct.fields.find((ef) => ef.id === f.id);
+    const existingIn = existing?.validations?.find((v) => v.in)?.in;
+    return JSON.stringify(existingIn) !== JSON.stringify(f.in);
+  });
+
   // Fields to remove (omit first, then delete)
   const toRemove = removeFields.filter((id) => existingIds.has(id));
 
-  const hasChanges = toAdd.length > 0 || toUpdateUnique.length > 0 || toRemove.length > 0;
+  const hasChanges = toAdd.length > 0 || toUpdateUnique.length > 0 || toUpdateIn.length > 0 || toRemove.length > 0;
 
   if (!hasChanges) {
     console.log(`  all fields already present and up to date — skipping`);
   } else {
     for (const f of toAdd) console.log(`  + ${f.id} (${f.type})`);
     for (const f of toUpdateUnique) console.log(`  ~ ${f.id} — adding unique validation`);
+    for (const f of toUpdateIn) console.log(`  ~ ${f.id} — setting allowed values to [${f.in.join(", ")}]`);
     for (const id of toRemove) console.log(`  - ${id} — removing deprecated field`);
 
-    // Step 1: merge existing fields (add new, patch unique)
+    // Step 1: merge existing fields (add new, patch unique/in)
     let mergedFields = ct.fields.map((ef) => {
       const needsUnique = toUpdateUnique.find((f) => f.id === ef.id);
+      const needsIn = toUpdateIn.find((f) => f.id === ef.id);
       if (needsUnique) return { ...ef, validations: [...(ef.validations ?? []), { unique: true }] };
+      if (needsIn) {
+        const otherValidations = (ef.validations ?? []).filter((v) => !v.in);
+        return { ...ef, validations: [...otherValidations, { in: needsIn.in }] };
+      }
       // Omit fields scheduled for removal
       if (toRemove.includes(ef.id)) return { ...ef, omitted: true };
       return ef;
@@ -236,6 +271,7 @@ async function applyChanges(client, { contentTypeId, displayName, fields, slugFi
   }
 
   if (slugField) await applySlugAppearance(client, params, slugField);
+  for (const fieldId of dropdownFields) await applyDropdownAppearance(client, params, fieldId);
 }
 
 // ---------------------------------------------------------------------------
