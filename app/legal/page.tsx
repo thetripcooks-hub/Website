@@ -125,20 +125,21 @@ const Page = () => {
           </h4>
 
           <p>
-            Your eligibility for a refund will depend on when we receive your
-            cancellation notice. Refunds will be as follows:
+            Your deposit for any trip is non-refundable. Your eligibility for a
+            refund will then depend on when we receive your cancellation notice.
+            Refunds will be as follows:
           </p>
 
           <ul className="list-disc pl-8 sm:pl-10 my-2 flex flex-col gap-1">
             <li>
               <span className="font-medium">
-                Four (4) months or more prior to travel —
+                Five (5) months or more prior to travel —
               </span>{" "}
-              Refund of 100% of the total payment made.
+              Refund of 100% of the total payment made minus the deposit.
             </li>
             <li>
               <span className="font-medium">Less than four (4) months —</span>
-              Refund of 60% of the total payment made.
+              Refund of 50% of the total payment made minus the deposit.
             </li>
             <li>
               <span className="font-medium">Less than six (6) weeks —</span> No
@@ -155,7 +156,8 @@ const Page = () => {
             Visa Status impacting Refunds
           </h4>
           <p>
-            If your visa is denied and no payments have been made for travel services or accommodations, you will receive a full refund minus any non-refundable service fees.
+            If your visa is denied, you will receive a refund minus any
+            non-refundable travel service fees.
           </p>
 
           <h4 className="text-[#020E0B] text-lg leading-[21.94px] font-medium mt-10 mb-5 dark:text-foreground">
